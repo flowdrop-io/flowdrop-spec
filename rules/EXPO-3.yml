@@ -1,0 +1,22 @@
+id: EXPO-3
+family: GR-EXPO
+part: I
+
+title: Overrides are scoped by direction
+
+normative: >-
+  Exposure overrides are scoped by port direction: an output port's override is
+  read from the `outputs` map, and an input port's — that of every other direction
+  — from the `inputs` map. An input and an output of the same name are separate
+  ports, and an override on one never applies to the other.
+
+posture: normative-target
+level: core
+profiles:
+  - storage-api
+
+added: "1.0"
+changed: "1.0"
+
+related:
+  - EXPO-2

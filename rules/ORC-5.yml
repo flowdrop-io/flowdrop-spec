@@ -1,0 +1,28 @@
+id: ORC-5
+family: RT-ORC
+part: II
+
+title: A strategy's capabilities are declared, not asked for
+summary: >-
+  The declaration is the single source. A strategy that behaves statefully but does not
+  declare it is treated as stateless, and the behaviours gated on the capability —
+  checkpoint storage among them — are chosen accordingly.
+
+normative: >-
+  A strategy declares its capabilities as part of its definition. Whether a strategy is
+  treated as stateful, and whether it is treated as synchronous, is determined from
+  those declarations alone: stateful means the capability is declared, synchronous means
+  synchronous execution is declared and stateful is not. Behaviour that depends on a
+  strategy's nature is gated on the declared capabilities and not on the strategy's
+  identity.
+
+posture: normative-target
+level: extended
+profiles:
+  - runtime
+
+added: "1.0"
+changed: "1.0"
+
+related:
+  - ORC-1

@@ -1,0 +1,27 @@
+id: VAL-LAUNCH
+family: GR-VAL
+part: I
+
+title: The validator runs again at launch, before anything is created
+
+summary: >-
+  A definition can become invalid after it was saved — a node type removed, a
+  workflow written by a path that skipped validation. Re-checking at launch
+  means an invalid workflow fails as a refusal, not as a half-built run.
+
+normative: >-
+  Launching a workflow re-runs every validation rule against the stored
+  definition. On any error the launch is refused before any of its effects
+  exist — no jobs are generated, no pipeline is created, nothing is scheduled
+  and nothing is queued — and the refusal carries the full set of errors. Over
+  the API the refusal is `422`, with each error reported as a `code`, a
+  `message` and a `locator`, exactly as the save path reports them.
+
+posture: normative-target
+level: core
+profiles:
+  - storage-api
+  - runtime
+
+added: "1.0"
+changed: "1.0"

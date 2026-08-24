@@ -1,0 +1,29 @@
+id: ERR-7
+family: RT-ERR
+part: II
+
+title: An error edge replaces the node's output with an error envelope
+summary: >-
+  The envelope is the whole contract between a failing node and its handler: a handler
+  can be written against it without knowing which node type failed.
+
+normative: >-
+  Where a node produces an error output and has at least one error edge, its unit of
+  work is recorded as failed and marked as error-routed, its outputs are replaced by
+  `{"error": {"message", "code", "node_id", "retryable"}}`, and the run continues. The
+  envelope carries an additional `details` key only where the failure supplied
+  structured detail.
+
+posture: normative-target
+level: core
+profiles:
+  - runtime
+
+added: "1.0"
+changed: "1.0"
+
+related:
+  - ERR-8
+  - ERR-9
+  - ERR-10
+  - ERR-13

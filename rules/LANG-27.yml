@@ -1,0 +1,25 @@
+id: LANG-27
+family: GR-LANG
+part: I
+
+title: A switch compares its value; it does not evaluate it
+summary: >-
+  Despite the parameter's name, a switch gateway runs no expression engine. The
+  value is matched against each branch as it stands.
+
+normative: >-
+  A switch gateway does not evaluate its `expression`. The value is compared
+  unchanged against each branch's `value` in declaration order, with no coercion —
+  a branch matches only where the two are of the same type as well as equal. The
+  first matching branch is the sole active branch, and its name is what the gateway
+  reports as active. Where no branch matches, the branch named by `default_branch`
+  is active; where no branch matches and no usable default is named, the node
+  fails.
+
+posture: normative-target
+level: core
+profiles:
+  - runtime
+
+added: "1.0"
+changed: "1.0"

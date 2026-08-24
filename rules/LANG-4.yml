@@ -1,0 +1,20 @@
+id: LANG-4
+family: GR-LANG
+part: I
+
+title: A context that is not a map reaches a transformation engine as `data`
+
+normative: >-
+  Where the evaluation context is not a map, a transformation engine receives it
+  bound to the single variable `data`.
+
+posture: normative-target
+level: extended
+profiles:
+  - runtime
+
+added: "1.0"
+changed: "1.0"
+
+related:
+  - LANG-1

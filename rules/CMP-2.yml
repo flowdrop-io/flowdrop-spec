@@ -1,0 +1,26 @@
+id: CMP-2
+family: RT-CMP
+part: II
+
+title: Compilation always re-enriches node metadata from the live node types
+summary: >-
+  Stored node metadata is a cache, and an author-editable one. Compilation refreshes
+  it from the node types themselves so a run can never be planned against stale or
+  attacker-supplied metadata.
+
+normative: >-
+  Compilation re-enriches every node's metadata from the live node type definitions
+  before planning the run. This holds at every entry point into compilation: no
+  caller can compile a workflow whose stored node metadata is taken on trust. The
+  re-enriched workflow is normalized before it is compiled.
+
+posture: normative-target
+level: core
+profiles:
+  - runtime
+
+added: "1.0"
+changed: "1.0"
+
+rulings:
+  - OPEN-19

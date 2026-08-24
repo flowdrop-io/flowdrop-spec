@@ -1,0 +1,32 @@
+id: RT-GATE-2
+family: RT-GATE
+part: II
+
+title: Consent is consumed exactly once, declines included
+
+summary: >-
+  An approval authorises one execution. An agent loop re-issuing the same call is
+  asked again every time, which is the point.
+
+normative: >-
+  The first execution that finds a confirmed, hash-matching consent marks it
+  consumed and proceeds; a second execution of the same call finds no unconsumed
+  consent and asks again with a fresh interrupt. A decline is consumed the same
+  way, so a decline never re-fires. Checking and consuming a consent must be atomic
+  against concurrent execution of the same call: a copy of the consent read before
+  the check began must never authorise a second execution. An execution that loses
+  that race pauses on the pending interrupt raised by the winner rather than raising
+  a duplicate question — a contended entry and an unconsented one are distinct
+  causes of the same pause.
+
+posture: normative-target
+level: core
+profiles:
+  - runtime
+
+added: "1.0"
+changed: "1.0"
+
+related:
+  - RT-GATE-1
+  - RT-GATE-3

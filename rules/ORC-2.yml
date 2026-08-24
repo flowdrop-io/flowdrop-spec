@@ -1,0 +1,28 @@
+id: ORC-2
+family: RT-ORC
+part: II
+
+title: How the execution strategy for a run is resolved
+summary: >-
+  Every configured step is checked before it is honoured, so an engine that is
+  configured but not available cannot capture the default and strand a run.
+
+normative: >-
+  The strategy for a run is resolved in this order: a run started from a pre-save
+  trigger uses direct synchronous execution; otherwise the strategy configured on the
+  trigger; otherwise the strategy configured for the implementation; otherwise
+  asynchronous. A configured strategy is accepted only if it validates as usable, and a
+  step that does not validate is skipped in favour of the next.
+
+posture: normative-target
+level: core
+profiles:
+  - runtime
+
+added: "1.0"
+changed: "1.0"
+
+related:
+  - ORC-1
+  - ORC-3
+  - ORC-4

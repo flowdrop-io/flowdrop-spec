@@ -1,0 +1,22 @@
+id: R6.f
+family: GR-VAL
+part: I
+
+title: Numeric bounds apply to numbers only
+
+normative: >-
+  A config value below its schema's `minimum` or above its `maximum` is refused
+  with `R6_CONFIG_INVALID` at `node.{id}.config.{key}`. Bounds are evaluated
+  only for a value that is a JSON number; a string is never bounds-checked,
+  even when it spells a number.
+
+posture: normative-target
+level: core
+profiles:
+  - storage-api
+
+added: "1.0"
+changed: "1.0"
+
+related:
+  - R6.d

@@ -1,0 +1,20 @@
+id: ORC-8
+family: RT-ORC
+part: II
+
+title: Naming a firing trigger drops the other triggers
+normative: >-
+  Where a run's initial data names a trigger node, direct synchronous execution runs
+  that trigger node and drops the workflow's other trigger nodes. Where it does not, the
+  compiled order runs verbatim. Nodes that are not triggers are never filtered.
+
+posture: normative-target
+level: extended
+profiles:
+  - runtime
+
+added: "1.0"
+changed: "1.0"
+
+related:
+  - ORC-7

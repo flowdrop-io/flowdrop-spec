@@ -1,0 +1,20 @@
+id: CMP-7
+family: RT-CMP
+part: II
+
+title: Trigger dependencies displace data dependencies for ordering
+normative: >-
+  Where a node has both trigger dependencies and data dependencies, its execution
+  dependencies are its trigger dependencies alone. Data dependencies order a node only
+  when it has no trigger dependency.
+
+posture: normative-target
+level: core
+profiles:
+  - runtime
+
+added: "1.0"
+changed: "1.0"
+
+related:
+  - CMP-8

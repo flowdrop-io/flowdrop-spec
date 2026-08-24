@@ -1,0 +1,30 @@
+id: META-7
+family: RT-META
+part: II
+
+title: A conditional schema request is exact string equality and nothing more
+summary: >-
+  A partial wildcard implementation would report "unchanged" to a client that
+  holds no copy at all, which is worse than answering unconditionally.
+
+normative: >-
+  `If-None-Match` on a workflow schema read is compared for exact string equality
+  against the tag of the variant being requested. A match answers `304` carrying
+  the entity tag and the body `{}`, and does so before the schema itself is
+  assembled. A mismatch answers the full `200`. The wildcard `*`, a
+  comma-separated list of tags and weak comparison are not implemented: a caller
+  sending any of them receives a correct but unconditional `200`. Each variant
+  answers its own conditional request, so carrying the variant in the tag costs
+  no variant a `304`.
+
+posture: normative-target
+level: extended
+profiles:
+  - runtime
+  - editor-client
+
+added: "1.0"
+changed: "1.0"
+
+related:
+  - META-6

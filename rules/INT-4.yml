@@ -1,0 +1,27 @@
+id: INT-4
+family: RT-INT
+part: II
+
+title: A node resumes only when all four ownership conditions hold
+
+summary: >-
+  Handing an answer to the wrong node, or to a node that never asked, is worse than
+  asking again. So the fallback is a fresh execution, which at most re-asks.
+
+normative: >-
+  A node's resume path is taken only when all four hold: the resolved parameters
+  carry an interrupt identifier, the node's executor supports resuming, the named
+  interrupt is resolved, and its stamped job identifier matches the job being
+  executed. If any fails, the node is executed afresh rather than resumed — a safe
+  re-ask.
+
+posture: normative-target
+level: core
+profiles:
+  - runtime
+
+added: "1.0"
+changed: "1.0"
+
+related:
+  - INT-3

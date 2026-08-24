@@ -1,0 +1,23 @@
+id: R6.j
+family: GR-VAL
+part: I
+
+title: No node type, no schema-driven config verdict
+
+normative: >-
+  When a node's node type does not resolve there is no derived config schema to
+  judge its `config` against, so the schema-driven checks of R6 — required
+  keys, type, `enum`, bounds, `pattern`, and the unknown-key warning — are not
+  applied to that node, and produce neither error nor warning for it. The
+  unresolvable node type is reported by R9.
+
+posture: normative-target
+level: extended
+profiles:
+  - storage-api
+
+added: "1.0"
+changed: "1.0"
+
+related:
+  - R9

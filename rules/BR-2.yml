@@ -1,0 +1,30 @@
+id: BR-2
+family: RT-BR
+part: II
+
+title: The three cases in which a branch decision never gates an edge
+
+summary: >-
+  Read on its own, "follow the edge if its port is active" would strand every edge
+  that has nothing to do with branching. These three cases are checked first and
+  answer before the active-branch list is ever consulted.
+
+normative: >-
+  Three cases return "follow the edge" before membership of the active-branch list
+  is tested, checked in this order: the source port is unnamed; the source emitted
+  no active-branch list, or an empty one; and the port is a value port rather than
+  a branch port. A port is a branch port when the source declares it among its
+  configured branches, matched without regard to case; a port the source does not
+  so declare is a value port and is never gated.
+
+posture: normative-target
+level: core
+profiles:
+  - runtime
+
+added: "1.0"
+changed: "1.0"
+
+related:
+  - BR-1
+  - BR-4

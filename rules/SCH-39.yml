@@ -1,0 +1,32 @@
+id: SCH-39
+family: GR-SCHEMA
+part: I
+
+title: Compatibility is asymmetric, and the sink needs rules both ways
+summary: >-
+  A lane with no rules accepts only its own, which is why the sink — a lane worn by
+  outputs as well as inputs — once refused every wire drawn into it.
+
+normative: >-
+  Compatibility maps an output lane to the set of input lanes it may enter. It is
+  seeded by exact match and widened only by explicit rules, so a lane with no rules
+  accepts nothing but itself. The data sink `mixed` is worn by outputs as well as
+  inputs and so needs rules in both directions; making it an alias of the control
+  sink does not serve, because an alias copies the outgoing set only. `tool` is
+  excluded from every sink rule in both directions. A rule that widens states its
+  reason where it is declared, since the served `from`/`to` pair cannot carry one.
+  The stakes are authoring-time: a wrong rule costs an author a wire they cannot
+  draw, or lets them draw one nothing will reject.
+
+posture: normative-target
+level: extended
+profiles:
+  - storage-api
+  - editor-client
+
+added: "1.0"
+changed: "1.0"
+
+related:
+  - SCH-38
+  - SCH-43

@@ -1,0 +1,24 @@
+id: MAN-11
+family: GR-MAN
+part: I
+
+title: A declared input delivers to the port its entry binds
+summary: >-
+  The manifest is a mapping, and this is the mapping it performs.
+
+normative: >-
+  A value supplied under a declared input name is delivered to the workflow's
+  initial data under the node identifier and port name that input's manifest entry
+  binds.
+
+posture: normative-target
+level: core
+profiles:
+  - storage-api
+
+added: "1.0"
+changed: "1.0"
+
+related:
+  - MAN-10
+  - MAN-17

@@ -1,0 +1,35 @@
+id: SCH-10
+family: GR-SCHEMA
+part: I
+
+title: The map from a schema type to a port lane
+summary: >-
+  A port's lane is what an editor colours it by and what it checks a wire against.
+  It is derived from the property's schema type by one closed map.
+
+normative: >-
+  A property's schema type maps to exactly one lane: `string` to `string`; `number`
+  and `integer` to `number`; `boolean` to `boolean`; `array` to `array`; `object`
+  to `json`; `null` to the sink. Any other value, and an absent type, yield the
+  sink — never `string`. A property's `x-data-type` overrides the mapped lane
+  whenever it names a lane the served port configuration declares; any other value
+  is ignored and the schema type maps as usual. Every lane this derivation can
+  return, override included, must also be declared by the served port
+  configuration: an undeclared lane leaves the port compatible with nothing an
+  editor can draw.
+
+posture: normative-target
+level: core
+profiles:
+  - storage-api
+  - editor-client
+
+added: "1.0"
+changed: "1.0"
+
+related:
+  - SCH-34
+  - SCH-35
+  - SCH-36
+  - SCH-37
+  - SCH-41

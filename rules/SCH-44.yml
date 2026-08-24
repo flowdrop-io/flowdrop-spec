@@ -1,0 +1,31 @@
+id: SCH-44
+family: GR-SCHEMA
+part: I
+
+title: A shape refines another declaration of its lane; four ids are reserved
+
+normative: >-
+  Where two sources declare the same lane id, the site's own declaration wins over
+  a code-declared shape, and both win over the shipped entry. The winner replaces
+  the entry whole rather than key by key, because a partial shape is a deliberate
+  redefinition. A collision with a shipped id is therefore not a break: the lane
+  stays in the vocabulary, stays self-compatible, and keeps its derived rules.
+  Precedence is resolved in one place, so which declaration wins never depends on
+  load order. The ids `trigger`, `tool`, `mixed` and `any` are reserved — every
+  generated compatibility rule in the payload is built from them — and a shape
+  naming one is ignored rather than fatal, since paths that reach around a form
+  exist and one bad shape must not unwire every canvas.
+
+posture: normative-target
+level: extended
+profiles:
+  - storage-api
+  - editor-client
+
+added: "1.0"
+changed: "1.0"
+
+related:
+  - SCH-10.a
+  - SCH-41
+  - SCH-42

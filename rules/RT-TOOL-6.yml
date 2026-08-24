@@ -1,0 +1,30 @@
+id: RT-TOOL-6
+family: RT-TOOL
+part: II
+
+title: Artifacts are bounded once, at the point they are collected
+
+normative: >-
+  An implementation bounds the artifacts one run may collect and enforces that
+  bound at the single point of collection; nothing downstream re-checks what one
+  run collected. It must accept a payload of at least 512 KB once JSON-encoded, at
+  least 50 artifacts in a run, and at least 2 MB of encoded payload across a run in
+  aggregate. An artifact whose payload does not encode, or which exceeds a bound,
+  is dropped with a warning naming the tool, the run, the artifact's type and the
+  call; the run is not failed, and the retained list carries no placeholder for
+  what was dropped. A drop is per artifact, so a later, smaller artifact that fits
+  the remaining budget is still kept. An artifact with an empty `type` is refused
+  outright. A payload is untrusted tool and model output: a consumer must treat
+  every value in it as plain text and escape it on output.
+
+posture: normative-target
+level: extended
+profiles:
+  - runtime
+
+added: "1.0"
+changed: "1.0"
+
+related:
+  - RT-TOOL-2
+  - RT-TOOL-7

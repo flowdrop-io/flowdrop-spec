@@ -1,0 +1,26 @@
+id: CMP-6
+family: RT-CMP
+part: II
+
+title: Which nodes reach the execution graph
+summary: >-
+  A loop head needs a forward entry edge: being reachable by loopback alone is not
+  enough to be scheduled, even though every re-enterable node type carries a loopback
+  port.
+
+normative: >-
+  A node is excluded from the execution graph if its type is non-executable, if it is
+  wired only as a tool provider, or if its only incoming edges are loopback edges. A
+  node with no incoming edges is included, and so is a node with no edges at all. The
+  exclusions are applied in that precedence.
+
+posture: normative-target
+level: core
+profiles:
+  - runtime
+
+added: "1.0"
+changed: "1.0"
+
+related:
+  - CMP-5

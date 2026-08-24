@@ -1,0 +1,30 @@
+id: EXPO-8
+family: GR-EXPO
+part: I
+
+title: A port with no stored decision is exposed, whatever the processor suggested
+
+summary: >-
+  A known seam, recorded so nobody is surprised by it. It is the price of the
+  fail-open polarity: a port nobody has decided about shows up rather than
+  disappearing.
+
+normative: >-
+  Where a processor gains a parameter after a node type's exposure values were
+  stored, and the node type has not been re-derived, that port has no stored
+  exposure value and resolves as exposed — even where the processor suggests
+  hiding it. A processor's suggestion reaches a node type only through the
+  authoring-time derivation of EXPO-6.
+
+posture: descriptive
+level: extended
+profiles:
+  - storage-api
+
+added: "1.0"
+changed: "1.0"
+
+related:
+  - CFG-2
+  - EXPO-4
+  - EXPO-6

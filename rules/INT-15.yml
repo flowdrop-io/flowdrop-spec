@@ -1,0 +1,31 @@
+id: INT-15
+family: RT-INT
+part: II
+
+title: An engine that cannot use a snapshot refuses it, never restarts
+
+summary: >-
+  Silently discarding a snapshot and starting over looks like resilience and is the
+  opposite: it re-runs every side effect the snapshot recorded as already done.
+
+normative: >-
+  An engine that cannot consume a snapshot it has been given must refuse, naming
+  the snapshot, and must not silently discard it and start the run from the
+  beginning. An engine with no snapshot-seeding mechanism therefore refuses any
+  snapshot attached to a run, before any run or job exists. No snapshot attached
+  remains a plain fresh start.
+
+posture: normative-target
+level: core
+profiles:
+  - runtime
+
+added: "1.0"
+changed: "1.0"
+
+rulings:
+  - OPEN-10
+
+related:
+  - INT-10
+  - INT-14

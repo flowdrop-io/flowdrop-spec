@@ -1,0 +1,23 @@
+id: SCH-9
+family: GR-SCHEMA
+part: I
+
+title: A union type resolves to its first non-null member
+
+normative: >-
+  Where a property's type is an array of types, its lane is derived from the first
+  member that is not `null`. An array that is empty, or that holds only `null`,
+  resolves to the sink. Every member must itself be a JSON Schema type.
+
+posture: normative-target
+level: core
+profiles:
+  - storage-api
+  - editor-client
+
+added: "1.0"
+changed: "1.0"
+
+related:
+  - SCH-34
+  - SCH-35

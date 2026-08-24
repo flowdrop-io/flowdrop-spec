@@ -1,0 +1,39 @@
+id: INT-18
+family: RT-INT
+part: II
+
+title: An expired outward interrupt ends the run it was holding open
+
+summary: >-
+  An outward interrupt is the only thing that can resume the run that raised it.
+  Once it expires the resume key is gone, and without this rule the run would sit
+  paused forever — never terminal, never announced, invisible to everything that
+  reports on finished runs.
+
+normative: >-
+  When an outward interrupt expires, the run that raised it is ended: its still-active
+  jobs are cancelled, the run is marked cancelled, and the outcome is announced like
+  any other terminal outcome (ORC-15). Two exclusions bind. An expiring inward
+  signal must not end a run: it acts on a run it does not own, and a lapsed cancel
+  or pause request is a request that went unanswered, not a run that ended. A run
+  that has already recorded an outcome keeps it: a late expiry never overwrites it
+  and never announces a second time. A failure while ending one run is recorded and
+  never raised, so a sweep is not aborted mid-backlog. An interrupt with no expiry
+  (INT-23) is never swept and never reaches this path, so an open-ended question to
+  a human waits indefinitely; a confirmation gate interrupt is the deliberate
+  exception, always carrying an expiry (RT-GATE-1), so an abandoned gated run ends
+  here instead of holding an inbox entry forever.
+
+posture: normative-target
+level: core
+profiles:
+  - runtime
+
+added: "1.0"
+changed: "1.0"
+
+related:
+  - INT-20
+  - INT-23
+  - ORC-15
+  - RT-GATE-1

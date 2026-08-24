@@ -1,0 +1,20 @@
+id: ERR-8
+family: RT-ERR
+part: II
+
+title: An error with nowhere to go fails the run
+normative: >-
+  Where a node produces an error output and has no error edge, its unit of work is
+  recorded as failed without the error-routed marker, and the run fails.
+
+posture: normative-target
+level: core
+profiles:
+  - runtime
+
+added: "1.0"
+changed: "1.0"
+
+related:
+  - ERR-7
+  - ERR-9

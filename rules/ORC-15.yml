@@ -1,0 +1,26 @@
+id: ORC-15
+family: RT-ORC
+part: II
+
+title: A cancelled run is announced like any other terminal outcome
+summary: >-
+  Cancellation leaves the run through its own path, so it is easy to forget to announce.
+  Anything watching for a run to finish must see a cancelled run finish.
+
+normative: >-
+  Every path that cancels a run announces the run's completion carrying the status
+  cancelled, exactly once per cancellation, with the run's identity and its duration.
+  Consumers of that announcement must treat cancelled as its own outcome and not as a
+  completed run. A cancelled sub-workflow resolves to its caller with status cancelled
+  and empty outputs.
+
+posture: normative-target
+level: extended
+profiles:
+  - runtime
+
+added: "1.0"
+changed: "1.0"
+
+related:
+  - ORC-11

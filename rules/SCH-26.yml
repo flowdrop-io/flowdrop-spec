@@ -1,0 +1,18 @@
+id: SCH-26
+family: GR-SCHEMA
+part: I
+
+title: The catalog an editor reads
+
+normative: >-
+  The node catalog served to an editor lists enabled node types only, sorted by
+  category and then by name.
+
+posture: normative-target
+level: core
+profiles:
+  - storage-api
+  - editor-client
+
+added: "1.0"
+changed: "1.0"

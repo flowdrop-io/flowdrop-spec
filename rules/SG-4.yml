@@ -1,0 +1,25 @@
+id: SG-4
+family: RT-SG
+part: II
+
+title: A ForEach node initializes its iterator once and completes on an empty list
+
+normative: >-
+  A ForEach node initializes its iterator on the round where the state carries
+  none, and requires items to iterate. A value that is not a list is wrapped as a
+  single item, and the items are re-indexed so that iteration is positional. An
+  empty list completes the node immediately rather than entering the loop. On
+  completion the node emits its defined output set, including the results collected
+  across the rounds it ran.
+
+posture: normative-target
+level: extended
+profiles:
+  - runtime
+
+added: "1.0"
+changed: "1.0"
+
+related:
+  - SG-5
+  - SG-7

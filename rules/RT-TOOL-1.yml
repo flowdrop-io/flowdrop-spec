@@ -1,0 +1,28 @@
+id: RT-TOOL-1
+family: RT-TOOL
+part: II
+
+title: A tool result carries artifacts alongside its data, never inside it
+
+summary: >-
+  A tool can return something structured — a chart, a record, a file reference —
+  that the model should not have to read as prose. It travels beside the result,
+  not inside it.
+
+normative: >-
+  A tool result is `{success, data, error}`. A result whose call attached
+  structured artifacts carries an additional `artifacts` key, present only when at
+  least one artifact was attached, so an artifact-free result keeps the plain
+  three-key shape unchanged. Artifacts are attached additively, and are never
+  folded into `data`: the two are disjoint.
+
+posture: normative-target
+level: extended
+profiles:
+  - runtime
+
+added: "1.0"
+changed: "1.0"
+
+related:
+  - RT-TOOL-2

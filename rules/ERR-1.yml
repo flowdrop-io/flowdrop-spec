@@ -1,0 +1,26 @@
+id: ERR-1
+family: RT-ERR
+part: II
+
+title: A node-level failure becomes an error output, not a thrown failure
+summary: >-
+  The error edge is a data channel, not an exception channel. A node that fails in a
+  routable way still finishes; the verdict travels on its output.
+
+normative: >-
+  A failure a node signals as a node-level error is converted into an error-status
+  output for that node and does not propagate out of the node. The node's lifecycle is
+  reported as completed, not failed — it finished, and the error verdict rides its
+  output.
+
+posture: normative-target
+level: core
+profiles:
+  - runtime
+
+added: "1.0"
+changed: "1.0"
+
+related:
+  - ERR-3
+  - ERR-7

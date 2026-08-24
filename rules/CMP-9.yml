@@ -1,0 +1,20 @@
+id: CMP-9
+family: RT-CMP
+part: II
+
+title: Tool names are unique per consumer, checked at compile time
+normative: >-
+  For each node that consumes tools, the names of the tools wired to it must be unique
+  across the flattened set of leaf tools it will see. A collision refuses compilation.
+  Passthrough tools are exempt from this check and are checked at the consumer instead.
+
+posture: normative-target
+level: extended
+profiles:
+  - runtime
+
+added: "1.0"
+changed: "1.0"
+
+related:
+  - CMP-10

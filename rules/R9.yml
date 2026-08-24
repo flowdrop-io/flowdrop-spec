@@ -1,0 +1,31 @@
+id: R9
+family: GR-VAL
+part: I
+
+title: A node's node type anchor must resolve
+
+summary: >-
+  R9 and R1 are deliberately disjoint: a node type that does not exist is R9's,
+  a node type that exists but has no executor is R1's. One defect earns one
+  report.
+
+normative: >-
+  A node's `node_type_id` anchor must resolve to an existing node type. A node
+  anchored to an unknown node type is refused with `R9_NODE_TYPE_UNKNOWN`, and
+  the error names both the node and the node type it asked for. A node carrying
+  no anchor is out of scope and is not refused by this rule.
+
+posture: normative-target
+level: core
+profiles:
+  - storage-api
+
+added: "1.0"
+changed: "1.0"
+
+rulings:
+  - OPEN-6
+
+related:
+  - R1.a
+  - R1.b

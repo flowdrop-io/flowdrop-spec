@@ -1,0 +1,25 @@
+id: MEM-2
+family: GR-MEM
+part: I
+
+title: An assistant turn is a duplicate only when every call it declares is known
+summary: >-
+  The assistant side of the same guard. Dropping a turn that declares one new
+  call would lose that call, so a partial overlap is kept.
+
+normative: >-
+  An `assistant`-role message is dropped as a duplicate only when every tool call
+  id it declares is already declared somewhere in the buffer. A turn declaring at
+  least one id not yet seen is appended.
+
+posture: normative-target
+level: extended
+profiles:
+  - storage-api
+  - runtime
+
+added: "1.0"
+changed: "1.0"
+
+related:
+  - MEM-1

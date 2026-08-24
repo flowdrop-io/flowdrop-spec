@@ -1,0 +1,24 @@
+id: SG-5
+family: RT-SG
+part: II
+
+title: loop_back is a value on a ForEach node and a bare signal everywhere else
+
+normative: >-
+  On a ForEach node the reserved `loop_back` input carries the round's item result,
+  standing in for an explicit `item_result` input wherever that is absent. On every
+  other node type the reserved `loop_back` input is a re-entry signal only: the
+  value is delivered on the port and read by nobody, since a node with no iteration
+  state has nothing to fold it into. A node type that wants the value declares its
+  own port for it, which is exactly what suppresses the reserved injection.
+
+posture: normative-target
+level: extended
+profiles:
+  - runtime
+
+added: "1.0"
+changed: "1.0"
+
+related:
+  - SG-4

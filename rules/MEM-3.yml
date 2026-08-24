@@ -1,0 +1,31 @@
+id: MEM-3
+family: GR-MEM
+part: I
+
+title: A user turn heals tool calls that were never answered
+summary: >-
+  A crashed or interrupted loop leaves an assistant turn declaring a call with no
+  result. Most providers reject that history outright, so the buffer closes the
+  pair before the conversation moves on.
+
+normative: >-
+  Before a `user`-role message is appended, every tool call declared in the buffer
+  that has no matching tool result anywhere in the buffer is answered by a
+  synthetic `tool`-role message stating that the call was interrupted and returned
+  no result. The synthetic message is marked as healed, carries the id it answers,
+  and is inserted directly after the turn that declared the call — not at the end
+  of the buffer, because a result must be adjacent to its call. Healing runs only
+  at this boundary: appending a `tool` or `assistant` message never triggers it.
+
+posture: normative-target
+level: extended
+profiles:
+  - storage-api
+  - runtime
+
+added: "1.0"
+changed: "1.0"
+
+related:
+  - MEM-10
+  - MEM-11

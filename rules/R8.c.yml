@@ -1,0 +1,22 @@
+id: R8.c
+family: GR-VAL
+part: I
+
+title: Two dangling endpoints are two errors
+
+normative: >-
+  An edge whose `source` and `target` are both missing yields two errors, one
+  for each endpoint, both at the same `edge.{index}` locator. The endpoints are
+  judged independently, so neither failure suppresses the other.
+
+posture: normative-target
+level: extended
+profiles:
+  - storage-api
+
+added: "1.0"
+changed: "1.0"
+
+related:
+  - R8.a
+  - R8.b

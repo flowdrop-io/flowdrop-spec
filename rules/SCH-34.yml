@@ -1,0 +1,32 @@
+id: SCH-34
+family: GR-SCHEMA
+part: I
+
+title: A property's type is a JSON Schema type, not a port lane
+summary: >-
+  The two vocabularies overlap on four words, which is why a lane name written into
+  `type` looks correct, derives the wrong lane, and is caught by nothing.
+
+normative: >-
+  A property's `type` is one of JSON Schema's seven type words, or an array whose
+  every member is one. It is never a port lane. A schema that spells a lane in
+  `type` is malformed, on the input side and the output side alike: the lane
+  derivation answers the miss with the sink and reports nothing, so the only
+  symptom is a port of the wrong lane. An implementation states this constraint
+  where a schema is declared, so an offending schema is caught before it ships
+  rather than after a port is drawn from it.
+
+posture: normative-target
+level: core
+profiles:
+  - storage-api
+  - editor-client
+
+added: "1.0"
+changed: "1.0"
+
+related:
+  - SCH-9
+  - SCH-10
+  - SCH-35
+  - SCH-37

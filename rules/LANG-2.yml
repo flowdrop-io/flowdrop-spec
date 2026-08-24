@@ -1,0 +1,22 @@
+id: LANG-2
+family: GR-LANG
+part: I
+
+title: A node's expression engine must be one the implementation provides
+
+normative: >-
+  A node that embeds an expression selects its engine through the reserved `engine`
+  parameter, whose permitted values are exactly the engine identifiers the
+  implementation provides. A workflow naming an engine outside that set is refused
+  when it is saved and again when the parameter is resolved. An unrecognised engine
+  identifier that reaches evaluation by some other route fails before any
+  expression is evaluated.
+
+posture: normative-target
+level: core
+profiles:
+  - storage-api
+  - runtime
+
+added: "1.0"
+changed: "1.0"

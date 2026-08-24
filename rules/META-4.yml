@@ -1,0 +1,30 @@
+id: META-4
+family: RT-META
+part: II
+
+title: The workflow schema door publishes a bare document
+summary: >-
+  A workflow's declared input and output ports, read by an editor before it can
+  draw the workflow. It is not wrapped in the standard envelope, and its
+  snake_case is as much a contract as the playground's camelCase.
+
+normative: >-
+  A successful read of a workflow's schema answers exactly `{schema_version,
+  parameter_schema, output_schema}` in that order, snake_case, with no `success`
+  key and no `data` wrapper. `parameter_schema` and `output_schema` are the
+  stored snapshot verbatim, and where a workflow declares no ports they are JSON
+  `null` — not an empty object, and not omitted — so a consumer can distinguish
+  "no ports" from "key missing".
+
+posture: normative-target
+level: core
+profiles:
+  - runtime
+  - editor-client
+
+added: "1.0"
+changed: "1.0"
+
+related:
+  - META-5
+  - META-6

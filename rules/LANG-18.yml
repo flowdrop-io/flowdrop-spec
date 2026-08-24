@@ -1,0 +1,18 @@
+id: LANG-18
+family: GR-LANG
+part: I
+
+title: A trigger mapping value can be escaped as a literal
+
+normative: >-
+  In a trigger mapping, a value prefixed `literal:` or wrapped in matching single or
+  double quotes is taken as the literal string it spells, and is not extracted from
+  the context. The escape applies to trigger mappings only.
+
+posture: normative-target
+level: extended
+profiles:
+  - runtime
+
+added: "1.0"
+changed: "1.0"

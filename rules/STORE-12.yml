@@ -1,0 +1,22 @@
+id: STORE-12
+family: GR-STORE
+part: I
+
+title: A finished turn leaves the session completed, not idle
+
+normative: >-
+  `idle` means a session was created and has never executed. A session whose turn has
+  finished is released as `completed`. The two are distinct states, and an
+  implementation must not use `idle` to mean that a turn has finished.
+
+posture: normative-target
+level: extended
+profiles:
+  - storage-api
+  - runtime
+
+added: "1.0"
+changed: "1.0"
+
+related:
+  - STORE-11

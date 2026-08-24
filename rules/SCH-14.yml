@@ -1,0 +1,21 @@
+id: SCH-14
+family: GR-SCHEMA
+part: I
+
+title: Every executable node gets a hidden error output
+
+normative: >-
+  A reserved `error` output port is injected on every node type except a
+  non-executable one, carries display order 120, and ships hidden.
+
+posture: normative-target
+level: core
+profiles:
+  - storage-api
+  - editor-client
+
+added: "1.0"
+changed: "1.0"
+
+related:
+  - SCH-16

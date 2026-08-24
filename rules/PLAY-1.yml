@@ -1,0 +1,27 @@
+id: PLAY-1
+family: RT-PLAY
+part: II
+
+title: Playground sessions and messages are addressed and published by UUID
+
+normative: >-
+  Every playground route parameter naming a session or a message is a UUID, and
+  every `id` published — a session row's, a message row's, and a message row's
+  `sessionId` — is that UUID, never an internal record identifier. The single
+  exception is the session list's `ids` filter, which takes a comma-separated
+  list of internal identifiers, dropping values that are not positive integers:
+  it is a narrowing of what the caller can already see, not a client-facing
+  identifier. So that one door accepts internal identifiers inbound and answers
+  UUIDs outbound, deliberately.
+
+posture: normative-target
+level: core
+profiles:
+  - runtime
+  - editor-client
+
+added: "1.0"
+changed: "1.0"
+
+related:
+  - PLAY-5

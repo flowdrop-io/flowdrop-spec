@@ -1,0 +1,27 @@
+id: LANG-28
+family: GR-LANG
+part: I
+
+title: A condition node's operators are a closed set, and case folding spares the pattern
+
+normative: >-
+  A condition node compares with exactly six operators — `equals`, `not_equals`,
+  `contains`, `starts_with`, `ends_with` and `regex` — declared as an enumeration.
+  A workflow naming an operator outside that set is refused when it is saved and
+  again when the parameter is resolved, and an operator that reaches execution
+  outside the set fails the node. A pattern that cannot be compiled fails the node
+  when it runs. Where the comparison is case-insensitive it is performed
+  case-insensitively; the pattern itself is never rewritten, so a regular
+  expression keeps its case-sensitive character classes.
+
+posture: normative-target
+level: core
+profiles:
+  - storage-api
+  - runtime
+
+added: "1.0"
+changed: "1.0"
+
+rulings:
+  - OPEN-19

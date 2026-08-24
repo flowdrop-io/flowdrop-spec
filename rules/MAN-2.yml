@@ -1,0 +1,28 @@
+id: MAN-2
+family: GR-MAN
+part: I
+
+title: A manifest entry names an input and binds it to a port
+summary: >-
+  Three fields say what the input is called and where it goes; the rest is
+  documentation for whoever calls the workflow.
+
+normative: >-
+  A manifest entry carries a `name`, a `node_id` and a `port`, all required, and
+  may carry `title`, `description`, `examples` and `required`. The optional
+  metadata applies to the input side only. A `required` entry is folded into the
+  built contract's top-level list of required names rather than surviving as a key
+  on the property fragment.
+
+posture: normative-target
+level: core
+profiles:
+  - storage-api
+
+added: "1.0"
+changed: "1.0"
+
+related:
+  - MAN-1
+  - MAN-6
+  - MAN-15

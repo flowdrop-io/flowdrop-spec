@@ -1,0 +1,16 @@
+id: CMP-4
+family: RT-CMP
+part: II
+
+title: An edge's type is derived, never declared
+normative: >-
+  The type of an edge is derived from the handles it connects. An edge does not
+  declare its own type, and a declared type on an edge is not authoritative.
+
+posture: normative-target
+level: core
+profiles:
+  - runtime
+
+added: "1.0"
+changed: "1.0"

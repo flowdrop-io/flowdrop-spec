@@ -1,0 +1,28 @@
+id: SG-2
+family: RT-SG
+part: II
+
+title: A node sees run state only where it asks for it, and none of it is persisted
+
+normative: >-
+  Three separate guarantees. The runtime input handed to a node carries the
+  reserved internal names `__state__`, `__messages__` and `__data__`, plus
+  `__iterator__` and `__current_item__` whenever the state carries an iterator, and
+  `__interrupt_id__` when the node is being resumed; a node sees one of these only
+  where its own parameter schema declares it, and a declared internal parameter
+  always accepts its runtime value. Separately, the live state is handed only to a
+  node type that declares itself state-aware, and never to one that does not. And
+  the input recorded against the node's execution has every reserved internal name
+  removed, so no state or interrupt internal is ever persisted, even though the
+  node received it.
+
+posture: normative-target
+level: core
+profiles:
+  - runtime
+
+added: "1.0"
+changed: "1.0"
+
+related:
+  - SG-1

@@ -1,0 +1,25 @@
+id: CFG-10
+family: GR-CFG
+part: I
+
+title: A resolved value is validated against the parameter schema
+
+normative: >-
+  A resolved value that is not null is validated against the parameter's schema.
+  Any violation fails the node execution with a validation error carrying the name
+  of the constraint that failed. `type` and `enum` are checked first, and either
+  one failing ends the check there. A value that resolves to null is not validated
+  at all; whether a null is acceptable is decided by `required` alone (CFG-9).
+
+posture: normative-target
+level: core
+profiles:
+  - storage-api
+
+added: "1.0"
+changed: "1.0"
+
+related:
+  - CFG-9
+  - CFG-11
+  - CFG-12

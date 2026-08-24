@@ -1,0 +1,19 @@
+id: EXPO-17
+family: GR-EXPO
+part: I
+
+title: Port display order is cosmetic
+
+normative: >-
+  A port's declared display order is presentational metadata for whatever draws the
+  node. No execution, resolution, validation or exposure decision may depend on it,
+  and reordering ports must not change what a workflow does.
+
+posture: normative-target
+level: extended
+profiles:
+  - storage-api
+  - editor-client
+
+added: "1.0"
+changed: "1.0"

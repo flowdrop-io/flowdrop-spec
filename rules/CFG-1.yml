@@ -1,0 +1,26 @@
+id: CFG-1
+family: GR-CFG
+part: I
+
+title: An unrecorded gate flag is off
+
+summary: >-
+  A node type records per-parameter gate flags — whether a parameter may receive a
+  wire, whether it appears in the config form, whether it is required. Where a flag
+  was never recorded, the answer is no.
+
+normative: >-
+  A parameter's `connectable`, `configurable` and `required` gate flags default to
+  false. Where a node type records no value for one of them, the parameter is
+  treated as not connectable, not configurable, or not required accordingly.
+
+posture: normative-target
+level: core
+profiles:
+  - storage-api
+
+added: "1.0"
+changed: "1.0"
+
+related:
+  - CFG-2

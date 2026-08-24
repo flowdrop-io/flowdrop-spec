@@ -1,0 +1,28 @@
+id: INT-12
+family: RT-ORC
+part: II
+
+title: Only a budget pause resumes itself
+summary: >-
+  The absence of a pause reason is the marker of a human pause. Do not give a human pause a
+  reason: that is what tells the machinery to leave it alone.
+
+normative: >-
+  A paused run auto-resumes only where the pause was caused by a budget — the execution-time
+  budget or the scheduler-pass budget. A pause with no reason recorded is a pause awaiting a
+  person, and holds until an explicit resume. A worker that picks up paused runs resumes and
+  re-queues budget pauses only, and leaves a reason-less pause paused. Asynchronous execution
+  in chunks depends on this: it works by pausing on budget, auto-resuming and re-queueing.
+
+posture: normative-target
+level: core
+profiles:
+  - runtime
+
+added: "1.0"
+changed: "1.0"
+
+related:
+  - ORC-10
+  - ORC-11
+  - ORC-12

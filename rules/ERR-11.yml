@@ -1,0 +1,25 @@
+id: ERR-11
+family: RT-ERR
+part: II
+
+title: Retry is opt-in, in place, and immediate
+summary: >-
+  There is no backoff and no delay, so a retry is only ever appropriate where the node
+  is idempotent. That is the author's contract, not the runtime's.
+
+normative: >-
+  A node retries only where its configured maximum retry count is greater than zero;
+  the default is zero. Only a retryable error output retries. A retry re-executes the
+  node in place and immediately, with no backoff, and the attempt count persists across
+  the run so the maximum bounds the total attempts.
+
+posture: normative-target
+level: extended
+profiles:
+  - runtime
+
+added: "1.0"
+changed: "1.0"
+
+related:
+  - ERR-2

@@ -1,0 +1,23 @@
+id: EDGE-6
+family: GR-EDGE
+part: I
+
+title: An error edge routes a failure instead of raising it
+
+normative: >-
+  An edge whose source handle ends with `-output-error` is an error edge. When a node
+  that has one fails, the failure is routed rather than raised: the node's job is
+  recorded as failed and marked as having been routed, the node yields an error payload
+  of `{message, code, node_id, retryable}`, and the run continues along the error edge.
+
+posture: normative-target
+level: core
+profiles:
+  - storage-api
+  - runtime
+
+added: "1.0"
+changed: "1.0"
+
+related:
+  - EDGE-1

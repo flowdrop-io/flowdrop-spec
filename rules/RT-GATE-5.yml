@@ -1,0 +1,30 @@
+id: RT-GATE-5
+family: RT-GATE
+part: II
+
+title: A declined tool call is model-recoverable, never run-fatal
+
+summary: >-
+  Failing a whole agent run because a person said "no" to one tool call would be
+  wrong. The model is told, and carries on.
+
+normative: >-
+  Where a gated node is invoked as a tool and the call is declined, the consumer
+  receives a structured denial as a tool error result naming the decline, and the
+  run continues to its own completion. Where the call is approved, the consumer is
+  re-fired and the same call re-issued: its arguments are the consumer's recorded
+  inputs rather than a fresh sample from the model, so the consent matches by hash
+  (RT-GATE-3) and the tool executes.
+
+posture: normative-target
+level: core
+profiles:
+  - runtime
+
+added: "1.0"
+changed: "1.0"
+
+related:
+  - RT-GATE-3
+  - RT-GATE-4
+  - RT-GATE-6

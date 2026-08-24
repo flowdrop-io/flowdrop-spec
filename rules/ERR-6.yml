@@ -1,0 +1,31 @@
+id: ERR-6
+family: RT-ERR
+part: II
+
+title: A node's output must be serializable throughout
+summary: >-
+  Checked over the node's whole output, before any unexposed value is filtered out, so
+  a value the node type does not expose is policed exactly like one it does.
+
+normative: >-
+  Every leaf of a node's output must be a JSON value: a string, number, boolean, null,
+  an array, or an object with a defined JSON representation. The check covers the
+  node's full output, including values its type does not expose. A violation is a
+  node-level error naming the node, its type, the dotted path to the offending leaf and
+  the offending type; the resulting error output is not retryable and follows the
+  ordinary error-edge-or-fail path.
+
+posture: normative-target
+level: extended
+profiles:
+  - runtime
+
+added: "1.0"
+changed: "1.0"
+
+rulings:
+  - OPEN-19
+
+related:
+  - ERR-1
+  - ERR-2

@@ -1,0 +1,19 @@
+id: ST-9
+family: RT-ST
+part: II
+
+title: Each transition carried a payload defined for it
+
+normative: >-
+  Retired with the polled status surface. A transition to running carried the
+  node type and start time, to completed the execution time and output size, to
+  failed the error, and to interrupted the interrupt id and type. These
+  payloads outlived the surface, still riding the runtime status broadcasts.
+
+posture: deprecated
+level: extended
+profiles:
+  - runtime
+
+added: "1.0"
+changed: "1.0"

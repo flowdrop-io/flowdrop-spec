@@ -1,0 +1,36 @@
+id: EDGE-5
+family: GR-EDGE
+part: I
+
+title: A declared edge type wins over the handle, if it is recognised
+
+summary: >-
+  An edge may name its own kind instead of leaving it to the handles. Because a named
+  kind overrides what the handles say, a name nobody recognises is refused rather than
+  carried through.
+
+normative: >-
+  An edge is a tool edge when its declared `data.edgeType` is `tool_availability`, or,
+  where there is no declaration, when its target handle ends with `-input-tool`. A
+  recognised declaration decides in both directions: a declared `tool_availability`
+  makes an edge with an ordinary handle a tool edge, and any other recognised
+  declaration makes an edge with a `-input-tool` handle not one. A declaration that is
+  absent, empty, or not a string falls back to the handle. A declared type that is not
+  recognised is refused at save with a validation error: an implementation must not
+  carry an unrecognised type through as a kind of its own, where it matches nothing and
+  so is neither classified nor excluded, and a mistyped kind silently becomes an
+  ordinary ordering edge.
+
+posture: normative-target
+level: core
+profiles:
+  - storage-api
+
+added: "1.0"
+changed: "1.0"
+
+rulings:
+  - OPEN-17
+
+related:
+  - EDGE-7

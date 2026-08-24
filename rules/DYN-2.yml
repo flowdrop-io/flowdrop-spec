@@ -1,0 +1,20 @@
+id: DYN-2
+family: GR-DYN
+part: I
+
+title: A dynamic port declares a name, a label and a data type
+
+normative: >-
+  Every dynamic port definition carries a `name`, a `label` and a `dataType`. The
+  `dataType` defaults to `mixed`, and the set an editor offers an author is exactly
+  those data-type lanes that carry a value; the control lanes are not offered,
+  because a dynamic port carries a value by definition.
+
+posture: normative-target
+level: extended
+profiles:
+  - storage-api
+  - editor-client
+
+added: "1.0"
+changed: "1.0"

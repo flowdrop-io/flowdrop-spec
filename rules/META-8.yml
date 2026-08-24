@@ -1,0 +1,29 @@
+id: META-8
+family: RT-META
+part: II
+
+title: The two schema variants are cached on deliberately different terms
+summary: >-
+  The annotated document reattaches translated text from live plugins, so a
+  shared copy would serve one interface language's annotations to a reader in
+  another.
+
+normative: >-
+  The plain workflow schema document is publicly cacheable for at most 60
+  seconds. The annotated document is served `no-cache`. A schema response varies
+  by the argument selecting the variant on every path, including the one that
+  adds nothing else, and varies by interface language only when annotated. A
+  response is invalidated when the workflow it describes changes, and by nothing
+  broader.
+
+posture: normative-target
+level: extended
+profiles:
+  - runtime
+  - editor-client
+
+added: "1.0"
+changed: "1.0"
+
+related:
+  - META-6

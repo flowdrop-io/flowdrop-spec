@@ -1,0 +1,32 @@
+id: CFG-16
+family: GR-CFG
+part: I
+
+title: The unified input port is decomposed before resolution
+
+summary: >-
+  A node may take all its inputs as one bundled object on the reserved `input`
+  port. That bundle is unpacked into individual named inputs before any parameter
+  is resolved, so the rest of the chain cannot tell the difference.
+
+normative: >-
+  Where the reserved `input` port carries a value, it is decomposed before any
+  parameter is resolved. Where that value is not an object, nothing is decomposed:
+  the runtime inputs are left unchanged and the raw `input` key survives, so a
+  declared parameter literally named `input` receives the value as it stands.
+  Otherwise, only keys that name a connectable parameter, an internal parameter, or
+  a declared dynamic input are kept, and the rest are discarded. A value wired
+  individually to a port then overwrites the same key taken from the bundle.
+
+posture: normative-target
+level: extended
+profiles:
+  - storage-api
+
+added: "1.0"
+changed: "1.0"
+
+related:
+  - CFG-4
+  - CFG-15
+  - CFG-17

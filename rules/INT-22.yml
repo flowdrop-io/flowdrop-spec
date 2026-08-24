@@ -1,0 +1,37 @@
+id: INT-22
+family: RT-INT
+part: II
+
+title: An interrupt is published as 24 keys, every one always present
+
+summary: >-
+  One shape, from every endpoint that publishes an interrupt. A consumer reads a
+  key rather than testing whether it is there, because an absent value is present
+  and null.
+
+normative: >-
+  Every endpoint that publishes an interrupt publishes the same entry: 24 keys,
+  uniformly camelCase, in this order — `id`, `type`, `status`, `message`, `nodeId`,
+  `workflowId`, `pipelineId`, `sessionId`, `schema`, `options`, `context`,
+  `defaultValue`, `responseData`, `createdAt`, `expiresAt`, `scheduledAt`,
+  `resolvedAt`, `resolvedBy`, `direction`, `jobId`, `targetPipelineId`,
+  `initiatorUid`, `reason`, `linkedInterruptId`. `id` is the interrupt's UUID;
+  `type`, `status` and `direction` are the enumerated values (STORE-11); and all
+  four timestamps are ISO-8601 strings or null, never integers. Every optional
+  member is present and null rather than omitted. An endpoint listing interrupts
+  answers a JSON array, and must still answer an array after access filtering has
+  removed entries.
+
+posture: normative-target
+level: core
+profiles:
+  - runtime
+
+added: "1.0"
+changed: "1.0"
+
+related:
+  - INT-1
+  - INT-19
+  - PLAY-4
+  - STORE-11

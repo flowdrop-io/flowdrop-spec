@@ -1,0 +1,38 @@
+id: BR-4
+family: RT-BR
+part: II
+
+title: An outcome matching no branch is loud, never a silent gate-off
+
+summary: >-
+  A gateway whose configured branches do not cover the value it produced used to
+  emit a branch name no port carried, gating off everything downstream with nothing
+  said. The target is that this cannot happen quietly.
+
+normative: >-
+  A gateway's branch authority is its configured branches, each an entry pairing a
+  name with a value; an entry whose name is not a non-empty string is discarded
+  before any matching. Matching an outcome to a branch is type-aware and never a
+  loose cast: a boolean outcome matches only a branch whose configured value
+  denotes a boolean — a boolean, the integer `0` or `1`, or the strings `true`,
+  `false`, `1` or `0` without regard to case — two strings compare without regard
+  to case, and anything else must be equal in both type and value. A gateway must
+  not emit a branch name that no port of the node carries: where no configured
+  branch matches the outcome, either the gateway declares a default branch port
+  that receives it, or the node fails with an error output that an error edge can
+  route (ERR-7).
+
+posture: normative-target
+level: core
+profiles:
+  - runtime
+
+added: "1.0"
+changed: "1.0"
+
+rulings:
+  - OPEN-15
+
+related:
+  - BR-2
+  - BR-3

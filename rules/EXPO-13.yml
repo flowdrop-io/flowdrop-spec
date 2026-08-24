@@ -1,0 +1,24 @@
+id: EXPO-13
+family: GR-EXPO
+part: I
+
+title: A node type can hide an output outright
+
+normative: >-
+  Where a node type marks an output port `exposed: false`, that output is stripped
+  from every instance's result unconditionally, and no instance override can
+  restore it. Otherwise the instance's own override decides, then the node type's
+  default exposure, and a port with none of these resolves as exposed.
+
+posture: normative-target
+level: core
+profiles:
+  - storage-api
+  - runtime
+
+added: "1.0"
+changed: "1.0"
+
+related:
+  - EXPO-2
+  - EXPO-11

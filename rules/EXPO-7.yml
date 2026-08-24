@@ -1,0 +1,26 @@
+id: EXPO-7
+family: GR-EXPO
+part: I
+
+title: Published schemas carry the flag only where the default is hidden
+
+normative: >-
+  Where a node type's stored default exposure for a port is false, the schema it
+  publishes carries `x-exposed-by-default: false`. Where it is anything else, the
+  key is absent from the published schema rather than present and true. A
+  processor's own value for the key is overwritten either way, so the published
+  schema states the node type's decision and only where it diverges from the
+  exposed default (CFG-2).
+
+posture: normative-target
+level: extended
+profiles:
+  - storage-api
+
+added: "1.0"
+changed: "1.0"
+
+related:
+  - CFG-2
+  - EXPO-5
+  - EXPO-6

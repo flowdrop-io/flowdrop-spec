@@ -1,0 +1,29 @@
+id: META-9
+family: RT-META
+part: II
+
+title: The editor metadata doors are read-only and gated before the handler
+summary: >-
+  Neither door has a handler-side check to fall back on, so what the surface
+  declares is the whole access contract.
+
+normative: >-
+  The category door and the workflow schema door accept `GET` and no other
+  method, and each requires a named authorization decided before the handler
+  runs: neither carries a handler-side check as a backstop. The set of methods
+  and the named authorization are part of the contract — widening either is a
+  visible change — and a named authorization the implementation does not define
+  is a defect, not a locked door.
+
+posture: normative-target
+level: extended
+profiles:
+  - runtime
+  - editor-client
+
+added: "1.0"
+changed: "1.0"
+
+related:
+  - META-1
+  - META-4

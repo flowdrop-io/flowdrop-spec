@@ -1,0 +1,27 @@
+id: SCH-38.a
+family: GR-SCHEMA
+part: I
+
+title: A retired lane keeps one release of served-but-disabled compatibility
+
+normative: >-
+  A lane leaves the declarable vocabulary as soon as nothing ships it, but leaves
+  the served payload only a major version later, because the two lists answer
+  different questions: what a port may newly declare, and what an editor knows how
+  to connect. Dropping both at once breaks every edge on a port declared under the
+  previous release, with no error anywhere — an editor simply reports the
+  connection incompatible. A retired lane is therefore served disabled, with its
+  compatibility rules intact, for at least that release, and the retired lanes are
+  named explicitly so that removing one is a deliberate act rather than drift.
+
+posture: normative-target
+level: extended
+profiles:
+  - storage-api
+  - editor-client
+
+added: "1.0"
+changed: "1.0"
+
+related:
+  - SCH-38

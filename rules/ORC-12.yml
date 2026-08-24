@@ -1,0 +1,21 @@
+id: ORC-12
+family: RT-ORC
+part: II
+
+title: Asynchronous execution returns immediately
+normative: >-
+  Asynchronous execution returns the status `queued` to its caller immediately and
+  executes no node in the calling request. It may seed the run from a snapshot of
+  already-completed work.
+
+posture: normative-target
+level: core
+profiles:
+  - runtime
+
+added: "1.0"
+changed: "1.0"
+
+related:
+  - ORC-2
+  - INT-12

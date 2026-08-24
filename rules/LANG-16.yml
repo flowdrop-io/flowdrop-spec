@@ -1,0 +1,18 @@
+id: LANG-16
+family: GR-LANG
+part: I
+
+title: A string context is parsed as JSON where it parses
+
+normative: >-
+  Where the evaluation context is a string, it is parsed as JSON and the parsed
+  value is what the path queries. A string that is not valid JSON is used as-is.
+  The string `null` parses to null, like any other JSON document.
+
+posture: normative-target
+level: extended
+profiles:
+  - runtime
+
+added: "1.0"
+changed: "1.0"

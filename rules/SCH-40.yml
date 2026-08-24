@@ -1,0 +1,33 @@
+id: SCH-40
+family: GR-SCHEMA
+part: I
+
+title: A port's lane is consumed at a public boundary
+summary: >-
+  The lane a port declares is not only a colour on a canvas. It is the shared answer
+  to "what may a caller supply?" at the endpoints that start a workflow and take a
+  turn in a session.
+
+normative: >-
+  A port's declared lane decides what a caller may supply at a workflow's public
+  entry points: launching a workflow and taking a turn in a session answer from the
+  same check. A port on the sink or on a control lane places no constraint — any
+  JSON value is accepted, including an array or null. Narrowing that, for instance
+  by keying the check off JSON Schema's seven type words alone, is strictly
+  stronger and is a breaking change to a public endpoint: it is announced, never
+  carried in on a refactor. The name a projection gives the field that carries the
+  lane is likewise a client-facing contract.
+
+posture: normative-target
+level: extended
+profiles:
+  - storage-api
+  - runtime
+  - editor-client
+
+added: "1.0"
+changed: "1.0"
+
+related:
+  - SCH-35
+  - SCH-37

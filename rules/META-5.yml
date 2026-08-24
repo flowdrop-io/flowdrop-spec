@@ -1,0 +1,24 @@
+id: META-5
+family: RT-META
+part: II
+
+title: An unknown workflow's schema is a bare error document
+
+normative: >-
+  A schema read for a workflow that does not exist answers `404` with the body
+  `{"error": "Workflow not found."}` — one key, no `success` key, and the
+  trailing full stop part of the literal. Absence is answered before anything
+  else is read, so an unknown identifier never reaches the schema-version or
+  entity-tag logic.
+
+posture: normative-target
+level: extended
+profiles:
+  - runtime
+  - editor-client
+
+added: "1.0"
+changed: "1.0"
+
+related:
+  - META-4

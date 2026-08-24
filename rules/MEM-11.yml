@@ -1,0 +1,30 @@
+id: MEM-11
+family: GR-MEM
+part: I
+
+title: Both spellings of a tool call's id are read
+summary: >-
+  A buffer written from a raw provider payload spells the id differently from one
+  written by the buffer itself. Reading only one spelling makes every guard blind
+  to the other.
+
+normative: >-
+  Where an assistant turn declares tool calls, a call's id is read under either
+  the normalized spelling or the provider-flat spelling, whichever is present.
+  Deduplication, dangling-call detection and id recording all read the id through
+  the same single definition, so the three cannot disagree about which calls a
+  turn declares.
+
+posture: normative-target
+level: extended
+profiles:
+  - storage-api
+  - runtime
+
+added: "1.0"
+changed: "1.0"
+
+related:
+  - MEM-1
+  - MEM-2
+  - MEM-3

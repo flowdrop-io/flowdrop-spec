@@ -1,0 +1,37 @@
+id: MEM-16
+family: GR-MEM
+part: I
+
+title: Text becomes a message under three closed rules
+summary: >-
+  The adapter every text producer needs to reach a message-shaped node. Its
+  defaults are chosen so a malformed turn never reaches a provider.
+
+normative: >-
+  A text-to-message node turns a text value and a role into one message, emitted
+  both as a one-element message-typed list and as the same row on a plain
+  object-typed output. Content is coerced exactly as conversation normalization
+  coerces it: a scalar is cast, a non-scalar is serialized to text rather than
+  blanked, and unserializable content falls back to the empty string. Three rules
+  are closed. The role is one of `user`, `assistant`, `system` or `tool`; any
+  other value, an absent one included, resolves to `user`, so a role a provider
+  would reject never leaves the node. A tool call id is attached only on role
+  `tool`, trimmed, and omitted when blank; on any other role it names no pairing
+  and is discarded. Empty content emits an empty list and an empty object rather
+  than an empty turn, so an unwired producer cannot become a silent request on a
+  blank prompt — a `tool` row with no content included, because synthesizing an
+  answer for an unanswered call belongs to tool-pairing repair.
+
+posture: normative-target
+level: extended
+profiles:
+  - storage-api
+  - runtime
+
+added: "1.0"
+changed: "1.0"
+
+related:
+  - MEM-3
+  - MEM-4
+  - MEM-5

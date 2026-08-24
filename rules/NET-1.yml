@@ -1,0 +1,30 @@
+id: NET-1
+family: RT-NET
+part: II
+
+title: An outbound URL is checked before the request, and the check is pinned to it
+summary: >-
+  Validating a name and then dialling the name is not a check: a hostile resolver
+  answers publicly for the check and privately for the request.
+
+normative: >-
+  Before a node makes a request to a URL derived from workflow input, the URL is
+  validated: only `http` and `https` are allowed, the host is resolved — over
+  both IPv4 and IPv6 — and any address in a private or reserved range is refused.
+  A refusal is a node configuration error, which takes the error edge rather than
+  failing the run. The validated address is what the request must then be made
+  to: the connection is pinned to the address that was checked, honouring an
+  explicit port. Every node that dials a caller-supplied URL performs this check;
+  a second implementation of it is a second thing to forget to fix.
+
+posture: normative-target
+level: core
+profiles:
+  - runtime
+
+added: "1.0"
+changed: "1.0"
+
+related:
+  - NET-2
+  - NET-3

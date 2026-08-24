@@ -1,0 +1,22 @@
+id: SG-1
+family: RT-SG
+part: II
+
+title: State merges field by field, and a state value is never mutated
+
+normative: >-
+  A state update is merged into the current state field by field: `messages`
+  appends, `data` and `metadata` merge key by key, and every other field is
+  replaced. A field the update omits keeps its current value. The merge yields a
+  new state; the state it was applied to is not modified.
+
+posture: normative-target
+level: core
+profiles:
+  - runtime
+
+added: "1.0"
+changed: "1.0"
+
+related:
+  - SG-3

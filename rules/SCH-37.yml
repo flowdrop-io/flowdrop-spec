@@ -1,0 +1,26 @@
+id: SCH-37
+family: GR-SCHEMA
+part: I
+
+title: A control port declares its lane, never a schema type
+
+normative: >-
+  `trigger`, `tool` and `loop_back` carry no value, so no JSON Schema type
+  describes them. A control port declares `x-data-type` and no `type`, and a
+  reserved-port injection assigns the lane by the port's role rather than deriving
+  it. Control lanes remain full members of the lane vocabulary; what is forbidden
+  is spelling one in `type`. A lane that carries no value is not offered as a
+  dynamic port type and is not on the list of lanes an author may pick.
+
+posture: normative-target
+level: core
+profiles:
+  - storage-api
+  - editor-client
+
+added: "1.0"
+changed: "1.0"
+
+related:
+  - SCH-34
+  - SCH-38

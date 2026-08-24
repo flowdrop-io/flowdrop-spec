@@ -1,0 +1,19 @@
+id: ST-7
+family: RT-ST
+part: II
+
+title: The status vocabulary was closed
+
+normative: >-
+  Retired with the polled status surface. Its status vocabulary was
+  initialized, idle, running, completed, failed and interrupted. The vocabulary
+  itself outlived the surface as the status set carried on runtime status
+  broadcasts, there joined by skipped.
+
+posture: deprecated
+level: extended
+profiles:
+  - runtime
+
+added: "1.0"
+changed: "1.0"

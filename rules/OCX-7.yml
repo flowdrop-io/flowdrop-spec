@@ -1,0 +1,29 @@
+id: OCX-7
+family: RT-OCX
+part: II
+
+title: One execution identifier correlates the invocation with every poll
+summary: >-
+  This single identifier is what makes an asynchronous round trip work through a
+  synchronous invocation signature.
+
+normative: >-
+  An external invocation answers immediately with exactly one of three statuses:
+  `completed` for a finished run, `interrupted` for one paused awaiting an
+  interrupt whose identifier the response carries, or `queued`. In all three
+  cases the `execution_id` it answers is the persisted run's identifier — the
+  same value a poll response reports as `pipeline_id`. An engine that answers a
+  synthetic request identifier instead has its persisted identifier republished
+  here, so the correlation identifier never varies by engine.
+
+posture: normative-target
+level: core
+profiles:
+  - runtime
+
+added: "1.0"
+changed: "1.0"
+
+related:
+  - OCX-4
+  - OCX-8

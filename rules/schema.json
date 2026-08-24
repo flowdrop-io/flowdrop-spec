@@ -8,8 +8,8 @@
   "properties": {
     "id": {
       "type": "string",
-      "pattern": "^[A-Z][A-Z0-9-]*-[0-9]+$",
-      "description": "Permanent identifier. Never renumbered, never reused."
+      "pattern": "^[A-Z][A-Z0-9]*([-.][A-Za-z0-9]+)*(/[a-z])?$",
+      "description": "Permanent identifier. Never renumbered, never reused. Two shapes: FAMILY-n, and the pre-existing validator R-code namespace (R1, R4.a)."
     },
     "family": { "type": "string", "pattern": "^(GR|RT)-[A-Z]+$" },
     "part": { "enum": ["I", "II"] },
@@ -31,7 +31,7 @@
     "added": { "type": "string", "pattern": "^[0-9]+\\.[0-9]+$" },
     "changed": { "type": "string", "pattern": "^[0-9]+\\.[0-9]+$" },
     "rulings": { "type": "array", "items": { "type": "string", "pattern": "^(OPEN|DF)-[0-9]+$" } },
-    "related": { "type": "array", "uniqueItems": true, "items": { "type": "string", "pattern": "^[A-Z][A-Z0-9-]*-[0-9]+$" } },
+    "related": { "type": "array", "uniqueItems": true, "items": { "type": "string", "pattern": "^[A-Z][A-Z0-9]*([-.][A-Za-z0-9]+)*(/[a-z])?$" } },
     "references": {
       "type": "object",
       "additionalProperties": false,
@@ -40,7 +40,7 @@
         "informative": { "type": "array", "items": { "$ref": "#/$defs/reference" } }
       }
     },
-    "supersededBy": { "type": "string", "pattern": "^[A-Z][A-Z0-9-]*-[0-9]+$" }
+    "supersededBy": { "type": "string", "pattern": "^[A-Z][A-Z0-9]*([-.][A-Za-z0-9]+)*(/[a-z])?$" }
   },
   "$defs": {
     "reference": {

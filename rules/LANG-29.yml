@@ -1,0 +1,34 @@
+id: LANG-29
+family: GR-LANG
+part: I
+
+title: An expression error fails the node; an empty result does not
+summary: >-
+  One policy across every node that evaluates an author's expression, so a broken
+  expression is visible and routable rather than silently absorbed.
+
+normative: >-
+  An expression error — a path the engine cannot evaluate, a failure raised by the
+  engine — fails the node, and the failure routes to the error edge. This holds
+  uniformly across every node that evaluates an author's expression. An expression
+  that evaluates cleanly and finds nothing is not an error, so an extractor's
+  default-on-no-match is unaffected. Leniency toward genuine errors is only ever an
+  explicit, opt-in node configuration, never the default.
+
+posture: normative-target
+level: core
+profiles:
+  - runtime
+
+added: "1.0"
+changed: "1.0"
+
+rulings:
+  - OPEN-8
+
+related:
+  - LANG-21
+  - LANG-22
+  - LANG-24
+  - LANG-25
+  - LANG-26

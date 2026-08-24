@@ -1,0 +1,23 @@
+id: SCH-15
+family: GR-SCHEMA
+part: I
+
+title: A reserved port states its exposure only when it diverges
+
+normative: >-
+  An injected reserved port declares `x-exposed-by-default: false` only where that
+  diverges from the default of true. Where it is exposed by default it says
+  nothing, and a reader takes silence as exposed.
+
+posture: normative-target
+level: extended
+profiles:
+  - storage-api
+  - editor-client
+
+added: "1.0"
+changed: "1.0"
+
+related:
+  - SCH-16
+  - SCH-27

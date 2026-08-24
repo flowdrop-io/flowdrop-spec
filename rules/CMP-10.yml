@@ -1,0 +1,19 @@
+id: CMP-10
+family: RT-CMP
+part: II
+
+title: A node with tools wired to it must be able to receive them
+normative: >-
+  A node that has tools wired to it must be of a type that accepts tools. Wiring a
+  tool to a node type that cannot consume tools refuses compilation.
+
+posture: normative-target
+level: extended
+profiles:
+  - runtime
+
+added: "1.0"
+changed: "1.0"
+
+related:
+  - CMP-9

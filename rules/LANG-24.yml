@@ -1,0 +1,26 @@
+id: LANG-24
+family: GR-LANG
+part: I
+
+title: A null extraction is a miss, not a failure
+summary: >-
+  Extraction engines cannot tell a stored null from no match at all, so the
+  extractor treats both the same way — and only null, never a falsy value.
+
+normative: >-
+  An extraction that evaluates cleanly and yields null is a miss: the configured
+  default is delivered, the extractor reports success as false — meaning no
+  non-null match was found — and the node succeeds. Only null is a miss; false,
+  zero and the empty string are delivered as found.
+
+posture: normative-target
+level: core
+profiles:
+  - runtime
+
+added: "1.0"
+changed: "1.0"
+
+related:
+  - LANG-8
+  - LANG-22

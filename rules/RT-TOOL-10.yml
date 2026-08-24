@@ -1,0 +1,34 @@
+id: RT-TOOL-10
+family: RT-TOOL
+part: II
+
+title: A tool-calling pass reports whether it did any work
+
+summary: >-
+  An all-repeat pass returns a full list of tool messages and a successful outcome
+  while having invoked nothing, so an agent loop gated on "messages non-empty"
+  re-enters forever. This is the port that answers the question directly.
+
+normative: >-
+  A node that invokes tools reports `executed_any`, a boolean, and `executed`, the
+  call identifiers behind it — the complement of the `skipped` list. `executed_any`
+  is true when at least one call was handled for the first time in this run, which
+  includes a call naming a tool that is not wired: nothing was invoked, but the
+  recoverable "not an available tool" result is new and the model must re-plan
+  against it. An empty batch reports false. The two lists partition only the calls
+  that reach the guard: a call with no identifier always runs and appears in
+  neither while setting `executed_any`, and a malformed call — one that is not a
+  map, or whose name is blank or not a scalar — is dropped before the guard,
+  appears in neither, and leaves `executed_any` false. `executed_any` is exposed by
+  default; `executed` is not.
+
+posture: normative-target
+level: extended
+profiles:
+  - runtime
+
+added: "1.0"
+changed: "1.0"
+
+related:
+  - RT-TOOL-9

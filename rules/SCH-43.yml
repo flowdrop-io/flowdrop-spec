@@ -1,0 +1,35 @@
+id: SCH-43
+family: GR-SCHEMA
+part: I
+
+title: Shape compatibility is nominal and mostly derived
+summary: >-
+  Two shapes match because they carry the same name, never because their schemas
+  happen to agree — otherwise edge legality would drift every time a schema gained
+  a field.
+
+normative: >-
+  A shape is compatible with another because they share an id, never because two
+  schemas were compared. Structural matching would make edge legality depend on
+  schema evolution: two unrelated shapes that coincide today would silently
+  interconnect, and silently disconnect when one gained a field. Every shape
+  matches itself, and derives a one-way widening into `json` and into the sink — a
+  consumer already typed `json` must keep accepting a shaped value without being
+  rewired, and the reverse is refused because a bare object carries no guarantee of
+  the shape. Any further widening is a hand-written rule that states its reason
+  where it is declared. Shapes join the lane list before the sink and control rules
+  are generated, so a new lane receives those by construction rather than by a
+  second derivation.
+
+posture: normative-target
+level: extended
+profiles:
+  - storage-api
+  - editor-client
+
+added: "1.0"
+changed: "1.0"
+
+related:
+  - SCH-39
+  - SCH-42

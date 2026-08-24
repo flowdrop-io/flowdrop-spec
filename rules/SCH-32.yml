@@ -1,0 +1,34 @@
+id: SCH-32
+family: GR-SCHEMA
+part: I
+
+title: Every re-enterable node gets a hidden loop-back input
+summary: >-
+  Re-entry is a property of the graph, not of a handful of node types. Every node
+  that can be re-entered declares the port; it just ships hidden, so no canvas
+  gains a re-entry handle until an author asks for one.
+
+normative: >-
+  A reserved `loop_back` input is injected on every re-enterable node type — every
+  node type that is not a start, terminal or non-executable one — with display
+  order 95 and the `trigger` lane, and it ships hidden, so no canvas gains a
+  re-entry handle until an author exposes the port on that instance. A node type
+  that declares its own `loop_back` keeps it and the injection is skipped, because
+  such a declaration carries semantics the injection does not. Because the port is
+  now declared rather than absent, an edge drawn into an unexposed `loop_back` is
+  refused as an edge into an unexposed port, where previously it fell outside the
+  check entirely.
+
+posture: normative-target
+level: extended
+profiles:
+  - storage-api
+  - editor-client
+
+added: "1.0"
+changed: "1.0"
+
+related:
+  - SCH-16
+  - SCH-37
+  - SCH-38

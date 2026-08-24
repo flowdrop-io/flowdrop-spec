@@ -1,0 +1,21 @@
+id: R7.b
+family: GR-VAL
+part: I
+
+title: An edge may not leave a hidden output port
+
+normative: >-
+  An edge whose source port is declared by the source node's node type but is
+  not exposed on that node is refused with `R7_EDGE_SOURCE_NOT_EXPOSED` at
+  `edge.{index}`.
+
+posture: normative-target
+level: core
+profiles:
+  - storage-api
+
+added: "1.0"
+changed: "1.0"
+
+related:
+  - R7.c

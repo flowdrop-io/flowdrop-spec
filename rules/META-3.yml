@@ -1,0 +1,28 @@
+id: META-3
+family: RT-META
+part: II
+
+title: A failed read answers a fixed message and reports the real one
+summary: >-
+  The category door was the counter-example: it returned whatever the storage
+  layer said and logged nothing, so a class name or a failed query was published
+  to any caller who could read the list.
+
+normative: >-
+  Where a read fails, the response body carries a fixed message naming what
+  failed and nothing more; the underlying error is reported through the
+  implementation's own error channel, never published to the caller. This binds
+  cacheable responses exactly as it binds every other kind: an error shape is not
+  exempt because it is served from a different response path.
+
+posture: normative-target
+level: extended
+profiles:
+  - runtime
+  - editor-client
+
+added: "1.0"
+changed: "1.0"
+
+related:
+  - META-1

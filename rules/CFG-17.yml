@@ -1,0 +1,30 @@
+id: CFG-17
+family: GR-CFG
+part: I
+
+title: A hidden port cannot be filled through the bundle
+
+summary: >-
+  Decomposition filters on `connectable` alone, so a hidden port's key can survive
+  the unpacking. Resolution then applies the exposure gate a second time. Two
+  guards, one outcome: a hidden port is not fillable, by any route.
+
+normative: >-
+  Decomposition of the unified `input` port (CFG-16) admits a key on the strength
+  of `connectable` alone. A value that reaches a hidden connectable port this way
+  is still discarded when the parameter is resolved, because priority 1 requires
+  the port to be exposed (CFG-4). Bundling a value must never fill a port that
+  could not be wired directly.
+
+posture: normative-target
+level: extended
+profiles:
+  - storage-api
+
+added: "1.0"
+changed: "1.0"
+
+related:
+  - CFG-4
+  - CFG-16
+  - EXPO-10

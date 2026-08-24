@@ -1,0 +1,23 @@
+id: SCH-21
+family: GR-SCHEMA
+part: I
+
+title: The reserved config properties every node carries
+
+normative: >-
+  `instanceTitle` and `instanceDescription` are injected into every node's config
+  schema; `maxRetries` and `ports` into an executable node's config schema only.
+  Each injection is skipped where the node type already declares a property of that
+  name.
+
+posture: normative-target
+level: extended
+profiles:
+  - storage-api
+  - editor-client
+
+added: "1.0"
+changed: "1.0"
+
+related:
+  - SCH-20

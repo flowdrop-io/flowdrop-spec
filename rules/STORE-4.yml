@@ -1,0 +1,31 @@
+id: STORE-4
+family: GR-STORE
+part: I
+
+title: Absent collections default to empty, and an update touches only what it sends
+
+summary: >-
+  An update is partial. What a caller does not send, it does not change — which is
+  what lets an editor save one part of a workflow without holding the whole of it.
+
+normative: >-
+  On create, `nodes`, `edges` and `metadata` default to the empty list when absent,
+  and a workflow that declares no `interface` declares no ports. On update, a key the
+  request omits is left as stored; `name` is the exception, required on update as on
+  create. An `interface` present on update rewrites both port lists from it even when
+  only one side is supplied, so a missing or empty `inputs` or `outputs` clears that
+  side. The `metadata` published on read need not be identical to the `metadata` as
+  stored: an implementation may fold envelope fields such as `format` and
+  `schemaVersion` back into it on read.
+
+posture: normative-target
+level: core
+profiles:
+  - storage-api
+
+added: "1.0"
+changed: "1.0"
+
+related:
+  - STORE-2
+  - STORE-14

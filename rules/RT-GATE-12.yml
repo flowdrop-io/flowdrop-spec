@@ -1,0 +1,33 @@
+id: RT-GATE-12
+family: RT-GATE
+part: II
+
+title: A resolved secret never persists in the gate prompt
+
+summary: >-
+  The prompt an operator reads is stored verbatim. A credential that was substituted
+  into an argument must not be stored along with it — while the consent must still
+  bind to the real call.
+
+normative: >-
+  Where a secret reference was substituted into a parameter's value, that parameter
+  is tracked by its top-level name and its whole value is replaced with `<secret>`
+  in the prompt shown to the operator and persisted with the interrupt. Tracking is
+  by parameter rather than by matching the secret's text, because the substitution
+  may be partial or nested inside a structured value. The consent arguments keep the
+  real values, so that consents for different secret values remain distinguishable,
+  and only their digest is ever persisted (RT-GATE-3). This covers secrets supplied
+  by configuration only: values delivered by an edge or produced upstream are shown
+  as they are, deliberately — the operator is approving what will be sent.
+
+posture: normative-target
+level: core
+profiles:
+  - runtime
+
+added: "1.0"
+changed: "1.0"
+
+related:
+  - RT-GATE-1
+  - RT-GATE-3

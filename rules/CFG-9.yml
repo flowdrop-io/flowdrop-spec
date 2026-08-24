@@ -1,0 +1,23 @@
+id: CFG-9
+family: GR-CFG
+part: I
+
+title: A required parameter that resolves to null fails the node
+
+normative: >-
+  Where a parameter is required and the resolution chain (CFG-4 to CFG-6) yields
+  null, the node execution fails with a missing-parameter error naming the
+  parameter. The check runs after the whole chain has been walked and before the
+  resolved value would be validated (CFG-10).
+
+posture: normative-target
+level: core
+profiles:
+  - storage-api
+
+added: "1.0"
+changed: "1.0"
+
+related:
+  - CFG-6
+  - CFG-10

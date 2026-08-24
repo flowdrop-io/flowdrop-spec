@@ -1,0 +1,31 @@
+id: SCH-35
+family: GR-SCHEMA
+part: I
+
+title: Lane derivation is total, and an undeclared port is the sink
+summary: >-
+  "What does an undeclared port mean?" once had seven disagreeing answers. It has
+  one: the sink.
+
+normative: >-
+  Every one of JSON Schema's seven type words derives a lane, and both `null` and
+  an absent `type` resolve to the sink lane `mixed`. Derivation never falls back to
+  `string`. Every reader of a port's lane gives the same answer: the derivation
+  itself, the served default lane, the projection of a workflow's interface, and an
+  editor's own default alike. Because an undeclared port is the sink rather than a
+  string, a caller may supply any JSON value to it, an array or null included.
+
+posture: normative-target
+level: core
+profiles:
+  - storage-api
+  - editor-client
+
+added: "1.0"
+changed: "1.0"
+
+related:
+  - SCH-9
+  - SCH-10
+  - SCH-34
+  - SCH-40

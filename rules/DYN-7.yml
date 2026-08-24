@@ -1,0 +1,23 @@
+id: DYN-7
+family: GR-DYN
+part: I
+
+title: Dynamic port definitions are configuration, never a wireable input port
+
+normative: >-
+  The reserved parameter holding a node's dynamic port definitions is never a
+  wireable input port. It appears in the node's configuration schema only where the
+  node type marks it configurable, taking its value from the node type's default,
+  else the parameter's schema default, else the empty list. Without that opt-in it
+  appears in neither the configuration schema nor the input schema, and the node's
+  dynamic port definitions resolve to empty: stored definitions do not survive an
+  opt-out.
+
+posture: normative-target
+level: extended
+profiles:
+  - storage-api
+  - editor-client
+
+added: "1.0"
+changed: "1.0"

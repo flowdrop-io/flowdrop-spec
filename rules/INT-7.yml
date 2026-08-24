@@ -1,0 +1,26 @@
+id: INT-7
+family: RT-INT
+part: II
+
+title: The workflow version is a structural digest
+
+summary: >-
+  Two implementations must agree on whether a snapshot still fits its workflow.
+  Moving a node on the canvas is not a change to the workflow it snapshots.
+
+normative: >-
+  A workflow's version is the first 16 hexadecimal characters of a SHA-256 digest
+  over the workflow's structural data only. Presentational data — labels, canvas
+  positions — must not change it.
+
+posture: normative-target
+level: extended
+profiles:
+  - runtime
+
+added: "1.0"
+changed: "1.0"
+
+related:
+  - INT-6
+  - INT-8

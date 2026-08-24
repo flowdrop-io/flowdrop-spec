@@ -1,0 +1,18 @@
+id: LANG-17
+family: GR-LANG
+part: I
+
+title: Dot and bracket path segments are interchangeable everywhere
+
+normative: >-
+  A property path may be written with dot segments, bracket segments, or a mixture
+  of the two. An implementation normalizes them to a single form before parsing,
+  and every place it reads a property path resolves the two spellings identically.
+
+posture: normative-target
+level: extended
+profiles:
+  - runtime
+
+added: "1.0"
+changed: "1.0"

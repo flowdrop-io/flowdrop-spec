@@ -1,0 +1,26 @@
+id: R6.l
+family: GR-VAL
+part: I
+
+title: A malformed secret reference warns the author
+
+summary: >-
+  Writing `{{ secrets.NAME }}` instead of `${{ secrets.NAME }}` produces a
+  literal string at execution rather than a secret, silently and with no error.
+  The warning exists to catch the missing `$` while the author is still looking.
+
+normative: >-
+  A string in a node's `config` that contains `{{ secrets.` without the leading
+  `$` yields a warning at `node.{id}.config.{key}` telling the author to write
+  `${{ secrets.NAME }}`. Config is walked recursively, so a reference nested
+  inside structured config is covered. A correctly written `${{ secrets.NAME }}`
+  produces no warning, and the save is never blocked either way.
+
+posture: normative-target
+level: extended
+profiles:
+  - storage-api
+  - editor-client
+
+added: "1.0"
+changed: "1.0"

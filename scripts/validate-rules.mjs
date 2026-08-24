@@ -49,7 +49,11 @@ for (const file of files) {
     fail(`rules/${file}`, 'has no id');
     continue;
   }
-  if (file !== `${doc.id}.yml`) fail(`rules/${file}`, `filename should be ${doc.id}.yml`);
+  // An identifier may contain a slash (R7.e/f), which no filename can carry.
+  // The file is named for the id with slashes replaced by a hyphen; the id itself
+  // is never rewritten, because identifiers are permanent.
+  const fileFor = (id) => `${id.replace(/\//g, '-')}.yml`;
+  if (file !== fileFor(doc.id)) fail(`rules/${file}`, `filename should be ${fileFor(doc.id)}`);
   if (rules.has(doc.id)) fail(`rules/${file}`, `duplicate id ${doc.id}`);
   rules.set(doc.id, doc);
 }

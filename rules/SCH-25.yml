@@ -1,0 +1,25 @@
+id: SCH-25
+family: GR-SCHEMA
+part: I
+
+title: Enrichment anchors on the node type and changes nothing else
+
+normative: >-
+  A node is enriched from the node type it records, and from nothing else.
+  Enrichment replaces the node's metadata and sets the node's type to the universal
+  node constant; the node's config, id, label and position are untouched, so
+  running it twice changes nothing. Where the node records no node type, or where
+  the node type no longer builds, the node is returned unchanged and no metadata
+  key is added to it.
+
+posture: normative-target
+level: core
+profiles:
+  - storage-api
+  - editor-client
+
+added: "1.0"
+changed: "1.0"
+
+related:
+  - SCH-29

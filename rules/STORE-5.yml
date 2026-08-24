@@ -1,0 +1,26 @@
+id: STORE-5
+family: GR-STORE
+part: I
+
+title: A workflow refused by validation is never partially stored
+
+normative: >-
+  A workflow that fails validation on create or on update is refused with 422 carrying
+  `success: false`, a human-readable `error`, and `details` — a list of
+  `{code, message, locator}` entries, one per error, each `locator` naming the position
+  in the submitted workflow the error is about. Only errors refuse and only errors are
+  reported: a workflow carrying warnings alone is stored, and its warnings appear
+  nowhere in the response. Create and update refuse identically, and a refused update
+  leaves the stored workflow untouched.
+
+posture: normative-target
+level: core
+profiles:
+  - storage-api
+
+added: "1.0"
+changed: "1.0"
+
+related:
+  - STORE-9
+  - API-8

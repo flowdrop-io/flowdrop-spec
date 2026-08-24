@@ -1,0 +1,17 @@
+id: LANG-14
+family: GR-LANG
+part: I
+
+title: A leading `$` decides JSONPath from property path
+
+normative: >-
+  A path is a JSONPath query if and only if the string, once trimmed of surrounding
+  whitespace, begins with `$`. Every other path is a property path.
+
+posture: normative-target
+level: core
+profiles:
+  - runtime
+
+added: "1.0"
+changed: "1.0"

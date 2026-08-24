@@ -1,0 +1,28 @@
+id: EDGE-1
+family: GR-EDGE
+part: I
+
+title: A handle encodes the node, the direction and the port
+
+summary: >-
+  A wire carries no declared type. Everything the system deduces about it, it deduces
+  from the two handles, so how a handle is spelled and split is grammar, not detail.
+
+normative: >-
+  A port handle is spelled `{nodeId}-{input|output}-{portName}`. The port name is
+  everything following the first `-input-` or `-output-` marker in the handle, so a
+  port name may itself contain a direction marker. Classification by port is an exact
+  suffix match, never a substring match: a handle that merely contains a reserved port
+  suffix is not classified by it unless the handle ends with it.
+
+posture: normative-target
+level: core
+profiles:
+  - storage-api
+
+added: "1.0"
+changed: "1.0"
+
+related:
+  - EDGE-3
+  - EDGE-4

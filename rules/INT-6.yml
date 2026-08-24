@@ -1,0 +1,35 @@
+id: INT-6
+family: RT-INT
+part: II
+
+title: What a run snapshot contains, and that it never fails the run
+
+summary: >-
+  A snapshot is a best-effort record of progress. It is precise about what it
+  carries, and it is never allowed to be the reason a run breaks.
+
+normative: >-
+  A snapshot of a run carries the workflow identifier (the literal `unknown`, with
+  an empty workflow version, when the run has no workflow), the structural workflow
+  version (INT-7), the execution identifier, the caller-supplied status, the run's
+  initial input, metadata naming the engine and the run, and one node snapshot per
+  job keyed by node identifier. Per node, job status maps one-to-one onto node
+  status except that both `skipped` and `cancelled` become `skipped`, and any
+  unrecognised status becomes `idle`; a node's output is carried only for a
+  completed job and its error only for a failed one, alongside whether the node was
+  injected, its execution order, and its job identifier. Snapshot generation must
+  never fail the run: where no state is available, or generation raises an error,
+  the result is no snapshot, recorded in the log.
+
+posture: normative-target
+level: extended
+profiles:
+  - runtime
+
+added: "1.0"
+changed: "1.0"
+
+related:
+  - INT-7
+  - INT-9
+  - INT-13

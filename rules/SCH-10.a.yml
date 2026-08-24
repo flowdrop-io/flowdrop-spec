@@ -1,0 +1,38 @@
+id: SCH-10.a
+family: GR-SCHEMA
+part: I
+
+title: A site's lane configuration overlays the shipped one
+summary: >-
+  A site may recolour, rename or add lanes. What it stores is a patch on the
+  shipped vocabulary — serving it as a replacement freezes the vocabulary at the
+  moment it was saved.
+
+normative: >-
+  A stored site-level lane configuration is an overlay on the shipped defaults, not
+  a replacement. Stored entries win outright — a recoloured or renamed lane, a
+  site-only lane, the site's own compatibility rules — and shipped entries the
+  stored value never mentions fill the gaps: lanes are merged per id with
+  unmentioned shipped ids appended after the stored ones, so the site's ordering
+  survives; compatibility rules are unioned on the `from`/`to` pair; scalar keys
+  are stored-wins. There is no negative form, so a site cannot suppress a shipped
+  rule by omission — the safe direction, since a missing rule silently refuses a
+  valid edge while an extra one only permits. Serving a stored overlay wholesale is
+  a defect: every lane added after it was saved would go missing, and by SCH-10's
+  coupling every port carrying such a lane would be compatible with nothing, not
+  even with itself.
+
+posture: normative-target
+level: extended
+profiles:
+  - storage-api
+  - editor-client
+
+added: "1.0"
+changed: "1.0"
+
+related:
+  - SCH-10
+  - SCH-41
+  - SCH-44
+  - SCH-46

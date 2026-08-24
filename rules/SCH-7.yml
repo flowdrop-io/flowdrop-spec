@@ -1,0 +1,19 @@
+id: SCH-7
+family: GR-SCHEMA
+part: I
+
+title: An output is exposed unless the node type says otherwise
+
+normative: >-
+  A declared output survives into a node's metadata unless the node type marks that
+  output not exposed. Where the node type says nothing about it, the output is
+  exposed: the default is fail-open.
+
+posture: normative-target
+level: core
+profiles:
+  - storage-api
+  - editor-client
+
+added: "1.0"
+changed: "1.0"

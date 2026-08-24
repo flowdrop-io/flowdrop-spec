@@ -1,0 +1,23 @@
+id: SCH-1
+family: GR-SCHEMA
+part: I
+
+title: A node's ports come from its two declared schemas
+summary: >-
+  Everything an editor draws on a node — its input ports and its output ports —
+  is derived from two schemas the node type declares. Nothing else is a source.
+
+normative: >-
+  A node type declares its input surface as one JSON Schema and its output surface
+  as another. Those two schemas are the only source of a node's ports. The node
+  type's own registration declaration carries no port data and no visual data: a
+  port list, an icon or a category appearing there is a defect.
+
+posture: normative-target
+level: core
+profiles:
+  - storage-api
+  - editor-client
+
+added: "1.0"
+changed: "1.0"

@@ -1,0 +1,22 @@
+id: API-2
+family: GR-API
+part: I
+
+title: The turn door and the launch door judge inputs identically
+
+normative: >-
+  A session turn's `inputs` are checked exactly as a launch's are: an undeclared key is
+  refused, a declared required input is enforced, values are checked against the
+  declared schema, and resolution into the run's initial data is strict. The same body
+  earns the same verdict at both doors. A turn must not accept, by merging raw caller
+  input into the run's initial data, anything the launch door would refuse. A turn
+  whose inputs are refused is refused with 400.
+
+posture: normative-target
+level: core
+profiles:
+  - storage-api
+  - runtime
+
+added: "1.0"
+changed: "1.0"

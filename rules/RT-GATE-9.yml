@@ -1,0 +1,35 @@
+id: RT-GATE-9
+family: RT-GATE
+part: II
+
+title: Dynamic escalation can add an approval but never remove one
+
+summary: >-
+  Data flowing into a node — including arguments a model filled — may raise the bar
+  for that execution. It may never lower it.
+
+normative: >-
+  Where governance grants the dynamic escalation control, the node type declares a
+  reserved confirmation input port, hidden by default, and a truthy value delivered
+  to it gates that execution. A falsy value does not participate: upstream data can
+  add an approval requirement and must never remove one. A value whose truthiness
+  cannot be determined escalates — over-asking is the fail-safe direction for a
+  value crossing a port. Enforcement is at the gate, not at authoring time: an
+  undeclared port is wireable regardless, so identical wiring on a node type without
+  the grant delivers a value the runtime ignores. The escalation is not a resolved
+  parameter and must not reach the node's parameters; it is bound into the consent
+  arguments explicitly, so that a change of policy between two executions forces a
+  fresh question (RT-GATE-3).
+
+posture: normative-target
+level: extended
+profiles:
+  - runtime
+
+added: "1.0"
+changed: "1.0"
+
+related:
+  - RT-GATE-3
+  - RT-GATE-7
+  - RT-GATE-8

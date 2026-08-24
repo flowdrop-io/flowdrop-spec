@@ -1,0 +1,23 @@
+id: SCH-29
+family: GR-SCHEMA
+part: I
+
+title: Stored metadata is never authoritative at run time
+
+normative: >-
+  Before a workflow runs, every node is re-enriched from its live node type and the
+  workflow is normalized from the result. Metadata stored with the workflow is
+  never authoritative at run time.
+
+posture: normative-target
+level: core
+profiles:
+  - storage-api
+  - runtime
+
+added: "1.0"
+changed: "1.0"
+
+related:
+  - SCH-25
+  - SCH-28

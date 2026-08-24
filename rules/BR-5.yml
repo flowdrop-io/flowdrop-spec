@@ -1,0 +1,21 @@
+id: BR-5
+family: RT-BR
+part: II
+
+title: Branch gating applies to trigger and data edges alike
+
+normative: >-
+  Branch gating applies to an edge regardless of the kind of port it arrives at. A
+  trigger edge and a data edge leaving the same gated port are both gated, on the
+  same test.
+
+posture: normative-target
+level: core
+profiles:
+  - runtime
+
+added: "1.0"
+changed: "1.0"
+
+related:
+  - BR-1

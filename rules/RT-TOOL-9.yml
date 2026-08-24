@@ -1,0 +1,36 @@
+id: RT-TOOL-9
+family: RT-TOOL
+part: II
+
+title: A tool call executes at most once per run
+
+summary: >-
+  A tool call has side effects. One node can be reached twice in a run — by a
+  fan-in, or by a re-ask after a human approved a gated call — and the same batch
+  of calls arrives with it.
+
+normative: >-
+  A run records each tool call it has executed, keyed by the call identifier, and
+  does not invoke a call whose identifier it has already recorded. The repeat is
+  reported on a `skipped` output, and the stored result of its first execution —
+  the tool-role message and whether it succeeded — is re-emitted among the run's
+  tool messages and results and counted in the batch's outcome. Re-emitting rather
+  than dropping is required: a batch that paused midway never delivered the
+  already-executed call's message downstream, so dropping the repeat would leave a
+  declared call identifier unanswered and invite the model to retry it under a
+  fresh, unguardable one. A call is recorded only once it has returned a result,
+  success or a recoverable error, and never before it is invoked — so a call that
+  interrupts the node for human approval is re-asked and executed once approved,
+  rather than looking already-executed and being silently dropped. A call that
+  carries no identifier cannot be guarded and always runs.
+
+posture: normative-target
+level: extended
+profiles:
+  - runtime
+
+added: "1.0"
+changed: "1.0"
+
+related:
+  - RT-TOOL-10

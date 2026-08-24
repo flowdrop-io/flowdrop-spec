@@ -1,0 +1,26 @@
+id: DATA-5
+family: RT-DATA
+part: II
+
+title: Loopback and tool edges create no execution dependency
+
+normative: >-
+  An edge into the reserved `loop_back` input port, and an edge that wires a tool
+  to a consumer, create no execution dependency. Neither is considered when the
+  graph is checked for circular dependencies, and neither is considered when a
+  node's readiness is evaluated. A node whose only incoming edges are of those two
+  kinds is therefore ready at once. For tool edges this is required rather than
+  convenient: a tool node never becomes a unit of execution, so it can never
+  complete, and a tool edge that gated its consumer would starve it forever.
+
+posture: normative-target
+level: core
+profiles:
+  - runtime
+
+added: "1.0"
+changed: "1.0"
+
+related:
+  - DATA-4
+  - DATA-10

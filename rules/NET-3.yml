@@ -1,0 +1,29 @@
+id: NET-3
+family: RT-NET
+part: II
+
+title: The redirect posture is stated, not inherited
+summary: >-
+  These restate what most HTTP clients already default to, deliberately: the
+  posture is a decision, not whatever the client happens to ship.
+
+normative: >-
+  Outbound requests follow at most 5 redirects. A redirect of a POST degrades to
+  GET rather than preserving the method. The originating URL and its query string
+  are never sent to the next host as a referrer. Hops are restricted to `http`
+  and `https`, so the scheme check cannot be sidestepped mid-chain. Where a node
+  is configured to permit internal requests, the per-hop check is dropped exactly
+  as the initial check is — a node allowed to talk to the internal network may
+  also be redirected within it — but the hop limit binds either way.
+
+posture: normative-target
+level: extended
+profiles:
+  - runtime
+
+added: "1.0"
+changed: "1.0"
+
+related:
+  - NET-1
+  - NET-2

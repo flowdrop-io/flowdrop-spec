@@ -1,0 +1,29 @@
+id: SG-7
+family: RT-SG
+part: II
+
+title: A loop's budget counts rounds of the loop, not executions of a node
+
+normative: >-
+  Re-entry over a loopback edge happens only while the edge's branch is active and
+  the loop still has budget — either its iterator has more items, or the number of
+  rounds the loop has run is below the configured maximum. That bound is per loop,
+  keyed by the loop's head, and counts rounds rather than executions of any one
+  node in the body. The two coincide only on a body where every node runs every
+  round; on a body with a conditional arm, a node that runs on some rounds only
+  lags behind, and counting its executions would let the loop keep re-entering
+  after the author's budget was spent. The round counters are restored when a
+  paused run resumes, so the bound holds across a pause.
+
+posture: normative-target
+level: core
+profiles:
+  - runtime
+
+added: "1.0"
+changed: "1.0"
+
+related:
+  - SG-16
+  - SG-17
+  - SG-14

@@ -1,0 +1,28 @@
+id: MAN-1
+family: GR-MAN
+part: I
+
+title: A workflow's launch inputs are declared, never inferred
+summary: >-
+  The launch surface is the author's decision, written down. If it were derived
+  from what the nodes happen to expose, adding a parameter to a node would widen
+  what the outside world may send.
+
+normative: >-
+  The inputs a caller may supply when launching a workflow are a manifest the
+  author declared on the workflow, and are never derived from port exposure. A
+  declared entry is built into the workflow's contract even when the instance
+  hides the port it names, and a port that is exposed but not declared never
+  reaches the contract.
+
+posture: normative-target
+level: core
+profiles:
+  - storage-api
+
+added: "1.0"
+changed: "1.0"
+
+related:
+  - MAN-2
+  - MAN-3

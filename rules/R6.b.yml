@@ -1,0 +1,32 @@
+id: R6.b
+family: GR-VAL
+part: I
+
+title: Required config keys must be present
+
+summary: >-
+  The list of required keys is the one the node type's derived config schema
+  publishes, not the node type's raw required flags — a parameter that can be
+  fed by an edge is deliberately not required in config.
+
+normative: >-
+  Every key the node's derived config schema marks required must be present in
+  the node's `config`. A key present with the value `null` counts as present.
+  Each missing key yields one `R6_CONFIG_REQUIRED` at
+  `node.{id}.config.{key}` — where `{id}` is the node's id and `{key}` the
+  missing key — and the save does not take effect. A parameter the node type
+  also marks connectable does not appear on the derived required list, so its
+  absence from `config` is accepted at save even when no edge supplies it; the
+  omission is decided from the node type's declared flags and never from the
+  workflow's actual edges.
+
+posture: normative-target
+level: core
+profiles:
+  - storage-api
+
+added: "1.0"
+changed: "1.0"
+
+related:
+  - R6.i

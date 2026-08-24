@@ -1,0 +1,35 @@
+id: SG-16
+family: RT-SG
+part: II
+
+title: What a loop is — its body, and that it is keyed by its head
+
+summary: >-
+  A loopback edge on a canvas draws a cycle, but the loop is the set of nodes that
+  cycle actually turns. Nearly everything about rounds, budgets and staleness rests
+  on this definition.
+
+normative: >-
+  For a loopback edge running from tail S back to head H, the loop's body is
+  `({H} ∪ descendants(H)) ∩ ({S} ∪ ancestors(S))`, computed over the forward graph
+  alone: every edge type excluded from execution is excluded here too. The bodies
+  of loopback edges sharing a head are unioned — a loop is keyed by its head, so
+  two tails re-entering one node are two continuations of one loop with one round
+  counter, and not two loops. Membership is topological, not observed: a node on a
+  conditional arm inside the body is in the loop even on rounds it does not run,
+  while a node downstream of the tail but not upstream of it, and a dead end that
+  cannot reach the tail, are both outside it, since neither can influence a later
+  round. A loopback edge whose tail is not downstream of its head closes no cycle
+  and yields a body containing only the head, rather than being discarded.
+
+posture: normative-target
+level: core
+profiles:
+  - runtime
+
+added: "1.0"
+changed: "1.0"
+
+related:
+  - SG-17
+  - SG-18

@@ -1,0 +1,29 @@
+id: MD-2
+family: RT-MD
+part: II
+
+title: Encoded exactly once, and quoted where a quote would end an attribute
+summary: >-
+  The counterpart to encoding the whole input up front: nothing downstream may
+  encode a second time, and the few places a value is interpolated into an
+  attribute need the quote characters that the text path deliberately leaves alone.
+
+normative: >-
+  Text is encoded exactly once. A sequence the conversion itself wrote must not be
+  encoded again: a `<` in the markdown source appears in the output as `&lt;` and
+  never as `&amp;lt;`. A text node may keep literal quote characters, which are
+  harmless there. A value interpolated into an attribute — a link target, an image
+  source, an image alternative text — must have its quote characters escaped, so
+  the value cannot end its own attribute and open an event handler. A URL carrying
+  a dangerous scheme must be stripped rather than emitted.
+
+posture: normative-target
+level: extended
+profiles:
+  - runtime
+
+added: "1.0"
+changed: "1.0"
+
+related:
+  - MD-1

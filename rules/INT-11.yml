@@ -1,0 +1,26 @@
+id: INT-11
+family: RT-ORC
+part: II
+
+title: A terminal run refuses re-entry; re-running makes a new run
+summary: >-
+  This is what makes cancellation durable — no requeue or rerun can resurrect a dead run
+  and fire its side-effecting nodes again.
+
+normative: >-
+  A run in a terminal status — completed, failed or cancelled — refuses re-entry, on every
+  path that could re-enter it: no work is executed and the run is left untouched. Re-running
+  always creates a new run, seeded with the source run's input and recording which run it is
+  a re-run of.
+
+posture: normative-target
+level: core
+profiles:
+  - runtime
+
+added: "1.0"
+changed: "1.0"
+
+related:
+  - ORC-11
+  - ORC-15

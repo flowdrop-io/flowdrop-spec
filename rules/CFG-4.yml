@@ -1,0 +1,29 @@
+id: CFG-4
+family: GR-CFG
+part: I
+
+title: Priority 1 — a value delivered on a wire
+
+summary: >-
+  The first place a parameter's value can come from is the run itself: a value
+  another node sent down a wire, or a value the launch payload supplied.
+
+normative: >-
+  A parameter takes its value from the runtime inputs when the parameter is
+  internal, or is both connectable and exposed, and the runtime inputs contain a
+  key of that name. A key present with a null value counts as supplied (CFG-7). A
+  parameter that fails this test falls through to priority 2 (CFG-5).
+
+posture: normative-target
+level: core
+profiles:
+  - storage-api
+
+added: "1.0"
+changed: "1.0"
+
+related:
+  - CFG-5
+  - CFG-6
+  - CFG-7
+  - EXPO-10

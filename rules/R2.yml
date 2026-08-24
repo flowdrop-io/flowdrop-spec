@@ -1,0 +1,26 @@
+id: R2
+family: GR-VAL
+part: I
+
+title: Node ids are unique within a workflow
+
+summary: >-
+  A workflow is read by keying its nodes on their ids. Two nodes sharing one id
+  would silently collapse to whichever was read last, so the duplicate is
+  refused at save instead.
+
+normative: >-
+  Node `id`s must be unique within a workflow. A workflow containing two nodes
+  with the same `id` is refused with the error code `R2_NODE_DUPLICATE_ID`, and
+  the save does not take effect.
+
+posture: normative-target
+level: core
+profiles:
+  - storage-api
+
+added: "1.0"
+changed: "1.0"
+
+rulings:
+  - OPEN-4

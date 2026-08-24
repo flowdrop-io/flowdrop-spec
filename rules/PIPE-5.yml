@@ -1,0 +1,37 @@
+id: PIPE-5
+family: RT-PIPE
+part: II
+
+title: A run's jobs are the ones the run itself names
+summary: >-
+  Every surface that publishes jobs answers from the run's own list of them, so
+  the full document, the job list and the job status summary can never disagree
+  about which jobs a run has.
+
+normative: >-
+  A run holds the reference to each job as that job is created, and that
+  reference is the only source from which jobs are resolved: the full run
+  document, the run's job list and the run's job status summary must all publish
+  the same set. A job must not be attributed to a run by scanning jobs for a
+  stamp, because nothing is required to write one. Where a single job is read
+  outside the context of a run, its reported `pipeline_id` is the most recent run
+  that references it among those the caller may view — candidates are ordered so
+  that two identical requests answer identically, and a candidate the caller may
+  not view is walked past rather than returned as null, since seeing a job is not
+  authority to learn which run it belonged to. The walk is bounded, and null means
+  no candidate is viewable. More than one referencing run is a broken invariant
+  and is reported, naming the job and every candidate, rather than resolved by an
+  arbitrary pick. Each run-scoped surface additionally filters its jobs by
+  per-job view authority: authority over a run never implies authority over its
+  jobs.
+
+posture: normative-target
+level: extended
+profiles:
+  - runtime
+
+added: "1.0"
+changed: "1.0"
+
+related:
+  - PIPE-7

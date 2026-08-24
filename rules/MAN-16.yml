@@ -1,0 +1,41 @@
+id: MAN-16
+family: GR-MAN
+part: I
+
+title: The value check enforces type and enum, and declares the rest
+summary: >-
+  A published contract says more than the launch boundary enforces. That is a real
+  distinction and worth stating, so a caller does not read an unenforced keyword
+  as a guarantee.
+
+normative: >-
+  The per-value stage of the launch check enforces exactly two things from a
+  contract fragment: `type` and `enum`. Every other published key — `minimum`,
+  `maximum`, `minLength`, `maxLength`, `pattern`, and nested `properties` or
+  `items` — is declared in the contract and not enforced here, as is a `type` that
+  is not a single string. The top-level required list is the one declared key that
+  is enforced, and it is enforced by the earlier missing-input stage. Values are
+  never coerced. Every structured type collapses to a single check that the value
+  is a collection. The types meaning "any value" waive the type check entirely,
+  matching every value including null and a collection, while still honouring
+  `enum`; they are declared no-constraint types, and a boundary that refused what
+  the runtime accepts would give a port's declared type two meanings. `enum`
+  compares by identity, so a number and its string spelling are different values.
+  Violations across several inputs are aggregated into one refusal, and an input
+  with no contract fragment skips the value check.
+
+posture: normative-target
+level: core
+profiles:
+  - storage-api
+
+added: "1.0"
+changed: "1.0"
+
+rulings:
+  - OPEN-16
+
+related:
+  - MAN-5
+  - MAN-15
+  - MAN-21

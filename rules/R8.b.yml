@@ -1,0 +1,21 @@
+id: R8.b
+family: GR-VAL
+part: I
+
+title: An edge's target node must exist
+
+normative: >-
+  An edge whose `target` does not name a node in the workflow is refused with
+  `R8_EDGE_TARGET_MISSING` at `edge.{index}`, where `{index}` is the edge's
+  position in the workflow's edge list. An empty `target` counts as missing.
+
+posture: normative-target
+level: core
+profiles:
+  - storage-api
+
+added: "1.0"
+changed: "1.0"
+
+related:
+  - R8.a

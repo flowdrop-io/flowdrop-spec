@@ -1,0 +1,28 @@
+id: ORC-9
+family: RT-ORC
+part: II
+
+title: A pipeline engine is a ready-work loop
+summary: >-
+  Re-entering a node on a later pass is what makes loops possible at all, and the empty
+  pass is what defines the end of the run.
+
+normative: >-
+  A pipeline engine repeatedly asks for the work that is ready. Each pass promotes every
+  idle unit of work whose dependencies are met to pending and persists that promotion,
+  then returns all pending work — including work already pending from an earlier pass —
+  ordered ascending by priority, so a lower priority number runs first. A unit whose
+  dependencies are unmet is left idle and untouched. The engine stops when a pass returns
+  nothing; that empty return is what quiescence means.
+
+posture: normative-target
+level: core
+profiles:
+  - runtime
+
+added: "1.0"
+changed: "1.0"
+
+related:
+  - ORC-10
+  - ORC-11

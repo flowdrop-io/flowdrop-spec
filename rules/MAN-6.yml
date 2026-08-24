@@ -1,0 +1,27 @@
+id: MAN-6
+family: GR-MAN
+part: I
+
+title: The author's words win over the node's
+summary: >-
+  A node's own annotation describes the port in general. The author describes what
+  this workflow means by it, so the author's text is the one a caller sees.
+
+normative: >-
+  Author-supplied metadata on a manifest entry is overlaid onto the contract
+  fragment after the fragment has been reduced, and overrides any annotation the
+  bound port declares. The overlay applies to the input side only. An empty value
+  is dropped rather than overlaid, so blank author metadata does not erase the
+  port's own.
+
+posture: normative-target
+level: extended
+profiles:
+  - storage-api
+
+added: "1.0"
+changed: "1.0"
+
+related:
+  - MAN-2
+  - MAN-5

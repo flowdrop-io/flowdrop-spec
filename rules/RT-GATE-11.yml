@@ -1,0 +1,32 @@
+id: RT-GATE-11
+family: RT-GATE
+part: II
+
+title: A gated node whose executor cannot be resolved never executes
+
+summary: >-
+  Fail-closed here means error, not ask. Reading a missing executor as "no side
+  effects" silently ungates the node; asking about a call that can never run trains
+  operators to rubber-stamp.
+
+normative: >-
+  Where a node's confirmation requirement must be derived from its executor and
+  that executor cannot be resolved — no such executor is defined, or its
+  implementation is unavailable — the node must not execute and must not raise a
+  confirmation prompt. The derivation fails, and the node fails as any node with an
+  unresolvable executor does. An implementation may elsewhere let callers probe an
+  executor's declarations without raising, treating an unresolvable one as declaring
+  nothing; that leniency must not be used at the gate, where it would read a missing
+  executor as harmless.
+
+posture: normative-target
+level: core
+profiles:
+  - runtime
+
+added: "1.0"
+changed: "1.0"
+
+related:
+  - RT-GATE-1
+  - RT-GATE-7

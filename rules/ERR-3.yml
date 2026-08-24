@@ -1,0 +1,21 @@
+id: ERR-3
+family: RT-ERR
+part: II
+
+title: A failure that is not node-level fails the run
+normative: >-
+  A failure that is not converted into an error output escapes the node: the node is
+  recorded as failed, no output exists for it, no error edge is followed, and the run
+  fails. The failure reported to the caller preserves the original cause.
+
+posture: normative-target
+level: core
+profiles:
+  - runtime
+
+added: "1.0"
+changed: "1.0"
+
+related:
+  - ERR-1
+  - ERR-8

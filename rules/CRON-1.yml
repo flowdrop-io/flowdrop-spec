@@ -1,0 +1,30 @@
+id: CRON-1
+family: RT-CRON
+part: II
+
+title: A cleared schedule means not scheduled, and every reader says so
+summary: >-
+  A schedule is invisible until it fires or fails to, so the component that decides
+  a trigger is due and the one that reports when it will next run must never
+  describe the same stored value differently. Blank-means-inactive is the reading
+  every comparable scheduler uses.
+
+normative: >-
+  A trigger whose cron expression is the empty string is not scheduled: it must not
+  fire, and a report of when it will next run must say it has none. Empty means
+  exactly empty — an expression that merely looks unfilled, such as `0`, is a
+  malformed expression and must be reported as invalid rather than as unset, so an
+  operator is never told to fill in a field that is already filled in. Whichever
+  component decides that a trigger is due and whichever reports its next run must
+  reach the same conclusion about the same stored schedule.
+
+posture: normative-target
+level: extended
+profiles:
+  - runtime
+
+added: "1.0"
+changed: "1.0"
+
+related:
+  - CRON-2

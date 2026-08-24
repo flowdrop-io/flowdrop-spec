@@ -1,0 +1,28 @@
+id: MEM-8
+family: GR-MEM
+part: I
+
+title: A session's memory principal is its owner or nobody
+summary: >-
+  Memory follows the conversation, not whoever happens to be driving it this
+  turn. An unowned conversation therefore has no user memory at all.
+
+normative: >-
+  When a session drives a workflow, the user identity passed into the execution
+  context is the session's own owner, and only when that owner is a real user. A
+  session with no owner, or owned by no real user, passes no user identity, and
+  must not fall back to the identity of the caller driving the turn — doing so
+  would hand one caller's memory bucket to the next. The identity passed this way
+  is what the `user` memory scope resolves.
+
+posture: normative-target
+level: core
+profiles:
+  - storage-api
+  - runtime
+
+added: "1.0"
+changed: "1.0"
+
+related:
+  - MEM-6

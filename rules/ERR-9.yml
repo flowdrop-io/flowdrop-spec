@@ -1,0 +1,28 @@
+id: ERR-9
+family: RT-ERR
+part: II
+
+title: A run whose every failure was handled completes
+summary: >-
+  The verdict is computed from unhandled failures, not from failures. One unrouted
+  failure fails the run no matter how many routed ones accompany it.
+
+normative: >-
+  A run finishes with status completed when every failed unit of work in it carries the
+  error-routed marker, and fails when any failed unit of work does not. A routed
+  failure is still announced on the ordinary "unit of work finished" channel, so
+  subscribers see it and discriminate on its status. A failed tool invocation always
+  counts as handled: a tool failure is delivered to its consumer as a recoverable
+  result.
+
+posture: normative-target
+level: core
+profiles:
+  - runtime
+
+added: "1.0"
+changed: "1.0"
+
+related:
+  - ERR-7
+  - ERR-8

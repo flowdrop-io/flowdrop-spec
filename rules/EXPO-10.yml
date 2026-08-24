@@ -1,0 +1,35 @@
+id: EXPO-10
+family: GR-EXPO
+part: I
+
+title: Hiding an input port changes precedence, it does not unset the parameter
+
+summary: >-
+  A value arriving at a hidden input is ignored, not rejected. The parameter still
+  gets a value — the author's, or the default — so hiding a port never turns a
+  working node into a failing one.
+
+normative: >-
+  Where a port is connectable but hidden, priority 1 is skipped rather than failed:
+  a value delivered on a wire or by a caller is ignored and resolution continues to
+  the author's saved config where the parameter is configurable and a key is
+  present (CFG-5), and otherwise to the effective default (CFG-6). Such a parameter
+  never takes its value from the runtime inputs, and is never left null merely
+  because its port is hidden. Internal parameters sit outside this gate and always
+  accept a runtime value (CFG-8).
+
+posture: normative-target
+level: core
+profiles:
+  - storage-api
+  - runtime
+
+added: "1.0"
+changed: "1.0"
+
+related:
+  - CFG-4
+  - CFG-5
+  - CFG-6
+  - CFG-8
+  - CFG-17

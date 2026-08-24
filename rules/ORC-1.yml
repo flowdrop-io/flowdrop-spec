@@ -1,0 +1,25 @@
+id: ORC-1
+family: RT-ORC
+part: II
+
+title: Four execution strategies, each with a stable identifier
+summary: >-
+  The same workflow can be run four ways. Which way is a deployment choice, not a
+  property of the workflow.
+
+normative: >-
+  An implementation provides four execution strategies: direct synchronous, synchronous
+  pipeline, asynchronous, and state graph. Each reports a stable identifier for itself,
+  and that identifier is what callers and stored configuration name it by.
+
+posture: normative-target
+level: core
+profiles:
+  - runtime
+
+added: "1.0"
+changed: "1.0"
+
+related:
+  - ORC-2
+  - ORC-5

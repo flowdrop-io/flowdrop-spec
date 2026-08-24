@@ -1,0 +1,32 @@
+id: MAN-5
+family: GR-MAN
+part: I
+
+title: The published contract carries structure and nothing else
+summary: >-
+  What a caller is told about an input is built from the bound port's own schema,
+  reduced to the keys that describe the value's shape. Annotations are re-attached
+  when the contract is read, not stored in it.
+
+normative: >-
+  Each contract fragment is built from the schema of the port its entry binds, and
+  reduced to exactly these keys: `type`, `enum`, `format`, `default`, `required`,
+  `properties`, `items`, `minimum`, `maximum`, `minLength`, `maxLength` and
+  `pattern`. Every other key is dropped, at every depth, recursing into each
+  declared property and into an item schema. Annotations such as `title`,
+  `description` and `examples`, and any extension key, therefore never reach the
+  stored contract; annotations are re-attached only when the contract is read with
+  annotation requested.
+
+posture: normative-target
+level: core
+profiles:
+  - storage-api
+
+added: "1.0"
+changed: "1.0"
+
+related:
+  - MAN-6
+  - MAN-7
+  - MAN-21

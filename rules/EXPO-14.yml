@@ -1,0 +1,31 @@
+id: EXPO-14
+family: GR-EXPO
+part: I
+
+title: A hidden output's value never reaches anything downstream
+
+summary: >-
+  Stripping is the first thing that happens to a result, which is what makes the
+  invariant hold rather than nearly hold. A value removed before anything else
+  looks at it cannot leak through a checkpoint, a job record, or a tool result.
+
+normative: >-
+  Exposure stripping (EXPO-11) runs before any other handling of a node's result:
+  before the unified `output` port is composed, before the result is checked for
+  serializability, before it is wrapped for delivery, and before it is written to
+  run records, checkpoints, real-time updates, or returned as a tool result. A
+  hidden output's value therefore never reaches any of them, and a value on a
+  hidden port that could not be serialized never fails the node.
+
+posture: normative-target
+level: core
+profiles:
+  - storage-api
+  - runtime
+
+added: "1.0"
+changed: "1.0"
+
+related:
+  - EXPO-11
+  - EXPO-12

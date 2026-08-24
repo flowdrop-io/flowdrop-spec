@@ -1,0 +1,23 @@
+id: DYN-1
+family: GR-DYN
+part: I
+
+title: Dynamic ports are opt-in, and a node that does not opt in has none
+summary: >-
+  Dynamic ports let an author add connection points to one node instance beyond
+  what its processor declares. Nothing gets them by accident: a node type has to
+  ask for them, and the definitions start empty.
+
+normative: >-
+  A node type opts a node in to dynamic ports. The opt-in declares two reserved
+  parameters, one holding the node's dynamic input port definitions and one its
+  dynamic output port definitions, each a list whose default is empty. A node that
+  has not opted in has no dynamic ports.
+
+posture: normative-target
+level: extended
+profiles:
+  - storage-api
+
+added: "1.0"
+changed: "1.0"

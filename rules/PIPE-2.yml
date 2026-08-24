@@ -1,0 +1,23 @@
+id: PIPE-2
+family: RT-PIPE
+part: II
+
+title: The job status summary has one shape on every path
+
+normative: >-
+  A run's `job_status_summary` is `total` followed by one integer counter per
+  defined job status, in a fixed order, with no status omitted. The same key set
+  and order is published when the jobs are read successfully, when the run cannot
+  be found, and when the read fails — the latter two all-zero. The job API's own
+  `status_summary` publishes that same shape.
+
+posture: normative-target
+level: extended
+profiles:
+  - runtime
+
+added: "1.0"
+changed: "1.0"
+
+related:
+  - PIPE-3

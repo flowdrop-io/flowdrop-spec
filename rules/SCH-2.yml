@@ -1,0 +1,33 @@
+id: SCH-2
+family: GR-SCHEMA
+part: I
+
+title: Gate flags come from the node type, and default off
+summary: >-
+  Whether a parameter is connectable, configurable or required is the node type's
+  answer, not the declared schema's. A parameter the node type never mentions
+  reaches neither derived schema.
+
+normative: >-
+  The `connectable`, `configurable` and `required` gate flags for a parameter are
+  read from the node type's own parameter configuration only, each defaulting to
+  false where the node type declares no entry for that parameter. A parameter the
+  node type does not declare therefore appears in neither derived schema and in
+  neither `required` list. Same-named keys written in the declared schema are not
+  read by the gate, and are not stripped either: they survive verbatim into the
+  served schemas. A property-level `required: true` is read on exactly one path —
+  where a node is exposed as a model-facing tool, it is lifted into the enclosing
+  object's `required` array before the schema is handed to the model.
+
+posture: normative-target
+level: extended
+profiles:
+  - storage-api
+  - editor-client
+
+added: "1.0"
+changed: "1.0"
+
+related:
+  - SCH-3
+  - SCH-6

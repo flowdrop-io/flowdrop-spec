@@ -1,0 +1,22 @@
+id: INT-2
+family: RT-INT
+part: II
+
+title: The interrupt a run reports is the persisted one
+
+normative: >-
+  An interrupt is persisted before the run reports it, and the identifier and
+  status a caller sees are read from the persisted record — never from the
+  in-flight signal that requested the pause, which carries no identifier and cannot
+  be updated.
+
+posture: normative-target
+level: extended
+profiles:
+  - runtime
+
+added: "1.0"
+changed: "1.0"
+
+related:
+  - INT-1

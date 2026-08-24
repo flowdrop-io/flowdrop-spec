@@ -1,0 +1,21 @@
+id: SCH-13
+family: GR-SCHEMA
+part: I
+
+title: A tool-exposed node gets a tool output
+
+normative: >-
+  A reserved `tool` output port is injected on a node type if and only if that node
+  type is exposed as a tool, and carries display order 110.
+
+posture: normative-target
+level: extended
+profiles:
+  - storage-api
+  - editor-client
+
+added: "1.0"
+changed: "1.0"
+
+related:
+  - SCH-16

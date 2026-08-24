@@ -1,0 +1,33 @@
+id: R7.e/f
+family: GR-VAL
+part: I
+
+title: Exposure checking is skipped per endpoint, not per edge
+
+summary: >-
+  Skipping the whole edge would let one broken end hide a real fault at the
+  other. Each end is judged on its own, so an edge can carry a dangling-source
+  error and a hidden-target error at once.
+
+normative: >-
+  Where an edge endpoint cannot be judged for exposure — its handle cannot be
+  parsed, the node it names is empty or absent, or that node's node type does
+  not resolve — R7 is skipped for that endpoint only. The edge's other endpoint
+  is still checked. A node whose node type is unknown is reported by R9, a node
+  whose node type resolves but whose executor is missing by R1, and a node with
+  no node type anchor by neither; in all three cases R7 itself stays silent.
+
+posture: normative-target
+level: extended
+profiles:
+  - storage-api
+
+added: "1.0"
+changed: "1.0"
+
+related:
+  - R7.a
+  - R7.b
+  - R8.a
+  - R8.b
+  - R9

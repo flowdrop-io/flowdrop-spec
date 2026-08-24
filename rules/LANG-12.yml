@@ -1,0 +1,20 @@
+id: LANG-12
+family: GR-LANG
+part: I
+
+title: A path that does not begin with `$` always passes JSONPath validation
+
+normative: >-
+  Under the jsonpath engine, validation checks a `$`-rooted query. A path that does
+  not begin with `$` validates unconditionally.
+
+posture: normative-target
+level: extended
+profiles:
+  - storage-api
+
+added: "1.0"
+changed: "1.0"
+
+related:
+  - LANG-14

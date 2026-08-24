@@ -1,0 +1,30 @@
+id: MEM-12
+family: GR-MEM
+part: I
+
+title: Concurrent buffer appends are serialized, and never fatal
+summary: >-
+  Two branches appending at once would each read the buffer before the other's
+  turn and write back a version missing it. Serializing the read-modify-write
+  prevents that, but losing a turn is worse than a rare interleave.
+
+normative: >-
+  The read-modify-write of a conversation buffer is serialized per storage scope —
+  scope, scope identifier and key together — so concurrent appends queue instead
+  of overwriting one another. The wait is bounded: an append that still cannot
+  take its turn proceeds unserialized and emits a warning rather than failing or
+  discarding the turn. Serialization taken is always released. Nothing more is
+  claimed: not storage-level atomicity, and no protection against a writer that
+  does not go through this path.
+
+posture: normative-target
+level: extended
+profiles:
+  - storage-api
+  - runtime
+
+added: "1.0"
+changed: "1.0"
+
+related:
+  - MEM-7

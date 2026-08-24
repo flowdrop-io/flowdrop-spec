@@ -1,0 +1,21 @@
+id: R1.c
+family: GR-VAL
+part: I
+
+title: A missing executor is reported once per node
+
+normative: >-
+  A node whose executor is missing yields exactly one R1 error, however many
+  ports the node exposes. The defect is a property of the node, and is never
+  re-reported per port.
+
+posture: normative-target
+level: extended
+profiles:
+  - storage-api
+
+added: "1.0"
+changed: "1.0"
+
+related:
+  - R1.a

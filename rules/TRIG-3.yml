@@ -1,0 +1,26 @@
+id: TRIG-3
+family: RT-TRIG
+part: II
+
+title: A skip is recorded, but it is not an execution
+summary: >-
+  "When did this last actually run" is the question a trigger's record exists to
+  answer, and it has to survive any number of skips in a row.
+
+normative: >-
+  A trigger keeps, per trigger, the time it last ran, the number of times it has
+  run, and a history. Recording an execution advances all three. Recording a skip
+  appends a history entry carrying the reason for the skip and leaves the last-run
+  time and the run count untouched. The history is newest-first and holds at most
+  the ten most recent entries from either writer, so an unattended trigger cannot
+  grow its record without bound. Stored state that is not in the shape expected is
+  read as absent — no last run, a count of zero, an empty history — rather than
+  failing the trigger.
+
+posture: normative-target
+level: extended
+profiles:
+  - runtime
+
+added: "1.0"
+changed: "1.0"

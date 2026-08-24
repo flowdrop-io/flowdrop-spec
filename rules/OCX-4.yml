@@ -1,0 +1,22 @@
+id: OCX-4
+family: RT-OCX
+part: II
+
+title: External invocation honours the configured pipeline identity and mode
+
+normative: >-
+  An externally invoked run resolves its pipeline identifier and pipeline mode
+  from the trigger's orchestrator settings, exactly as every other trigger kind
+  does. It must not construct an identifier of its own, which silently discards
+  reuse and singleton modes.
+
+posture: normative-target
+level: extended
+profiles:
+  - runtime
+
+added: "1.0"
+changed: "1.0"
+
+related:
+  - OCX-7

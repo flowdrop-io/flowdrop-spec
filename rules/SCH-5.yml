@@ -1,0 +1,25 @@
+id: SCH-5
+family: GR-SCHEMA
+part: I
+
+title: Reserved config-only parameters always carry a default
+
+normative: >-
+  `dynamicInputs`, `dynamicOutputs` and `branches` are reserved config-only
+  parameters and are never input ports. Where a node type opts one in by marking it
+  `configurable`, it enters the config schema and always gets a config-defaults
+  entry: the node type's default, else the schema's default, else an empty array.
+  Such an entry is never omitted and never null — unlike an ordinary configurable
+  parameter, whose entry is omitted when its resolved default is null.
+
+posture: normative-target
+level: core
+profiles:
+  - storage-api
+  - editor-client
+
+added: "1.0"
+changed: "1.0"
+
+related:
+  - SCH-4

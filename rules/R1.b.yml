@@ -1,0 +1,27 @@
+id: R1.b
+family: GR-VAL
+part: I
+
+title: A node with no resolvable node type is not judged by R1
+
+summary: >-
+  Nodes that carry no node type anchor at all — notes and other non-executable
+  decoration — are legitimate, and must not be refused for having no executor.
+
+normative: >-
+  R1 does not apply to a node that carries no node type anchor, or whose anchor
+  does not resolve to a node type; such a node is never refused for a missing
+  executor. A node anchored to an unknown node type is refused by R9 instead,
+  and a node with no anchor at all is accepted.
+
+posture: normative-target
+level: extended
+profiles:
+  - storage-api
+
+added: "1.0"
+changed: "1.0"
+
+related:
+  - R1.a
+  - R9

@@ -1,0 +1,18 @@
+id: STORE-3
+family: GR-STORE
+part: I
+
+title: A client-supplied id never overwrites an existing workflow
+
+normative: >-
+  A create request may supply the workflow's `id`. If a workflow with that id already
+  exists, the request is refused with 409 and the stored workflow is left exactly as
+  it was. An implementation must never silently turn a create into an update.
+
+posture: normative-target
+level: core
+profiles:
+  - storage-api
+
+added: "1.0"
+changed: "1.0"

@@ -1,0 +1,31 @@
+id: ORC-7
+family: RT-ORC
+part: II
+
+title: Direct synchronous execution refuses a workflow that loops
+summary: >-
+  The engine walks the compiled order once and never re-enters a node, so it cannot
+  iterate a loop. It refuses the workflow rather than running the body once and
+  reporting success.
+
+normative: >-
+  Direct synchronous execution walks the compiled execution order once, top to bottom,
+  carrying results in memory, and never re-enters a node. After compiling and before
+  any node executes, it checks the compiled graph for loopback edges; where any is
+  present it refuses the run with a distinguishable refusal that names the offending
+  edges and nodes and points at the strategies that do iterate, and no node executes.
+
+posture: normative-target
+level: core
+profiles:
+  - runtime
+
+added: "1.0"
+changed: "1.0"
+
+rulings:
+  - OPEN-13
+
+related:
+  - CMP-5
+  - ORC-9

@@ -1,0 +1,35 @@
+id: SCH-41
+family: GR-SCHEMA
+part: I
+
+title: The lane vocabulary is the served payload, not the shipped set
+summary: >-
+  What a port may declare and what an implementation ships are different questions.
+  Answering the first with the second is how a site could add a lane it could never
+  use.
+
+normative: >-
+  The declarable lane vocabulary is the served port configuration: the shipped
+  lanes, the port-shape registry — code-declared shapes first, then site-declared
+  ones — and the site's stored overlay, composed in that precedence order. Whether
+  a port may declare a lane is asked of that payload, never of the shipped set
+  alone: otherwise a site can add a lane, colour it and write rules for it while no
+  port is able to declare it, the declaration being silently replaced by the
+  schema-derived lane with a wrongly coloured handle as the only symptom. A lane
+  the payload does not declare is still refused, because such a port would be
+  compatible with nothing, not even with another port of its own lane.
+
+posture: normative-target
+level: core
+profiles:
+  - storage-api
+  - editor-client
+
+added: "1.0"
+changed: "1.0"
+
+related:
+  - SCH-10
+  - SCH-10.a
+  - SCH-36
+  - SCH-42

@@ -1,0 +1,34 @@
+id: SCH-8
+family: GR-SCHEMA
+part: I
+
+title: How a schema property becomes a port
+summary: >-
+  One mapping turns a schema property into the port an editor draws, so every
+  schema-derived port on every node is built the same way.
+
+normative: >-
+  A schema-derived port takes its `id` from the property key; its `name` from the
+  property's `title`, or from the key where there is no title; its lane from the
+  type mapping; `required` from membership in the schema's `required` list; its
+  default value from the property's `default`, or null where there is none; its
+  exposed-by-default from the exposure defaults; and its display order from
+  `x-port-order`, or 0 where that is absent. This is the only schema-to-port
+  mapping. The unified input and output ports are not schema-derived: they always
+  carry the `json` lane and display order 0.
+
+posture: normative-target
+level: core
+profiles:
+  - storage-api
+  - editor-client
+
+added: "1.0"
+changed: "1.0"
+
+related:
+  - SCH-10
+  - SCH-16
+  - SCH-17
+  - SCH-18
+  - SCH-27

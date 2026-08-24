@@ -1,0 +1,21 @@
+id: CFG-14
+family: GR-CFG
+part: I
+
+title: Every declared parameter is present, null when unresolved
+
+normative: >-
+  Every parameter the processor's schema declares is present in the resolved
+  parameter set. One that resolves to no value is present with the value null; it
+  is never absent.
+
+posture: normative-target
+level: core
+profiles:
+  - storage-api
+
+added: "1.0"
+changed: "1.0"
+
+related:
+  - CFG-13

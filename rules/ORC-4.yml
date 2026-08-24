@@ -1,0 +1,24 @@
+id: ORC-4
+family: RT-ORC
+part: II
+
+title: State graph is the interactive-session default only
+summary: >-
+  It is a caller's default, offered by the session surface, not a rung in the global
+  chain — so a background run never silently becomes a state-graph run.
+
+normative: >-
+  The state graph strategy is the default for interactive session and playground
+  execution, and applies only where neither the session nor the workflow declared a
+  strategy. The general resolution chain never resolves to it.
+
+posture: normative-target
+level: extended
+profiles:
+  - runtime
+
+added: "1.0"
+changed: "1.0"
+
+related:
+  - ORC-2

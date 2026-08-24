@@ -1,0 +1,18 @@
+id: ST-3
+family: RT-ST
+part: II
+
+title: Node statuses passed through, and an untracked run was empty rather than absent
+
+normative: >-
+  Retired with the polled status surface. It passed the recorded node statuses
+  through unchanged, and answered a request for an execution it held no record
+  of with an empty map rather than a 404.
+
+posture: deprecated
+level: extended
+profiles:
+  - runtime
+
+added: "1.0"
+changed: "1.0"

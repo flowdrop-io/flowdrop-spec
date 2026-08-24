@@ -1,0 +1,38 @@
+id: RT-TOOL-8
+family: RT-TOOL
+part: II
+
+title: A model's tool arguments are normalized against the tool's own schema
+
+summary: >-
+  Models hand back arguments that are nearly right — a JSON array as a string, a
+  value escaped twice. Normalization repairs exactly the cases the tool's own
+  schema can vouch for, and leaves the rest for validation to report honestly.
+
+normative: >-
+  Before a tool is invoked, the arguments a model supplied are reconciled with the
+  tool's declared input schema. A string argument is decoded as JSON only where all
+  three hold: the schema declares that parameter `array` or `object`, the string
+  parses as JSON, and the parsed shape matches what was declared — a list for
+  `array`, a map for `object`. A parameter declared `string` is never decoded, and
+  a parsed value of the wrong shape is never substituted; an argument that fails
+  any of the three is passed through unmodified. Independently, every string leaf
+  of an argument has its HTML character references decoded, repeated until the
+  value stops changing so that a doubly-escaped value resolves fully rather than
+  one level short; an implementation may bound the number of passes. Keys are never
+  modified, and text containing no character reference is returned unchanged.
+
+posture: normative-target
+level: extended
+profiles:
+  - runtime
+
+added: "1.0"
+changed: "1.0"
+
+references:
+  normative:
+    - source: HTML Standard
+      title: Named character references
+      url: https://html.spec.whatwg.org/multipage/named-characters.html
+      note: The set of named references a string argument is decoded against.

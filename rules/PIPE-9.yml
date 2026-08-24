@@ -1,0 +1,29 @@
+id: PIPE-9
+family: RT-PIPE
+part: II
+
+title: A timestamp is never fabricated
+summary: >-
+  A run that has not finished has no finish time, and a missing creation time is
+  missing. Publishing "now" in place of either makes a consumer believe something
+  that did not happen.
+
+normative: >-
+  `lastExecuted` is the run's completion stamp, or null where the run has not
+  completed, on the full document and the lightweight one alike. `createdAt` is
+  the run's creation stamp, or null where none is recorded, on both documents
+  equally. No timestamp is substituted for a missing one.
+
+posture: normative-target
+level: extended
+profiles:
+  - runtime
+
+added: "1.0"
+changed: "1.0"
+
+rulings:
+  - OPEN-19
+
+related:
+  - PIPE-1

@@ -1,0 +1,28 @@
+id: SCH-16
+family: GR-SCHEMA
+part: I
+
+title: What each reserved port defaults to on the canvas
+
+normative: >-
+  The reserved ports default to not exposed — the unified `input` and `output`, the
+  `tool` output, the `error` output and the `loop_back` input — except the `trigger`
+  input and the `trigger` output, which default to exposed. A node type may override
+  the default per port, and stores only the keys whose value diverges from the
+  default.
+
+posture: normative-target
+level: core
+profiles:
+  - storage-api
+  - editor-client
+
+added: "1.0"
+changed: "1.0"
+
+related:
+  - SCH-11
+  - SCH-12
+  - SCH-13
+  - SCH-14
+  - SCH-32

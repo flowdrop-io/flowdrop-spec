@@ -1,0 +1,29 @@
+id: META-6
+family: RT-META
+part: II
+
+title: The entity tag carries the body variant, not just the schema version
+summary: >-
+  A missing variant in the tag was a live cross-repo cache bug: a client holding
+  the plain body asked for the annotated one, was told it was unchanged, and went
+  on serving a document with every title and description missing.
+
+normative: >-
+  The entity tag for a workflow schema is the quoted schema version for the plain
+  document, and the quoted schema version plus a variant marker for the annotated
+  one. Any request argument that changes the body must join the tag the same way:
+  two documents that differ must never share a tag, whatever else varies on them.
+
+posture: normative-target
+level: core
+profiles:
+  - runtime
+  - editor-client
+
+added: "1.0"
+changed: "1.0"
+
+related:
+  - META-4
+  - META-7
+  - META-8

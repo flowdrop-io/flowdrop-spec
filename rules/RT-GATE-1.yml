@@ -1,0 +1,42 @@
+id: RT-GATE-1
+family: RT-GATE
+part: II
+
+title: A gated node never executes without consent for that exact call
+
+summary: >-
+  The gate sits at the single point every node execution passes through, so it
+  covers a node scheduled in the graph and the same node invoked as a tool by an
+  agent loop. The operator approves the resolved arguments, not the intention.
+
+normative: >-
+  A node whose effective confirmation requirement is true must not execute without
+  a consumed, hash-matching, confirmed consent (RT-GATE-2, RT-GATE-3). The gate is
+  evaluated after parameters are resolved and before the node executes, so the
+  operator approves the arguments the call will actually use, and it applies only
+  to a first execution: resuming a node continues a side effect that already passed
+  the gate. The pause is an ordinary interrupt carrying a boolean confirmation
+  prompt, and the prompt shows only the arguments a model may fill, so values
+  supplied by configuration — credentials, endpoints — never reach an operator's
+  inbox. A gate interrupt is a distinct flavour of interrupt and must never be
+  consumed as a node's own resume answer, so a node that is both resumable and
+  side-effecting does not mistake an operator's consent for the reply it was
+  waiting for. Every gate interrupt carries a bounded expiry, and expiry is
+  fail-closed on both paths: an interrupt swept as overdue on a persisted run ends
+  that run, cancelled and announced (INT-18); an interrupt found already expired on
+  re-entry is consumed as a decline with the reason `expired`.
+
+posture: normative-target
+level: core
+profiles:
+  - runtime
+
+added: "1.0"
+changed: "1.0"
+
+related:
+  - INT-18
+  - RT-GATE-2
+  - RT-GATE-3
+  - RT-GATE-4
+  - RT-GATE-7

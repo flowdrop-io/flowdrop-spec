@@ -1,0 +1,26 @@
+id: EXPO-2
+family: GR-EXPO
+part: I
+
+title: An instance override decides exposure; otherwise the default does
+
+normative: >-
+  A port is exposed on a node instance when the instance's direction-scoped
+  overrides in `data.config.ports` contain an entry for that port carrying an
+  `exposed` key: that key's value is the answer. Where there is no such entry, or
+  the entry carries no `exposed` key, the port's default exposure decides
+  (`exposedByDefault`, CFG-2).
+
+posture: normative-target
+level: core
+profiles:
+  - storage-api
+
+added: "1.0"
+changed: "1.0"
+
+related:
+  - CFG-2
+  - EXPO-1
+  - EXPO-3
+  - EXPO-4

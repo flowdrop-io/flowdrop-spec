@@ -1,0 +1,22 @@
+id: R4.b
+family: GR-VAL
+part: I
+
+title: Exposure names are unique per side
+
+normative: >-
+  Workflow exposure names must be unique within a side. Inputs and outputs are
+  independent, so one name may appear once as an input and once as an output. A
+  repeat within one side is refused with `R4_NAME_DUPLICATE` at
+  `schema.{side}.{index}`.
+
+posture: normative-target
+level: core
+profiles:
+  - storage-api
+
+added: "1.0"
+changed: "1.0"
+
+related:
+  - R4.a

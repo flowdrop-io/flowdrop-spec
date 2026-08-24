@@ -1,0 +1,33 @@
+id: PLAY-3
+family: RT-PLAY
+part: II
+
+title: The message poll has its own envelope, with the flags at the top level
+summary: >-
+  The three flags beside the data are what a polling client reads to decide
+  whether to fetch again and whether the turn is over. Folding them into the
+  shared pagination block would break every such client.
+
+normative: >-
+  The message poll answers `{success, data, hasMore, hasOlder, sessionStatus}` in
+  that order, with no pagination block and no `has_more` key: the three flags are
+  siblings of `data`, not nested. `hasMore` reports page fullness — whether the
+  page returned as many messages as were asked for — and is an inference.
+  `hasOlder` is authoritative: it reports whether messages older than the page
+  exist, so a client scrolling back never pays a speculative empty fetch at an
+  exact page boundary. `sessionStatus` rides along so a poller needs no second
+  request to learn the turn has finished. The forward and backward cursors are
+  honoured only when they are strings of digits; a cursor that is not is ignored,
+  not refused.
+
+posture: normative-target
+level: core
+profiles:
+  - runtime
+  - editor-client
+
+added: "1.0"
+changed: "1.0"
+
+related:
+  - PLAY-4

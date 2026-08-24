@@ -1,0 +1,28 @@
+id: DATA-1
+family: RT-DATA
+part: II
+
+title: An edge delivers one named output port to one named input port
+
+normative: >-
+  An edge delivers a value from a named output port on its source node to a named
+  input port on its target node. Both port names are taken from the edge's
+  endpoint handles; an endpoint that names no port delivers nothing, and neither
+  warns nor fails the run. Delivery turns on the presence of the port's key in the
+  source node's output, not on the value being non-null: a source that emits an
+  explicit `null` delivers `null`, and that delivered `null` outranks the target's
+  configuration and its schema default. A source that omits the key delivers
+  nothing at all, and the target port falls through to its configuration and then
+  to its schema default.
+
+posture: normative-target
+level: core
+profiles:
+  - runtime
+
+added: "1.0"
+changed: "1.0"
+
+related:
+  - DATA-6
+  - DATA-7

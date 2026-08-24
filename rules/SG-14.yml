@@ -1,0 +1,24 @@
+id: SG-14
+family: RT-SG
+part: II
+
+title: Exceeding the iteration budget ends the run, it does not pause it
+
+normative: >-
+  A state update that would push the run's iteration count strictly past the
+  configured maximum ends the run. The budget's own last iteration is allowed; only
+  exceeding it ends the run. The run then reports status `max_iterations_exceeded`
+  with no results, together with the configured maximum, the count reached, and the
+  node that reached it. This is a terminal verdict and not a pause: no resume
+  handle is offered, and the status is never `paused`.
+
+posture: normative-target
+level: core
+profiles:
+  - runtime
+
+added: "1.0"
+changed: "1.0"
+
+related:
+  - SG-7

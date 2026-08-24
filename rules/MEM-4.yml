@@ -1,0 +1,28 @@
+id: MEM-4
+family: GR-MEM
+part: I
+
+title: Assembling messages concatenates in declared port order
+summary: >-
+  The node that joins several message sources into one list. Port order is the
+  message order, and an unwired source adds nothing at all.
+
+normative: >-
+  A message-assembly node takes any number of dynamically declared message-typed
+  inputs and flattens them into one message-typed output. The declared order of
+  the inputs is the order of the messages. A connected list contributes each of
+  its items in order; a connected single message contributes one item; an input
+  that is unwired or carries no value contributes nothing — no placeholder is
+  emitted for it.
+
+posture: normative-target
+level: extended
+profiles:
+  - storage-api
+  - runtime
+
+added: "1.0"
+changed: "1.0"
+
+related:
+  - MEM-16

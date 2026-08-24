@@ -1,0 +1,33 @@
+id: INT-23
+family: RT-INT
+part: II
+
+title: No expiry is a sentinel, and the two expiry paths differ on purpose
+
+summary: >-
+  An interrupt with no expiry waits indefinitely, and must survive every sweep.
+  When one does expire, whether that ends the run depends on which path expired it
+  — and that asymmetry is the rule, not an oversight.
+
+normative: >-
+  An interrupt waits indefinitely unless it carries a positive expiry: an absent or
+  zero expiry is the no-expiry sentinel, is never treated as overdue, and must be
+  excluded by any sweep, so an open-ended question to a human is never reaped. An
+  overdue interrupt is expired by two paths that differ in exactly one observable.
+  A sweep expires the interrupt, records it, and announces the expiry — which is
+  what ends the run holding it open (INT-18). Answering an already-overdue interrupt
+  expires and records it as a side effect of refusing the answer, and announces
+  nothing: that path is one caller answering one question, and announcing there
+  would let a late click end the whole run.
+
+posture: normative-target
+level: extended
+profiles:
+  - runtime
+
+added: "1.0"
+changed: "1.0"
+
+related:
+  - INT-18
+  - INT-20

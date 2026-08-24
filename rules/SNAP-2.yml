@@ -1,0 +1,27 @@
+id: SNAP-2
+family: RT-SNAP
+part: II
+
+title: Snapshot access is decided on the snapshot, and absence answered first
+
+normative: >-
+  Reading or deleting a snapshot loads it by execution id and asks it for view or
+  delete authority: a snapshot that does not exist is `404`, one the caller may
+  not reach is `403`, and absence is answered before denial. A read that finds
+  the record but no readable payload answers `404` as well, never a partial
+  document. The list door does not ask per record: it narrows the query by
+  ownership, so a snapshot belonging to another principal is absent from the list
+  rather than a denial on it.
+
+posture: normative-target
+level: core
+profiles:
+  - runtime
+  - editor-client
+
+added: "1.0"
+changed: "1.0"
+
+related:
+  - SNAP-1
+  - PIPE-6

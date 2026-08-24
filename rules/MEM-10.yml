@@ -1,0 +1,30 @@
+id: MEM-10
+family: GR-MEM
+part: I
+
+title: A real tool result replaces the placeholder that stood in for it
+summary: >-
+  A healed message says a call was interrupted. If the result later arrives, the
+  buffer must show the answer, not the guess.
+
+normative: >-
+  When a tool result arrives for an id whose buffer entry is a synthetic healed
+  placeholder, the real result replaces the placeholder in place — at the same
+  position, so its adjacency to the declaring turn is preserved — and the healed
+  marking is removed with it. Only a placeholder is ever overwritten: after the
+  replacement the entry is an ordinary answered result, so a second real result
+  for the same id is deduplicated as usual, and an incoming message that is itself
+  marked healed never replaces anything.
+
+posture: normative-target
+level: extended
+profiles:
+  - storage-api
+  - runtime
+
+added: "1.0"
+changed: "1.0"
+
+related:
+  - MEM-1
+  - MEM-3

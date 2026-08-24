@@ -1,0 +1,35 @@
+id: MAN-15
+family: GR-MAN
+part: I
+
+title: Launch inputs are checked in one fixed order and answered once
+summary: >-
+  A caller gets one problem to fix at a time, in the order that makes the next
+  attempt useful: what you sent that does not exist, then what you did not send,
+  then what is wrong with what you sent.
+
+normative: >-
+  Launch inputs are checked in three stages — keys that are not declared inputs,
+  then required inputs that are absent, then the values themselves — and the check
+  stops at the first stage that fails, returning one message. Every message ends
+  by naming the inputs the workflow does accept, or by stating that it accepts
+  none. An input counts as required when its manifest entry says so, or when its
+  name appears in the published contract's top-level required list; either source
+  is sufficient, so a manifest written before the contract was last rebuilt is
+  still enforced.
+
+posture: normative-target
+level: core
+profiles:
+  - storage-api
+
+added: "1.0"
+changed: "1.0"
+
+rulings:
+  - OPEN-16
+
+related:
+  - MAN-2
+  - MAN-13
+  - MAN-16

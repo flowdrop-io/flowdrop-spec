@@ -1,0 +1,28 @@
+id: ERR-10
+family: RT-ERR
+part: II
+
+title: A routed failure activates error edges only, and only when it is current
+summary: >-
+  Two independent staleness rules guard the handler, because a loop can both re-run a
+  node and route a failure from an earlier round.
+
+normative: >-
+  A node whose failure was routed satisfies only its error edges. Error edges are
+  evaluated before trigger and data edges and combine with OR semantics: one satisfied
+  error edge activates the handler. Success-path successors are never made ready by a
+  routed failure. A routed failure does not activate its handler when a newer unit of
+  work exists for the same node, nor when it was routed in an earlier round than the
+  round the handler has already handled.
+
+posture: normative-target
+level: extended
+profiles:
+  - runtime
+
+added: "1.0"
+changed: "1.0"
+
+related:
+  - ERR-7
+  - SG-19

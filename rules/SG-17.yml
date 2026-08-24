@@ -1,0 +1,36 @@
+id: SG-17
+family: RT-SG
+part: II
+
+title: A loop's extent is fixed at launch and every execution carries its rounds
+
+normative: >-
+  A run computes its loops once, when it starts, and works from that result for the
+  rest of its life: an author editing the workflow cannot redraw the body of a loop
+  that is already several rounds deep. Alongside the bodies, the run records for
+  each body node the set of nodes that can reach it over the forward graph, the
+  node itself included. That set is not restricted to the loop's body, because a
+  node outside a loop can legitimately be an ancestor of one inside it, and a
+  restricted set would report that nothing can still produce a value while such an
+  input was still on its way. Every execution of every node carries a stamp of the
+  rounds it belongs to, one entry per loop, outermost loop first — including an
+  empty stamp for a node in no loop, and including round 0, so that an absent stamp
+  cannot mean "outside every loop" and "inside one at round 0" at the same time.
+  When a paused run resumes, its round counters are rebuilt by replaying those
+  stamps in creation order, newest winning; never by taking the highest round
+  recorded for a loop, which is the high-water mark of some earlier outer round and
+  would spend an inner loop's budget before the current outer round had begun.
+
+posture: normative-target
+level: core
+profiles:
+  - runtime
+
+added: "1.0"
+changed: "1.0"
+
+related:
+  - SG-16
+  - SG-18
+  - SG-19
+  - SG-20

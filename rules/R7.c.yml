@@ -1,0 +1,30 @@
+id: R7.c
+family: GR-VAL
+part: I
+
+title: A node instance decides which of its ports are exposed
+
+summary: >-
+  One chain answers "is this port exposed?" everywhere it is asked — for edges
+  and for the workflow's exposure map alike.
+
+normative: >-
+  A port's effective exposure on a node is the instance's own
+  `config.ports[].exposed` value where the instance sets one, and otherwise the
+  port's `exposedByDefault` in the node type's metadata. Exposing a port on the
+  instance therefore makes an edge to or from it legal that would otherwise be
+  refused.
+
+posture: normative-target
+level: core
+profiles:
+  - storage-api
+  - editor-client
+
+added: "1.0"
+changed: "1.0"
+
+related:
+  - R7.a
+  - R7.b
+  - R10

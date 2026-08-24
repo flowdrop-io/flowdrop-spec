@@ -1,0 +1,48 @@
+id: SG-20
+family: RT-SG
+part: II
+
+title: A data port no live producer can still fill fails its consumer
+
+summary: >-
+  The round barrier on its own turns a gateway that routes away from an in-loop
+  source into a silent hang. This is the clause that makes it terminate, and the
+  restrictions are what keep it from failing workflows that were doing nothing
+  wrong.
+
+normative: >-
+  A data port held back by the round comparison stops waiting once no job still to
+  run, pending or running can reach the source node over the forward graph — with
+  the source counted as able to reach itself. A live loop head, being an ancestor
+  of everything in its own body, therefore holds the port open across a re-entry,
+  and so does an ancestor outside the loop still on its way. A job whose own round
+  is behind the consumer's does not count as live, or a job left waiting for a
+  branch the run never took would hold the port open for the rest of the run. Four
+  restrictions bound the verdict. It applies to data edges only, and only on a
+  consumer with no trigger and no error edge. Every source on the port must share a
+  loop with the consumer: one out-of-loop source keeps the port fillable. At least
+  one edge on the port must actually have been held back by the round comparison —
+  a source that was simply never dispatched is an ordinary skipped branch and none
+  of this rule's business, which is what makes this a termination clause for the
+  round comparison rather than a general unfillable-port rule. And the run must
+  carry the reachability sets the test needs. The verdict is that the consumer
+  fails, and it is a node failure like any other: with an incoming error edge the
+  failure is routed, so an author catches an unfillable port exactly where they
+  catch anything else, and without one it fails the run. The failure names the
+  port, the source, and the consumer's round on the innermost loop the two share;
+  it names the gateway that routed away only where that is determinable from the
+  source's own incoming branch edges, and otherwise says only that no value for
+  this round can still be produced.
+
+posture: normative-target
+level: core
+profiles:
+  - runtime
+
+added: "1.0"
+changed: "1.0"
+
+related:
+  - SG-17
+  - SG-19
+  - DATA-4

@@ -1,0 +1,24 @@
+id: DATA-10
+family: RT-DATA
+part: II
+
+title: A tool edge binds a tool, it does not deliver data
+
+normative: >-
+  An edge on the reserved `tool_availability` port makes the source's tools
+  available to its target as tool bindings. It is not a data delivery and fills no
+  input port. Where a node forwards the tools it received rather than providing its
+  own, the forwarding must not form a cycle, and a workflow in which it does is
+  refused.
+
+posture: normative-target
+level: extended
+profiles:
+  - runtime
+
+added: "1.0"
+changed: "1.0"
+
+related:
+  - DATA-5
+  - DATA-12

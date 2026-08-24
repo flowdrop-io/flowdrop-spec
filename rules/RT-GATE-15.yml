@@ -1,0 +1,36 @@
+id: RT-GATE-15
+family: RT-GATE
+part: II
+
+title: A shipped side-effecting node type states its policy
+
+summary: >-
+  "Has side effects" and "an operator should approve this" are two different
+  questions that happen to coincide for an outbound call and diverge for a memory
+  write. Leaving a shipped node type undecided delegates a governance decision to a
+  fail-safe.
+
+normative: >-
+  Every node type an implementation ships whose executor declares that it has side
+  effects must declare its confirmation policy explicitly, rather than leaving the
+  requirement to be derived (RT-GATE-7). The derivation reads "mutates persistent
+  state" as "performs an action an operator should approve", which is not the same
+  question. A shipped declaration should be `ask` where the effect leaves the
+  implementation's own boundary and `skip` where it does not. Where an
+  implementation delivers such declarations to sites that already exist, it must
+  write a policy only where none is stored: an administrator's own choice, a
+  narrowed list of allowed controls, and a value still awaiting migration must all
+  survive untouched.
+
+posture: normative-target
+level: extended
+profiles:
+  - runtime
+  - storage-api
+
+added: "1.0"
+changed: "1.0"
+
+related:
+  - RT-GATE-1
+  - RT-GATE-7

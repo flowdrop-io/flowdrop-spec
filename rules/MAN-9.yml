@@ -1,0 +1,23 @@
+id: MAN-9
+family: GR-MAN
+part: I
+
+title: A workflow used as a node cannot build its own contract forever
+summary: >-
+  Workflows compose, so a contract build can walk into itself. The guard is per
+  path, not per build, so an honest diamond still resolves.
+
+normative: >-
+  When a workflow is used as a node inside another workflow, the contract build
+  descends into it. Re-entering a workflow already on the current path is refused:
+  the entry resolves to an empty object schema and a warning is logged, rather
+  than recursing. Encountering the same workflow again as a sibling, not an
+  ancestor, is allowed and builds normally.
+
+posture: normative-target
+level: extended
+profiles:
+  - storage-api
+
+added: "1.0"
+changed: "1.0"

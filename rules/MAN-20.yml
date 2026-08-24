@@ -1,0 +1,39 @@
+id: MAN-20
+family: GR-MAN
+part: I
+
+title: The API maps a client interface onto the stored manifest
+summary: >-
+  What an editor calls an interface entry and what the server stores as a manifest
+  entry are the same thing under two vocabularies. This is the mapping, including
+  what it deliberately ignores.
+
+normative: >-
+  A workflow's API accepts an `interface` object and maps it onto the stored input
+  and output manifests. An entry's client-side identifier becomes the server-side
+  input name; renaming either is a breaking change for callers. An entry carries
+  exactly one binding, whose node and port identifiers become the entry's
+  `node_id` and `port`; an entry carrying more than one binding is refused with
+  400 and nothing is stored. An entry carrying no binding is a client-side draft:
+  it is skipped, not stored, and not an error. A declared data type, a schema, a
+  default value and free-form metadata on an entry are ignored on write — the type
+  and schema are derived server-side from the bound port, and the other two have
+  no server representation. Input-side author metadata — the entry's display name,
+  description, examples and required flag — round-trips as author-written manifest
+  metadata does; an output entry carries only its name and binding. The mapped
+  manifests are applied before the workflow is validated, so whether a named node
+  or port exists is decided by workflow validation and refused with 422; the
+  API's own 400s cover the entry's shape only.
+
+posture: normative-target
+level: extended
+profiles:
+  - storage-api
+
+added: "1.0"
+changed: "1.0"
+
+related:
+  - MAN-2
+  - MAN-3
+  - MAN-21

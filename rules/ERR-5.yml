@@ -1,0 +1,27 @@
+id: ERR-5
+family: RT-ERR
+part: II
+
+title: A node may stop the run successfully
+summary: >-
+  Stopping is a deliberate early finish, not a failure. Everything the run had not yet
+  done is abandoned, and the run reports success.
+
+normative: >-
+  A node may stop the whole run. The stop is not converted into an error output: the
+  node broadcasts completed, its unit of work is recorded as completed and never as
+  failed, the value the stop carries is recorded under the node's result key, all
+  downstream and not-yet-started work is abandoned, and the run finishes with status
+  completed.
+
+posture: normative-target
+level: extended
+profiles:
+  - runtime
+
+added: "1.0"
+changed: "1.0"
+
+related:
+  - ERR-1
+  - ORC-11

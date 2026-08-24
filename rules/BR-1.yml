@@ -1,0 +1,31 @@
+id: BR-1
+family: RT-BR
+part: II
+
+title: An edge is gated only when the source actually made a branch decision
+
+summary: >-
+  Gateways decide which paths stay alive, but most edges in a workflow are not
+  branch edges at all. This rule says exactly when a branch decision is allowed to
+  stop an edge, so that everything else keeps flowing.
+
+normative: >-
+  An edge is subject to branch gating only when all three of these hold: it leaves
+  a named source port, the source emitted a non-empty active-branch list, and that
+  port is a branch port rather than a value port (BR-2). Where they hold, the edge
+  is followed if and only if the port's name appears in the source's active-branch
+  list, both sides compared after trimming surrounding whitespace and lower-casing.
+  In every other case the edge is followed.
+
+posture: normative-target
+level: core
+profiles:
+  - runtime
+
+added: "1.0"
+changed: "1.0"
+
+related:
+  - BR-2
+  - BR-3
+  - BR-5

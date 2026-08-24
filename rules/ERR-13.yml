@@ -1,0 +1,29 @@
+id: ERR-13
+family: RT-ERR
+part: II
+
+title: Every execution strategy routes errors identically
+summary: >-
+  A workflow that handles its own failures must mean the same thing whichever engine
+  runs it, including the direct synchronous one.
+
+normative: >-
+  All execution strategies route error outputs the same way. Where the failing node has
+  an error edge, its outputs are replaced by the shared error envelope and the run
+  continues; where it has none, the run fails. No strategy may substitute its own
+  error-handling behaviour.
+
+posture: normative-target
+level: core
+profiles:
+  - runtime
+
+added: "1.0"
+changed: "1.0"
+
+rulings:
+  - OPEN-1
+
+related:
+  - ERR-7
+  - ERR-8

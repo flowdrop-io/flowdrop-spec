@@ -1,0 +1,20 @@
+id: API-4
+family: GR-API
+part: I
+
+title: Node configuration could be checked ahead of save
+
+normative: >-
+  A node's configuration could be checked ahead of save, by submitting the configuration
+  on its own to a per-node-type validation endpoint. That surface is withdrawn: judging a
+  configuration without the node's edges reports problems the save path accepts, and
+  save-time validation is the one surface that issues a verdict on a node's
+  configuration.
+
+posture: deprecated
+level: optional
+profiles:
+  - storage-api
+
+added: "1.0"
+changed: "1.0"

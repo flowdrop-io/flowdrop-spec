@@ -1,0 +1,29 @@
+id: R12
+family: GR-VAL
+part: I
+
+title: A node may not be wired to itself
+
+normative: >-
+  An edge whose non-empty `source` equals its `target` is refused with
+  `R12_EDGE_SELF` at `edge.{index}`. This holds whatever ports the two ends
+  name, so wiring a node's own output into its own input is still refused, and
+  it holds whether or not the named node exists — a self-edge on a node that
+  was deleted also earns R8's two dangling-endpoint errors. An edge with an
+  empty `source` is never reported as a self-edge, even when its `target` is
+  empty too; R5.c and R8 own that case.
+
+posture: normative-target
+level: core
+profiles:
+  - storage-api
+
+added: "1.0"
+changed: "1.0"
+
+rulings:
+  - OPEN-7
+
+related:
+  - R8.a
+  - R8.b

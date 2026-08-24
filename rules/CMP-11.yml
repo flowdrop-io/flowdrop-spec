@@ -1,0 +1,20 @@
+id: CMP-11
+family: RT-CMP
+part: II
+
+title: The compiled plan keeps each node's node type identity
+normative: >-
+  For each node it will execute, the compiled plan records both the node type the node
+  declares and the processor selected to run it. The runtime resolves a node's
+  definition by node type identity.
+
+posture: normative-target
+level: extended
+profiles:
+  - runtime
+
+added: "1.0"
+changed: "1.0"
+
+related:
+  - CMP-1

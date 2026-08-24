@@ -1,0 +1,28 @@
+id: DATA-8
+family: RT-DATA
+part: II
+
+title: Unexposed outputs are stripped where they are produced
+
+normative: >-
+  A node's unexposed outputs are removed at the point the node produces them,
+  before anything else observes the result: before the unified output port is
+  composed, before the result is checked for serializability, before it is recorded
+  against the node's execution, before it is written to a checkpoint, before it is
+  published to real-time observers, and before it is returned as a tool result. A
+  hidden port's value therefore cannot reappear downstream.
+
+posture: normative-target
+level: core
+profiles:
+  - runtime
+
+added: "1.0"
+changed: "1.0"
+
+related:
+  - DATA-9
+  - EXPO-11
+  - EXPO-12
+  - EXPO-13
+  - EXPO-14

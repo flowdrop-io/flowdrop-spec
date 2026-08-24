@@ -1,0 +1,30 @@
+id: STORE-13
+family: GR-STORE
+part: I
+
+title: One name per concept for a node's type
+
+summary: >-
+  A node has a type it is an instance of and a type it is drawn as. They are different
+  things, and a payload that spells both the same way cannot be read without knowing
+  who wrote it.
+
+normative: >-
+  A node type's identifier is `node_type_id` wherever it appears in a payload: job
+  metadata, node metadata, a serialised node execution result, a node-status broadcast,
+  a persisted session message. A node's visual type is `visual_type` in a per-node
+  snapshot payload. The bare key `node_type` must not be written anywhere. A node's own
+  identifier is `node_id` and is unaffected.
+
+posture: normative-target
+level: extended
+profiles:
+  - storage-api
+  - runtime
+
+added: "1.0"
+changed: "1.0"
+
+related:
+  - STORE-7
+  - STORE-11

@@ -1,0 +1,35 @@
+id: R6.d
+family: GR-VAL
+part: I
+
+title: A config value must match its declared type
+
+summary: >-
+  R6.d through R6.h are one check with several arms. They share a code and a
+  locator and stop at the first violation, so a reader of the result sees at
+  most one error per config key.
+
+normative: >-
+  A config value whose type does not match the `type` its schema declares is
+  refused with `R6_CONFIG_INVALID` at `node.{id}.config.{key}`, where `{id}` is
+  the node's id and `{key}` the config key. A schema that declares no `type`,
+  or one that declares a type name the implementation does not recognise,
+  imposes no type constraint and the value passes. R6.d to R6.h all raise this
+  same code at this same locator and are evaluated in one fixed order — type,
+  then `enum`, then `minimum`, `maximum`, `minLength`, `maxLength`, `pattern` —
+  stopping at the first violation, so one config key never yields more than one
+  error. The arms are distinguished by the error's message, not by its code.
+
+posture: normative-target
+level: core
+profiles:
+  - storage-api
+
+added: "1.0"
+changed: "1.0"
+
+related:
+  - R6.e
+  - R6.f
+  - R6.g
+  - R6.h

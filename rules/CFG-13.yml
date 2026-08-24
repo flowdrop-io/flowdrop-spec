@@ -1,0 +1,29 @@
+id: CFG-13
+family: GR-CFG
+part: I
+
+title: A processor sees its declared parameters and nothing else
+
+summary: >-
+  The resolved parameter set is shaped by the processor's own schema, not by
+  whatever happens to be in the stored config. A key nobody declared cannot arrive
+  by being typed into config.
+
+normative: >-
+  The resolved parameter set contains exactly the keys the processor's parameter
+  schema declares, plus the node's declared dynamic input names (CFG-15). A
+  configuration key matching no declared parameter is not resolved and never
+  reaches the processor.
+
+posture: normative-target
+level: core
+profiles:
+  - storage-api
+
+added: "1.0"
+changed: "1.0"
+
+related:
+  - CFG-8
+  - CFG-14
+  - CFG-15

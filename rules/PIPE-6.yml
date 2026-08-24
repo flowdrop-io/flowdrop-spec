@@ -1,0 +1,35 @@
+id: PIPE-6
+family: RT-PIPE
+part: II
+
+title: Authorization is decided before the handler, and travels with its cacheability
+summary: >-
+  A response cached for one principal must never be served to another. That holds
+  only if the authorization decision and the cache metadata describing what it
+  depended on stay together.
+
+normative: >-
+  Authorization for a run's job surfaces is decided before the handler runs, and
+  the decision's cache metadata travels with it, so a response cached for one
+  principal cannot be served to another. The decision is the entity's own
+  authorization result, forwarded unchanged rather than reduced to a boolean; a
+  handler must not re-implement a subset of the model, because doing so both
+  locks out principals the surface admits and ignores extension points the model
+  honours. Authority over a job is not authority over a run: a run the caller may
+  not view is refused before anything about it — its jobs, its summary, its label
+  — is assembled. Absence is answered before denial, so a request for an
+  identifier that does not exist is `404` even where a caller holding the
+  surface's authority could not have viewed it; this is a decided trade, and
+  identifiers must therefore carry no information beyond their existence.
+
+posture: normative-target
+level: core
+profiles:
+  - runtime
+
+added: "1.0"
+changed: "1.0"
+
+related:
+  - PIPE-5
+  - SNAP-2

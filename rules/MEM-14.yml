@@ -1,0 +1,32 @@
+id: MEM-14
+family: GR-MEM
+part: I
+
+title: An append reports how much of it was new
+summary: >-
+  Every drop the buffer makes is silent, and the total message count looks
+  identical across two identical passes. The delta is the only evidence a caller
+  has that a turn actually landed.
+
+normative: >-
+  A conversation-buffer append reports how many of the incoming messages were
+  added as new entries, and whether that number is greater than zero, alongside
+  the resulting buffer count. The number counts appends and not the change in
+  buffer size, because a windowed buffer can evict as many older messages as the
+  call added. A deduplicated message and a placeholder replacement each count as
+  zero, since neither adds an entry. An append under a refused identity scope
+  reports zero, together with its empty buffer.
+
+posture: normative-target
+level: extended
+profiles:
+  - storage-api
+  - runtime
+
+added: "1.0"
+changed: "1.0"
+
+related:
+  - MEM-1
+  - MEM-10
+  - MEM-13

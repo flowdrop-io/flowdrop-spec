@@ -1,0 +1,24 @@
+id: INT-9
+family: RT-INT
+part: II
+
+title: One execution has at most one stored snapshot
+
+normative: >-
+  Storing a snapshot is an upsert keyed by execution identifier: an existing record
+  for the same execution is overwritten in place, so one execution never
+  accumulates two snapshot records. Cleanup deletes records created before a given
+  time and, where a set of statuses is given, only those whose status is in it,
+  answering with the number deleted — zero when nothing matches.
+
+posture: normative-target
+level: extended
+profiles:
+  - runtime
+  - storage-api
+
+added: "1.0"
+changed: "1.0"
+
+related:
+  - INT-6

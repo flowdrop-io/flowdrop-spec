@@ -1,0 +1,24 @@
+id: CFG-18
+family: GR-CFG
+part: I
+
+title: Published config defaults cover configurable parameters only
+
+normative: >-
+  A node type's published metadata carries a config default for a parameter only
+  where the parameter is configurable and its effective default (CFG-3) is
+  non-null. No entry is published for a parameter that is not configurable, or
+  whose effective default is null.
+
+posture: normative-target
+level: extended
+profiles:
+  - storage-api
+  - editor-client
+
+added: "1.0"
+changed: "1.0"
+
+related:
+  - CFG-1
+  - CFG-3

@@ -1,0 +1,30 @@
+id: MAN-3
+family: GR-MAN
+part: I
+
+title: However the manifest was written, one validator refuses a bad entry
+summary: >-
+  An authoring surface can offer only the ports it knows are valid; an API caller
+  submits whatever it likes. Both land on the same stored shape, so the refusal
+  has to live in one place.
+
+normative: >-
+  A manifest may be written by more than one door — an authoring surface that
+  offers the author a filtered choice of ports, or an API mapping a
+  caller-supplied contract. Both write the same stored shape and are refused by
+  the same workflow validation, so an entry naming an unknown node, or a port the
+  instance hides, is refused whichever door submitted it. Exposure is resolved the
+  same way in both cases: an instance-level port setting overrides the port's
+  declared default, and a port with neither is exposed.
+
+posture: normative-target
+level: extended
+profiles:
+  - storage-api
+
+added: "1.0"
+changed: "1.0"
+
+related:
+  - MAN-1
+  - MAN-20

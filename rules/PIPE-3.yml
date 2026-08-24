@@ -1,0 +1,30 @@
+id: PIPE-3
+family: RT-PIPE
+part: II
+
+title: Status vocabulary is guarded in the summary and raw in the node counts
+summary: >-
+  Two counters in the same payload count the same jobs on different terms, and a
+  consumer that reads one as if it were the other draws the wrong conclusion.
+
+normative: >-
+  In `job_status_summary` and the job API's `status_summary`, `total` counts every
+  job, but a bucket is incremented only for a persisted value that is a defined
+  job status. The buckets may therefore sum to less than `total`, and a value
+  outside the vocabulary must never appear as a key there. Each read reports the
+  distinct unrecognised values once. The per-node `node_statuses[*].status_counts`
+  is deliberately not guarded: it counts persisted values as they are, so a value
+  outside the vocabulary does appear both as a key there and as
+  `node_statuses[*].status`.
+
+posture: normative-target
+level: extended
+profiles:
+  - runtime
+
+added: "1.0"
+changed: "1.0"
+
+related:
+  - PIPE-2
+  - PIPE-4

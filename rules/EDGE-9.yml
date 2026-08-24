@@ -1,0 +1,26 @@
+id: EDGE-9
+family: GR-EDGE
+part: I
+
+title: Two edge vocabularies, and they never mix
+
+summary: >-
+  An edge is written one way on the wire and another way in the execution record. Each
+  form has its own key names, and a key from the wrong bag produces something nothing
+  reads.
+
+normative: >-
+  An edge has two forms, each with its own key names. In transport, the form an editor
+  reads and writes, the keys are `source`, `target`, `sourceHandle` and `targetHandle`.
+  In the execution record they are `source_handle`, `target_handle`, `is_trigger`,
+  `is_loopback`, `is_tool`, `branch_name` and `edge_id`. Neither vocabulary may carry a
+  key belonging to the other.
+
+posture: normative-target
+level: extended
+profiles:
+  - storage-api
+  - editor-client
+
+added: "1.0"
+changed: "1.0"

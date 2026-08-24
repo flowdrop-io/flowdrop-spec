@@ -1,0 +1,25 @@
+id: SG-13
+family: RT-SG
+part: II
+
+title: A run records the configuration it resolved and resumes on it
+
+normative: >-
+  A run records the execution configuration it resolved, including the thread it
+  runs on and the checkpoint store it uses. A later resume or deferred launch of
+  that run rebuilds its configuration from that record, so an edit to the workflow
+  cannot change the configuration of a run already in flight. Only where no such
+  record exists does configuration fall back to the workflow's own settings, and
+  then to defaults, bounded by the maximum number of iterations the caller allowed.
+
+posture: normative-target
+level: extended
+profiles:
+  - runtime
+
+added: "1.0"
+changed: "1.0"
+
+related:
+  - SG-12
+  - SG-17

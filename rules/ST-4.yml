@@ -1,0 +1,18 @@
+id: ST-4
+family: RT-ST
+part: II
+
+title: The detail view carried derived run metrics
+
+normative: >-
+  Retired with the polled status surface. Its detail view carried metrics —
+  total, completed, failed and pending node counts and a total execution time —
+  each derived from the node records it held.
+
+posture: deprecated
+level: extended
+profiles:
+  - runtime
+
+added: "1.0"
+changed: "1.0"

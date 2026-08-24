@@ -1,0 +1,18 @@
+id: ST-1
+family: RT-ST
+part: II
+
+title: The status surface answered inside a success envelope
+
+normative: >-
+  Retired with the polled status surface. It answered with a `{success, data}`
+  envelope on success and `{success: false, error}` on failure, alongside the
+  HTTP status code.
+
+posture: deprecated
+level: extended
+profiles:
+  - runtime
+
+added: "1.0"
+changed: "1.0"

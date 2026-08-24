@@ -1,0 +1,18 @@
+id: ST-5
+family: RT-ST
+part: II
+
+title: An execution was reported with a fixed field set
+
+normative: >-
+  Retired with the polled status surface. An execution was reported with the
+  fields status, workflow_id, node_count, start_time, end_time,
+  total_execution_time and error, spelled in snake_case.
+
+posture: deprecated
+level: extended
+profiles:
+  - runtime
+
+added: "1.0"
+changed: "1.0"

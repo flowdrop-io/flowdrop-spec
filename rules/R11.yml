@@ -1,0 +1,40 @@
+id: R11
+family: GR-VAL
+part: I
+
+title: A configured expression must be valid for its engine at save
+
+summary: >-
+  An expression that cannot parse can only fail once the workflow is already
+  running. Catching it at save turns a runtime failure into an editing error.
+
+normative: >-
+  Every expression carried in a node's configuration must pass its engine's
+  validation when the workflow is saved. A failure is refused with
+  `R11_EXPRESSION_INVALID`, and the error names the node, the config key, the
+  engine and the expression. The expressions checked are the ones the node
+  types declare as expression-bearing: a data extractor's `path`, the `value`
+  of each dynamic output of a data mapper, the sources of a data shaper's
+  `mapping` — with reserved source values such as a literal or a now marker
+  skipped, and nested `_source` and `_each` sources walked — and a prompt
+  template's `template`. An empty expression is always valid. An expression
+  naming an engine the implementation does not know is not reported here; R6's
+  `enum` check on the engine key owns that error. An engine whose validation
+  raises rather than returning a verdict is treated as a rejection, yielding
+  one `R11_EXPRESSION_INVALID` for that expression; the failure is never
+  propagated, so a misbehaving engine still produces a refusal against the
+  workflow and never a server error.
+
+posture: normative-target
+level: core
+profiles:
+  - storage-api
+
+added: "1.0"
+changed: "1.0"
+
+rulings:
+  - OPEN-3
+
+related:
+  - R6.d

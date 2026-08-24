@@ -1,0 +1,22 @@
+id: CFG-11
+family: GR-CFG
+part: I
+
+title: Type checking matches exactly and never coerces
+
+normative: >-
+  A `type` check compares the value against the named type exactly: a value of the
+  wrong type fails, and is never coerced to make it pass. A type name the
+  implementation does not recognise passes rather than fails, so an unknown type
+  never blocks a node from running.
+
+posture: normative-target
+level: core
+profiles:
+  - storage-api
+
+added: "1.0"
+changed: "1.0"
+
+related:
+  - CFG-10

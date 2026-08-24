@@ -1,0 +1,39 @@
+id: MAN-21
+family: GR-MAN
+part: I
+
+title: A contract entry states the port's lane as well as its schema
+summary: >-
+  A port's lane and its JSON Schema type are two different vocabularies. Answering
+  one with the other made a contract entry contradict the port it was bound to.
+
+normative: >-
+  An interface entry states its bound port's lane and its structural schema
+  separately: the lane is the port's declared or derived data-type lane, and the
+  schema is the JSON Schema fragment. The lane is never the fragment's `type`. It
+  is resolved once, when the contract is built, against the vocabulary the
+  implementation actually serves, and is pinned into the stored fragment, so a
+  reader sees the lane the workflow was published against rather than one that
+  could drift since. Reading the contract only reads that pin; a stored contract
+  built before the pin existed falls back to the lane derivable from the
+  fragment's type, which is never wider than the truth, and self-corrects on the
+  workflow's next rebuild. The schema emitted alongside it is the structural
+  contract only: the pinned lane, the title, the description, the examples and
+  property-level required flags are stripped on the way out, because the entry
+  states each of them itself. None of this changes what a caller must pass: the
+  launch check reads `type` and `enum` from the stored contract and never consults
+  this projection.
+
+posture: normative-target
+level: extended
+profiles:
+  - storage-api
+
+added: "1.0"
+changed: "1.0"
+
+related:
+  - MAN-5
+  - MAN-16
+  - MAN-18
+  - MAN-20

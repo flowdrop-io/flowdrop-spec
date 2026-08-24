@@ -1,0 +1,21 @@
+id: STORE-7
+family: GR-STORE
+part: I
+
+title: Stored node metadata carries the type anchor and nothing else
+
+normative: >-
+  Storage constrains a node's `data.metadata` to a single key, `node_type_id`. A node's
+  `data.config` is unconstrained at storage: its shape is the node type's business and
+  is judged by validation, not by the storage layer.
+
+posture: normative-target
+level: extended
+profiles:
+  - storage-api
+
+added: "1.0"
+changed: "1.0"
+
+related:
+  - STORE-13

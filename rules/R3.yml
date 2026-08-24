@@ -1,0 +1,24 @@
+id: R3
+family: GR-VAL
+part: I
+
+title: Every edge carries a unique id
+
+normative: >-
+  Every edge in a workflow must carry an `id`, and edge `id`s must be unique
+  within the workflow. An edge with no `id` is refused with
+  `R3_EDGE_MISSING_ID`, a repeated `id` with `R3_EDGE_DUPLICATE_ID`, and in
+  either case the save does not take effect. An implementation may mint an id
+  for an edge that lacks one while reading an already-stored definition; that
+  tolerance is for legacy data only and never relaxes the requirement at save.
+
+posture: normative-target
+level: core
+profiles:
+  - storage-api
+
+added: "1.0"
+changed: "1.0"
+
+rulings:
+  - OPEN-5

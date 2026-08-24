@@ -1,0 +1,22 @@
+id: ERR-12
+family: RT-ERR
+part: II
+
+title: Direct synchronous execution has no error-handling divergence
+normative: >-
+  Withdrawn in favour of ERR-13. The rule promised that direct synchronous execution
+  does not record an error output and continue where the other strategies route it;
+  ERR-13 states the uniform requirement for every strategy.
+
+posture: deprecated
+level: core
+profiles:
+  - runtime
+
+added: "1.0"
+changed: "1.0"
+
+supersededBy: ERR-13
+
+related:
+  - ERR-13

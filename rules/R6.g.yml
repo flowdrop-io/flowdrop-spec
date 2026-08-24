@@ -1,0 +1,25 @@
+id: R6.g
+family: GR-VAL
+part: I
+
+title: Length bounds count characters, never bytes
+
+summary: >-
+  A limit measured in bytes would depend on the alphabet the author writes in,
+  so the same word would fit one implementation and not another.
+
+normative: >-
+  A string config value shorter than its schema's `minLength` or longer than
+  its `maxLength` is refused with `R6_CONFIG_INVALID` at
+  `node.{id}.config.{key}`. Both bounds count Unicode code points, never bytes.
+
+posture: normative-target
+level: core
+profiles:
+  - storage-api
+
+added: "1.0"
+changed: "1.0"
+
+related:
+  - R6.d

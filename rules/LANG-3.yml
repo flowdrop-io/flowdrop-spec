@@ -1,0 +1,20 @@
+id: LANG-3
+family: GR-LANG
+part: I
+
+title: An empty expression is not an error
+
+normative: >-
+  An empty expression is valid: it passes validation, and it produces a defined
+  result rather than a failure. A mapper output whose expression is empty is null,
+  whatever the engine. An extractor whose path is empty returns its input
+  unchanged, reports success, and reports no match.
+
+posture: normative-target
+level: core
+profiles:
+  - storage-api
+  - runtime
+
+added: "1.0"
+changed: "1.0"

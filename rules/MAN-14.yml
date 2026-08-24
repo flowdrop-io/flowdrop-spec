@@ -1,0 +1,26 @@
+id: MAN-14
+family: GR-MAN
+part: I
+
+title: Strictness polices the caller, never the stored manifest
+summary: >-
+  A caller can fix the key they sent. They cannot fix a manifest entry someone
+  else stored, so failing their launch over it helps nobody.
+
+normative: >-
+  A malformed manifest entry — one missing a `name`, a `node_id` or a `port`, or
+  carrying an empty one — is dropped with a warning while resolving launch inputs,
+  including where undeclared caller keys are refused. Strictness applies to what
+  the caller supplied, not to what the workflow stored.
+
+posture: normative-target
+level: extended
+profiles:
+  - storage-api
+
+added: "1.0"
+changed: "1.0"
+
+related:
+  - MAN-8
+  - MAN-13

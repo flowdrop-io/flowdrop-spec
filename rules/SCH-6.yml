@@ -1,0 +1,23 @@
+id: SCH-6
+family: GR-SCHEMA
+part: I
+
+title: Which required list a required parameter lands in
+
+normative: >-
+  A required parameter is emitted into the input schema's `required` list if and
+  only if it is not `configurable`, and into the config schema's `required` list if
+  and only if it is not `connectable`.
+
+posture: normative-target
+level: core
+profiles:
+  - storage-api
+  - editor-client
+
+added: "1.0"
+changed: "1.0"
+
+related:
+  - SCH-2
+  - SCH-3

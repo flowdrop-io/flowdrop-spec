@@ -1,0 +1,32 @@
+id: MEM-6
+family: GR-MEM
+part: I
+
+title: A user-scoped memory read or write without a real user refuses
+summary: >-
+  A memory bucket keyed by identity is only meaningful when there is an identity.
+  Degrading to a shared bucket is how one caller's conversation ends up in
+  another's history, so the scope refuses instead.
+
+normative: >-
+  Resolving the `user` memory scope refuses whenever the execution context is
+  absent, carries no user identifier, carries one that is not a usable identifier,
+  or carries the identifier that denotes no user. A refusal is distinct from
+  resolving to an empty scope identifier: an empty identifier selects the shared
+  global bucket, so a `user` scope that degraded would merge every identity-less
+  execution path into one bucket and every anonymous caller into another. Scopes
+  that are not identity scopes continue to resolve to the empty identifier.
+
+posture: normative-target
+level: core
+profiles:
+  - storage-api
+  - runtime
+
+added: "1.0"
+changed: "1.0"
+
+related:
+  - MEM-7
+  - MEM-8
+  - MEM-13

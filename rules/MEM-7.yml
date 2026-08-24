@@ -1,0 +1,32 @@
+id: MEM-7
+family: GR-MEM
+part: I
+
+title: A refused scope reaches no storage backend
+summary: >-
+  The refusal is only worth having if every consumer honours it identically, and
+  if nothing is written on the way out.
+
+normative: >-
+  When a memory scope refuses, every consumer of it returns its neutral result and
+  the storage backend is not called at all, for neither a read nor a write-back. A
+  read returns its configured default and reports that nothing was found; a write
+  and a delete report failure; a conversation-buffer append returns an empty
+  buffer with a count of zero, dropping the turn rather than appending it to a
+  shared history. The resolved scope identifier reported back is empty. Each
+  refusal emits exactly one warning identifying the node, the pipeline and the
+  workflow, and the refusal is decided in one place so the consumers cannot
+  diverge.
+
+posture: normative-target
+level: core
+profiles:
+  - storage-api
+  - runtime
+
+added: "1.0"
+changed: "1.0"
+
+related:
+  - MEM-6
+  - MEM-13

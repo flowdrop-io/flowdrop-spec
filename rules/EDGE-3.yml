@@ -1,0 +1,20 @@
+id: EDGE-3
+family: GR-EDGE
+part: I
+
+title: A trigger edge is one whose target port is the trigger port
+
+normative: >-
+  An edge is a trigger edge when, and only when, its target handle ends with
+  `-input-trigger`. Nothing else marks a wire as a trigger.
+
+posture: normative-target
+level: core
+profiles:
+  - storage-api
+
+added: "1.0"
+changed: "1.0"
+
+related:
+  - EDGE-1

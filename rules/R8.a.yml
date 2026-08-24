@@ -1,0 +1,21 @@
+id: R8.a
+family: GR-VAL
+part: I
+
+title: An edge's source node must exist
+
+normative: >-
+  An edge whose `source` does not name a node in the workflow is refused with
+  `R8_EDGE_SOURCE_MISSING` at `edge.{index}`, where `{index}` is the edge's
+  position in the workflow's edge list. An empty `source` counts as missing.
+
+posture: normative-target
+level: core
+profiles:
+  - storage-api
+
+added: "1.0"
+changed: "1.0"
+
+related:
+  - R8.b

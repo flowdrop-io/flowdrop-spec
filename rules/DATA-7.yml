@@ -1,0 +1,26 @@
+id: DATA-7
+family: RT-DATA
+part: II
+
+title: Inside a node, a wire outranks configuration outranks the default
+
+normative: >-
+  Within a node, a value delivered on an input port outranks the value the author
+  configured on that node, which outranks the port's schema default. Presence is
+  decided key by key at every level, so an explicit `null` at a higher level wins
+  over a value at a lower one.
+
+posture: normative-target
+level: core
+profiles:
+  - runtime
+
+added: "1.0"
+changed: "1.0"
+
+related:
+  - CFG-4
+  - CFG-5
+  - CFG-6
+  - CFG-7
+  - DATA-1

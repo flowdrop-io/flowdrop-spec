@@ -1,0 +1,33 @@
+id: RT-GATE-3
+family: RT-GATE
+part: II
+
+title: Consent binds to the node and its exact resolved arguments
+
+summary: >-
+  The operator approved one call, not "this node from now on". If the arguments
+  drift, the approval no longer describes what would happen.
+
+normative: >-
+  A consent binds to a hash over the node identifier and its canonicalized resolved
+  arguments: keys sorted, scalars encoded stably, and internal parameters — those
+  whose names carry the reserved `__` prefix — excluded. Any mismatch between the
+  hash a consent carries and the hash of the call at hand is treated as no consent:
+  the gate asks again and must never reuse the earlier consent. Where a question is
+  still pending for arguments that have since drifted, it is withdrawn before the
+  new one is asked; where a question is still pending for the same call, that
+  question is re-raised rather than duplicated.
+
+posture: normative-target
+level: core
+profiles:
+  - runtime
+
+added: "1.0"
+changed: "1.0"
+
+related:
+  - RT-GATE-1
+  - RT-GATE-2
+  - RT-GATE-9
+  - RT-GATE-12

@@ -1,0 +1,21 @@
+id: DATA-11
+family: RT-DATA
+part: II
+
+title: A tool's model-facing schema hides the parameters the workflow already fixed
+
+normative: >-
+  The tool schema offered to a model omits every parameter the workflow has already
+  decided: one pinned in the tool node's configuration, and one fed by an edge. The
+  model is asked only for the parameters that remain open.
+
+posture: normative-target
+level: extended
+profiles:
+  - runtime
+
+added: "1.0"
+changed: "1.0"
+
+related:
+  - DATA-10

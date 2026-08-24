@@ -1,0 +1,22 @@
+id: LANG-11
+family: GR-LANG
+part: I
+
+title: Property-path validation accepts everything evaluation can resolve
+
+normative: >-
+  Validating a property path parses it with the same parser evaluation uses, after
+  the same dot-to-bracket normalization. Every path evaluation could resolve
+  therefore validates, and only a path that cannot be parsed at all — an unclosed
+  bracket, an empty segment — is rejected.
+
+posture: normative-target
+level: extended
+profiles:
+  - storage-api
+
+added: "1.0"
+changed: "1.0"
+
+related:
+  - LANG-17

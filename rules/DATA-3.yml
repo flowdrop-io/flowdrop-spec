@@ -1,0 +1,17 @@
+id: DATA-3
+family: RT-DATA
+part: II
+
+title: A trigger edge carries no data
+
+normative: >-
+  A trigger edge conveys only that its source completed. It delivers no value, and
+  no input port on its target is ever filled by one.
+
+posture: normative-target
+level: core
+profiles:
+  - runtime
+
+added: "1.0"
+changed: "1.0"

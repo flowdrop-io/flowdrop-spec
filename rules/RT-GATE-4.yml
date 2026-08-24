@@ -1,0 +1,36 @@
+id: RT-GATE-4
+family: RT-GATE
+part: II
+
+title: A declined node routes a structured verdict out its error port
+
+summary: >-
+  A decline is a real outcome an author can handle, delivered where every other
+  node failure is delivered. It is deliberately not a pair of branch ports that
+  appear and disappear with a configuration flag.
+
+normative: >-
+  A declined node that was scheduled in the graph must not be executed, and the
+  decline becomes an error output on the node's reserved error port carrying the
+  code `confirmation_declined` and details naming the interrupt type, the reason,
+  who declined, when, and the interrupt's identifier; those details are forwarded
+  as the error edge payload's optional details. Where an error edge is wired the
+  decline is a handled failure (ERR-7); otherwise the run's default failure
+  behaviour applies (ERR-8). A decline must not be surfaced as branch ports that
+  exist only when confirmation is configured — a port surface that depends on a
+  configuration flag breaks the canvas contract. An author who wants first-class
+  branching on a human decision uses an explicit confirmation node.
+
+posture: normative-target
+level: core
+profiles:
+  - runtime
+
+added: "1.0"
+changed: "1.0"
+
+related:
+  - ERR-7
+  - ERR-8
+  - RT-GATE-1
+  - RT-GATE-5

@@ -1,0 +1,34 @@
+id: SCH-42
+family: GR-SCHEMA
+part: I
+
+title: A shape is a named JSON Schema, and the shape id is the lane id
+summary: >-
+  Shapes let a lane say what it carries — an order, an entity, a remote contract —
+  without adding a second vocabulary an editor would have to reconcile with lanes.
+
+normative: >-
+  A port shape is a named JSON Schema whose id is a lane id: one id space, no
+  second vocabulary axis. A shape is declared in one of two places, and the
+  difference is whose it is. A shape that belongs to code ships and updates with
+  the ports that wear it, needs nothing installed alongside it, and may compute its
+  schema, so one declaration can yield a family of lanes — a derived member's id is
+  `base:derivative`. A shape that belongs to the site is declared in the site's own
+  configuration, added without writing code, and travels and diffs with that
+  configuration. Every shipped lane that is not a primitive has a shape. A shape
+  names a value; it does not check one. Nothing validates a value against a shape.
+
+posture: normative-target
+level: extended
+profiles:
+  - storage-api
+  - editor-client
+
+added: "1.0"
+changed: "1.0"
+
+related:
+  - SCH-41
+  - SCH-43
+  - SCH-44
+  - SCH-46

@@ -1,0 +1,30 @@
+id: OCX-3
+family: RT-OCX
+part: II
+
+title: Polls are scoped by a positive marker, defined once
+summary: >-
+  Scoping by the presence of a trigger configuration served cron, entity and form
+  runs — output data included — to any external platform that asked.
+
+normative: >-
+  A poll answers only runs that were externally invoked, identified by a positive
+  source marker carried in the run's initial data. Scoping must not be inferred
+  from the presence of a trigger configuration identifier, which every trigger
+  kind sets. The marker has exactly one definition, shared by the code that
+  writes it and the code that reads it, so producer and consumer cannot drift
+  apart — a drift that manifests as a poll returning nothing forever, with no
+  error. The marker travels in the run's initial data, not in the options that
+  configure the orchestrator, which never reach it.
+
+posture: normative-target
+level: core
+profiles:
+  - runtime
+
+added: "1.0"
+changed: "1.0"
+
+related:
+  - OCX-1
+  - OCX-9

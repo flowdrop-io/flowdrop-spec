@@ -1,0 +1,30 @@
+id: PIPE-1
+family: RT-PIPE
+part: II
+
+title: Run status is read from persisted state, on two routes and one envelope
+summary: >-
+  The live picture of a run is whatever has been persisted for it, not what some
+  in-memory tracker happens to remember. A poll therefore answers the same value
+  to every caller, including one served by a process that has just started.
+
+normative: >-
+  A run's status is published by two reads: the full pipeline document and a
+  lightweight status document. Both answer the standard `{success: true, data}`
+  envelope, publish the persisted lifecycle value verbatim as `data.status`, and
+  answer `404` with `{success: false, error}` for a run that does not exist and
+  `403` for one the caller may not view. The full document adds `node_statuses`,
+  `jobs`, `job_status_summary` and `execution_data` alongside `id`, `name`,
+  `description`, `createdAt`, `lastExecuted`, `executionCount` and `timestamp`;
+  the lightweight document carries `id`, `status`, `createdAt`, `lastExecuted`,
+  `pendingInterrupt` and `pausedReason` and must not carry the jobs payload. Both
+  read persisted state only, so a status written outside the request path is what
+  the next poll returns.
+
+posture: normative-target
+level: core
+profiles:
+  - runtime
+
+added: "1.0"
+changed: "1.0"

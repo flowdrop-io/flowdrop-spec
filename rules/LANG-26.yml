@@ -1,0 +1,22 @@
+id: LANG-26
+family: GR-LANG
+part: I
+
+title: A prompt template that fails to render fails the node
+
+normative: >-
+  When a prompt template fails to render — it cannot be compiled, it cannot be
+  loaded, or it fails while rendering — the node fails and the failure routes to
+  the error edge, preserving the original cause.
+
+posture: normative-target
+level: core
+profiles:
+  - runtime
+
+added: "1.0"
+changed: "1.0"
+
+related:
+  - LANG-7
+  - LANG-29

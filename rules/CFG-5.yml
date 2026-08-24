@@ -1,0 +1,25 @@
+id: CFG-5
+family: GR-CFG
+part: I
+
+title: Priority 2 — the author's saved config
+
+normative: >-
+  Where priority 1 does not apply, a parameter takes its value from the node's
+  saved configuration when the parameter is not internal, is configurable, and the
+  configuration contains a key of that name. A key present with a null value counts
+  as supplied (CFG-7). A parameter that fails this test falls through to priority 3
+  (CFG-6).
+
+posture: normative-target
+level: core
+profiles:
+  - storage-api
+
+added: "1.0"
+changed: "1.0"
+
+related:
+  - CFG-4
+  - CFG-6
+  - CFG-7

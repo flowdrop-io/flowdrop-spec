@@ -1,0 +1,28 @@
+id: PLAY-5
+family: RT-PLAY
+part: II
+
+title: The session list is ownership-scoped, and an emptied filter means none
+summary: >-
+  The failure mode this rules out is an explicit request for no sessions answered
+  with every sibling session in the workflow.
+
+normative: >-
+  A caller without authority to view any session sees only sessions they own: the
+  ownership condition binds the list and its total count alike, on the default
+  path and on the filtered path, so the `ids` filter can only narrow what the
+  caller could already see. Where the filter is present but every value in it
+  parses away, the list answers an empty page with a total of zero; it must not
+  fall through to the unfiltered list.
+
+posture: normative-target
+level: extended
+profiles:
+  - runtime
+  - editor-client
+
+added: "1.0"
+changed: "1.0"
+
+related:
+  - PLAY-1

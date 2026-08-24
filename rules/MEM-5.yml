@@ -1,0 +1,39 @@
+id: MEM-5
+family: GR-MEM
+part: I
+
+title: Normalizing a conversation makes it sendable to a provider
+summary: >-
+  Stored history and provider history are not the same shape. Normalization is
+  the one place that reconciles them, and it reports what it had to drop.
+
+normative: >-
+  A conversation-normalization node takes one message list and emits a normalized
+  message list plus the number of entries dropped, applying four rules in order.
+  (1) Each entry is coerced to the flat message shape a reasoner consumes; a
+  non-list entry or one without a role is dropped, and content that is not a
+  scalar is serialized to text rather than blanked, falling back to the empty
+  string if it cannot be serialized. (2) `system`-role messages move to the front,
+  with the system group and the remaining group each keeping their own relative
+  order; a system message is never dropped. (3) Tool pairing is repaired by the
+  same procedure a reasoner applies mid-loop: an unanswered call gets a synthetic
+  interrupted result adjacent to it, an orphan or duplicate result is dropped, and
+  a tool call id declared a second time is dropped from the later turn, so the
+  first declaration owns the pairing. (4) Any message still leading the list with
+  role `tool` is stripped, and because stripping it can leave a call unanswered,
+  rule (3) is applied again; repair is idempotent. The reported drop count comes
+  from the repair pass itself, never from a separate reimplementation of its
+  rules.
+
+posture: normative-target
+level: extended
+profiles:
+  - storage-api
+  - runtime
+
+added: "1.0"
+changed: "1.0"
+
+related:
+  - MEM-3
+  - MEM-16

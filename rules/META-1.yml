@@ -1,0 +1,27 @@
+id: META-1
+family: RT-META
+part: II
+
+title: The category list is the standard envelope, and its name is a machine name
+summary: >-
+  This is the list that fills an editor's node sidebar. A consumer that treats
+  `name` as human-readable renders a machine name to an author.
+
+normative: >-
+  The category list answers the standard `{success, data}` envelope; a cacheable
+  response carries byte-identical envelope keys to a non-cacheable one, and a
+  door must not hand-build a body to avoid it. `data` is a list of rows whose
+  keys are `name`, `label`, `icon`, `color`, `description`, in that order, every
+  value a string. `name` is the category's identifier, not a display name, and
+  there is no separate `id` key. Only enabled categories are published: a
+  disabled one is absent rather than flagged, so a consumer cannot distinguish it
+  from a deleted one.
+
+posture: normative-target
+level: core
+profiles:
+  - runtime
+  - editor-client
+
+added: "1.0"
+changed: "1.0"

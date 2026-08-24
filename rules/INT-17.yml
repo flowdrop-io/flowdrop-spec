@@ -1,0 +1,30 @@
+id: INT-17
+family: RT-INT
+part: II
+
+title: A terminal outcome reaps the signals it never observed
+
+summary: >-
+  A signal is accepted whenever the run is still alive, but the run only looks at
+  it between iterations. A run that finishes first leaves the request pending
+  against a corpse.
+
+normative: >-
+  When a run reaches a terminal outcome, inward signals still pending against it
+  are cancelled, after the outcome's own handling has completed. A paused run must
+  not be reaped: a pending inward pause signal is that run's resume key (INT-5), and
+  cancelling it would strand the run with no way back. A stateless run has nothing
+  targeting it and is skipped. A failure while reaping is recorded and never
+  raised — the outcome is already recorded and hygiene must not corrupt it.
+
+posture: normative-target
+level: extended
+profiles:
+  - runtime
+
+added: "1.0"
+changed: "1.0"
+
+related:
+  - INT-5
+  - INT-16

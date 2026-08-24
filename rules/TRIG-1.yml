@@ -1,0 +1,38 @@
+id: TRIG-1
+family: RT-TRIG
+part: II
+
+title: Overlap is judged against the workflow's own unfinished runs
+summary: >-
+  The overlap decision is made unattended, and a wrong answer is either a
+  duplicated production run or a silently dropped one. The four policies are four
+  genuinely different behaviours, and the buffer is a one-slot mailbox rather than
+  a queue.
+
+normative: >-
+  Overlap is decided against runs of the same workflow that have not reached a
+  terminal state — pending, running or paused. A terminal run, and a run of any
+  other workflow, are both ignored; with none active, every policy proceeds with
+  the caller's trigger data unchanged. With one active, Skip blocks the firing;
+  Buffer defers it and blocks; Cancel cancels every active run, announcing each
+  cancellation, and proceeds; Terminate first cancels every job those runs still
+  have outstanding, so no worker can pick one up after the run is gone, and then
+  does what Cancel does. The buffer holds at most one deferred firing per trigger:
+  a second firing while one is buffered is dropped, never stacked and never
+  overwritten. A buffered firing is released at the next firing once the run that
+  blocked it is terminal or gone, and on release its own payload replaces the
+  current firing's; a buffer whose blocking run can no longer be identified is
+  released rather than left stranded. A policy an implementation does not
+  recognise must be treated as Skip — the only fail-safe direction, since every
+  alternative destroys a running workflow.
+
+posture: normative-target
+level: extended
+profiles:
+  - runtime
+
+added: "1.0"
+changed: "1.0"
+
+# related: ORC-15 governs the announcement a Cancel emits; restored once that rule
+# is migrated. The validator refuses a reference to a rule that does not exist.

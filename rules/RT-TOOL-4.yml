@@ -1,0 +1,24 @@
+id: RT-TOOL-4
+family: RT-TOOL
+part: II
+
+title: A turn's artifacts are persisted on its message and reported on its result
+
+normative: >-
+  The artifacts a run collected are persisted on the last assistant message that
+  run wrote, once per run. A turn's result aggregates the persisted artifacts of
+  every assistant message in the turn, so they survive a reload, and the turn API
+  reports the same list. On the wire a message carries them as a top-level
+  `toolArtifacts` field rather than as raw message metadata.
+
+posture: normative-target
+level: extended
+profiles:
+  - runtime
+
+added: "1.0"
+changed: "1.0"
+
+related:
+  - RT-TOOL-3
+  - RT-TOOL-7

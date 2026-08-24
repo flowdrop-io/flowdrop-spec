@@ -1,0 +1,21 @@
+id: SG-6
+family: RT-SG
+part: II
+
+title: Routing is decided per edge and dispatched per target
+
+normative: >-
+  Whether to follow an edge is decided edge by edge, but dispatch is per target
+  node: several followed edges arriving at one target produce a single dispatch of
+  that target, not one per edge.
+
+posture: normative-target
+level: core
+profiles:
+  - runtime
+
+added: "1.0"
+changed: "1.0"
+
+related:
+  - SG-9

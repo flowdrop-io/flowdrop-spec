@@ -1,0 +1,30 @@
+id: INT-1
+family: RT-INT
+part: II
+
+title: An interrupt pauses the run and reports itself in full
+
+summary: >-
+  When a node stops to ask a question, the caller gets a complete answer about what
+  happened: which question is outstanding, which run holds it, and everything that
+  finished before it.
+
+normative: >-
+  When a node raises an interrupt, its job is marked interrupted and carries the
+  interrupt's identifier, and the run is paused. The response shape is part of this
+  rule: status `interrupted`, the persisted interrupt's public representation
+  (identifier, node identifier, status) under the response metadata, the run's
+  identifier, and results holding every node that completed before the interrupt.
+
+posture: normative-target
+level: core
+profiles:
+  - runtime
+
+added: "1.0"
+changed: "1.0"
+
+related:
+  - INT-2
+  - INT-3
+  - INT-22

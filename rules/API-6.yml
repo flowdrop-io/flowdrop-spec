@@ -1,0 +1,24 @@
+id: API-6
+family: GR-API
+part: I
+
+title: Paging is clamped silently, and the clamped values are what is reported
+
+normative: >-
+  A paginated door caps `limit` at 100 and floors `offset` at 0. Out-of-range paging is
+  corrected, never refused: there is no 400 for it. The corrected values are what the
+  pagination block reports, so a caller that asked for 1000 and was served 100 is told
+  100 and its `has_more` arithmetic holds. `total` is counted before pagination and
+  under every filter the result carries, so a filtered page's total describes the
+  filtered set and not the whole collection.
+
+posture: normative-target
+level: core
+profiles:
+  - storage-api
+
+added: "1.0"
+changed: "1.0"
+
+related:
+  - API-5

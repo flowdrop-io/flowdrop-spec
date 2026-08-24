@@ -1,0 +1,26 @@
+id: MAN-12
+family: GR-MAN
+part: I
+
+title: The node-keyed input shape is internal and unreachable from outside
+summary: >-
+  Addressing a node and port directly bypasses the manifest entirely, which is the
+  whole of the launch boundary. It stays available to the system's own callers and
+  to nobody else.
+
+normative: >-
+  The node-keyed input shape, addressing a node identifier and port name directly,
+  is an internal contract. Every externally reachable launch door refuses it: a
+  caller supplies declared input names, and nothing else.
+
+posture: normative-target
+level: core
+profiles:
+  - storage-api
+
+added: "1.0"
+changed: "1.0"
+
+related:
+  - MAN-10
+  - MAN-13

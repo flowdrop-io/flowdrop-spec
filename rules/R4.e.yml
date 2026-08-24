@@ -1,0 +1,27 @@
+id: R4.e
+family: GR-VAL
+part: I
+
+title: An exposure name may not collide with a reserved runtime name
+
+summary: >-
+  R4.a's alphabet admits names beginning with underscores, which is where the
+  runtime's own injected parameters live. Without this rule an author could
+  claim one of them and shadow it.
+
+normative: >-
+  A workflow exposure entry's `name` must not be a name the runtime reserves
+  for parameters it injects into a workflow's manifest — `__interrupt_id__` is
+  such a name. A reserved name is refused with `R4_NAME_RESERVED` at
+  `schema.{side}.{index}`, on the input side and the output side alike.
+
+posture: normative-target
+level: extended
+profiles:
+  - storage-api
+
+added: "1.0"
+changed: "1.0"
+
+related:
+  - R4.a

@@ -1,0 +1,31 @@
+id: MEM-13
+family: GR-MEM
+part: I
+
+title: A session-scoped memory read or write without a real session refuses
+summary: >-
+  The other identity scope, closing the same leak. A session scope that degraded
+  would splice every identity-less execution path into one shared conversation
+  history.
+
+normative: >-
+  Resolving the `session` memory scope refuses whenever the execution context is
+  absent, carries no session identifier, carries one that is not a usable
+  identifier, or carries the identifier that denotes no session. As with the
+  `user` scope, refusing is distinct from resolving to the empty scope identifier,
+  which selects the shared global bucket. Scopes that are not identity scopes
+  continue to resolve to the empty identifier, and every consumer honours this
+  refusal the same way it honours the `user` one.
+
+posture: normative-target
+level: core
+profiles:
+  - storage-api
+  - runtime
+
+added: "1.0"
+changed: "1.0"
+
+related:
+  - MEM-6
+  - MEM-7

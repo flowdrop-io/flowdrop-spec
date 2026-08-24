@@ -1,0 +1,21 @@
+id: LANG-1
+family: GR-LANG
+part: I
+
+title: Extraction engines query the context; transformation engines bind it
+summary: >-
+  The engines an author can choose split into two families, and the split decides
+  what the surrounding data means to the expression they write.
+
+normative: >-
+  An extraction engine treats the evaluation context as data to be queried by a
+  path. A transformation engine treats the same context as a map of variables the
+  expression may reference by name.
+
+posture: normative-target
+level: core
+profiles:
+  - runtime
+
+added: "1.0"
+changed: "1.0"

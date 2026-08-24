@@ -1,0 +1,23 @@
+id: SG-11
+family: RT-SG
+part: II
+
+title: Every node completion writes a checkpoint, and the run writes a last one
+
+normative: >-
+  A run writes a checkpoint as each node completes, each chained to the checkpoint
+  before it, and a final checkpoint named `workflow_end` when the run ends. An
+  implementation offers at least an ephemeral checkpoint store, which lives no
+  longer than the request that created it, and a durable one, which outlives it. A
+  run that asks for a checkpoint store the implementation does not know is refused.
+
+posture: normative-target
+level: extended
+profiles:
+  - runtime
+
+added: "1.0"
+changed: "1.0"
+
+related:
+  - SG-12

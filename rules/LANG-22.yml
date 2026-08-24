@@ -1,0 +1,23 @@
+id: LANG-22
+family: GR-LANG
+part: I
+
+title: An extraction error fails the node and never takes the default
+
+normative: >-
+  When an extraction fails — a path the engine cannot evaluate, an engine failure —
+  the node fails and the failure routes to the error edge, naming the path and the
+  engine. The configured default is not substituted on an error; it applies only
+  where the expression evaluated cleanly and found nothing.
+
+posture: normative-target
+level: core
+profiles:
+  - runtime
+
+added: "1.0"
+changed: "1.0"
+
+related:
+  - LANG-24
+  - LANG-29

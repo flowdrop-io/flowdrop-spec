@@ -1,0 +1,31 @@
+id: TRIG-2
+family: RT-TRIG
+part: II
+
+title: Jitter is rolled once and never re-rolled
+summary: >-
+  Spreading trigger load must not become a way for a trigger never to fire. The
+  delay is drawn on the pass that finds the trigger due and then held to, however
+  many passes follow.
+
+normative: >-
+  Where a trigger's firing is spread by a random delay, a maximum of zero or less
+  means the delay is off: the firing is not held and no state is recorded — it is
+  not a zero-length window. Otherwise the bounds are clamped before use, so a
+  negative minimum becomes zero and a minimum above the maximum is used as both
+  bounds. On the first pass at which the trigger is due, one delay is drawn
+  uniformly at random within the bounds, the resulting fire time is recorded, and
+  the firing is held. Every later pass reads the recorded fire time rather than
+  drawing again — re-drawing on each pass would let a trigger be deferred
+  indefinitely — and the firing is released as soon as the current time reaches
+  that fire time, inclusive, discarding the record so the next due firing draws
+  afresh. The record is scoped to a single trigger, so one trigger's window never
+  holds another back.
+
+posture: normative-target
+level: extended
+profiles:
+  - runtime
+
+added: "1.0"
+changed: "1.0"

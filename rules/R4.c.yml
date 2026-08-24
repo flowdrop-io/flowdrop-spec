@@ -1,0 +1,23 @@
+id: R4.c
+family: GR-VAL
+part: I
+
+title: An exposure entry must name a node that exists
+
+normative: >-
+  A workflow exposure entry's `node_id` must name a node in the workflow. An
+  entry that does not is refused at `schema.{side}.{index}`, and the entry's
+  remaining checks are skipped, since none of them can be decided without the
+  node.
+
+posture: normative-target
+level: core
+profiles:
+  - storage-api
+
+added: "1.0"
+changed: "1.0"
+
+related:
+  - R4.a
+  - R4.d

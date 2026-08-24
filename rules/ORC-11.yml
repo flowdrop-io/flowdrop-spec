@@ -1,0 +1,29 @@
+id: ORC-11
+family: RT-ORC
+part: II
+
+title: How a run's terminal status is decided
+summary: >-
+  A single ladder, in precedence order, so a run that both failed and paused reports the
+  failure.
+
+normative: >-
+  A run's terminal status is decided in this precedence: an unhandled failure makes the
+  run failed and the remaining work skipped; otherwise an interrupt pauses the run with
+  no reason recorded; otherwise work still ready to run pauses the run with the reason
+  recorded; otherwise the run is completed. A cancelled run never reaches this ladder — a
+  cancel signal ends the run before it and is announced there.
+
+posture: normative-target
+level: core
+profiles:
+  - runtime
+
+added: "1.0"
+changed: "1.0"
+
+related:
+  - ERR-9
+  - ORC-10
+  - ORC-15
+  - INT-12

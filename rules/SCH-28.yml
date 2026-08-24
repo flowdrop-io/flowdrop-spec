@@ -1,0 +1,21 @@
+id: SCH-28
+family: GR-SCHEMA
+part: I
+
+title: A node's executor is resolved from its node type
+
+normative: >-
+  The executor for a node is resolved from that node's node type. An executor named
+  in stored node metadata is never trusted.
+
+posture: normative-target
+level: core
+profiles:
+  - storage-api
+  - runtime
+
+added: "1.0"
+changed: "1.0"
+
+related:
+  - SCH-29

@@ -1,0 +1,35 @@
+id: SG-19
+family: RT-SG
+part: II
+
+title: A source from an earlier round does not satisfy an edge
+
+summary: >-
+  Inside a loop, a completed node is not necessarily a current one. Without this,
+  a consumer on round N happily reads the value its source produced on round N-1.
+
+normative: >-
+  A completed source does not satisfy a trigger, error or data edge when the source
+  and the consumer share a loop and the source's round on that loop is behind the
+  consumer's. Behindness is decided by intersecting the two round stamps' loops and
+  comparing lexicographically, outermost loop first: the first shared loop on which
+  the two differ settles it, and nothing nested inside it can overturn that. Where
+  the two share no loop the source is never behind — a source outside every loop
+  the consumer is in will never fire again, its value is the current one forever,
+  and gating it would hang the consumer on a round that cannot arrive. The verdict
+  differs by edge class: a gated trigger or error edge leaves the consumer waiting,
+  to be skipped when the run ends, while a gated data port must be terminated.
+
+posture: normative-target
+level: core
+profiles:
+  - runtime
+
+added: "1.0"
+changed: "1.0"
+
+related:
+  - SG-17
+  - SG-18
+  - SG-20
+  - DATA-4

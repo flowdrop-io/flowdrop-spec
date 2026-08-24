@@ -1,0 +1,21 @@
+id: R6.i
+family: GR-VAL
+part: I
+
+title: A null config value means unset
+
+normative: >-
+  A config value of `null` means the key is unset. It satisfies a required key,
+  and no schema constraint is evaluated against it, so a `null` never fails
+  type, `enum`, bounds or `pattern`.
+
+posture: normative-target
+level: core
+profiles:
+  - storage-api
+
+added: "1.0"
+changed: "1.0"
+
+related:
+  - R6.b

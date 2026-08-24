@@ -1,0 +1,31 @@
+id: BR-7
+family: RT-BR
+part: II
+
+title: A node whose triggers are all unsatisfied is skipped, not executed
+
+summary: >-
+  This is the line the whole branching design rests on: an untaken branch does not
+  merely fail to fire, it terminates cleanly, visibly, and without failing the run.
+
+normative: >-
+  A node with at least one incoming trigger edge and no satisfied trigger is
+  skipped and must not be executed. The skip is announced with the machine-readable
+  reason `branch_not_active`, on the node-level skip event, on the real-time status
+  update, and on the run's snapshot; the node's identifier also appears among the
+  run's skipped nodes in the response metadata and is counted there. A node with no
+  incoming trigger edge always executes, whatever its data sources did. At the end
+  of a run, every node still unexecuted is collected as skipped the same way,
+  whether or not it had already been promoted to ready.
+
+posture: normative-target
+level: core
+profiles:
+  - runtime
+
+added: "1.0"
+changed: "1.0"
+
+related:
+  - BR-1
+  - BR-6

@@ -1,0 +1,25 @@
+id: ERR-4
+family: RT-ERR
+part: II
+
+title: An interrupt propagates unchanged
+summary: >-
+  An interrupt is a request for something outside the run — human input, an external
+  resolution — not a failure. Treating it as one would route it down an error edge.
+
+normative: >-
+  A node that interrupts sets its status to interrupted, the interrupt is announced,
+  and the interrupt itself propagates unchanged to the caller. It is never converted
+  into an error output and never takes an error edge.
+
+posture: normative-target
+level: extended
+profiles:
+  - runtime
+
+added: "1.0"
+changed: "1.0"
+
+related:
+  - ERR-1
+  - ORC-13

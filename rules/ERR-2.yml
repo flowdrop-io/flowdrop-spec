@@ -1,0 +1,24 @@
+id: ERR-2
+family: RT-ERR
+part: II
+
+title: Retryability is marked by presence, not by a boolean
+summary: >-
+  The absence of the marker is load-bearing: the retry gate tests for the literal
+  value true, so anything else — including an explicit false — means do not retry.
+
+normative: >-
+  An error output that came from a retryable failure carries `error_retryable` set to
+  `true`. An error output from a non-retryable failure omits the key entirely rather
+  than setting it to `false`. Retry applies only where the value is literally `true`.
+
+posture: normative-target
+level: extended
+profiles:
+  - runtime
+
+added: "1.0"
+changed: "1.0"
+
+related:
+  - ERR-11

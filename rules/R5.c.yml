@@ -1,0 +1,22 @@
+id: R5.c
+family: GR-VAL
+part: I
+
+title: Every node carries an id
+
+summary: >-
+  A node without an id cannot be referred to by an edge, an exposure entry or a
+  runtime result, so a workflow containing one is refused rather than stored.
+
+normative: >-
+  Every node in a workflow must carry a non-empty `id`. A node whose `id` is
+  absent or empty is refused, and because the node cannot be named the error
+  identifies it by its position in the workflow's node list.
+
+posture: normative-target
+level: core
+profiles:
+  - storage-api
+
+added: "1.0"
+changed: "1.0"

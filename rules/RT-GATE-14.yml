@@ -1,0 +1,32 @@
+id: RT-GATE-14
+family: RT-GATE
+part: II
+
+title: Confirmation governance is its own grant
+
+summary: >-
+  Being able to rename a node type must not imply being able to disarm its gate.
+  And an actor who cannot see the setting must not be able to change it by saving
+  the form it is hidden from.
+
+normative: >-
+  Confirmation governance is controlled by a dedicated administrative authority,
+  separate from the authority to administer node types, and restricted. Where an
+  actor does not hold it, the governance settings are not shown, and a save by that
+  actor must leave the stored governance mapping byte-identical — a setting that was
+  never stored stays unstored, so the node type keeps deriving its requirement
+  (RT-GATE-7). The strength of the gate is exactly the strength of who holds this
+  authority and who may edit workflows.
+
+posture: normative-target
+level: core
+profiles:
+  - runtime
+  - storage-api
+
+added: "1.0"
+changed: "1.0"
+
+related:
+  - RT-GATE-7
+  - RT-GATE-8

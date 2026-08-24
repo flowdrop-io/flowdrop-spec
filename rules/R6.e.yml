@@ -1,0 +1,23 @@
+id: R6.e
+family: GR-VAL
+part: I
+
+title: A config value must be one of its enumerated values
+
+normative: >-
+  Where a config value's schema declares an `enum`, the value must be one of
+  the listed values. Comparison is exact and applies no type coercion, so the
+  number `1` does not satisfy an `enum` listing the string `"1"`. A value
+  outside the list is refused with `R6_CONFIG_INVALID` at
+  `node.{id}.config.{key}`.
+
+posture: normative-target
+level: core
+profiles:
+  - storage-api
+
+added: "1.0"
+changed: "1.0"
+
+related:
+  - R6.d

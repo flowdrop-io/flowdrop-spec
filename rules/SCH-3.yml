@@ -1,0 +1,22 @@
+id: SCH-3
+family: GR-SCHEMA
+part: I
+
+title: One parameter schema splits into two derived schemas
+
+normative: >-
+  A parameter belongs to the derived input schema if and only if it is
+  `connectable`, and to the derived config schema if and only if it is
+  `configurable`. Both, one, or neither is legal.
+
+posture: normative-target
+level: core
+profiles:
+  - storage-api
+  - editor-client
+
+added: "1.0"
+changed: "1.0"
+
+related:
+  - SCH-2

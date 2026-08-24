@@ -1,0 +1,18 @@
+id: ST-6
+family: RT-ST
+part: II
+
+title: A node was reported with a fixed field set
+
+normative: >-
+  Retired with the polled status surface. A node was reported with the fields
+  status, node_id, node_type, start_time, end_time, execution_time, error and
+  output.
+
+posture: deprecated
+level: extended
+profiles:
+  - runtime
+
+added: "1.0"
+changed: "1.0"

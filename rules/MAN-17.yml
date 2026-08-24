@@ -1,0 +1,27 @@
+id: MAN-17
+family: GR-MAN
+part: I
+
+title: Declared outputs are collected by the same mapping, in reverse
+summary: >-
+  The output side of the manifest, with one distinction that matters: a node that
+  produced null produced something, and is not the same as a node that produced
+  nothing.
+
+normative: >-
+  Each declared output name resolves to the result the bound node produced on the
+  bound port. Presence is decided by whether the key exists, so a null value
+  counts as produced and is returned. An output whose node produced nothing at all
+  is dropped from the result with a warning. A malformed output entry is skipped.
+
+posture: normative-target
+level: extended
+profiles:
+  - storage-api
+
+added: "1.0"
+changed: "1.0"
+
+related:
+  - MAN-8
+  - MAN-11

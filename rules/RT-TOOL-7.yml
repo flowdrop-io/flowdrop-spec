@@ -1,0 +1,29 @@
+id: RT-TOOL-7
+family: RT-TOOL
+part: II
+
+title: A pause does not destroy artifacts, and does not deliver them twice
+
+normative: >-
+  Artifacts produced before a run pauses are held durably against the turn that
+  produced them rather than discarded, and are never exposed on the wire while they
+  are held. The next write-back for the same execution takes them, prepends them to
+  whatever the resumed run collected, and delivers the merged list on the resumed
+  turn's assistant message. Taking is destructive, so a delivered artifact is never
+  delivered a second time, and a resume that pauses again holds everything for the
+  next one. A write-back that fails after taking them puts them back before it
+  reports the failure, so a failed write postpones delivery rather than destroying
+  it. The held list is itself bounded; where it would exceed the bound, the newest
+  entries are dropped with a warning.
+
+posture: normative-target
+level: extended
+profiles:
+  - runtime
+
+added: "1.0"
+changed: "1.0"
+
+related:
+  - RT-TOOL-4
+  - RT-TOOL-6

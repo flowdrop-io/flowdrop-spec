@@ -1,0 +1,33 @@
+id: API-8
+family: GR-API
+part: I
+
+title: Every refusal carries a stable machine-readable code
+
+summary: >-
+  A client has to be able to tell one refusal from another without reading English.
+  Codes are the contract; the message is for a person.
+
+normative: >-
+  Every refusal an API door emits carries a stable, machine-readable `error_code`
+  alongside the human-readable `error` string. Message text is never contract: a client
+  must not classify a refusal by matching its message, and an implementation must not
+  treat wording as load-bearing. A code has one published definition that a client and a
+  test can both name by it, and once published a code's meaning never changes and the
+  code is never reused.
+
+posture: normative-target
+level: core
+profiles:
+  - storage-api
+
+added: "1.0"
+changed: "1.0"
+
+rulings:
+  - OPEN-18
+
+related:
+  - STORE-5
+  - API-3
+  - API-7

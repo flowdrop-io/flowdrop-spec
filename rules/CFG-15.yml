@@ -1,0 +1,32 @@
+id: CFG-15
+family: GR-CFG
+part: I
+
+title: A dynamic input is forwarded verbatim
+
+summary: >-
+  Dynamic ports are the author's own additions to one node instance. They are
+  carried through untouched, which is also why the type an author declares on one
+  is documentation and nothing more.
+
+normative: >-
+  After the declared parameters are resolved, each dynamic input name present in
+  the runtime inputs is copied into the resolved parameter set verbatim: no
+  exposure gate, no `required` check, and no validation. A dynamic input's declared
+  type is therefore descriptive only and is never enforced. A dynamic name that is
+  already a key in the resolved set is skipped, so a declared parameter always wins
+  — including one that resolved to null. An empty name is skipped. Dynamic
+  definitions are read from the node's resolved `dynamicInputs` value, falling back
+  to the raw configuration where none resolved.
+
+posture: normative-target
+level: extended
+profiles:
+  - storage-api
+
+added: "1.0"
+changed: "1.0"
+
+related:
+  - CFG-13
+  - CFG-14

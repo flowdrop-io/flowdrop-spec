@@ -1,0 +1,28 @@
+id: OCX-2
+family: RT-OCX
+part: II
+
+title: External results are retrieved by polling, and only by polling
+summary: >-
+  A contract of omission: the connector dispatches nothing outbound. Widening it
+  means taking on delivery, timeouts, retry and de-duplication, which belong
+  elsewhere.
+
+normative: >-
+  Results of an externally invoked run are retrieved by the caller polling. The
+  connector dispatches no outbound request and subscribes to no runtime execution
+  event. A run that leaves no persisted record is invisible to a poller, so an
+  execution engine that produces one is refused for external invocation: the
+  configured choice is reported and the run is carried out on a pollable engine
+  instead, rather than silently producing a run no caller can ever observe.
+
+posture: normative-target
+level: core
+profiles:
+  - runtime
+
+added: "1.0"
+changed: "1.0"
+
+related:
+  - OCX-8

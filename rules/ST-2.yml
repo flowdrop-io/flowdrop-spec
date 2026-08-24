@@ -1,0 +1,18 @@
+id: ST-2
+family: RT-ST
+part: II
+
+title: An execution was reported by id and status
+
+normative: >-
+  Retired with the polled status surface. It reported an execution as
+  `{execution_id, status}`, answered 404 for an execution it held no record of,
+  and 500 where the reporting itself failed.
+
+posture: deprecated
+level: extended
+profiles:
+  - runtime
+
+added: "1.0"
+changed: "1.0"

@@ -1,0 +1,36 @@
+id: SCH-46
+family: GR-SCHEMA
+part: I
+
+title: A shape's schema is served on the lane, not on every port
+summary: >-
+  One copy of each shape's schema, on the lane entry, keeps it fresh when a site
+  edits a shape and leaves the per-port slot free for the narrower thing that
+  actually needs it.
+
+normative: >-
+  A shape's JSON Schema is served on the lane entry, once. It is absent rather than
+  empty where the lane has no shape, so a client can tell "promises nothing" from
+  "promises an object with no properties". It is not stamped onto each port
+  declaring the lane: a per-port copy repeats on every node type wearing the lane,
+  and it would go stale when a site edited a shape, because the lane payload's
+  invalidation tracks shape edits while a per-node-type payload does not. The
+  per-port schema slot stays free for the one refinement that needs it — a narrower
+  schema observed on a run, which is per-instance information and could never live
+  in a payload cached per node type. Such an observed schema is authoring
+  information only: it is a sample, not a contract, and must never become what
+  enforcement checks. A stored overlay entry for the same lane id replaces the
+  composed entry whole, its schema included.
+
+posture: normative-target
+level: extended
+profiles:
+  - storage-api
+  - editor-client
+
+added: "1.0"
+changed: "1.0"
+
+related:
+  - SCH-10.a
+  - SCH-42

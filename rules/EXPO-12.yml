@@ -1,0 +1,23 @@
+id: EXPO-12
+family: GR-EXPO
+part: I
+
+title: Control outputs are never stripped
+
+normative: >-
+  The reserved control outputs `active_branches` and `state_update` are never
+  removed from a node's result by exposure stripping. They are the engine's own
+  channel, not ports an author shows or hides, and branching and state merging
+  depend on them arriving intact.
+
+posture: normative-target
+level: core
+profiles:
+  - storage-api
+  - runtime
+
+added: "1.0"
+changed: "1.0"
+
+related:
+  - EXPO-11

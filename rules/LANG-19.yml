@@ -1,0 +1,18 @@
+id: LANG-19
+family: GR-LANG
+part: I
+
+title: Extracting all matches for a property path always yields a list
+
+normative: >-
+  Extracting all matches for a property path yields a list: a single result is
+  wrapped in a one-element list, and a null result or no match yields the empty
+  list.
+
+posture: normative-target
+level: extended
+profiles:
+  - runtime
+
+added: "1.0"
+changed: "1.0"

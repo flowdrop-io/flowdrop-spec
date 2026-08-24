@@ -1,0 +1,22 @@
+id: LANG-10
+family: GR-LANG
+part: I
+
+title: Expression-language validation is a syntax check only
+
+normative: >-
+  Validating an expression-language expression checks its syntax, with every
+  identifier the expression mentions treated as declared. A reference to a name
+  that will not exist when the workflow runs therefore validates successfully and
+  fails at run time.
+
+posture: normative-target
+level: extended
+profiles:
+  - storage-api
+
+added: "1.0"
+changed: "1.0"
+
+related:
+  - LANG-6

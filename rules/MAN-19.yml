@@ -1,0 +1,21 @@
+id: MAN-19
+family: GR-MAN
+part: I
+
+title: A workflow declared asynchronous cannot be launched and waited on
+summary: >-
+  Asking to wait for a result the workflow has already said it will not deliver
+  inline is a mistake worth catching before anything runs.
+
+normative: >-
+  A launch requesting a synchronous wait against a workflow declared asynchronous
+  is refused before any execution is created, so no run is started and nothing is
+  left behind.
+
+posture: normative-target
+level: core
+profiles:
+  - storage-api
+
+added: "1.0"
+changed: "1.0"

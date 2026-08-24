@@ -1,0 +1,24 @@
+id: OCX-8
+family: RT-OCX
+part: II
+
+title: A poll reports every terminal run, cancellation included
+
+normative: >-
+  A poll reports runs in any terminal status, not only successful and failed ones
+  — a cancelled run is terminal and is reported — so a polling caller always
+  reaches an end state. A run that is genuinely paused appears in no poll until
+  it resumes or reaches a terminal status. A backlog may need more than one poll
+  to drain, and nothing is dropped on the way.
+
+posture: normative-target
+level: core
+profiles:
+  - runtime
+
+added: "1.0"
+changed: "1.0"
+
+related:
+  - OCX-2
+  - OCX-9

@@ -1,0 +1,23 @@
+id: CFG-12
+family: GR-CFG
+part: I
+
+title: An unrecognised format passes rather than fails
+
+normative: >-
+  A `format` an implementation recognises is enforced: a value that does not match
+  it fails validation (CFG-10). A `format` name the implementation does not
+  recognise passes, so a schema written against a richer vocabulary never blocks a
+  node from running.
+
+posture: normative-target
+level: extended
+profiles:
+  - storage-api
+
+added: "1.0"
+changed: "1.0"
+
+related:
+  - CFG-10
+  - CFG-11

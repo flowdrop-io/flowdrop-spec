@@ -1,0 +1,21 @@
+id: DATA-9
+family: RT-DATA
+part: II
+
+title: The unified output port carries exposed outputs only
+
+normative: >-
+  The unified `output` port composes a node's exposed outputs and nothing else.
+  Keys prefixed with `_` and the reserved `trigger` key are excluded from it. An
+  output key the node type does not configure counts as exposed and is kept.
+
+posture: normative-target
+level: extended
+profiles:
+  - runtime
+
+added: "1.0"
+changed: "1.0"
+
+related:
+  - DATA-8

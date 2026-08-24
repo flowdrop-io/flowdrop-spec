@@ -1,0 +1,31 @@
+id: RT-GATE-8
+family: RT-GATE
+part: II
+
+title: Governance can revoke a waiver already stored
+
+summary: >-
+  A waiver was legal when the author stored it. Whether it is still permitted is
+  asked at the moment the gate would fire, against the settings that hold now.
+
+normative: >-
+  Whether an author was allowed to make an instance-level confirmation choice is
+  checked at gate time against the current governance settings, not at the time the
+  choice was stored. Withdrawing the waive control therefore re-gates every instance
+  that had waived, and a stored choice whose control is no longer granted is
+  ignored. The configuration surface offered to an author must offer exactly the
+  granted controls plus the option to defer to the policy; where no control is
+  granted no such field is offered at all, so a value that is not allowed has no
+  route through which to arrive, and one already stored is inert.
+
+posture: normative-target
+level: core
+profiles:
+  - runtime
+  - editor-client
+
+added: "1.0"
+changed: "1.0"
+
+related:
+  - RT-GATE-7

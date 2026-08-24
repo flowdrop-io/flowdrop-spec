@@ -1,0 +1,33 @@
+id: CMP-1
+family: RT-CMP
+part: II
+
+title: Compilation is one operation with one failure surface
+summary: >-
+  Compiling a stored workflow produces the executable plan in a fixed stage order.
+  A caller that hands over an invalid workflow sees one kind of failure, whichever
+  stage detected it.
+
+normative: >-
+  Compiling a workflow produces a dependency graph over all of its edges, an
+  execution graph of the nodes that will run, and, for each of those nodes, the
+  mapping the runtime executes it through. The stages run in this order: structure
+  preconditions, dependency graph, cycle detection, tool wiring, execution graph,
+  node mappings. A failure in any stage is reported to the caller as a single
+  compilation failure, whose message carries the detecting stage's message prefixed
+  exactly once and whose underlying cause remains reachable.
+
+posture: normative-target
+level: core
+profiles:
+  - runtime
+
+added: "1.0"
+changed: "1.0"
+
+related:
+  - CMP-3
+  - CMP-5
+  - CMP-6
+  - CMP-9
+  - CMP-11

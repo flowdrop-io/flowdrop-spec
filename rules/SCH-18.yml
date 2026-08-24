@@ -1,0 +1,24 @@
+id: SCH-18
+family: GR-SCHEMA
+part: I
+
+title: The unified output port
+
+normative: >-
+  A unified `output` port is prepended to a node's ports where its node type exposes
+  one. It carries the `json` lane, and its description enumerates the node's exposed
+  output keys only.
+
+posture: normative-target
+level: extended
+profiles:
+  - storage-api
+  - editor-client
+
+added: "1.0"
+changed: "1.0"
+
+related:
+  - SCH-7
+  - SCH-8
+  - SCH-19

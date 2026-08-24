@@ -1,0 +1,33 @@
+id: CFG-8
+family: GR-CFG
+part: I
+
+title: Internal parameters take runtime values only
+
+summary: >-
+  Names prefixed `__` are the system's own channel into a processor. They sidestep
+  the gate flags, which also means an author can never see or set one — choosing the
+  prefix is choosing that semantics, not a naming style.
+
+normative: >-
+  A parameter whose name begins `__` is internal. It always accepts a value from
+  the runtime inputs regardless of its `connectable`, `exposed` and `configurable`
+  flags, never takes a value from the node's saved configuration, and otherwise
+  takes its effective default. Bypassing the gate flags does not exempt it from
+  declaration: an internal name absent from the processor's parameter schema is
+  never resolved and never reaches the processor (CFG-13), whoever supplied it. A
+  setting that also needs an author-facing surface must not use the prefix.
+
+posture: normative-target
+level: core
+profiles:
+  - storage-api
+
+added: "1.0"
+changed: "1.0"
+
+related:
+  - CFG-4
+  - CFG-5
+  - CFG-13
+  - EXPO-10

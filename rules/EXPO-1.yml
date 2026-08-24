@@ -1,0 +1,30 @@
+id: EXPO-1
+family: GR-EXPO
+part: I
+
+title: Exposure resolves the same way everywhere it is consulted
+
+summary: >-
+  Exposure is asked about in a lot of places — resolving parameters, deciding what
+  an agent may fill, validating a saved workflow, stripping outputs, drawing the
+  author's toggles. All of them must get the same answer.
+
+normative: >-
+  Effective exposure of a port is resolved by one rule (EXPO-2) wherever it is
+  consulted, including parameter resolution, tool-parameter scoping, save-time
+  validation, runtime output delivery, and the authoring surface that lets an
+  author show or hide a port. A node instance's exposure overrides are read from
+  one location in the stored workflow, `data.config.ports`, so the surface that
+  writes an override and the surfaces that read it cannot disagree.
+
+posture: normative-target
+level: core
+profiles:
+  - storage-api
+
+added: "1.0"
+changed: "1.0"
+
+related:
+  - EXPO-2
+  - EXPO-3

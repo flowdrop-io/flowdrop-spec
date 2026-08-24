@@ -1,0 +1,35 @@
+id: SG-18
+family: RT-SG
+part: II
+
+title: Nested loops keep separate rounds, tangled ones are merged
+
+normative: >-
+  Where one loop's body is a strict subset of another's, the two stay distinct and
+  each carries its own round, ordered outermost first. Advancing an outer loop's
+  round resets every loop nested inside it to round 0; without that an inner loop
+  would spend its budget once for the whole run rather than once per outer round,
+  and inner rounds would not be comparable across outer rounds at all. Loops that
+  share nodes without one containing the other — including two heads with identical
+  bodies — admit no consistent assignment of rounds to the shared nodes, and are
+  merged into a single loop over the union of their bodies, keyed by the largest
+  body with a lexicographic tie-break. Merging rather than refusing is deliberate:
+  a coarser loop is still sound, because it never claims two nodes are in different
+  rounds where the topology cannot say so. Both this merge and a loopback edge that
+  closes no cycle are reported to the author as static diagnostics on the workflow
+  rather than as run-time warnings, since each is a property of the graph and
+  addresses whoever drew the edges.
+
+posture: normative-target
+level: extended
+profiles:
+  - runtime
+  - editor-client
+
+added: "1.0"
+changed: "1.0"
+
+related:
+  - SG-16
+  - SG-17
+  - SG-19

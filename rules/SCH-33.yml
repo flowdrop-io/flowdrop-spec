@@ -1,0 +1,34 @@
+id: SCH-33
+family: GR-SCHEMA
+part: I
+
+title: A schema that will not load never rewrites stored parameters
+summary: >-
+  A momentary failure to load a node type's declared schema once looked exactly
+  like "this node type declares nothing", and a save then wrote that emptiness back
+  as permanent configuration loss.
+
+normative: >-
+  A declared parameter schema that fails to load, or that loads without a usable
+  `properties` map, must not be read as a node type declaring nothing — a node type
+  with no parameters declares an empty map, and an absent map loses stored rows
+  exactly as a failure does. Where a node type has stored parameter configuration
+  that such a schema would drop, the save is refused and nothing is rewritten;
+  where nothing is stored there is nothing to lose, and the rest of the editing
+  surface stays reachable. A write path that is reachable without that refusal
+  writes the stored configuration back verbatim rather than the accidentally empty
+  computed one, and leaves reserved-port exposure untouched. Only the render path
+  may treat an unloadable schema as no properties, where that correctly means
+  render no rows.
+
+posture: normative-target
+level: extended
+profiles:
+  - storage-api
+  - editor-client
+
+added: "1.0"
+changed: "1.0"
+
+related:
+  - SCH-32

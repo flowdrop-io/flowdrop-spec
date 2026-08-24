@@ -1,0 +1,24 @@
+id: CMP-8
+family: RT-CMP
+part: II
+
+title: Execution order is a topological order, and no more than that
+summary: >-
+  Two nodes with no dependency between them may run in either relative order. An
+  author who needs one before the other must say so with an edge.
+
+normative: >-
+  The execution order is a topological order of the execution dependencies: a node
+  never precedes a node it depends on. The relative order of nodes with no dependency
+  relation between them is not specified, and an author must not rely on it.
+
+posture: normative-target
+level: core
+profiles:
+  - runtime
+
+added: "1.0"
+changed: "1.0"
+
+related:
+  - CMP-7

@@ -1,0 +1,23 @@
+id: STORE-11
+family: GR-STORE
+part: I
+
+title: Status vocabularies are closed sets of strings
+
+normative: >-
+  Job, pipeline, session and message status are each a closed vocabulary. A status is a
+  string, and one spelling serves everywhere: what is persisted is what every JSON
+  payload carries and what every event carries. An implementation must not persist one
+  spelling and publish another.
+
+posture: normative-target
+level: extended
+profiles:
+  - storage-api
+  - runtime
+
+added: "1.0"
+changed: "1.0"
+
+related:
+  - STORE-12

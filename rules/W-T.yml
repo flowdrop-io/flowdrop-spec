@@ -1,0 +1,33 @@
+id: W-T
+family: GR-VAL
+part: I
+
+title: An edge leaving a terminal node warns
+
+summary: >-
+  A terminal node ends the run, so nothing downstream of it will execute. The
+  edge is legal — the author may be mid-edit — but it is almost certainly not
+  what they meant.
+
+normative: >-
+  Every edge whose source node is a terminal node yields one non-blocking
+  warning at `edge.{index}`, naming the terminal source and the target it
+  leads to. A terminal node with several outgoing edges therefore produces one
+  warning per edge, and the workflow stays valid. Only sources are inspected,
+  so a workflow with no edges looks nothing up, and the target's existence is
+  not checked here: an edge from a terminal node to a deleted node produces
+  both this warning and R8's missing-target error. An edge whose source is
+  itself dangling produces no warning; R8 owns that.
+
+posture: normative-target
+level: extended
+profiles:
+  - storage-api
+  - editor-client
+
+added: "1.0"
+changed: "1.0"
+
+related:
+  - R8.a
+  - R8.b

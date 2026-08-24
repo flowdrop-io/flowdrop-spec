@@ -1,0 +1,22 @@
+id: R7.a
+family: GR-VAL
+part: I
+
+title: An edge may not target a hidden input port
+
+normative: >-
+  An edge whose target port is declared by the target node's node type but is
+  not exposed on that node is refused with `R7_EDGE_TARGET_NOT_EXPOSED` at
+  `edge.{index}`, where `{index}` is the edge's position in the workflow's edge
+  list.
+
+posture: normative-target
+level: core
+profiles:
+  - storage-api
+
+added: "1.0"
+changed: "1.0"
+
+related:
+  - R7.c

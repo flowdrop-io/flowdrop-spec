@@ -1,0 +1,31 @@
+id: INT-10
+family: RT-INT
+part: II
+
+title: A queued run seeded from a snapshot performs only the remaining work
+
+summary: >-
+  Handing a partially finished run to a queue must not re-fire what already ran.
+  The seeded jobs are marked as borrowed, so nothing later mistakes them for work
+  this run performed.
+
+normative: >-
+  A queued run may be seeded from a snapshot: each snapshot node with a matching
+  job is recorded as completed carrying the snapshot's output, marked as injected
+  and stamped with the execution it came from and the time it was seeded, so that
+  only genuinely remaining work is scheduled and no consumer mistakes a seeded
+  record for work this run performed. A snapshot node with no matching job is
+  skipped and the discrepancy recorded in the log. The number seeded is reported in
+  the response results and metadata.
+
+posture: normative-target
+level: extended
+profiles:
+  - runtime
+
+added: "1.0"
+changed: "1.0"
+
+related:
+  - INT-6
+  - INT-15

@@ -1,0 +1,19 @@
+id: ST-8
+family: RT-ST
+part: II
+
+title: An update naming an unknown run registered it rather than dropping it
+
+normative: >-
+  Retired with the polled status surface. An update naming an execution or a
+  node it held no record of registered that execution or node instead of
+  discarding the update, so a run started outside the reporting request could
+  still be reported.
+
+posture: deprecated
+level: extended
+profiles:
+  - runtime
+
+added: "1.0"
+changed: "1.0"

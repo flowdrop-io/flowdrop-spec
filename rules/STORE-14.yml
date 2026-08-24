@@ -1,0 +1,32 @@
+id: STORE-14
+family: GR-STORE
+part: I
+
+title: Every surface that returns a workflow returns one object
+
+summary: >-
+  List, create, read and update all publish the same workflow object. A client learns
+  one shape, not four.
+
+normative: >-
+  Every surface that returns a workflow publishes the same keys in the same order:
+  `id`, `name`, `description`, `nodes`, `edges`, `metadata`, `created`, `changed`,
+  `uid`. `nodes` is enriched with each node's node-type metadata, and `metadata` is the
+  value as published on read. The spelling is uniformly lower-case, `created`, `changed`
+  and `uid` included. A tenth key, `interface`, is appended immediately after `metadata`
+  when the workflow declares at least one input or output port, and is omitted entirely
+  — never emitted as an empty object or an empty list — when it declares none. One
+  derivation serves every surface, including any surface that embeds a workflow outside
+  the API.
+
+posture: normative-target
+level: core
+profiles:
+  - storage-api
+  - editor-client
+
+added: "1.0"
+changed: "1.0"
+
+related:
+  - STORE-4

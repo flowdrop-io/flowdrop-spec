@@ -1,0 +1,23 @@
+id: SG-3
+family: RT-SG
+part: II
+
+title: A node's state update is applied through the reducers once it completes
+
+normative: >-
+  A node's `state_update` output is applied to the run state through the same
+  field-by-field reducers as any other update, once the node has completed. It is a
+  control output and is never removed by output exposure, whatever the author
+  exposed.
+
+posture: normative-target
+level: core
+profiles:
+  - runtime
+
+added: "1.0"
+changed: "1.0"
+
+related:
+  - SG-1
+  - DATA-8

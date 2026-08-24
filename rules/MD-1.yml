@@ -1,0 +1,26 @@
+id: MD-1
+family: RT-MD
+part: II
+
+title: Markdown source can never reach the reader as markup
+summary: >-
+  A markdown-to-HTML conversion usually runs over text a language model wrote, so
+  the encoding is a safety boundary rather than a formatting nicety. Encoding the
+  whole input once, before any block or inline pattern is applied, is the
+  arrangement that makes the promise hold on every arm: escaping at each emission
+  point has been shown to miss the blocks a converter rebuilds from its buffer, and
+  to miss any block whose first character is already a tag.
+
+normative: >-
+  Every text node a markdown-to-HTML conversion emits must be HTML-encoded — prose,
+  list items, blockquote lines, headings and code alike. Markup present in the
+  markdown source must never reach the reader as markup, including where a block
+  opens with a tag.
+
+posture: normative-target
+level: extended
+profiles:
+  - runtime
+
+added: "1.0"
+changed: "1.0"

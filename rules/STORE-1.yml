@@ -1,0 +1,26 @@
+id: STORE-1
+family: GR-STORE
+part: I
+
+title: A request body is bounded before anything is parsed
+
+summary: >-
+  The cheapest refusals come first. A body that is too large, too deeply nested, or
+  not JSON at all is turned away before any workflow-level meaning is read out of it.
+
+normative: >-
+  A request body must be JSON whose top level is an object or an array. A body that
+  is empty, is not well-formed JSON, decodes to a scalar (`null` included), exceeds
+  8 MiB of octets, or nests 64 levels or deeper is refused with 400, and nothing is
+  stored. An implementation must accept a document nested 63 levels deep.
+
+posture: normative-target
+level: core
+profiles:
+  - storage-api
+
+added: "1.0"
+changed: "1.0"
+
+related:
+  - API-1

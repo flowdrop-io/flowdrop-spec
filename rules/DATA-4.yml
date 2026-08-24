@@ -1,0 +1,33 @@
+id: DATA-4
+family: RT-DATA
+part: II
+
+title: When a node is ready to run
+
+summary: >-
+  Readiness is the whole of a workflow's scheduling contract: it decides what runs,
+  in what order, and what a node is guaranteed to have in hand when it does.
+
+normative: >-
+  A node runs once its incoming edges are satisfied. A node with at least one
+  incoming trigger edge is ready as soon as any one of those trigger edges is
+  satisfied, and its data ports are not evaluated at all — such a node may
+  legitimately run with an unfilled data port. Otherwise its incoming data edges
+  are grouped by the input port they target; a group is satisfied by at least one
+  source that has completed, is on an active branch, and is not a round behind the
+  consumer on a loop the two share; and every group must be satisfied. That is an
+  OR within a port and an AND across ports.
+
+posture: normative-target
+level: core
+profiles:
+  - runtime
+
+added: "1.0"
+changed: "1.0"
+
+related:
+  - DATA-1
+  - DATA-5
+  - SG-19
+  - SG-20

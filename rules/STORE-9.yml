@@ -1,0 +1,46 @@
+id: STORE-9
+family: GR-STORE
+part: I
+
+title: Import gates run in a fixed order and roll back what they generated
+
+summary: >-
+  Importing a bundle can create node types before it knows whether the workflow is
+  acceptable. The fixed order, and the rollback, are what keep a refused import from
+  leaving debris behind.
+
+normative: >-
+  A bundle import applies its gates in this order: envelope format, publisher trust,
+  capability manifest, node-type generation, workflow validation, flow-id shape, id
+  collision. Any refusal after node-type generation rolls the generated node types back,
+  so a refused import leaves nothing behind. An unsupported envelope format is refused
+  with 422. An untrusted publisher is refused with 403, unless the caller both confirms
+  the publisher and is permitted to do so. A processor the installation does not have is
+  refused with 422, reported ahead of validation so that a missing processor is
+  actionable rather than surfacing as a structural error. A workflow that fails
+  validation is refused with 422 and `details`. An id that already exists is refused
+  with 409, never overwriting. A non-empty flow id must match `^[a-z0-9_]+$` and be at
+  most 64 characters; an empty flow id is accepted and one is minted. Every refusal
+  names its reason: it carries at least one `details` entry identifying the cause, and a
+  flow-id refusal locates itself at `flow.id`. Exposure entries are normalised before
+  validation for every bundle, a trusted one included: an entry keeps only its `name`,
+  `node_id` and `port`, and only where those are scalar, cast to string; an entry that
+  is not an object, or is wholly malformed, becomes empty but keeps its index, so
+  validation reports it against its own position instead of shifting every later one.
+  What is stored is the entry as submitted, so an author's additional entry metadata
+  survives the import.
+
+posture: normative-target
+level: extended
+profiles:
+  - storage-api
+
+added: "1.0"
+changed: "1.0"
+
+rulings:
+  - OPEN-19
+
+related:
+  - STORE-3
+  - STORE-5

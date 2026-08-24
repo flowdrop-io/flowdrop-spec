@@ -1,0 +1,23 @@
+id: CFG-6
+family: GR-CFG
+part: I
+
+title: Priority 3 — the effective default, unconditionally
+
+normative: >-
+  Where neither priority 1 (CFG-4) nor priority 2 (CFG-5) applies, a parameter
+  takes its effective default (CFG-3). This fallback is unconditional: no gate flag
+  suppresses it.
+
+posture: normative-target
+level: core
+profiles:
+  - storage-api
+
+added: "1.0"
+changed: "1.0"
+
+related:
+  - CFG-3
+  - CFG-4
+  - CFG-5

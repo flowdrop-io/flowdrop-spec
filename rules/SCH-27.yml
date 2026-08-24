@@ -1,0 +1,26 @@
+id: SCH-27
+family: GR-SCHEMA
+part: I
+
+title: A served port omits everything that matches the default
+summary: >-
+  The wire shape is lean by divergence, which means a client cannot read absence as
+  "unknown". Absence is the default, and the defaults are fixed here.
+
+normative: >-
+  A served port emits `defaultValue` only where it is not null, `exposedByDefault`
+  only where it is false, and `displayOrder` only where it is not 0. A client must
+  read the absence of those keys as no default, exposed, and order 0 respectively.
+
+posture: normative-target
+level: core
+profiles:
+  - storage-api
+  - editor-client
+
+added: "1.0"
+changed: "1.0"
+
+related:
+  - SCH-8
+  - SCH-15

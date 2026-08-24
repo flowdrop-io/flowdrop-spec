@@ -1,0 +1,22 @@
+id: SCH-11
+family: GR-SCHEMA
+part: I
+
+title: Every node but a start node gets a trigger input
+
+normative: >-
+  A reserved `trigger` input port is injected on every node type except a start
+  node type, unless the node type already declares one, and carries display order
+  100.
+
+posture: normative-target
+level: core
+profiles:
+  - storage-api
+  - editor-client
+
+added: "1.0"
+changed: "1.0"
+
+related:
+  - SCH-16

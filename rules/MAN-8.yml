@@ -1,0 +1,27 @@
+id: MAN-8
+family: GR-MAN
+part: I
+
+title: An entry that cannot be built is skipped, not fatal
+summary: >-
+  One broken entry must not cost the workflow its whole contract, so the build
+  drops it and carries on.
+
+normative: >-
+  An entry that cannot be resolved — the node it names is missing, the node
+  declares no such port — is skipped with a logged warning, and the remaining
+  entries are still built. An entry that is structurally malformed, missing or
+  empty in `name`, `node_id` or `port`, is likewise skipped and never contributes
+  to the contract.
+
+posture: normative-target
+level: extended
+profiles:
+  - storage-api
+
+added: "1.0"
+changed: "1.0"
+
+related:
+  - MAN-14
+  - MAN-17

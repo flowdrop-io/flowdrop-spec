@@ -1,0 +1,30 @@
+id: STORE-10
+family: GR-STORE
+part: I
+
+title: Read-path repairs must never run on the save path
+
+summary: >-
+  Loading a workflow to run it may quietly repair it. Doing the same on the way in
+  would hide exactly the conditions validation exists to report.
+
+normative: >-
+  When a workflow is loaded to be compiled or executed, an implementation may normalise
+  it: dropping an edge whose source or target does not resolve, minting an id for an
+  edge that has none, filling a node's configuration so that a stored value wins over a
+  node-type default and defaults fill only absent keys, and keying nodes and edges by
+  id so that the last occurrence of a duplicated id wins. None of that may happen on the
+  save, validate or mutate path, which must see the workflow exactly as submitted or as
+  stored.
+
+posture: normative-target
+level: extended
+profiles:
+  - storage-api
+  - runtime
+
+added: "1.0"
+changed: "1.0"
+
+related:
+  - STORE-5

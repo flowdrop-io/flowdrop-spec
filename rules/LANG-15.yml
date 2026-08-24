@@ -1,0 +1,22 @@
+id: LANG-15
+family: GR-LANG
+part: I
+
+title: A single JSONPath match is unwrapped unless the path selects many
+summary: >-
+  Arity is read off the path, not off the result, so a query written to select many
+  keeps a list shape even on the day it matches exactly one thing.
+
+normative: >-
+  A JSONPath query that returns exactly one match yields that match rather than a
+  one-element list — unless the path is written to select many, containing a
+  wildcard, a filter or a slice, in which case the result stays a list even when
+  only one item matched.
+
+posture: normative-target
+level: extended
+profiles:
+  - runtime
+
+added: "1.0"
+changed: "1.0"

@@ -1,0 +1,18 @@
+id: R5.a
+family: GR-VAL
+part: I
+
+title: A workflow is bounded to 500 nodes
+
+normative: >-
+  A workflow must not contain more than 500 nodes. A workflow that does is
+  refused with the error code `R5_TOO_MANY_NODES`, and the save does not take
+  effect.
+
+posture: normative-target
+level: core
+profiles:
+  - storage-api
+
+added: "1.0"
+changed: "1.0"

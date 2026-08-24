@@ -1,0 +1,29 @@
+id: CFG-7
+family: GR-CFG
+part: I
+
+title: An explicit null at a higher priority wins
+
+summary: >-
+  Sending null is a decision, not a silence. A node that emits null on a wire has
+  said something, and what it said beats whatever the author saved.
+
+normative: >-
+  At every priority, a value counts as supplied when a key of the parameter's name
+  is present, whatever that key's value. An explicit null therefore wins over any
+  lower priority: a null delivered on a wire beats the author's saved config, and a
+  null in the saved config beats the schema default. This holds identically however
+  a workflow is executed.
+
+posture: normative-target
+level: core
+profiles:
+  - storage-api
+
+added: "1.0"
+changed: "1.0"
+
+related:
+  - CFG-4
+  - CFG-5
+  - CFG-6

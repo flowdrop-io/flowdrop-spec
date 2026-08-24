@@ -1,0 +1,23 @@
+id: CFG-3
+family: GR-CFG
+part: I
+
+title: A parameter's effective default comes from the node type, then the schema
+
+normative: >-
+  A parameter's effective default is the node type's recorded default where that
+  default is non-null, otherwise the processor's schema default, otherwise null. A
+  node-type default recorded as null is not distinguished from one that was never
+  recorded, so it does not suppress the schema default.
+
+posture: normative-target
+level: core
+profiles:
+  - storage-api
+
+added: "1.0"
+changed: "1.0"
+
+related:
+  - CFG-6
+  - CFG-7

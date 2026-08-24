@@ -1,0 +1,32 @@
+id: INT-13
+family: RT-INT
+part: II
+
+title: A checkpoint round-trip preserves cancellation
+
+summary: >-
+  Whether a run was cancelled or completed cannot be re-derived after the fact —
+  "finished" looks identical either way. So the outcome is recorded, not inferred.
+
+normative: >-
+  Execution state carries its terminal outcome explicitly — completed, failed or
+  cancelled, and unset while the run is live — and a checkpoint persists it. A
+  snapshot's status is the persisted outcome, never a re-derivation from whether
+  the run finished, which cannot express cancellation. A cancel signal marks the
+  state cancelled and writes the final checkpoint. Seeding a new turn from a
+  terminal state clears the run state, outcome and execution position alike (SG-12),
+  so a recorded cancellation never closes a conversation thread; only explicit
+  resumption of a run is gated (INT-14).
+
+posture: normative-target
+level: extended
+profiles:
+  - runtime
+
+added: "1.0"
+changed: "1.0"
+
+related:
+  - INT-6
+  - INT-14
+  - SG-12

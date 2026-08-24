@@ -1,0 +1,30 @@
+id: SCH-23
+family: GR-SCHEMA
+part: I
+
+title: When a node has a ui schema, and when it has none
+summary: >-
+  The ui schema is what turns a flat config form into grouped sections. Whether
+  there is one at all is decided by a single question about the final schema.
+
+normative: >-
+  The ui schema is generated from the final config schema, after every reserved
+  property has been injected. It is null exactly when no property carries a
+  registered group: a property tagged with an unregistered group falls into the
+  default bucket, so a schema tagged only with unregistered groups also yields
+  null, and the form stays on its flat path. Groups are collapsed by default; a
+  group is opened for a node instance where that instance sets one of the fields
+  in it.
+
+posture: normative-target
+level: extended
+profiles:
+  - storage-api
+  - editor-client
+
+added: "1.0"
+changed: "1.0"
+
+related:
+  - SCH-21
+  - SCH-31

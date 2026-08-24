@@ -1,0 +1,40 @@
+id: RT-GATE-7
+family: RT-GATE
+part: II
+
+title: Whether a node asks is a governance decision, resolved in order
+
+summary: >-
+  Requiring confirmation is a decision an administrator makes about a node type,
+  not a property of the code that runs it. The executor's own declaration is only
+  the fail-safe used when governance has not spoken.
+
+normative: >-
+  A node's effective confirmation requirement resolves governance-first, in this
+  order: an allowed dynamic escalation whose runtime input is truthy asks
+  (RT-GATE-9); otherwise an allowed instance-level author choice — carried in the
+  reserved confirmation configuration key — takes its value; otherwise the node
+  type's stored policy, `ask` or `skip`; otherwise, with no policy stored, the
+  requirement derives from whether the node's executor declares that it has side
+  effects. That derivation is performed at gate time from the executor itself and
+  must never be baked into stored configuration, so an executor that adopts the
+  declaration later re-gates existing configuration automatically. A node type that
+  has never stored a governance mapping resolves to the defaults — authors may
+  waive and may require, with no dynamic surface. A stored mapping is taken
+  literally: an emptied list of allowed controls is a revocation, not a fallback to
+  the defaults.
+
+posture: normative-target
+level: core
+profiles:
+  - runtime
+
+added: "1.0"
+changed: "1.0"
+
+related:
+  - RT-GATE-1
+  - RT-GATE-8
+  - RT-GATE-9
+  - RT-GATE-11
+  - RT-GATE-15

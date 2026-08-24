@@ -1,0 +1,18 @@
+id: DYN-4
+family: GR-DYN
+part: I
+
+title: An unconnected dynamic input resolves to null, with its key present
+
+normative: >-
+  A dynamic input port with nothing wired into it resolves to null, and its key is
+  present in the node's resolved inputs. Nothing arriving on the wire is not the
+  same as the port being absent.
+
+posture: normative-target
+level: extended
+profiles:
+  - runtime
+
+added: "1.0"
+changed: "1.0"

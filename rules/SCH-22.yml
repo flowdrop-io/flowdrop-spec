@@ -1,0 +1,18 @@
+id: SCH-22
+family: GR-SCHEMA
+part: I
+
+title: A config-edit descriptor appears only where one is provided
+
+normative: >-
+  A node's metadata carries a `configEdit` descriptor only where its node type
+  provides one. A node type that provides none carries no such key.
+
+posture: normative-target
+level: optional
+profiles:
+  - storage-api
+  - editor-client
+
+added: "1.0"
+changed: "1.0"

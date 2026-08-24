@@ -1,0 +1,25 @@
+id: MAN-13
+family: GR-MAN
+part: I
+
+title: An undeclared launch key is refused, and its value never delivered
+summary: >-
+  Silently ignoring an input a caller believed in is the worst of the options:
+  the run proceeds with the caller's intent missing and nothing said.
+
+normative: >-
+  A launch key that is not a declared input name is refused, and the refusal names
+  the offending key and the workflow. The value is never written into the resolved
+  initial data, whether the key was refused or merely reported.
+
+posture: normative-target
+level: core
+profiles:
+  - storage-api
+
+added: "1.0"
+changed: "1.0"
+
+related:
+  - MAN-12
+  - MAN-15

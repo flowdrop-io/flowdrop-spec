@@ -1,0 +1,33 @@
+id: MAN-18
+family: GR-MAN
+part: I
+
+title: The contract is rebuilt when the manifest changes, and versioned when it is
+summary: >-
+  Rebuilding is triggered by the manifest, not by the schemas underneath it, so a
+  caller reads a contract that was published deliberately rather than one that
+  drifts.
+
+normative: >-
+  A workflow's contract is rebuilt when its declared input or output manifest
+  differs from the stored one, or when a rebuild is forced. A change inside a
+  bound port's own schema does not trigger a rebuild, so the published contract
+  stays as it was until something else rebuilds it. A side with no declared entries
+  stores no schema for that side. On rebuild the contract version is bumped:
+  from an all-zero version any of a major, minor or patch bump yields the first
+  released version; otherwise the named digit is incremented and the lower digits
+  reset. A rebuild that bumps nothing writes the schemas and leaves the version
+  untouched. A build that fails logs an error, preserves the previously published
+  contract, and does not prevent the workflow from being saved.
+
+posture: normative-target
+level: extended
+profiles:
+  - storage-api
+
+added: "1.0"
+changed: "1.0"
+
+related:
+  - MAN-5
+  - MAN-21

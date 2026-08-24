@@ -1,0 +1,28 @@
+id: R4.d
+family: GR-VAL
+part: I
+
+title: An exposure entry must name a port the node declares
+
+normative: >-
+  A workflow exposure entry's `port` must be declared by the named node — as an
+  input parameter for an entry on the input side, as an output for one on the
+  output side. An entry naming an undeclared port is refused at
+  `schema.{side}.{index}`. Where the node's executor cannot be resolved the
+  port cannot be checked, so this check and R10 are skipped for that entry
+  rather than guessed at; the skip is narrower than the entry, and R4.a's name
+  format and R4.b's uniqueness — both decided from the entry alone — are still
+  reported.
+
+posture: normative-target
+level: core
+profiles:
+  - storage-api
+
+added: "1.0"
+changed: "1.0"
+
+related:
+  - R4.a
+  - R4.b
+  - R10

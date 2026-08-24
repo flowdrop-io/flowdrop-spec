@@ -1,0 +1,43 @@
+id: INT-19
+family: RT-INT
+part: II
+
+title: A machine answers an outbound wait through its own route
+
+summary: >-
+  A remote system cannot use the route a human uses — it has no session and so
+  cannot present the token that route requires. It gets a route built for its
+  threat model, and an authority that buys it nothing else.
+
+normative: >-
+  A machine caller resolves an outbound wait by posting `{"value": …}` — the same
+  key the human resolution route takes — to a dedicated callback route addressed by
+  the interrupt's unguessable identifier. The human route requires a session-bound
+  request token that a machine cannot obtain; the callback route does not require
+  one, and must therefore admit only authentication schemes a cookie-authenticated
+  browser cannot present, so there is no session to ride and nothing for such a
+  token to protect. Authorisation is a dedicated authority to resolve interrupts by
+  callback: it is not satisfied by, and does not grant, the authority to resolve
+  interrupts as a human. The route is scoped by interrupt type, not by direction:
+  only an external-call interrupt — the one shape a remote system was invited to
+  answer — is resolvable here, and any other is refused `409`. Every human prompt
+  shape is stamped outward exactly as an external call is, so a direction-only
+  guard would hand the callback credential a person's approval prompt and resume the
+  run as though someone had answered; a direction check is kept behind the type
+  check as defence in depth. An unknown identifier answers `404`; an interrupt that
+  is not pending, or has expired, answers `409`, so a replayed callback never
+  resolves twice. A request omitting `value` is refused `400` before the interrupt
+  is looked up, so a malformed request reveals nothing about which identifiers
+  exist.
+
+posture: normative-target
+level: core
+profiles:
+  - runtime
+
+added: "1.0"
+changed: "1.0"
+
+related:
+  - INT-20
+  - INT-22

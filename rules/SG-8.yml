@@ -1,0 +1,25 @@
+id: SG-8
+family: RT-SG
+part: II
+
+title: A node executed more than once keys its results by occurrence
+
+normative: >-
+  A node's first execution in a run is reported under its bare node identifier;
+  each later execution is reported under `{nodeId}:{n}`, where `n` is that node's
+  zero-based count of prior executions in the run, and the payload of a stop raised
+  by the node uses the same key. Partial results reported for an interrupted run
+  use an equivalent scheme. Each completed execution is stamped with a higher
+  execution order than the one before it, so a port fed by several sources resolves
+  to the newest execution of a source node — inside a loop, the current round's.
+
+posture: normative-target
+level: core
+profiles:
+  - runtime
+
+added: "1.0"
+changed: "1.0"
+
+related:
+  - DATA-2

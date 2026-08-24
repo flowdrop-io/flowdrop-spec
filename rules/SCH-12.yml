@@ -1,0 +1,22 @@
+id: SCH-12
+family: GR-SCHEMA
+part: I
+
+title: Every node but a terminal node gets a trigger output
+
+normative: >-
+  A reserved `trigger` output port is injected on every node type except a terminal
+  node type, unless the node type already declares one, and carries display order
+  100.
+
+posture: normative-target
+level: core
+profiles:
+  - storage-api
+  - editor-client
+
+added: "1.0"
+changed: "1.0"
+
+related:
+  - SCH-16

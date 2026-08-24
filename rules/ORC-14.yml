@@ -1,0 +1,24 @@
+id: ORC-14
+family: RT-ORC
+part: II
+
+title: A unit of work is claimed atomically
+summary: >-
+  Without this, two workers can promote and execute the same unit of work, and a
+  side-effecting node fires twice.
+
+normative: >-
+  Claiming a unit of work for execution is atomic with respect to other workers: no unit
+  of work is executed twice because two workers claimed it concurrently. Queueing a run
+  for execution does not deliver the same work twice.
+
+posture: normative-target
+level: extended
+profiles:
+  - runtime
+
+added: "1.0"
+changed: "1.0"
+
+related:
+  - ORC-9

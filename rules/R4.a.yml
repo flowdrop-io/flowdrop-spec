@@ -1,0 +1,32 @@
+id: R4.a
+family: GR-VAL
+part: I
+
+title: An exposed workflow port must be named in the permitted alphabet
+
+summary: >-
+  An exposure name is a caller-facing parameter name. Restricting it to a small
+  alphabet keeps it usable as a key in every context a caller passes it
+  through.
+
+normative: >-
+  A workflow exposure entry's `name` must match `^[a-z0-9_-]+$`. A name that is
+  absent, empty or outside that alphabet is refused with `R4_NAME_FORMAT` at
+  `schema.{side}.{index}`, where `{side}` is `input` or `output` and `{index}`
+  the entry's position in that side's list. Unlike R4.c, this failure does not
+  skip the entry's remaining checks: uniqueness, node existence and port
+  declaration are all still evaluated, so two entries with no name at all yield
+  two `R4_NAME_FORMAT` errors and one `R4_NAME_DUPLICATE` on the empty name.
+
+posture: normative-target
+level: core
+profiles:
+  - storage-api
+
+added: "1.0"
+changed: "1.0"
+
+related:
+  - R4.b
+  - R4.c
+  - R4.e

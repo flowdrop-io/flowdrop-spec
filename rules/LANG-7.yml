@@ -1,0 +1,19 @@
+id: LANG-7
+family: GR-LANG
+part: I
+
+title: Twig yields an escaped string and treats a missing variable as empty
+
+normative: >-
+  A Twig template always produces a string, HTML-escaped unless the value is piped
+  through `raw`. A variable absent from the context renders as the empty string
+  rather than failing. A template that cannot be compiled, and a template that
+  fails while rendering, both fail with an error saying which of the two occurred.
+
+posture: normative-target
+level: core
+profiles:
+  - runtime
+
+added: "1.0"
+changed: "1.0"

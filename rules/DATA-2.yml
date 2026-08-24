@@ -1,0 +1,28 @@
+id: DATA-2
+family: RT-DATA
+part: II
+
+title: Several sources on one port resolve to a single latest value
+
+summary: >-
+  A merge point in a workflow is not a collector. A port fed by three edges is
+  still one port, and what a node reads there is one value.
+
+normative: >-
+  A port fed by several edges receives exactly one value, never a list of them.
+  The value is the one produced by the most recent execution among the sources: a
+  source carrying a later execution order wins; a source carrying an execution
+  order wins over one carrying none; and where neither carries one, the source node
+  identifier decides, lexicographically. A collision between sources on one port is
+  reported as a warning and never fails the run.
+
+posture: normative-target
+level: core
+profiles:
+  - runtime
+
+added: "1.0"
+changed: "1.0"
+
+related:
+  - SG-8

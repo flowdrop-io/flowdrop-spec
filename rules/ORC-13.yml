@@ -1,0 +1,20 @@
+id: ORC-13
+family: RT-ORC
+part: II
+
+title: Resuming after an interrupt re-enters through the run's own strategy
+normative: >-
+  When an interrupt is resolved, the run resumes through the strategy the run declared,
+  never through a different one.
+
+posture: normative-target
+level: extended
+profiles:
+  - runtime
+
+added: "1.0"
+changed: "1.0"
+
+related:
+  - ERR-4
+  - ORC-1

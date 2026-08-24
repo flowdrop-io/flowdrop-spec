@@ -3,3 +3,6 @@ node_modules/
 out/
 .DS_Store
 *.log
+
+# intermediate extraction notes, merged into DEFERRED.md
+defer/

@@ -1,0 +1,21 @@
+id: EDGE-4
+family: GR-EDGE
+part: I
+
+title: A loopback edge targets the port named loop_back
+
+normative: >-
+  An edge is a loopback edge when, and only when, its target handle ends with
+  `-input-loop_back`. The reserved port name is `loop_back`: a handle ending with
+  `-input-loopback` is an ordinary edge.
+
+posture: normative-target
+level: core
+profiles:
+  - storage-api
+
+added: "1.0"
+changed: "1.0"
+
+related:
+  - EDGE-1

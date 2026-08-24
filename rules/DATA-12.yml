@@ -1,0 +1,23 @@
+id: DATA-12
+family: RT-DATA
+part: II
+
+title: Tools reach only a node that declares itself a tool consumer
+
+normative: >-
+  Tools are handed to a node only where the node type declares that it consumes
+  them. Wiring tools to a node type that neither consumes nor forwards them is a
+  validation error; a node type that forwards them is accepted and passes them on.
+  Should such a workflow run regardless, the node receives no tools. A node
+  re-entered on a later round of a loop receives its tools on every round.
+
+posture: normative-target
+level: extended
+profiles:
+  - runtime
+
+added: "1.0"
+changed: "1.0"
+
+related:
+  - DATA-10

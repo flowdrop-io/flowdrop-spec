@@ -1,0 +1,26 @@
+id: CMP-3
+family: RT-CMP
+part: II
+
+title: Structure preconditions are checked before anything is planned
+summary: >-
+  The cheapest checks run first, so a workflow that cannot possibly execute is
+  rejected before any graph work happens.
+
+normative: >-
+  Before any graph is built, compilation checks, in order: the workflow has an
+  identifier; it has at least one node; and then, per node in definition order, that
+  the node has an identifier and that it has a type. The first failure refuses
+  compilation, and the failure names which precondition failed and, where the
+  failure is a node's, which node.
+
+posture: normative-target
+level: core
+profiles:
+  - runtime
+
+added: "1.0"
+changed: "1.0"
+
+related:
+  - CMP-1

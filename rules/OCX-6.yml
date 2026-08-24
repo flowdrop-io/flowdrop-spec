@@ -1,0 +1,28 @@
+id: OCX-6
+family: RT-OCX
+part: II
+
+title: The connector validates nothing it publishes
+summary: >-
+  The published payload schema is metadata for the calling platform to render and
+  enforce. Enforcement belongs to that platform and to the workflow, not to the
+  adapter in between.
+
+normative: >-
+  The declared payload schema and required fields an externally invoked trigger
+  publishes are declarative metadata for the calling platform; a payload that
+  violates them is passed through unmodified. Only top-level schema properties
+  become typed fields in the published service description — nested structure
+  rides inside the payload as an object, and recursive translation of a schema
+  into fields is deliberately not attempted.
+
+posture: normative-target
+level: extended
+profiles:
+  - runtime
+
+added: "1.0"
+changed: "1.0"
+
+related:
+  - OCX-1

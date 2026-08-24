@@ -1,0 +1,25 @@
+id: MAN-10
+family: GR-MAN
+part: I
+
+title: A declared input name wins over an internal node-keyed key
+summary: >-
+  The two input shapes can collide on the same key. The declared manifest is the
+  workflow's public face, so it decides.
+
+normative: >-
+  Where a launch payload key matches both a declared input name and the internal
+  node-keyed pass-through shape, the declared name wins and the value is resolved
+  through the manifest.
+
+posture: normative-target
+level: core
+profiles:
+  - storage-api
+
+added: "1.0"
+changed: "1.0"
+
+related:
+  - MAN-11
+  - MAN-12

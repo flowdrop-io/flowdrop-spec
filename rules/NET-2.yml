@@ -1,0 +1,30 @@
+id: NET-2
+family: RT-NET
+part: II
+
+title: Every redirect hop is re-validated before it is taken
+summary: >-
+  Pinning binds the original host only. Without this, a public host answering a
+  redirect to a link-local metadata address walks straight past a guard that has
+  already reported success.
+
+normative: >-
+  Each redirect target is validated on the same terms as the original URL, before
+  the hop is taken, and a hop resolving into a private or reserved range is
+  refused. Hops are re-validated, not refused: a redirect from one public host to
+  another — a shortener, a canonical-host bounce, an upgrade to HTTPS — is still
+  followed, so this is no change for workflows that are not being attacked. The
+  residual window is stated rather than papered over: a hop's host is resolved
+  for the check and resolved again for the request, so per-hop rebinding remains
+  possible where the original request's pinning excludes it.
+
+posture: normative-target
+level: core
+profiles:
+  - runtime
+
+added: "1.0"
+changed: "1.0"
+
+related:
+  - NET-1

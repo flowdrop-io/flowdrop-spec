@@ -1,0 +1,23 @@
+id: EXPO-4
+family: GR-EXPO
+part: I
+
+title: A node nobody has touched stores no overrides
+
+normative: >-
+  A node instance on which no port has been shown or hidden stores no `ports` map
+  at all. Every one of its ports therefore resolves to its default exposure
+  (EXPO-2), and adding a port to the node type later changes that node's canvas
+  without the node being re-saved.
+
+posture: normative-target
+level: core
+profiles:
+  - storage-api
+
+added: "1.0"
+changed: "1.0"
+
+related:
+  - EXPO-2
+  - EXPO-8

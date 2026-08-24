@@ -1,0 +1,24 @@
+id: EXPO-15
+family: GR-EXPO
+part: I
+
+title: A model may fill only visible, unwired parameters
+
+normative: >-
+  Where a node is offered to an agent node as a callable tool, a parameter is
+  fillable by the model when it is connectable and exposed and no data edge already
+  feeds that port. A hidden parameter, a non-connectable one, and one a wire
+  already supplies are all outside the model's reach.
+
+posture: normative-target
+level: extended
+profiles:
+  - storage-api
+  - runtime
+
+added: "1.0"
+changed: "1.0"
+
+related:
+  - EXPO-2
+  - EXPO-10

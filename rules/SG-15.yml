@@ -1,0 +1,22 @@
+id: SG-15
+family: RT-SG
+part: II
+
+title: A run reports the identifier of the run it created
+
+normative: >-
+  The execution identifier a run reports is the identifier of the run record the
+  engine created, and it replaces any identifier the caller supplied. That
+  identifier is the one a client polls for the run's progress, and the progress it
+  returns is keyed by the node identifiers the author drew. An engine that reported
+  a synthetic identifier of its own, or echoed back the caller's, would leave every
+  poll unanswered and freeze the client at idle.
+
+posture: normative-target
+level: core
+profiles:
+  - runtime
+  - editor-client
+
+added: "1.0"
+changed: "1.0"

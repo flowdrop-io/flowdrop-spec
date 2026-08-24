@@ -3,8 +3,9 @@
 The rules a FlowDrop workflow obeys (how a workflow is written, stored,
 validated, and executed), stated independently of any one implementation.
 
-**Status: draft. Nothing here is published yet.** The rule corpus is being
-migrated out of [FlowDrop for Drupal][fddo], where it was first written.
+**Status: draft, not yet published.** The rule corpus — 399 rules — has been
+migrated out of [FlowDrop for Drupal][fddo], where it was first written. The site
+builds; it is not yet deployed, so nothing here is citable by URL.
 
 ## What this is, and what it is not
 
@@ -24,7 +25,7 @@ standing against these rules in its own documentation.
 |---|---|
 | `rules/*.yml` | One file per rule. The normative text and its metadata. |
 | `rules/schema.json` | The schema every rule file must satisfy. |
-| `rules/REGISTRY.lock` | Every rule identifier ever issued. Append-only. |
+| `rules/REGISTRY.lock` | Every rule identifier ever issued **or blocked**. Append-only. |
 | `narrative/*.mdx` | Optional prose for a rule: what it means, examples, why. |
 | `conventions.md` | Vocabulary and references shared by every rule. |
 | `scripts/` | Validation run in CI. |
@@ -39,7 +40,9 @@ one page per rule. No page source is generated into git. See
 `STORE-2` means one thing forever. Identifiers are never renumbered and never
 reused, because they are cited from tests, issues and other documents outside
 this repository. A withdrawn rule is marked withdrawn; its number is not
-recycled. CI enforces this.
+recycled. A number in use elsewhere for a rule this specification has declined is
+**reserved** and never issued here, so an identifier means the same thing in every
+document that cites it. CI enforces all of this.
 
 ## Contributing
 
@@ -54,7 +57,7 @@ Two licences, deliberately:
 - **The specification text** (`rules/`, `narrative/`, `conventions.md`, and the
   prose in this README) is licensed **CC BY 4.0** ([LICENSE](LICENSE)). Quote it,
   translate it, build on it; attribute it.
-- **The code** (`scripts/`, and the site when it lands) is licensed **MIT**
+- **The code** (`scripts/` and `site/`) is licensed **MIT**
   ([LICENSE-CODE](LICENSE-CODE)).
 
 [fddo]: https://www.drupal.org/project/flowdrop

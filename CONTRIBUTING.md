@@ -39,9 +39,23 @@ reused**. In practice:
 - Do not reuse the number of a withdrawn rule.
 - A new rule takes the next free number in its family.
 - Withdrawing a rule means marking it withdrawn, not deleting the file.
+- Do not issue a **reserved** number. See below.
 
 CI enforces this against `rules/REGISTRY.lock`. When you add a rule, add its
 identifier to that file in the same commit.
+
+### Reserved identifiers
+
+`REGISTRY.lock` records every identifier this specification has ever **issued or
+blocked**. A blocked one is marked `reserved`: the number is in use in an
+implementation's own rule registry for a rule this specification has ruled out of
+its scope, so issuing it here would make one identifier mean two different things
+in documents that cite each other. A reserved identifier has no rule file, CI
+checks that it has none, and a new rule skips past it to the next free number.
+
+Reserving is not a soft "not yet". If a rule the specification once declined turns
+out to belong here after all, it is written as a **new** rule with a new number,
+and `DEFERRED.md` records where it came from.
 
 ## What a normative proposal should say
 

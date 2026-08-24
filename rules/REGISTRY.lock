@@ -407,3 +407,30 @@ EXPO-16 GR-EXPO
 RT-TOOL-5 RT-TOOL
 OCX-5 RT-OCX
 
+# Reserved 2026-08-25. These identifiers are in use in FlowDrop for Drupal's own
+# rule registry, where the rules they name stay live with their tests. This
+# specification has ruled them out of its scope and will never issue them for
+# anything else: an identifier means one thing across both documents or it means
+# nothing. A reserved identifier has no rule file, and CI checks that it does not.
+LANG-5 GR-LANG reserved
+MAN-4 GR-MAN reserved
+VAL-PERF GR-VAL reserved
+ORC-6 RT-ORC reserved
+META-2 RT-META reserved
+ST-10 RT-ST reserved
+EXPO-9 GR-EXPO reserved
+EXPO-18 GR-EXPO reserved
+EXPO-19 GR-EXPO reserved
+INT-21 RT-INT reserved
+RT-GATE-10 RT-GATE reserved
+MIG-1 RT-MIG reserved
+MIG-2 RT-MIG reserved
+MIG-3 RT-MIG reserved
+MIG-4 RT-MIG reserved
+MIG-5 RT-MIG reserved
+MIG-6 RT-MIG reserved
+MIG-7 RT-MIG reserved
+UPD-1 RT-UPD reserved
+UPD-2 RT-UPD reserved
+UPD-3 RT-UPD reserved
+UPD-4 RT-UPD reserved

@@ -8,7 +8,7 @@
  *   2. A rule's filename matches its id.
  *   3. Identifiers are unique.
  *   4. Identifiers agree with REGISTRY.lock: none vanished, none renumbered,
- *      none added without being recorded.
+ *      none added without being recorded, and none reserved yet used.
  *   5. `related` points at rules that exist.
  *   6. Narrative prose has not drifted from the rule text it explains.
  */
@@ -78,11 +78,24 @@ for (const line of readFileSync(lockPath, 'utf8').split('\n')) {
   const t = line.trim();
   if (!t || t.startsWith('#')) continue;
   const [id, family, ...flags] = t.split(/\s+/);
-  lock.set(id, { family, withdrawn: flags.includes('withdrawn') });
+  lock.set(id, {
+    family,
+    withdrawn: flags.includes('withdrawn'),
+    reserved: flags.includes('reserved'),
+  });
 }
 
 for (const [id, entry] of lock) {
   const rule = rules.get(id);
+  // A reserved identifier is one this specification has ruled out of its scope while
+  // another document still uses it. It is blocked, not issued: it must have no rule
+  // file, and it can never be handed to a different rule later.
+  if (entry.reserved) {
+    if (rule) {
+      fail(`rules/${id}.yml`, `${id} is reserved in REGISTRY.lock and must not have a rule file. Reserving an identifier blocks it permanently; issue a new one instead.`);
+    }
+    continue;
+  }
   if (!rule) {
     fail('rules/REGISTRY.lock', `${id} is recorded as issued but has no rule file. Identifiers are permanent: withdraw the rule, do not delete it.`);
     continue;
@@ -153,4 +166,8 @@ if (problems.length) {
   process.exit(1);
 }
 
-console.log(`${rules.size} rule(s) validated, ${lock.size} identifier(s) issued. No problems.`);
+const reserved = [...lock.values()].filter((e) => e.reserved).length;
+console.log(
+  `${rules.size} rule(s) validated, ${lock.size - reserved} identifier(s) issued, ` +
+    `${reserved} reserved. No problems.`,
+);

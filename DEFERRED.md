@@ -1,33 +1,67 @@
 # Deferred rules
 
-These 34 of the registry's 421 rules were **not** extracted into the
-specification during the P0 pass. Each needs a judgment call that the plan
-deliberately reserves for a human: it leans on language semantics in a way that
-changes what the rule promises, it is bound to one implementation's framework
-surface, it exists only because of a framework limitation (an accident, not a
-promise), or it would generalise into a sentence nothing could break.
+These 22 of the registry's 421 rules are **not** in the specification. Each was
+either bound to one implementation's framework surface, a record of how one product
+moved its own data across a version boundary, or a sentence that would generalise
+into something nothing could break.
 
-**Nothing is lost.** Every rule here keeps living in fddo's registry with its
-tests and its `Covers spec-registry:` bindings, in the local rule namespace the
-plan describes. Their identifiers are **not** recorded in `REGISTRY.lock`, because the
-spec has not issued them, so they stay available to the spec should a later
-editorial pass rule that one belongs here after all.
+**Nothing is lost.** Every rule here keeps living in FlowDrop for Drupal's registry
+with its tests and its `Covers spec-registry:` bindings, in the local rule namespace
+the extraction plan describes.
+
+**Their identifiers are reserved, not free.** Each is recorded in `REGISTRY.lock`
+with a `reserved` marker, and CI checks that no rule file claims one. The
+specification will never issue these numbers for anything else: they are cited today
+from tests, issues and an implementation's own documentation, and an identifier that
+meant one thing in that registry and another here would make both documents
+unreadable. If one of these rules turns out to belong in the specification after all,
+it is written as a **new** rule with a **new** number, and its origin is recorded.
+
+## What changed on 2026-08-25
+
+The first pass deferred 34 rules. A ruling session took them one at a time and
+issued 12 of them, amended 2 further rules to absorb a deferred clause, and closed
+the remaining 24 entries permanently.
+
+**Issued:** `STORE-6` (what storing discards, keeps and leaves alone),
+`STORE-8` (the contract version's format), `STORE-15` (search),
+`R6.a` (config is a JSON object), `LANG-20` (testing whether a path exists),
+`SCH-24` (a node type that fails to build), `SCH-45` (checking a stored overlay),
+`MEM-9` and `MEM-15` (the session access model), `EXPO-16` (seeding exposure),
+`RT-TOOL-5` (artifact collection), `OCX-5` (the condition vocabulary).
+
+**Amended to absorb a deferred clause:** `BR-2` (a source declaring no branches
+gates nothing — the payload fallback the registry records as wrong in both
+directions is excluded, and must not be reinstated as a fix) and `INT-9` (snapshot
+access is enforced once, at the API boundary; cleanup runs with no principal).
+
+**Two family-wide statements** went to `conventions.md` rather than becoming rules:
+a validation result's errors carry no defined order, and rules about authoring
+surfaces constrain the data such a surface may produce, never how it presents
+controls.
+
+The governing question was not "is this portable?" but **"does this deferral hide a
+question two implementations could answer differently?"** Where it did, the
+specification decides the answer and states the reason — silence is right only where
+nothing observable turns on it. Where a rule records behaviour as *known wrong*
+rather than merely undermotivated, it stays out: `BR-2`'s fallback is the example,
+and it is the reason that guard exists.
 
 ## By family
 
-| Family | Extracted | Deferred |
+| Family | In the spec | Deferred |
 |---|---:|---:|
-| GR-STORE | 12 | 3 |
+| GR-STORE | 15 | 0 |
 | GR-API | 8 | 0 |
-| GR-VAL | 39 | 2 |
+| GR-VAL | 40 | 1 |
 | GR-EDGE | 9 | 0 |
-| GR-SCHEMA | 45 | 2 |
+| GR-SCHEMA | 47 | 0 |
 | GR-CFG | 18 | 0 |
-| GR-EXPO | 15 | 4 |
+| GR-EXPO | 16 | 3 |
 | GR-DYN | 7 | 0 |
-| GR-MEM | 14 | 2 |
+| GR-MEM | 16 | 0 |
 | GR-MAN | 20 | 1 |
-| GR-LANG | 27 | 2 |
+| GR-LANG | 28 | 1 |
 | RT-CMP | 11 | 0 |
 | RT-ERR | 13 | 0 |
 | RT-ORC | 16 | 1 |
@@ -35,13 +69,13 @@ editorial pass rule that one belongs here after all.
 | RT-DATA | 12 | 0 |
 | RT-INT | 20 | 1 |
 | RT-GATE | 14 | 1 |
-| RT-TOOL | 9 | 1 |
+| RT-TOOL | 10 | 0 |
 | RT-SG | 20 | 0 |
 | RT-PIPE | 9 | 0 |
 | RT-PLAY | 5 | 0 |
 | RT-SNAP | 2 | 0 |
 | RT-META | 8 | 1 |
-| RT-OCX | 8 | 1 |
+| RT-OCX | 9 | 0 |
 | RT-NET | 3 | 0 |
 | RT-MD | 2 | 0 |
 | RT-CRON | 2 | 0 |
@@ -49,8 +83,11 @@ editorial pass rule that one belongs here after all.
 | RT-ST | 9 | 1 |
 | RT-MIG | 0 | 7 |
 | RT-UPD | 0 | 4 |
-| **total** | **387** | **34** |
+| **total** | **399** | **22** |
 
+Two entries below describe a clause of a rule that is otherwise in the
+specification (`INT-13`) or a section preamble rather than a numbered rule, which is
+why 24 entries account for 22 reserved identifiers.
 
 # GR-EXPO: deferred rules
 
@@ -62,17 +99,6 @@ product's already-installed sites.
 existing stored node types once, and repair an earlier sweep. A spec target says
 what exposure means, not how one implementation backfilled it for data written
 before the rule existed.
-
-## EXPO-16: seeding the default-exposure control in the node-type form
-**Bucket:** drupal-bound
-**Who depends on it:** an authoring interface, but only through this
-implementation's form API.
-**Why deferred:** The promise is carried by framework form mechanics (the control
-is state-gated on a sibling control, and a disabled control is not submitted), so
-the rule as stated binds an implementation to that machinery rather than to an
-observable outcome. The portable half (a suggestion is consulted only while the
-port exists) is already covered by EXPO-6; the rest needs a ruling on what, if
-anything, the spec says about authoring surfaces.
 
 ## EXPO-18: new-port exposure drift between fresh and existing installs
 **Bucket:** drupal-bound
@@ -104,15 +130,6 @@ code lives, not about behaviour any caller can observe; the observable half (an
 expression's syntax is checked when the workflow is saved) belongs to the
 validator family, not here.
 
-## LANG-20: `exists('')` is true, and a property path over a scalar is false
-**Bucket:** accident-not-promise
-**Who depends on it:** unknown; needs a ruling.
-**Why deferred:** Both halves read as fall-through rather than design: an empty
-path reports existence because it degenerates to the whole context, and a property
-path over a scalar reports absence through the same unreadable-path conflation
-LANG-8 already covers. Binding a future implementation to either would promote an
-edge of one internal query API to a contract.
-
 # GR-MAN: deferred rules
 
 ## MAN-4: R4 guards manifest integrity
@@ -123,110 +140,7 @@ which carries the actual promises and the tests.
 sentence it would say only that some other rule applies, which no implementation
 could be shown to break. The integrity guarantees belong in R4.a–e.
 
-# GR-MEM: deferred rules
-
-## MEM-9: driving a session is a write, not a read
-**Bucket:** drupal-bound
-**Who depends on it:** unknown; needs a ruling. An API caller depends on "an
-observer holding read-only access cannot drive someone else's session", but every
-mechanism the row states is Drupal's.
-**Why deferred:** The row is a route-requirement, entity-access-operation,
-permission-name and field-access statement: `_entity_access: …update`, an
-ownership check inside an access control handler, an owner-field clamp to an
-edit-any tier. Its portable kernel (driving is a write; ownership requires a real
-identity) is already carried by MEM-6 and MEM-8, so extracting it would mean
-inventing a permission model the registry does not state in portable terms.
-
-## MEM-15: the access ladder, three handlers, one order
-**Bucket:** drupal-bound
-**Who depends on it:** unknown; needs a ruling.
-**Why deferred:** Four rungs of Drupal permission names, `forbidden()` versus
-`neutral()` as distinct verdicts so a later hook cannot grant what was refused,
-and per-permission/per-user cacheability metadata. Every load-bearing term is a
-Drupal access-API term, and the neutral/forbidden distinction has no meaning
-outside a system with hook-based access grants.
-
-# GR-SCHEMA: deferred rules
-
-## SCH-24: what a failing node-type build catches, and what it does not
-**Bucket:** php-semantics
-**Who depends on it:** nobody outside the implementation; a caller sees the
-outcome (the node is returned unenriched), which SCH-25 already promises.
-**Why deferred:** The rule's substance is the boundary between two levels of the
-PHP throwable hierarchy (an `\Exception` is caught and swallowed, anything else
-fails the request), plus an exact log message on a named channel at a named
-severity. Neither survives translation to an implementation with a different error
-model, and generalising it to "a broken node type must not fail the request" would
-promise something the rule deliberately does not.
-
-## SCH-45: the site lane overlay is typed config
-**Bucket:** drupal-bound
-**Who depends on it:** a site builder hand-writing the overlay, and only through
-the host framework's own config validation and translation machinery.
-**Why deferred:** The whole rule is about the overlay being declared to the host's
-configuration system: a `config_object` with a schema, the strict config schema
-checker covering it, the per-test exclusions it lets you delete, and one nested
-JSON Schema marked as not-our-keyspace. The portable half ("a malformed overlay is
-refused at save, not at render") is worth a ruling but is not what this row says.
-
-# GR-STORE: deferred rules
-
-## STORE-6: two-pass slimming on save
-**Bucket:** drupal-bound
-**Who depends on it:** partly the API surface: a client that reads back a workflow it
-just wrote sees the slimmed nodes, and STORE-14's read-side enrichment is what puts the
-dropped metadata back. The rest depends on nothing outside the implementation.
-**Why deferred:** The cut runs through the rule, not around it. The portable half is
-observable: storing a workflow discards transient canvas state (`selected`, `dragging`,
-`deletable`, `nodeId` at both the node and `data` level) and reduces a node's
-`data.metadata` to its type anchor, while `measured`, `position`, `data.config`,
-`data.label` and `data.extensions` are kept; a node whose type anchor does not resolve
-keeps its metadata and its `type` verbatim, since nothing could re-enrich them on read;
-and slimming is idempotent. The half that cannot travel is the whole of the rest:
-the `isSyncing()` gate, config sync skipping both the slimming and the `created`/
-`changed` re-stamp so an imported fat node round-trips verbatim, and the ordering
-constraint that slimming run before the parent save hook because dependency calculation
-must see the renamed anchor. Under this pass's instruction the whole rule defers;
-the first half above is ready for the editorial pass to lift as-is.
-
-## STORE-8: `schema_version` must be semver
-**Bucket:** php-semantics
-**Who depends on it:** unknown; needs a ruling.
-**Why deferred:** What the registry states is not "a version must be semver" but when
-that check bites and what escapes it: the constraint applies only under config
-validation and not under plain schema conformance, and the empty string is exempt
-because that is what the framework's regex constraint does, with a `'0.0.0'` property
-default the only thing keeping an unset version semver. Whether the empty string
-conforms is precisely the question a portable rule would have to answer, and answering
-it here would be a guess rather than an extraction.
-
-## STORE-15: workflow search
-**Bucket:** accident-not-promise
-**Who depends on it:** clients that pass `?search=`, but only on "a substring match,
-case-insensitive, anywhere in the name", not on the shape the registry actually
-describes.
-**Why deferred:** Every characteristic the row pins is a consequence of the storage
-layer having no `LIKE` operator: the literal, unescaped term, `%` and `_` not being
-wildcards, and the lowercase-both-sides comparison are what remains when SQL pattern
-matching is unavailable, not a decision anyone made. Binding a future implementation to
-"wildcards must not work" would promote that accident to a promise; the row's two
-transitional input edges (`'0'` treated as no search, an array-valued term answering
-500) and its unpinned `changed DESC` ordering need a ruling before a target sentence
-exists.
-
 # GR-VAL: deferred rules
-
-## R6.a: non-array `data.config` rejected
-**Bucket:** php-semantics
-**Who depends on it:** an editor client and any second implementation, both of
-which need to know whether `config: "hello"` and `config: [1, 2]` are refused.
-**Why deferred:** the rule is stated in terms of a host-language array, which
-conflates a JSON object with a JSON list, since a list is an "array" and passes, but a
-spec sentence saying "`config` must be a JSON object" would refuse it, so the two
-readings accept different documents. Its carve-out for anchor-less nodes is
-described in the registry as a consequence of where the guard sits relative to an
-early return, which is an accident rather than a promise; both halves need a
-ruling before either can be written.
 
 ## VAL-PERF: the validator constructs executors only for the exposure checks
 **Bucket:** vacuous-if-generalised
@@ -240,7 +154,10 @@ unnecessarily" it could not be shown to be broken by anything.
 
 ## Section preamble: inter-rule ordering
 **Bucket:** vacuous-if-generalised
-**Who depends on it:** unknown; needs a ruling.
+**Who depends on it:** nobody. Ruled 2026-08-25: a consumer could come to depend on
+the order errors arrive in, so `conventions.md` now states outright that a
+validation result's errors carry no defined order. That closes the observable half;
+the evaluation ordering itself stays out.
 **Why deferred:** the family preamble states a whole-family evaluation order
 (structure → node type → plugin → config → expressions → edge endpoints → edge
 exposure → exposure map → terminal reachability). Nothing in the registry says a
@@ -250,20 +167,6 @@ suppression has been written into the rule. As a free-standing sentence the
 ordering has no observable consequence, so it was not promoted to a rule.
 Locator grammar and severity, the preamble's other two claims, *are* observable
 and have been written onto each rule that depends on them instead.
-
-# RT-BR: deferred rules
-
-## BR-2 (in part): value-port detection when the source declares no branches
-**Bucket:** accident-not-promise
-**Who depends on it:** sources that declare no branch list, which the registry
-says is the only reason the behaviour survives.
-**Why deferred:** BR-2's three early-TRUE arms and the configured-branch authority
-are extracted. The remaining clause (that when a source declares no branches at
-all, a port is taken for a value port if its name is a key in the source's emitted
-output) is flagged in the registry as wrong in both directions: it cannot see a
-configured branch the run emitted no key for, and it misreads a branch that shares
-a name with an emitted output key. Binding every future implementation to
-reproduce it would promote a known-wrong fallback to a promise.
 
 # RT-GATE: deferred rules
 
@@ -290,16 +193,6 @@ gated on a permission grant, in the host's runtime requirements phase. An
 implementation that simply has the authentication scheme has nothing to warn
 about, so generalising this promotes a packaging accident into a rule.
 
-## INT-9 (in part): where snapshot access is enforced
-**Bucket:** drupal-bound
-**Who depends on it:** unknown; needs a ruling.
-**Why deferred:** INT-9's upsert and cleanup halves are extracted. Its remaining
-clause (that every snapshot query runs with entity access checks disabled because
-access is enforced at the API layer instead, and that cleanup runs with no user
-context) is a statement about which layer of a specific entity system performs
-access control. The portable promise underneath ("snapshot access is enforced, and
-enforced once") is not what the row says, so it is not written here.
-
 ## INT-13 (in part): the dual read for checkpoint payloads written before the status field
 **Bucket:** accident-not-promise
 **Who depends on it:** only data already on disk in the implementation that
@@ -320,7 +213,12 @@ own historical rows. A new implementation has no such rows.
 # RT-MIG: deferred rules
 
 The whole family is deferred. These rules describe the deploy-time migration
-primitives one implementation offers to authors of its own upgrade hooks. They are
+primitives one implementation offers to authors of its own upgrade hooks.
+
+**Flagged 2026-08-25 as the one deferral with a plausible future.** If portable
+workflow-surgery tooling is ever wanted, it is designed forward as an optional
+profile, on its own merits — never extracted from these method signatures. Because
+`MIG-1`–`MIG-7` are reserved, such a profile starts at `MIG-8`. They are
 not a surface a workflow author, an editor client or an API caller can observe,
 and no second implementation has to offer the primitives at all. The rules keep
 living in the implementation's registry with their tests.
@@ -372,13 +270,6 @@ through: one implementation's DTO read path, with its config-default merge,
 dangling-edge pruning and edge-id minting. None of those are spec concepts, so
 the rule cannot be stated without them.
 
-# RT-OCX: deferred rules
-
-## OCX-5: every written condition key is schema-valid
-**Bucket:** drupal-bound
-**Who depends on it:** the host framework's config schema validation and its strict-schema test mode; nothing on the wire.
-**Why deferred:** The rule is about writing keys into a closed config mapping whose only extension point is an `ignore`-typed `custom` key, a config-install packaging and schema concern with no meaning outside that framework. Generalised into "stored configuration validates against its schema" it becomes vacuous, and a target that has no such schema layer cannot break it.
-
 # RT-ORC: deferred rules
 
 ## ORC-6: shared orchestrator hierarchy
@@ -396,20 +287,6 @@ with deliberately no per-execution ownership check. The registry itself records
 that this was safe only because the tracker was request-scoped and in memory, so
 generalising it would bind every future implementation to omit an authorisation
 check it actually needs.
-
-# RT-TOOL: deferred rules
-
-## RT-TOOL-5: artifact collection is opt-in per run
-**Bucket:** accident-not-promise
-**Who depends on it:** unknown; needs a ruling. Nothing outside the
-implementation can observe the registration itself; what a caller observes is
-that artifacts arrive on some entry points and not others.
-**Why deferred:** The rule exists because the collector's container is scoped per
-process rather than per request, so an always-on map would retain payloads for the
-process's lifetime on exactly the paths that never drain it. Promoting that into a
-binding rule would make artifact delivery depend on which entry point launched the
-workflow, a lifetime workaround, not a promise a second implementation should be
-made to reproduce.
 
 # RT-UPD: deferred rules
 

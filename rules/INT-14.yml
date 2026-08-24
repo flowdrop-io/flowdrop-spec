@@ -10,7 +10,7 @@ summary: >-
   announced.
 
 normative: >-
-  A snapshot whose status is terminal — completed, failed or cancelled — must not
+  A snapshot whose status is terminal (completed, failed or cancelled) must not
   be resumed. An engine offered one refuses before creating a run, naming the
   snapshot and its status; the same refusal covers explicit resumption from a
   checkpoint capturing terminal state, naming the checkpoint. Continuing a

@@ -11,7 +11,7 @@ summary: >-
 normative: >-
   A node runs once its incoming edges are satisfied. A node with at least one
   incoming trigger edge is ready as soon as any one of those trigger edges is
-  satisfied, and its data ports are not evaluated at all — such a node may
+  satisfied, and its data ports are not evaluated at all; such a node may
   legitimately run with an unfilled data port. Otherwise its incoming data edges
   are grouped by the input port they target; a group is satisfied by at least one
   source that has completed, is on an active branch, and is not a round behind the

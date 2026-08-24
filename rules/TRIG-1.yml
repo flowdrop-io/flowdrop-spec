@@ -11,7 +11,7 @@ summary: >-
 
 normative: >-
   Overlap is decided against runs of the same workflow that have not reached a
-  terminal state — pending, running or paused. A terminal run, and a run of any
+  terminal state: pending, running or paused. A terminal run, and a run of any
   other workflow, are both ignored; with none active, every policy proceeds with
   the caller's trigger data unchanged. With one active, Skip blocks the firing;
   Buffer defers it and blocks; Cancel cancels every active run, announcing each
@@ -23,7 +23,7 @@ normative: >-
   blocked it is terminal or gone, and on release its own payload replaces the
   current firing's; a buffer whose blocking run can no longer be identified is
   released rather than left stranded. A policy an implementation does not
-  recognise must be treated as Skip — the only fail-safe direction, since every
+  recognise must be treated as Skip, the only fail-safe direction, since every
   alternative destroys a running workflow.
 
 posture: normative-target

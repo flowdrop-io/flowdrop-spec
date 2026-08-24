@@ -6,7 +6,7 @@ title: A processor's exposure suggestion is authoring input only
 
 summary: >-
   A processor may suggest that a port ship hidden. That suggestion is consumed once,
-  when a node type's exposure values are first written, and never again — so a
+  when a node type's exposure values are first written, and never again, so a
   consumer reading a node type's published metadata is reading decisions, not
   suggestions.
 

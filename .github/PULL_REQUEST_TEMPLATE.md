@@ -3,9 +3,9 @@
 <!-- Tick exactly one. If you are unsure, it is normative. -->
 <!-- The test: could an implementation pass before this change and fail after it? -->
 
-- [ ] **Editorial** — the rule requires exactly what it required before, and now says so more clearly.
-- [ ] **Normative** — an implementation that was conforming might now be failing, or the reverse.
-- [ ] **Tooling / site** — no change to the specification text.
+- [ ] **Editorial**: the rule requires exactly what it required before, and now says so more clearly.
+- [ ] **Normative**: an implementation that was conforming might now be failing, or the reverse.
+- [ ] **Tooling / site**: no change to the specification text.
 
 ## What changes
 
@@ -18,7 +18,7 @@
 ## Blast radius
 
 <!-- Normative changes only: what would an implementation conforming today have to change?
-     "Nothing" is a fine answer — say it explicitly. -->
+     "Nothing" is a fine answer; say it explicitly. -->
 
 ---
 

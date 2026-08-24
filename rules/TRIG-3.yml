@@ -14,7 +14,7 @@ normative: >-
   time and the run count untouched. The history is newest-first and holds at most
   the ten most recent entries from either writer, so an unattended trigger cannot
   grow its record without bound. Stored state that is not in the shape expected is
-  read as absent — no last run, a count of zero, an empty history — rather than
+  read as absent (no last run, a count of zero, an empty history) rather than
   failing the trigger.
 
 posture: normative-target

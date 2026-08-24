@@ -13,7 +13,7 @@ normative: >-
   A source that has been superseded does not satisfy an edge: where a newer
   execution of the source node already exists, that source's branch decision must
   not activate a trigger edge, an error edge, or a data edge leaving a named port
-  of a source that emitted an active-branch list — a source vouches only for its
+  of a source that emitted an active-branch list; a source vouches only for its
   own iteration. Independently, a completed source from a round behind the
   consumer's, on a loop both are inside, does not satisfy a trigger, error or
   ordinary data edge, named port or not; a source that shares no loop with the

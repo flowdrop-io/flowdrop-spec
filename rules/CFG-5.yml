@@ -2,7 +2,7 @@ id: CFG-5
 family: GR-CFG
 part: I
 
-title: Priority 2 — the author's saved config
+title: Priority 2, the author's saved config
 
 normative: >-
   Where priority 1 does not apply, a parameter takes its value from the node's

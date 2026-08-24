@@ -8,14 +8,14 @@ import { RailId, RailKey, RailNav } from './rail';
 
 /**
  * The page anatomy is a menu, not a checklist: every section but the normative
- * sentence is optional, and an absent one is omitted entirely — no empty
+ * sentence is optional, and an absent one is omitted entirely, with no empty
  * headings. `sections()` is the single place that decides what exists, so the
  * rail's in-page nav and the body can never disagree.
  *
  * Most rules carry the normative sentence, a related-rules cluster and nothing
  * else. That page is the design's normal case, not its degenerate one: the rail
  * carries the citation apparatus, the statement carries the weight, and the
- * colophon closes it — so a short page reads as complete rather than unfinished.
+ * colophon closes it, so a short page reads as complete rather than unfinished.
  */
 export function sections(rule: LoadedRule) {
   const refs = [...(rule.references?.normative ?? []), ...(rule.references?.informative ?? [])];
@@ -124,7 +124,7 @@ export function RuleDoc({
 
         <div className="normative">
           <span className="label">
-            <b>Normative</b> — this is the rule
+            <b>Normative</b>: this is the rule
           </span>
           <p className="statement">
             <Prose>{rule.normative}</Prose>
@@ -175,7 +175,7 @@ export function RuleDoc({
           {(rule.references?.normative ?? []).length > 0 && (
             <div className="refgroup norm">
               <h3>
-                <b>Normative</b> — incorporated into this rule
+                <b>Normative</b>: incorporated into this rule
               </h3>
               <ul className="reflist">
                 {rule.references!.normative!.map((e, i) => (
@@ -204,7 +204,7 @@ export function RuleDoc({
           {Boolean(rule.related?.length) && (
             <div className="chipgroup">
               <h3>
-                Related <span>— rules this one names</span>
+                Related <span>(rules this one names)</span>
               </h3>
               <div className="chips">
                 {rule.related!.map((id) => (
@@ -217,7 +217,7 @@ export function RuleDoc({
           {rule.backlinks.length > 0 && (
             <div className="chipgroup">
               <h3>
-                Referenced by <span>— rules that name this one</span>
+                Referenced by <span>(rules that name this one)</span>
               </h3>
               <div className="chips">
                 {rule.backlinks.map((id) => (

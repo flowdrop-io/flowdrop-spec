@@ -11,8 +11,8 @@ summary: >-
 
 normative: >-
   Where a node's confirmation requirement must be derived from its executor and
-  that executor cannot be resolved — no such executor is defined, or its
-  implementation is unavailable — the node must not execute and must not raise a
+  that executor cannot be resolved (no such executor is defined, or its
+  implementation is unavailable), the node must not execute and must not raise a
   confirmation prompt. The derivation fails, and the node fails as any node with an
   unresolvable executor does. An implementation may elsewhere let callers probe an
   executor's declarations without raising, treating an unresolvable one as declaring

@@ -17,7 +17,7 @@ normative: >-
   as the error edge payload's optional details. Where an error edge is wired the
   decline is a handled failure (ERR-7); otherwise the run's default failure
   behaviour applies (ERR-8). A decline must not be surfaced as branch ports that
-  exist only when confirmation is configured — a port surface that depends on a
+  exist only when confirmation is configured; a port surface that depends on a
   configuration flag breaks the canvas contract. An author who wants first-class
   branching on a human decision uses an explicit confirmation node.
 

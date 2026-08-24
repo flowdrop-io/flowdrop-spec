@@ -8,8 +8,8 @@ summary: >-
   drops it and carries on.
 
 normative: >-
-  An entry that cannot be resolved — the node it names is missing, the node
-  declares no such port — is skipped with a logged warning, and the remaining
+  An entry that cannot be resolved (the node it names is missing, the node
+  declares no such port) is skipped with a logged warning, and the remaining
   entries are still built. An entry that is structurally malformed, missing or
   empty in `name`, `node_id` or `port`, is likewise skipped and never contributes
   to the contract.

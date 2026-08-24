@@ -12,7 +12,7 @@ summary: >-
 
 normative: >-
   A data port held back by the round comparison stops waiting once no job still to
-  run, pending or running can reach the source node over the forward graph — with
+  run, pending or running can reach the source node over the forward graph, with
   the source counted as able to reach itself. A live loop head, being an ancestor
   of everything in its own body, therefore holds the port open across a re-entry,
   and so does an ancestor outside the loop still on its way. A job whose own round
@@ -21,7 +21,7 @@ normative: >-
   restrictions bound the verdict. It applies to data edges only, and only on a
   consumer with no trigger and no error edge. Every source on the port must share a
   loop with the consumer: one out-of-loop source keeps the port fillable. At least
-  one edge on the port must actually have been held back by the round comparison —
+  one edge on the port must actually have been held back by the round comparison;
   a source that was simply never dispatched is an ordinary skipped branch and none
   of this rule's business, which is what makes this a termination clause for the
   round comparison rather than a general unfillable-port rule. And the run must

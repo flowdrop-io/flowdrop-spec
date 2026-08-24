@@ -12,7 +12,7 @@ normative: >-
   A node's resume path is taken only when all four hold: the resolved parameters
   carry an interrupt identifier, the node's executor supports resuming, the named
   interrupt is resolved, and its stamped job identifier matches the job being
-  executed. If any fails, the node is executed afresh rather than resumed — a safe
+  executed. If any fails, the node is executed afresh rather than resumed: a safe
   re-ask.
 
 posture: normative-target

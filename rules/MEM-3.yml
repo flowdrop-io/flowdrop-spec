@@ -13,7 +13,7 @@ normative: >-
   that has no matching tool result anywhere in the buffer is answered by a
   synthetic `tool`-role message stating that the call was interrupted and returned
   no result. The synthetic message is marked as healed, carries the id it answers,
-  and is inserted directly after the turn that declared the call — not at the end
+  and is inserted directly after the turn that declared the call, not at the end
   of the buffer, because a result must be adjacent to its call. Healing runs only
   at this boundary: appending a `tool` or `assistant` message never triggers it.
 

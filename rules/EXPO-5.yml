@@ -11,8 +11,8 @@ summary: >-
 
 normative: >-
   A processor's `x-exposed-by-default` schema extension suppresses a port's default
-  exposure only when its value is exactly the boolean `false`. Any other value —
-  including null, zero, an empty string, or the string `"false"` — leaves the port
+  exposure only when its value is exactly the boolean `false`. Any other value
+  (including null, zero, an empty string, or the string `"false"`) leaves the port
   exposed by default, as does the key's absence (CFG-2).
 
 posture: normative-target

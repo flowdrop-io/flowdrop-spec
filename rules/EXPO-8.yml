@@ -12,7 +12,7 @@ summary: >-
 normative: >-
   Where a processor gains a parameter after a node type's exposure values were
   stored, and the node type has not been re-derived, that port has no stored
-  exposure value and resolves as exposed — even where the processor suggests
+  exposure value and resolves as exposed, even where the processor suggests
   hiding it. A processor's suggestion reaches a node type only through the
   authoring-time derivation of EXPO-6.
 

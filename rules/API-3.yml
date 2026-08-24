@@ -6,7 +6,7 @@ title: A session with no workflow is a conflict, not a server error
 
 normative: >-
   A request against a session that has no associated workflow is refused with 409 on
-  every door that serves that session — it is a problem with the session's state, the
+  every door that serves that session; it is a problem with the session's state, the
   same refusal family as a turn refused because one is already running. The response
   carries a generic message; the detail that identifies the session goes to the log and
   never into the response body.

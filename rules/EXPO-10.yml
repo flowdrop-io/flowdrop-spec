@@ -6,7 +6,7 @@ title: Hiding an input port changes precedence, it does not unset the parameter
 
 summary: >-
   A value arriving at a hidden input is ignored, not rejected. The parameter still
-  gets a value — the author's, or the default — so hiding a port never turns a
+  gets a value (the author's, or the default), so hiding a port never turns a
   working node into a failing one.
 
 normative: >-

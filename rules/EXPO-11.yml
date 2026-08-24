@@ -7,14 +7,14 @@ title: Output stripping covers declared output ports only
 summary: >-
   Hiding an output means its value never leaves the node. The pass that enforces
   this works from the processor's declared output schema, so keys that are not
-  declared ports — dynamic outputs, reserved control ports — are outside its reach
+  declared ports (dynamic outputs, reserved control ports) are outside its reach
   by construction.
 
 normative: >-
   When a node execution produces a result, every key naming a declared output port
   that resolves as hidden is removed from that result before it is delivered
-  anywhere. A key the processor's output schema does not declare — a dynamic
-  output, a reserved control port — is not a port and passes through untouched. A
+  anywhere. A key the processor's output schema does not declare (a dynamic
+  output, a reserved control port) is not a port and passes through untouched. A
   hidden declared output must be stripped whatever else the result contains,
   including where the processor declares no output ports at all.
 

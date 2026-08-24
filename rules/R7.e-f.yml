@@ -10,9 +10,9 @@ summary: >-
   error and a hidden-target error at once.
 
 normative: >-
-  Where an edge endpoint cannot be judged for exposure — its handle cannot be
+  Where an edge endpoint cannot be judged for exposure (its handle cannot be
   parsed, the node it names is empty or absent, or that node's node type does
-  not resolve — R7 is skipped for that endpoint only. The edge's other endpoint
+  not resolve), R7 is skipped for that endpoint only. The edge's other endpoint
   is still checked. A node whose node type is unknown is reported by R9, a node
   whose node type resolves but whose executor is missing by R1, and a node with
   no node type anchor by neither; in all three cases R7 itself stays silent.

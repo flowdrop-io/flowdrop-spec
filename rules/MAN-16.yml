@@ -10,9 +10,9 @@ summary: >-
 
 normative: >-
   The per-value stage of the launch check enforces exactly two things from a
-  contract fragment: `type` and `enum`. Every other published key — `minimum`,
+  contract fragment: `type` and `enum`. Every other published key (`minimum`,
   `maximum`, `minLength`, `maxLength`, `pattern`, and nested `properties` or
-  `items` — is declared in the contract and not enforced here, as is a `type` that
+  `items`) is declared in the contract and not enforced here, as is a `type` that
   is not a single string. The top-level required list is the one declared key that
   is enforced, and it is enforced by the earlier missing-input stage. Values are
   never coerced. Every structured type collapses to a single check that the value

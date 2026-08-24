@@ -9,7 +9,7 @@ normative: >-
   parameters and are never input ports. Where a node type opts one in by marking it
   `configurable`, it enters the config schema and always gets a config-defaults
   entry: the node type's default, else the schema's default, else an empty array.
-  Such an entry is never omitted and never null — unlike an ordinary configurable
+  Such an entry is never omitted and never null, unlike an ordinary configurable
   parameter, whose entry is omitted when its resolved default is null.
 
 posture: normative-target

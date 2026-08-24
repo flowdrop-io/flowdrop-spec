@@ -2,7 +2,7 @@ id: CFG-4
 family: GR-CFG
 part: I
 
-title: Priority 1 — a value delivered on a wire
+title: Priority 1, a value delivered on a wire
 
 summary: >-
   The first place a parameter's value can come from is the run itself: a value

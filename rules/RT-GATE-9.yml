@@ -5,7 +5,7 @@ part: II
 title: Dynamic escalation can add an approval but never remove one
 
 summary: >-
-  Data flowing into a node — including arguments a model filled — may raise the bar
+  Data flowing into a node (including arguments a model filled) may raise the bar
   for that execution. It may never lower it.
 
 normative: >-
@@ -13,7 +13,7 @@ normative: >-
   reserved confirmation input port, hidden by default, and a truthy value delivered
   to it gates that execution. A falsy value does not participate: upstream data can
   add an approval requirement and must never remove one. A value whose truthiness
-  cannot be determined escalates — over-asking is the fail-safe direction for a
+  cannot be determined escalates; over-asking is the fail-safe direction for a
   value crossing a port. Enforcement is at the gate, not at authoring time: an
   undeclared port is wireable regardless, so identical wiring on a node type without
   the grant delivers a value the runtime ignores. The escalation is not a resolved

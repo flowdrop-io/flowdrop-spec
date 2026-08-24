@@ -13,7 +13,7 @@ normative: >-
   Confirmation governance is controlled by a dedicated administrative authority,
   separate from the authority to administer node types, and restricted. Where an
   actor does not hold it, the governance settings are not shown, and a save by that
-  actor must leave the stored governance mapping byte-identical — a setting that was
+  actor must leave the stored governance mapping byte-identical: a setting that was
   never stored stays unstored, so the node type keeps deriving its requirement
   (RT-GATE-7). The strength of the gate is exactly the strength of who holds this
   authority and who may edit workflows.

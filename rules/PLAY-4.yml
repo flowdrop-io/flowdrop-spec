@@ -6,15 +6,15 @@ title: One message row, three doors, base keys always present
 
 normative: >-
   The message list, the single-message read and the send acknowledgement publish
-  the same message row. Its base keys — `id`, `sessionId`, `role`, `content`,
-  `timestamp`, `status`, `sequenceNumber`, `nodeId`, `metadata`, in that order —
+  the same message row. Its base keys (`id`, `sessionId`, `role`, `content`,
+  `timestamp`, `status`, `sequenceNumber`, `nodeId`, `metadata`, in that order)
   are always present. The lineage and presentation keys `hierarchy`, `tags`,
   `display`, `toolArtifacts`, `parentMessageId`, `executionId`, `rootPipelineId`
   and `parentPipelineId` are appended only when the message carries them, and are
   absent otherwise rather than present and null. The single-message read resolves
   lineage on the same terms as the list, so its row is not a lesser one.
   `timestamp` is an ISO 8601 string. The lightweight message status read is a
-  different, four-key document — `id`, `status`, `sequenceNumber`, `timestamp` —
+  different, four-key document (`id`, `status`, `sequenceNumber`, `timestamp`)
   and is not this row.
 
 posture: normative-target

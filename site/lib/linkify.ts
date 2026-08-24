@@ -83,7 +83,7 @@ export function hasIds(text: string, resolve: Resolver): boolean {
 
 /**
  * Split YAML prose into inline-code spans and plain runs. The YAML prose uses
- * exactly one Markdown construct — backtick code spans — verified across the
+ * exactly one Markdown construct (backtick code spans), verified across the
  * whole corpus, so this is the entire inline grammar it needs.
  */
 export function inlineChunks(text: string): { code: boolean; value: string }[] {

@@ -9,7 +9,7 @@ summary: >-
   has to live in one place.
 
 normative: >-
-  A manifest may be written by more than one door — an authoring surface that
+  A manifest may be written by more than one door: an authoring surface that
   offers the author a filtered choice of ports, or an API mapping a
   caller-supplied contract. Both write the same stored shape and are refused by
   the same workflow validation, so an entry naming an unknown node, or a port the

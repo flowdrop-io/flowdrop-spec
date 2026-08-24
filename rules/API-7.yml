@@ -13,8 +13,8 @@ normative: >-
   A failure an implementation cannot attribute to a specific cause is answered with a
   fixed generic message; the underlying failure's own message is logged and never
   reaches the response body. A failure an implementation can classify must be answered
-  as that classification — a client error as a client error, a refusal by the name the
-  door has for it — and a generic server failure must never stand in for a refusal the
+  as that classification (a client error as a client error, a refusal by the name the
+  door has for it), and a generic server failure must never stand in for a refusal the
   door is able to name.
 
 posture: normative-target

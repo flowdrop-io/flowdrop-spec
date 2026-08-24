@@ -8,8 +8,8 @@ summary: >-
   expression is visible and routable rather than silently absorbed.
 
 normative: >-
-  An expression error — a path the engine cannot evaluate, a failure raised by the
-  engine — fails the node, and the failure routes to the error edge. This holds
+  An expression error (a path the engine cannot evaluate, a failure raised by the
+  engine) fails the node, and the failure routes to the error edge. This holds
   uniformly across every node that evaluates an author's expression. An expression
   that evaluates cleanly and finds nothing is not an error, so an extractor's
   default-on-no-match is unaffected. Leniency toward genuine errors is only ever an

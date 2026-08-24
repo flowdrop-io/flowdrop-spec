@@ -16,10 +16,10 @@ normative: >-
   `node_id` and `port`; an entry carrying more than one binding is refused with
   400 and nothing is stored. An entry carrying no binding is a client-side draft:
   it is skipped, not stored, and not an error. A declared data type, a schema, a
-  default value and free-form metadata on an entry are ignored on write — the type
+  default value and free-form metadata on an entry are ignored on write; the type
   and schema are derived server-side from the bound port, and the other two have
-  no server representation. Input-side author metadata — the entry's display name,
-  description, examples and required flag — round-trips as author-written manifest
+  no server representation. Input-side author metadata (the entry's display name,
+  description, examples and required flag) round-trips as author-written manifest
   metadata does; an output entry carries only its name and binding. The mapped
   manifests are applied before the workflow is validated, so whether a named node
   or port exists is decided by workflow validation and refused with 422; the

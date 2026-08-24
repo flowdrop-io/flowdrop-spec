@@ -11,7 +11,7 @@ summary: >-
 normative: >-
   The initial data for an externally invoked run is flat: the extracted trigger
   data at the top level, plus the identifiers of the trigger configuration and
-  the trigger node — the same shape every other trigger kind builds. Since a
+  the trigger node, the same shape every other trigger kind builds. Since a
   trigger emits its whole initial data as the node's `data` output, the caller's
   payload is reachable at `data.payload`, which is what the trigger's declared
   output schema advertises. The initial data must not be keyed by node id.

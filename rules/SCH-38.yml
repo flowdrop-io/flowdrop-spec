@@ -4,8 +4,8 @@ part: I
 
 title: A loop-back input is a control sink, and `any` is retired
 summary: >-
-  `any` and `trigger` differed in one way only — one had compatibility rules built
-  into it from every other lane — and that is a property of being the sink, not of
+  `any` and `trigger` differed in one way only (one had compatibility rules built
+  into it from every other lane), and that is a property of being the sink, not of
   being `any`.
 
 normative: >-

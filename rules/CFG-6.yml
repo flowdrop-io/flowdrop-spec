@@ -2,7 +2,7 @@ id: CFG-6
 family: GR-CFG
 part: I
 
-title: Priority 3 — the effective default, unconditionally
+title: Priority 3, the effective default, unconditionally
 
 normative: >-
   Where neither priority 1 (CFG-4) nor priority 2 (CFG-5) applies, a parameter

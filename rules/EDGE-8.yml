@@ -8,8 +8,8 @@ normative: >-
   A condition on an edge is a removed feature. A stored `edge.data.condition` is
   tolerated and round-trips unchanged, and it gates nothing: the edge always routes. A
   non-empty string condition is reported as a warning each time the source node's
-  outgoing edges are resolved, so a source that executes more than once — inside a loop
-  — warns each time rather than once per run. An absent or empty condition is silent.
+  outgoing edges are resolved, so a source that executes more than once (inside a loop)
+  warns each time rather than once per run. An absent or empty condition is silent.
 
 posture: normative-target
 level: extended

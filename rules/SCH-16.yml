@@ -5,8 +5,8 @@ part: I
 title: What each reserved port defaults to on the canvas
 
 normative: >-
-  The reserved ports default to not exposed — the unified `input` and `output`, the
-  `tool` output, the `error` output and the `loop_back` input — except the `trigger`
+  The reserved ports default to not exposed (the unified `input` and `output`, the
+  `tool` output, the `error` output and the `loop_back` input), except the `trigger`
   input and the `trigger` output, which default to exposed. A node type may override
   the default per port, and stores only the keys whose value diverges from the
   default.

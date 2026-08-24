@@ -6,11 +6,11 @@ title: Where a run's starting state comes from
 
 normative: >-
   A run's starting state is resolved in a fixed order: an explicit initial
-  snapshot; else the checkpoint the caller named — an identifier that resolves to
+  snapshot; else the checkpoint the caller named (an identifier that resolves to
   nothing is a warning and the run starts fresh, while a checkpoint of a run that
-  has already ended is refused; else the latest state for the caller's thread; else
+  has already ended is refused); else the latest state for the caller's thread; else
   a fresh state. Seeding from a thread whose last run ended keeps what the thread
-  accumulated — its messages, data, metadata and thread identifier — and clears
+  accumulated (its messages, data, metadata and thread identifier), and clears
   everything the finished run owned: its outcome, so the new run reports its own,
   and its execution position, including the iterator, the iteration count and the
   current node, so the new run starts its loops from the beginning. Seeding from a

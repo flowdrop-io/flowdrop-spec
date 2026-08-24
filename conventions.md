@@ -5,15 +5,15 @@ repeat them.
 
 ## Requirement levels
 
-**must** — an absolute requirement. An implementation that does not do this does
+**must**: an absolute requirement. An implementation that does not do this does
 not conform.
 
-**must not** — an absolute prohibition.
+**must not**: an absolute prohibition.
 
-**should** — a strong recommendation. There may be valid reasons to do otherwise;
+**should**: a strong recommendation. There may be valid reasons to do otherwise;
 understand them before choosing.
 
-**may** — genuinely optional. An implementation that does this and one that does
+**may**: genuinely optional. An implementation that does this and one that does
 not are both conforming, so a caller cannot rely on it.
 
 These words carry this meaning only in a rule's normative sentence. In narrative
@@ -40,7 +40,7 @@ on.
 
 ## Identifiers
 
-Rules are cited by identifier — `STORE-2`, `SCH-41` — grouped by family prefix.
+Rules are cited by identifier (`STORE-2`, `SCH-41`), grouped by family prefix.
 An identifier is permanent: never renumbered, never reused, still citable after
 the rule is withdrawn.
 
@@ -48,7 +48,7 @@ the rule is withdrawn.
 
 A change to what implementations must do is recorded as a **ruling**: what was
 decided, and why. Rules affected by a ruling reference it. A ruling is history and
-is never rewritten — where it turns out to be wrong, a later ruling supersedes it
+is never rewritten; where it turns out to be wrong, a later ruling supersedes it
 and says so.
 
 ## Profiles
@@ -56,13 +56,13 @@ and says so.
 Not every rule binds every kind of implementation. A rule declares the profiles it
 applies to:
 
-- **runtime** — executes workflows.
-- **storage-api** — stores workflows and serves them over the API.
-- **editor-client** — authors workflows against the API.
+- **runtime**: executes workflows.
+- **storage-api**: stores workflows and serves them over the API.
+- **editor-client**: authors workflows against the API.
 
 ## Levels
 
-- **core** — the set an implementation is expected to meet before calling itself a
+- **core**: the set an implementation is expected to meet before calling itself a
   FlowDrop implementation.
-- **extended** — beyond core; commonly expected, not assumed.
-- **optional** — genuinely optional capability.
+- **extended**: beyond core; commonly expected, not assumed.
+- **optional**: genuinely optional capability.

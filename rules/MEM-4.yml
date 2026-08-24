@@ -12,7 +12,7 @@ normative: >-
   inputs and flattens them into one message-typed output. The declared order of
   the inputs is the order of the messages. A connected list contributes each of
   its items in order; a connected single message contributes one item; an input
-  that is unwired or carries no value contributes nothing — no placeholder is
+  that is unwired or carries no value contributes nothing; no placeholder is
   emitted for it.
 
 posture: normative-target

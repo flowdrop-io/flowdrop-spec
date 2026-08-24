@@ -12,7 +12,7 @@ summary: >-
 normative: >-
   Resolving an interrupt locates the job it interrupted by the job identifier
   stamped on the interrupt, and returns that job to pending unconditionally. Only
-  then, and only if the run is paused, is the run resumed — through the engine the
+  then, and only if the run is paused, is the run resumed, through the engine the
   run declares (ORC-13), never a different one. A run that is not paused is left
   strictly alone and must not be re-entered. A stateless run has nothing to resume,
   and resolution is a no-op for it.

@@ -8,7 +8,7 @@ summary: >-
   reason: that is what tells the machinery to leave it alone.
 
 normative: >-
-  A paused run auto-resumes only where the pause was caused by a budget — the execution-time
+  A paused run auto-resumes only where the pause was caused by a budget: the execution-time
   budget or the scheduler-pass budget. A pause with no reason recorded is a pause awaiting a
   person, and holds until an explicit resume. A worker that picks up paused runs resumes and
   re-queues budget pauses only, and leaves a reason-less pause paused. Asynchronous execution

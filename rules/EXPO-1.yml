@@ -5,7 +5,7 @@ part: I
 title: Exposure resolves the same way everywhere it is consulted
 
 summary: >-
-  Exposure is asked about in a lot of places — resolving parameters, deciding what
+  Exposure is asked about in a lot of places: resolving parameters, deciding what
   an agent may fill, validating a saved workflow, stripping outputs, drawing the
   author's toggles. All of them must get the same answer.
 

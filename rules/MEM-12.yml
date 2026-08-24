@@ -9,8 +9,8 @@ summary: >-
   prevents that, but losing a turn is worse than a rare interleave.
 
 normative: >-
-  The read-modify-write of a conversation buffer is serialized per storage scope —
-  scope, scope identifier and key together — so concurrent appends queue instead
+  The read-modify-write of a conversation buffer is serialized per storage scope
+  (scope, scope identifier and key together), so concurrent appends queue instead
   of overwriting one another. The wait is bounded: an append that still cannot
   take its turn proceeds unserialized and emits a warning rather than failing or
   discarding the turn. Serialization taken is always released. Nothing more is

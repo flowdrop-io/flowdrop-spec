@@ -9,7 +9,7 @@ summary: >-
 
 normative: >-
   A JSONPath query that returns exactly one match yields that match rather than a
-  one-element list — unless the path is written to select many, containing a
+  one-element list, unless the path is written to select many, containing a
   wildcard, a filter or a slice, in which case the result stays a list even when
   only one item matched.
 

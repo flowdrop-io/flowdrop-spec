@@ -5,8 +5,8 @@ part: II
 title: The detail view carried derived run metrics
 
 normative: >-
-  Retired with the polled status surface. Its detail view carried metrics —
-  total, completed, failed and pending node counts and a total execution time —
+  Retired with the polled status surface. Its detail view carried metrics
+  (total, completed, failed and pending node counts and a total execution time),
   each derived from the node records it held.
 
 posture: deprecated

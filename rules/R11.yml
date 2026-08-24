@@ -15,8 +15,8 @@ normative: >-
   engine and the expression. The expressions checked are the ones the node
   types declare as expression-bearing: a data extractor's `path`, the `value`
   of each dynamic output of a data mapper, the sources of a data shaper's
-  `mapping` — with reserved source values such as a literal or a now marker
-  skipped, and nested `_source` and `_each` sources walked — and a prompt
+  `mapping` (with reserved source values such as a literal or a now marker
+  skipped, and nested `_source` and `_each` sources walked), and a prompt
   template's `template`. An empty expression is always valid. An expression
   naming an engine the implementation does not know is not reported here; R6's
   `enum` check on the engine key owns that error. An engine whose validation

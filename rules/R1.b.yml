@@ -5,8 +5,8 @@ part: I
 title: A node with no resolvable node type is not judged by R1
 
 summary: >-
-  Nodes that carry no node type anchor at all — notes and other non-executable
-  decoration — are legitimate, and must not be refused for having no executor.
+  Nodes that carry no node type anchor at all (notes and other non-executable
+  decoration) are legitimate, and must not be refused for having no executor.
 
 normative: >-
   R1 does not apply to a node that carries no node type anchor, or whose anchor

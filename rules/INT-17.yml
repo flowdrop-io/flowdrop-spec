@@ -15,7 +15,7 @@ normative: >-
   not be reaped: a pending inward pause signal is that run's resume key (INT-5), and
   cancelling it would strand the run with no way back. A stateless run has nothing
   targeting it and is skipped. A failure while reaping is recorded and never
-  raised — the outcome is already recorded and hygiene must not corrupt it.
+  raised; the outcome is already recorded and hygiene must not corrupt it.
 
 posture: normative-target
 level: extended

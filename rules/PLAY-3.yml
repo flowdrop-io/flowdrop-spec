@@ -11,8 +11,8 @@ summary: >-
 normative: >-
   The message poll answers `{success, data, hasMore, hasOlder, sessionStatus}` in
   that order, with no pagination block and no `has_more` key: the three flags are
-  siblings of `data`, not nested. `hasMore` reports page fullness — whether the
-  page returned as many messages as were asked for — and is an inference.
+  siblings of `data`, not nested. `hasMore` reports page fullness (whether the
+  page returned as many messages as were asked for) and is an inference.
   `hasOlder` is authoritative: it reports whether messages older than the page
   exist, so a client scrolling back never pays a speculative empty fetch at an
   exact page boundary. `sessionStatus` rides along so a poller needs no second

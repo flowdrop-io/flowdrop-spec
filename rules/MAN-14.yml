@@ -8,8 +8,8 @@ summary: >-
   else stored, so failing their launch over it helps nobody.
 
 normative: >-
-  A malformed manifest entry — one missing a `name`, a `node_id` or a `port`, or
-  carrying an empty one — is dropped with a warning while resolving launch inputs,
+  A malformed manifest entry (one missing a `name`, a `node_id` or a `port`, or
+  carrying an empty one) is dropped with a warning while resolving launch inputs,
   including where undeclared caller keys are refused. Strictness applies to what
   the caller supplied, not to what the workflow stored.
 

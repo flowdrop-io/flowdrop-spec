@@ -7,7 +7,7 @@ title: A JSONPath query never raises; it falls back to the caller's default
 normative: >-
   JSONPath evaluation never raises. A query that is well-formed but matches
   nothing, and a query that cannot be compiled or cannot be run, both yield the
-  default the caller supplied — null where none was supplied. The returned value
+  default the caller supplied, null where none was supplied. The returned value
   does not tell the two apart.
 
 posture: normative-target

@@ -7,7 +7,7 @@ title: An expired outward interrupt ends the run it was holding open
 summary: >-
   An outward interrupt is the only thing that can resume the run that raised it.
   Once it expires the resume key is gone, and without this rule the run would sit
-  paused forever — never terminal, never announced, invisible to everything that
+  paused forever: never terminal, never announced, invisible to everything that
   reports on finished runs.
 
 normative: >-

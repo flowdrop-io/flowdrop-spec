@@ -10,7 +10,7 @@ summary: >-
 
 normative: >-
   A declared parameter schema that fails to load, or that loads without a usable
-  `properties` map, must not be read as a node type declaring nothing — a node type
+  `properties` map, must not be read as a node type declaring nothing; a node type
   with no parameters declares an empty map, and an absent map loses stored rows
   exactly as a failure does. Where a node type has stored parameter configuration
   that such a schema would drop, the save is refused and nothing is rewritten;

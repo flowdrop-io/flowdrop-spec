@@ -11,7 +11,7 @@ summary: >-
 normative: >-
   A port's declared lane decides what a caller may supply at a workflow's public
   entry points: launching a workflow and taking a turn in a session answer from the
-  same check. A port on the sink or on a control lane places no constraint — any
+  same check. A port on the sink or on a control lane places no constraint: any
   JSON value is accepted, including an array or null. Narrowing that, for instance
   by keying the check off JSON Schema's seven type words alone, is strictly
   stronger and is a breaking change to a public endpoint: it is announced, never

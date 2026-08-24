@@ -5,7 +5,7 @@ part: II
 title: Retryability is marked by presence, not by a boolean
 summary: >-
   The absence of the marker is load-bearing: the retry gate tests for the literal
-  value true, so anything else — including an explicit false — means do not retry.
+  value true, so anything else (including an explicit false) means do not retry.
 
 normative: >-
   An error output that came from a retryable failure carries `error_retryable` set to

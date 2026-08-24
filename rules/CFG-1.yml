@@ -5,7 +5,7 @@ part: I
 title: An unrecorded gate flag is off
 
 summary: >-
-  A node type records per-parameter gate flags — whether a parameter may receive a
+  A node type records per-parameter gate flags: whether a parameter may receive a
   wire, whether it appears in the config form, whether it is required. Where a flag
   was never recorded, the answer is no.
 

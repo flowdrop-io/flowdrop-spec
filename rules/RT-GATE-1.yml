@@ -17,7 +17,7 @@ normative: >-
   to a first execution: resuming a node continues a side effect that already passed
   the gate. The pause is an ordinary interrupt carrying a boolean confirmation
   prompt, and the prompt shows only the arguments a model may fill, so values
-  supplied by configuration — credentials, endpoints — never reach an operator's
+  supplied by configuration (credentials, endpoints) never reach an operator's
   inbox. A gate interrupt is a distinct flavour of interrupt and must never be
   consumed as a node's own resume answer, so a node that is both resumable and
   side-effecting does not mistake an operator's consent for the reply it was

@@ -18,7 +18,7 @@ normative: >-
   a unique tiebreak so the held-back group is a clean suffix. And a poll must not
   answer empty while rows remain: where scoping (OCX-3) is applied after the page
   is read, a page can filter down to nothing, and an empty answer reads to the
-  caller as "nothing new" and parks its cursor forever — so paging continues
+  caller as "nothing new" and parks its cursor forever, so paging continues
   until something is emitted or the result set is exhausted.
 
 posture: normative-target

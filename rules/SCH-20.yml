@@ -7,8 +7,8 @@ title: Visual type is the node type's, and is offered where there is a choice
 normative: >-
   A node's visual type comes from its node type, never from a declared schema.
   Where the node type supports more than one visual type, a reserved `nodeType`
-  string property is written into the config schema — its `enum` the supported
-  types, its `default` the node type's own visual type — and the same value is
+  string property is written into the config schema (its `enum` the supported
+  types, its `default` the node type's own visual type), and the same value is
   stored as that key's config default. This write is unconditional: it overwrites a
   declared property of the same name.
 

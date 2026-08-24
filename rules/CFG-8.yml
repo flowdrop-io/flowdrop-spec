@@ -6,7 +6,7 @@ title: Internal parameters take runtime values only
 
 summary: >-
   Names prefixed `__` are the system's own channel into a processor. They sidestep
-  the gate flags, which also means an author can never see or set one — choosing the
+  the gate flags, which also means an author can never see or set one; choosing the
   prefix is choosing that semantics, not a naming style.
 
 normative: >-

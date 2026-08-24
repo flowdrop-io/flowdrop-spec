@@ -9,8 +9,8 @@ summary: >-
 
 normative: >-
   When a tool result arrives for an id whose buffer entry is a synthetic healed
-  placeholder, the real result replaces the placeholder in place — at the same
-  position, so its adjacency to the declaring turn is preserved — and the healed
+  placeholder, the real result replaces the placeholder in place (at the same
+  position, so its adjacency to the declaring turn is preserved), and the healed
   marking is removed with it. Only a placeholder is ever overwritten: after the
   replacement the entry is an ordinary answered result, so a second real result
   for the same id is deduplicated as usual, and an incoming message that is itself

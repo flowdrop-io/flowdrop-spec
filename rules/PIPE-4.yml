@@ -9,8 +9,8 @@ summary: >-
   per-iteration picture inside it.
 
 normative: >-
-  `node_statuses` is keyed by the workflow node id — the id the stored workflow
-  gives the node — never by a job identifier, a node-type identifier or an
+  `node_statuses` is keyed by the workflow node id (the id the stored workflow
+  gives the node), never by a job identifier, a node-type identifier or an
   iteration-suffixed variant. Iterations of a node produced by a loop carry the
   plain node id, so every iteration collapses onto one entry. Only nodes that
   produced work get a key; a node excluded from execution has no entry and reads

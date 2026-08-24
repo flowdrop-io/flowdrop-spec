@@ -12,7 +12,7 @@ summary: >-
 normative: >-
   A trigger whose cron expression is the empty string is not scheduled: it must not
   fire, and a report of when it will next run must say it has none. Empty means
-  exactly empty — an expression that merely looks unfilled, such as `0`, is a
+  exactly empty: an expression that merely looks unfilled, such as `0`, is a
   malformed expression and must be reported as invalid rather than as unset, so an
   operator is never told to fill in a field that is already filled in. Whichever
   component decides that a trigger is due and whichever reports its next run must

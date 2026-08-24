@@ -4,8 +4,8 @@ part: II
 
 title: An interrupt propagates unchanged
 summary: >-
-  An interrupt is a request for something outside the run — human input, an external
-  resolution — not a failure. Treating it as one would route it down an error edge.
+  An interrupt is a request for something outside the run (human input, an external
+  resolution), not a failure. Treating it as one would route it down an error edge.
 
 normative: >-
   A node that interrupts sets its status to interrupted, the interrupt is announced,

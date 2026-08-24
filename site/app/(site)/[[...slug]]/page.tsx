@@ -24,7 +24,7 @@ export async function generateMetadata(props: { params: Promise<{ slug?: string[
   if (!page) return {};
   const d = page.data as { kind: string; title: string; description?: string; rule?: { title: string } };
   return {
-    title: d.kind === 'rule' ? `${d.title} — ${d.rule!.title}` : d.title,
+    title: d.kind === 'rule' ? `${d.title}: ${d.rule!.title}` : d.title,
     description: d.description,
   };
 }
@@ -131,7 +131,7 @@ export default async function Page(props: { params: Promise<{ slug?: string[] }>
       <Shell rail={rail}>
         <h1>{family.name}</h1>
         <p className="standfirst">
-          {family.rules.length} rules — Part {family.part} of the specification.
+          {family.rules.length} rules. Part {family.part} of the specification.
         </p>
         <ul className="spec-list">
           {family.rules.map((r: any) => (
@@ -150,7 +150,7 @@ export default async function Page(props: { params: Promise<{ slug?: string[] }>
     );
   }
 
-  // `home` and `doc` — plain MDX bodies.
+  // `home` and `doc`: plain MDX bodies.
   const compiled = await compiler.compile({ source: data.body, filePath: `${page.path}` });
   const Body = compiled.body;
   const rail = (

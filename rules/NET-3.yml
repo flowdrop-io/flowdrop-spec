@@ -13,8 +13,8 @@ normative: >-
   are never sent to the next host as a referrer. Hops are restricted to `http`
   and `https`, so the scheme check cannot be sidestepped mid-chain. Where a node
   is configured to permit internal requests, the per-hop check is dropped exactly
-  as the initial check is — a node allowed to talk to the internal network may
-  also be redirected within it — but the hop limit binds either way.
+  as the initial check is (a node allowed to talk to the internal network may
+  also be redirected within it), but the hop limit binds either way.
 
 posture: normative-target
 level: extended

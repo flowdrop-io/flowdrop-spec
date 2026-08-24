@@ -10,7 +10,7 @@ summary: >-
 normative: >-
   A failure a node signals as a node-level error is converted into an error-status
   output for that node and does not propagate out of the node. The node's lifecycle is
-  reported as completed, not failed — it finished, and the error verdict rides its
+  reported as completed, not failed; it finished, and the error verdict rides its
   output.
 
 posture: normative-target

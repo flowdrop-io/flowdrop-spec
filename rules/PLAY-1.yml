@@ -6,8 +6,8 @@ title: Playground sessions and messages are addressed and published by UUID
 
 normative: >-
   Every playground route parameter naming a session or a message is a UUID, and
-  every `id` published — a session row's, a message row's, and a message row's
-  `sessionId` — is that UUID, never an internal record identifier. The single
+  every `id` published (a session row's, a message row's, and a message row's
+  `sessionId`) is that UUID, never an internal record identifier. The single
   exception is the session list's `ids` filter, which takes a comma-separated
   list of internal identifiers, dropping values that are not positive integers:
   it is a narrowing of what the caller can already see, not a client-facing

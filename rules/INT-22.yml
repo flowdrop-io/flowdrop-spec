@@ -11,7 +11,7 @@ summary: >-
 
 normative: >-
   Every endpoint that publishes an interrupt publishes the same entry: 24 keys,
-  uniformly camelCase, in this order — `id`, `type`, `status`, `message`, `nodeId`,
+  uniformly camelCase, in this order: `id`, `type`, `status`, `message`, `nodeId`,
   `workflowId`, `pipelineId`, `sessionId`, `schema`, `options`, `context`,
   `defaultValue`, `responseData`, `createdAt`, `expiresAt`, `scheduledAt`,
   `resolvedAt`, `resolvedBy`, `direction`, `jobId`, `targetPipelineId`,

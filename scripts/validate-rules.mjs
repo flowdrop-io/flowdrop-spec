@@ -7,7 +7,7 @@
  *   1. Every rule file parses and satisfies rules/schema.json.
  *   2. A rule's filename matches its id.
  *   3. Identifiers are unique.
- *   4. Identifiers agree with REGISTRY.lock — none vanished, none renumbered,
+ *   4. Identifiers agree with REGISTRY.lock: none vanished, none renumbered,
  *      none added without being recorded.
  *   5. `related` points at rules that exist.
  *   6. Narrative prose has not drifted from the rule text it explains.
@@ -84,7 +84,7 @@ for (const line of readFileSync(lockPath, 'utf8').split('\n')) {
 for (const [id, entry] of lock) {
   const rule = rules.get(id);
   if (!rule) {
-    fail('rules/REGISTRY.lock', `${id} is recorded as issued but has no rule file. Identifiers are permanent — withdraw the rule, do not delete it.`);
+    fail('rules/REGISTRY.lock', `${id} is recorded as issued but has no rule file. Identifiers are permanent: withdraw the rule, do not delete it.`);
     continue;
   }
   if (rule.family !== entry.family) {
@@ -138,7 +138,7 @@ if (existsSync(narrativeDir)) {
       writeFileSync(path, raw.replace(/^(---\n[\s\S]*?rule_hash:\s*)\S+/m, `$1${expected}`));
       rewritten++;
     } else {
-      fail(`narrative/${file}`, `rule_hash is ${front.rule_hash ?? 'missing'}, expected ${expected} — ${id}'s normative text changed, so this prose may no longer match it. Re-read it, then run: npm run hashes`);
+      fail(`narrative/${file}`, `rule_hash is ${front.rule_hash ?? 'missing'}, expected ${expected}. ${id}'s normative text changed, so this prose may no longer match it. Re-read it, then run: npm run hashes`);
     }
   }
 }

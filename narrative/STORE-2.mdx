@@ -8,7 +8,7 @@ rule_hash: c3e313df315f
 The name is the only field a workflow cannot be stored without. Everything else
 either defaults or is optional: STORE-4 lets `nodes`, `edges` and `metadata`
 default to empty on create, and leaves them untouched on a partial update. The
-name is the exception — it is required on update too, so there is no
+name is the exception; it is required on update too, so there is no
 name-omitted `PUT`.
 
 The refusal happens at the boundary, before the workflow is written, so a
@@ -22,7 +22,7 @@ POST /api/flowdrop/workflows
 { "nodes": [], "edges": [] }
 ```
 
-Refused with `400` — no name.
+Refused with `400`: no name.
 
 ```http
 POST /api/flowdrop/workflows
@@ -45,8 +45,8 @@ on which alphabet the name is written in. Saying "characters" would only move th
 ambiguity.
 
 **255 is a floor, not a ceiling.** The number was borrowed from a database
-convention no implementation here runs. A floor gives the guarantee that matters
-— a name within 255 code points is accepted everywhere — without freezing one
+convention no implementation here runs. A floor gives the guarantee that
+matters (a name within 255 code points is accepted everywhere) without freezing one
 system's limit into every other.
 
 Recorded under OPEN-19, which covers seven such corrections.

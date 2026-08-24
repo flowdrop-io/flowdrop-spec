@@ -6,7 +6,7 @@ title: Call-and-wait creates the interrupt before it makes the call
 
 summary: >-
   The order is the rule. The callback address is built from the interrupt's
-  identifier, so there is nothing to tell the remote until the interrupt exists —
+  identifier, so there is nothing to tell the remote until the interrupt exists,
   and a fast remote can answer before the outbound request has even returned.
 
 normative: >-
@@ -14,18 +14,18 @@ normative: >-
   then pauses. The outbound body carries the callback address, the interrupt
   identifier and the caller's payload, and the answer returns through the callback
   route (INT-19). A call that fails to go out cancels its interrupt before failing
-  the node — a run waiting on a message nobody was asked to send is worse than a
+  the node; a run waiting on a message nobody was asked to send is worse than a
   failed node. A target address refused before the call leaves nothing behind: the
   address is validated before the interrupt is created, so a rejected target creates
   no pending record. A target refused only mid-flight, because a redirect led the
   call somewhere it may not go (NET-2), is a failed outbound call and takes that
   path: the interrupt is cancelled and nothing pauses. The wait is bounded by
   construction: there is no value meaning "wait forever", a non-positive expiry is
-  refused, and every such interrupt is stamped with an expiry — so with INT-18 a
+  refused, and every such interrupt is stamped with an expiry, so with INT-18 a
   remote that goes silent yields a cancelled run rather than a permanently paused
   one. The wait is operational, not human-facing: it must not appear in a human
   inbox, where an operator could hand the workflow a fabricated response as though
-  the remote had sent it. Resumption passes the callback body through verbatim —
+  the remote had sent it. Resumption passes the callback body through verbatim;
   only the workflow's author knows the remote's contract.
 
 posture: normative-target

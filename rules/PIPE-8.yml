@@ -12,8 +12,8 @@ normative: >-
   The `execution_data.context` a run publishes is a filtered projection of the
   execution context, not the stored context forwarded verbatim, and the filter is
   a single point through which everything published passes. Engine-internal
-  analysis artefacts — a graph-analysis snapshot such as a loop membership map is
-  the case in point — are removed whole rather than by selected sub-keys, so
+  analysis artefacts (a graph-analysis snapshot such as a loop membership map is
+  the case in point) are removed whole rather than by selected sub-keys, so
   their internal shape is not published and may change without notice.
 
 posture: normative-target

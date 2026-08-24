@@ -5,8 +5,8 @@ part: I
 title: A prompt template that fails to render fails the node
 
 normative: >-
-  When a prompt template fails to render — it cannot be compiled, it cannot be
-  loaded, or it fails while rendering — the node fails and the failure routes to
+  When a prompt template fails to render (it cannot be compiled, it cannot be
+  loaded, or it fails while rendering), the node fails and the failure routes to
   the error edge, preserving the original cause.
 
 posture: normative-target

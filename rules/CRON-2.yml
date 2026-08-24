@@ -10,7 +10,7 @@ summary: >-
 
 normative: >-
   An absent next run, reported on its own, means only that nothing is currently
-  due — the answer a perfectly healthy schedule gives between fires. Every other
+  due, the answer a perfectly healthy schedule gives between fires. Every other
   reason a schedule yields no next run must be reported with a stable code:
   `no_expression` where the expression is cleared, `invalid_expression` where it is
   malformed, or well-formed but unsatisfiable. Severity must not be flattened: an

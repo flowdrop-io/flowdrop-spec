@@ -9,8 +9,8 @@ summary: >-
 
 normative: >-
   Before a node makes a request to a URL derived from workflow input, the URL is
-  validated: only `http` and `https` are allowed, the host is resolved — over
-  both IPv4 and IPv6 — and any address in a private or reserved range is refused.
+  validated: only `http` and `https` are allowed, the host is resolved (over
+  both IPv4 and IPv6), and any address in a private or reserved range is refused.
   A refusal is a node configuration error, which takes the error edge rather than
   failing the run. The validated address is what the request must then be made
   to: the connection is pinned to the address that was checked, honouring an

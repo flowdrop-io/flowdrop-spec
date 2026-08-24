@@ -4,7 +4,7 @@ part: I
 
 title: A node's ports come from its two declared schemas
 summary: >-
-  Everything an editor draws on a node — its input ports and its output ports —
+  Everything an editor draws on a node (its input ports and its output ports)
   is derived from two schemas the node type declares. Nothing else is a source.
 
 normative: >-

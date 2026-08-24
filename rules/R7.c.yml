@@ -5,7 +5,7 @@ part: I
 title: A node instance decides which of its ports are exposed
 
 summary: >-
-  One chain answers "is this port exposed?" everywhere it is asked — for edges
+  One chain answers "is this port exposed?" everywhere it is asked: for edges
   and for the workflow's exposure map alike.
 
 normative: >-

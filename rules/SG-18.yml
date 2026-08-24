@@ -10,8 +10,8 @@ normative: >-
   round resets every loop nested inside it to round 0; without that an inner loop
   would spend its budget once for the whole run rather than once per outer round,
   and inner rounds would not be comparable across outer rounds at all. Loops that
-  share nodes without one containing the other — including two heads with identical
-  bodies — admit no consistent assignment of rounds to the shared nodes, and are
+  share nodes without one containing the other (including two heads with identical
+  bodies) admit no consistent assignment of rounds to the shared nodes, and are
   merged into a single loop over the union of their bodies, keyed by the largest
   body with a lexicographic tie-break. Merging rather than refusing is deliberate:
   a coarser loop is still sound, because it never claims two nodes are in different

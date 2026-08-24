@@ -5,8 +5,8 @@ part: II
 title: A strategy's capabilities are declared, not asked for
 summary: >-
   The declaration is the single source. A strategy that behaves statefully but does not
-  declare it is treated as stateless, and the behaviours gated on the capability —
-  checkpoint storage among them — are chosen accordingly.
+  declare it is treated as stateless, and the behaviours gated on the capability
+  (checkpoint storage among them) are chosen accordingly.
 
 normative: >-
   A strategy declares its capabilities as part of its definition. Whether a strategy is

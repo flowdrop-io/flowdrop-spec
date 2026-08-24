@@ -6,7 +6,7 @@ title: One declaration site for the shipped lane vocabulary
 
 normative: >-
   The lanes an implementation ships are declared in exactly one place, and every
-  reader derives from that declaration rather than mirroring it — the derivation's
+  reader derives from that declaration rather than mirroring it: the derivation's
   range, the served payload and any picker offering an author a lane included. That
   set is what is shipped, not a ceiling: a site may add lanes of its own, so a
   stored lane must never be rejected merely because it is not one of the shipped

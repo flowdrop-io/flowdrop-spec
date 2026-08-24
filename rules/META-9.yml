@@ -11,8 +11,8 @@ normative: >-
   The category door and the workflow schema door accept `GET` and no other
   method, and each requires a named authorization decided before the handler
   runs: neither carries a handler-side check as a backstop. The set of methods
-  and the named authorization are part of the contract — widening either is a
-  visible change — and a named authorization the implementation does not define
+  and the named authorization are part of the contract (widening either is a
+  visible change), and a named authorization the implementation does not define
   is a defect, not a locked door.
 
 posture: normative-target

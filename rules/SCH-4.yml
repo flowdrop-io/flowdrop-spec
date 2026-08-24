@@ -9,7 +9,7 @@ normative: >-
   config defaults, overriding whatever the node type says about `connectable` and
   `configurable`. Hiding does not suppress a reserved config-only parameter: one a
   node type has opted into still reaches the config schema. Two spellings are
-  honoured — `format: hidden`, which is the one to write, and a bare
+  honoured: `format: hidden`, which is the one to write, and a bare
   `hidden: true`, which is deprecated. The deprecated spelling must not be dropped
   without a release that first warns on it, because dropping it silently un-hides
   the parameter, and a visible parameter becomes connectable and configurable.

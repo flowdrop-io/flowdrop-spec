@@ -19,7 +19,7 @@ normative: >-
   `tool`, trimmed, and omitted when blank; on any other role it names no pairing
   and is discarded. Empty content emits an empty list and an empty object rather
   than an empty turn, so an unwired producer cannot become a silent request on a
-  blank prompt — a `tool` row with no content included, because synthesizing an
+  blank prompt, a `tool` row with no content included, because synthesizing an
   answer for an unanswered call belongs to tool-pairing repair.
 
 posture: normative-target

@@ -4,8 +4,8 @@ part: I
 
 title: Compatibility is asymmetric, and the sink needs rules both ways
 summary: >-
-  A lane with no rules accepts only its own, which is why the sink — a lane worn by
-  outputs as well as inputs — once refused every wire drawn into it.
+  A lane with no rules accepts only its own, which is why the sink (a lane worn by
+  outputs as well as inputs) once refused every wire drawn into it.
 
 normative: >-
   Compatibility maps an output lane to the set of input lanes it may enter. It is

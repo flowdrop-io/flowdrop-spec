@@ -12,9 +12,9 @@ normative: >-
   An engine polls for a pending signal between job iterations; the in-flight job
   always finishes first, and the absence of a signal continues the loop. A cancel
   signal marks the run cancelled, stamps its execution time, and announces the
-  outcome twice — a cancellation event and a run-completed announcement carrying
+  outcome twice: a cancellation event and a run-completed announcement carrying
   the cancelled status, so that cancellation is announced like any other terminal
-  outcome (ORC-15) — then answers with status `cancelled` and metadata naming the
+  outcome (ORC-15). It then answers with status `cancelled` and metadata naming the
   engine, the signal and the reason. A pause signal pauses the run and announces
   only the pause, with no completion announcement, answers with status `paused` and
   the same metadata keys, and leaves the signal record pending, because that record

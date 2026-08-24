@@ -16,7 +16,7 @@ normative: >-
   against concurrent execution of the same call: a copy of the consent read before
   the check began must never authorise a second execution. An execution that loses
   that race pauses on the pending interrupt raised by the winner rather than raising
-  a duplicate question — a contended entry and an unconsented one are distinct
+  a duplicate question; a contended entry and an unconsented one are distinct
   causes of the same pause.
 
 posture: normative-target

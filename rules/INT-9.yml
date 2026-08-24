@@ -9,7 +9,7 @@ normative: >-
   for the same execution is overwritten in place, so one execution never
   accumulates two snapshot records. Cleanup deletes records created before a given
   time and, where a set of statuses is given, only those whose status is in it,
-  answering with the number deleted — zero when nothing matches.
+  answering with the number deleted, zero when nothing matches.
 
 posture: normative-target
 level: extended

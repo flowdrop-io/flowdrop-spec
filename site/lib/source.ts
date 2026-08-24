@@ -139,7 +139,7 @@ function files() {
         family,
         structuredData: EMPTY_INDEX,
         title: family.name,
-        description: `${family.rules.length} rules — Part ${family.part} of the specification.`,
+        description: `${family.rules.length} rules. Part ${family.part} of the specification.`,
       } as PageData,
     });
 

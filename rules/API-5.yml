@@ -11,8 +11,8 @@ summary: >-
 normative: >-
   Alongside `{success, data}` and `{success, error}`, a paginated response is
   `{success, data, pagination}`, where `pagination` carries exactly `total`, `limit`,
-  `offset` and `has_more`, in that order. `has_more` is page arithmetic —
-  `(offset + limit) < total` — and not a second query. It is spelled `has_more` in every
+  `offset` and `has_more`, in that order. `has_more` is page arithmetic,
+  `(offset + limit) < total`, and not a second query. It is spelled `has_more` in every
   paginated response, whatever the spelling convention of that endpoint's rows: it
   belongs to the shared envelope, and an implementation must not rename it to match the
   rows beside it. A door must not build a pagination block of its own.

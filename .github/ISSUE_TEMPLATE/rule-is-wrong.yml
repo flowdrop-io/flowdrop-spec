@@ -26,5 +26,5 @@ body:
     attributes:
       label: How you found it
       description: >-
-        Implementing it, reading it, a test disagreeing with it — whatever it was.
+        Implementing it, reading it, a test disagreeing with it, whatever it was.
         Helps us see which rules are hard to read.

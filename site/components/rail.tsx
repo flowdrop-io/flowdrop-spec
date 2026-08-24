@@ -54,11 +54,11 @@ export function RailKey() {
     <div className="key">
       <div>
         <i className="n" aria-hidden />
-        <span>Normative — binding</span>
+        <span>Normative: binding</span>
       </div>
       <div>
         <i className="i" aria-hidden />
-        <span>Informative — context</span>
+        <span>Informative: context</span>
       </div>
     </div>
   );

@@ -6,7 +6,7 @@ title: A port the node type does not declare is outside exposure checking
 
 normative: >-
   A port that appears on an edge but is not declared in the node type's
-  metadata — a dynamic or author-defined port — is out of scope for R7, and an
+  metadata (a dynamic or author-defined port) is out of scope for R7, and an
   edge over it is not refused for being unexposed.
 
 posture: normative-target

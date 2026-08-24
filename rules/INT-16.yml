@@ -19,8 +19,8 @@ normative: >-
   may change it. A refusal answers with the error envelope (API-1). A newly created
   cancel or pause signal answers `202`; a resume that resolved a pending pause
   answers `200`. A signal addressed to a run that does not exist answers `404` to a
-  caller holding blanket authority over runs — existence is no secret from someone
-  who may act on any run — and an opaque `403` to every other caller,
+  caller holding blanket authority over runs (existence is no secret from someone
+  who may act on any run), and an opaque `403` to every other caller,
   indistinguishable from the answer for a run that exists but is not theirs, so
   that the route cannot be used to enumerate which runs exist.
 

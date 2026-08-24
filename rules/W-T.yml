@@ -6,7 +6,7 @@ title: An edge leaving a terminal node warns
 
 summary: >-
   A terminal node ends the run, so nothing downstream of it will execute. The
-  edge is legal — the author may be mid-edit — but it is almost certainly not
+  edge is legal (the author may be mid-edit), but it is almost certainly not
   what they meant.
 
 normative: >-

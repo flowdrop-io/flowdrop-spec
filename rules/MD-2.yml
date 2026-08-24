@@ -12,8 +12,8 @@ normative: >-
   Text is encoded exactly once. A sequence the conversion itself wrote must not be
   encoded again: a `<` in the markdown source appears in the output as `&lt;` and
   never as `&amp;lt;`. A text node may keep literal quote characters, which are
-  harmless there. A value interpolated into an attribute — a link target, an image
-  source, an image alternative text — must have its quote characters escaped, so
+  harmless there. A value interpolated into an attribute (a link target, an image
+  source, an image alternative text) must have its quote characters escaped, so
   the value cannot end its own attribute and open an event handler. A URL carrying
   a dangerous scheme must be stripped rather than emitted.
 

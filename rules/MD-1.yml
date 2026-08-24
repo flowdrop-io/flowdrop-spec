@@ -12,7 +12,7 @@ summary: >-
   to miss any block whose first character is already a tag.
 
 normative: >-
-  Every text node a markdown-to-HTML conversion emits must be HTML-encoded — prose,
+  Every text node a markdown-to-HTML conversion emits must be HTML-encoded: prose,
   list items, blockquote lines, headings and code alike. Markup present in the
   markdown source must never reach the reader as markup, including where a block
   opens with a tag.

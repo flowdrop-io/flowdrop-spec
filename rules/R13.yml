@@ -16,8 +16,8 @@ normative: >-
   position of the earlier edge it duplicates. The four values are compared
   verbatim, with no parsing or normalisation of a handle into a port name, so
   two edges between the same pair of nodes over different ports stay valid, and
-  two edges over the same logical port written differently — one with the
-  handle omitted, one with it spelled out — are both accepted. An edge with an
+  two edges over the same logical port written differently (one with the
+  handle omitted, one with it spelled out) are both accepted. An edge with an
   empty endpoint takes no part in the comparison.
 
 posture: normative-target

@@ -12,8 +12,8 @@ summary: >-
 normative: >-
   Validating a snapshot against a workflow definition yields a result carrying
   named codes. Errors, each of which makes the result invalid: a version mismatch,
-  raised only when the snapshot's workflow version is non-empty — an empty version
-  skips the check and is not an error; one unknown-node error per snapshot node
+  raised only when the snapshot's workflow version is non-empty (an empty version
+  skips the check and is not an error); one unknown-node error per snapshot node
   absent from the definition; and one dependency-not-met error per completed node
   whose dependency has no recorded state or is neither completed nor skipped.
   Warnings, which never make the result invalid: one per definition node missing

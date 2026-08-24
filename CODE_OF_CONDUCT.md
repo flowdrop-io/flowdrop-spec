@@ -5,7 +5,7 @@ This project adopts the [Contributor Covenant, version 2.1][cc], in full.
 Read it here: https://www.contributor-covenant.org/version/2/1/code_of_conduct/
 
 **In short:** be decent. Critique documents, not people. Assume the person you
-disagree with has a reason you have not heard yet — in a specification, they
+disagree with has a reason you have not heard yet; in a specification, they
 usually do.
 
 ## Reporting

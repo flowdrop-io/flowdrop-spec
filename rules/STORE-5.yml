@@ -6,7 +6,7 @@ title: A workflow refused by validation is never partially stored
 
 normative: >-
   A workflow that fails validation on create or on update is refused with 422 carrying
-  `success: false`, a human-readable `error`, and `details` — a list of
+  `success: false`, a human-readable `error`, and `details`, a list of
   `{code, message, locator}` entries, one per error, each `locator` naming the position
   in the submitted workflow the error is about. Only errors refuse and only errors are
   reported: a workflow carrying warnings alone is stored, and its warnings appear

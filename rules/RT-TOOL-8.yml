@@ -5,7 +5,7 @@ part: II
 title: A model's tool arguments are normalized against the tool's own schema
 
 summary: >-
-  Models hand back arguments that are nearly right — a JSON array as a string, a
+  Models hand back arguments that are nearly right: a JSON array as a string, a
   value escaped twice. Normalization repairs exactly the cases the tool's own
   schema can vouch for, and leaves the rest for validation to report honestly.
 
@@ -13,7 +13,7 @@ normative: >-
   Before a tool is invoked, the arguments a model supplied are reconciled with the
   tool's declared input schema. A string argument is decoded as JSON only where all
   three hold: the schema declares that parameter `array` or `object`, the string
-  parses as JSON, and the parsed shape matches what was declared — a list for
+  parses as JSON, and the parsed shape matches what was declared: a list for
   `array`, a map for `object`. A parameter declared `string` is never decoded, and
   a parsed value of the wrong shape is never substituted; an argument that fails
   any of the three is passed through unmodified. Independently, every string leaf

@@ -1,6 +1,6 @@
 # Contributing
 
-Corrections are welcome — including "this rule is wrong", which is the most
+Corrections are welcome, including "this rule is wrong", which is the most
 useful thing you can file here.
 
 Contributing to a specification differs from contributing to code in one way that
@@ -11,13 +11,13 @@ matters, so please read the next section before opening a pull request.
 Every change is one or the other, and they are handled differently. Your pull
 request must say which it is.
 
-**Editorial** — the rule requires exactly what it required before, and now says so
+**Editorial**: the rule requires exactly what it required before, and now says so
 more clearly. Fixing a typo, tightening a sentence, adding an example, correcting
 a link, splitting a paragraph that buried something.
 
 > Reviewed on its merits and usually merged.
 
-**Normative** — an implementation that was conforming might now be failing, or the
+**Normative**: an implementation that was conforming might now be failing, or the
 reverse. Changing a limit, adding or removing a condition, making something
 required that was optional, or resolving an ambiguity where two readings were both
 defensible.
@@ -48,11 +48,11 @@ identifier to that file in the same commit.
 Four things, briefly:
 
 1. **Which rule**, by identifier.
-2. **What changes** — the sentence before, and the sentence after.
-3. **Why** — what is wrong today. "Nothing requires this limit; it came from one
+2. **What changes**: the sentence before, and the sentence after.
+3. **Why**: what is wrong today. "Nothing requires this limit; it came from one
    implementation's storage layer" is a good reason. "I would have designed it
    differently" is not, on its own.
-4. **Blast radius** — what an implementation conforming today would have to change.
+4. **Blast radius**: what an implementation conforming today would have to change.
    Say so if the answer is "nothing".
 
 ## Writing rules
@@ -74,13 +74,13 @@ Four things, briefly:
 ## Writing narrative
 
 Narrative files are optional and most rules will not have all sections. **Say
-nothing rather than say something thin** — a page that is a statement, one example
+nothing rather than say something thin**: a page that is a statement, one example
 and a link is a good page. Empty headings invite padding, and padding is how the
 one binding sentence gets buried.
 
 References are for sources the rule actually takes something from. Boilerplate
-every rule would otherwise repeat — HTTP status semantics, JSON, the meaning of
-*must* and *may* — lives once in [`conventions.md`](conventions.md) and is never
+every rule would otherwise repeat (HTTP status semantics, JSON, the meaning of
+*must* and *may*) lives once in [`conventions.md`](conventions.md) and is never
 cited per rule.
 
 ## Sign your commits (DCO)

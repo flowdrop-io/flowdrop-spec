@@ -13,7 +13,7 @@ normative: >-
   node outside a loop can legitimately be an ancestor of one inside it, and a
   restricted set would report that nothing can still produce a value while such an
   input was still on its way. Every execution of every node carries a stamp of the
-  rounds it belongs to, one entry per loop, outermost loop first — including an
+  rounds it belongs to, one entry per loop, outermost loop first, including an
   empty stamp for a node in no loop, and including round 0, so that an absent stamp
   cannot mean "outside every loop" and "inside one at round 0" at the same time.
   When a paused run resumes, its round counters are rebuilt by replaying those

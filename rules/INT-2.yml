@@ -6,7 +6,7 @@ title: The interrupt a run reports is the persisted one
 
 normative: >-
   An interrupt is persisted before the run reports it, and the identifier and
-  status a caller sees are read from the persisted record — never from the
+  status a caller sees are read from the persisted record, never from the
   in-flight signal that requested the pause, which carries no identifier and cannot
   be updated.
 

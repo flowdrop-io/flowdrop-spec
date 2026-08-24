@@ -5,7 +5,7 @@ part: I
 title: Absent collections default to empty, and an update touches only what it sends
 
 summary: >-
-  An update is partial. What a caller does not send, it does not change — which is
+  An update is partial. What a caller does not send, it does not change, which is
   what lets an editor save one part of a workflow without holding the whole of it.
 
 normative: >-

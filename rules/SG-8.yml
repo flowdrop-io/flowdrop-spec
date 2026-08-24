@@ -11,7 +11,7 @@ normative: >-
   by the node uses the same key. Partial results reported for an interrupted run
   use an equivalent scheme. Each completed execution is stamped with a higher
   execution order than the one before it, so a port fed by several sources resolves
-  to the newest execution of a source node — inside a loop, the current round's.
+  to the newest execution of a source node: inside a loop, the current round's.
 
 posture: normative-target
 level: core

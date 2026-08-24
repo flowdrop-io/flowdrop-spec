@@ -10,8 +10,8 @@ summary: >-
 
 normative: >-
   Appending to a conversation buffer is idempotent by tool call id. A
-  `tool`-role message whose tool call id already appears anywhere in the buffer —
-  already stored, or added earlier in the same append — is dropped rather than
+  `tool`-role message whose tool call id already appears anywhere in the buffer
+  (already stored, or added earlier in the same append) is dropped rather than
   appended, and the reported message count reflects the deduplicated buffer. The
   one exception is an id currently held by a synthetic healed placeholder, which
   is replaced rather than deduplicated.

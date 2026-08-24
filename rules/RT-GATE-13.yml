@@ -5,20 +5,20 @@ part: II
 title: A gate question belongs to the initiator, and an ownerless one is findable
 
 summary: >-
-  A question assigned to whoever happened to persist it — a background worker with
-  no identity — matches nobody's inbox and is never answered. A run with no
+  A question assigned to whoever happened to persist it (a background worker with
+  no identity) matches nobody's inbox and is never answered. A run with no
   initiator at all needs somewhere for its question to land.
 
 normative: >-
-  A gate interrupt is assigned to the run's initiator — the owner of the job, as
-  stamped when the run was launched — and never to whichever identity happens to
+  A gate interrupt is assigned to the run's initiator (the owner of the job, as
+  stamped when the run was launched) and never to whichever identity happens to
   persist it. A run with no initiator, such as one launched by a schedule, a webhook
   or an anonymous trigger, raises its question unassigned. Unassigned gate questions
   are visible to holders of the authority to resolve any interrupt; this is the only
   relaxation of the inbox's scoping to the owning identity, and it covers unassigned
   gate questions only. An assigned question stays scoped to its owner whatever
-  authority the viewer holds — being able to resolve any interrupt grants
-  resolution, not a merged inbox — and an unassigned question that is not a gate
+  authority the viewer holds (being able to resolve any interrupt grants
+  resolution, not a merged inbox), and an unassigned question that is not a gate
   question stays invisible. Where nobody attends an unassigned gate question it
   expires and the run is cancelled (RT-GATE-1, INT-18): fail closed, never silently
   approved.

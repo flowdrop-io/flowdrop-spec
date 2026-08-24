@@ -6,7 +6,7 @@ This specification is maintained by **Factorial GmbH**, who also build two of it
 implementations. It is a vendor-led specification with a public target, not the
 output of a neutral standards body, and it does not claim to be one.
 
-We say this plainly because the alternative — implying neutrality we do not have —
+We say this plainly because the alternative (implying neutrality we do not have)
 would be worse for everyone relying on the document. What we offer instead is:
 rules stated independently of any implementation, reasoning recorded in the open,
 and identifiers that never change so the document can be cited.
@@ -16,16 +16,16 @@ and identifiers that never change so the document can be cited.
 Maintainers decide. There is no committee and no vote.
 
 What constrains a maintainer is the record: a change to what implementations must
-do is accompanied by a **ruling** — a short statement of what was decided and why,
+do is accompanied by a **ruling**, a short statement of what was decided and why,
 carried in the specification itself and referenced from the rules it affects. A
 rule that changes without a ruling is a defect in our process, and pointing that
 out is a legitimate issue to file.
 
 ## What this means for contributors
 
-- **Editorial contributions** — clarity, typos, examples, broken links — are
+- **Editorial contributions** (clarity, typos, examples, broken links) are
   reviewed on their merits and usually merged.
-- **Normative proposals** — changes to what an implementation must do — may be
+- **Normative proposals** (changes to what an implementation must do) may be
   declined, and may be declined without a lengthy justification. Open an issue
   before writing one, so the discussion happens before the work.
 - **Reports that a rule is wrong** are the most valuable contribution here and are

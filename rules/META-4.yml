@@ -13,7 +13,7 @@ normative: >-
   parameter_schema, output_schema}` in that order, snake_case, with no `success`
   key and no `data` wrapper. `parameter_schema` and `output_schema` are the
   stored snapshot verbatim, and where a workflow declares no ports they are JSON
-  `null` — not an empty object, and not omitted — so a consumer can distinguish
+  `null` (not an empty object, and not omitted), so a consumer can distinguish
   "no ports" from "key missing".
 
 posture: normative-target

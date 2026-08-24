@@ -9,8 +9,8 @@ summary: >-
   then what is wrong with what you sent.
 
 normative: >-
-  Launch inputs are checked in three stages — keys that are not declared inputs,
-  then required inputs that are absent, then the values themselves — and the check
+  Launch inputs are checked in three stages (keys that are not declared inputs,
+  then required inputs that are absent, then the values themselves), and the check
   stops at the first stage that fails, returning one message. Every message ends
   by naming the inputs the workflow does accept, or by stating that it accepts
   none. An input counts as required when its manifest entry says so, or when its

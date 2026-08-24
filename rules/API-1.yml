@@ -14,7 +14,7 @@ normative: >-
   size, depth and top-level shape limits, refused the same way. A refusal from that
   gate reaches the caller as the 400 it is; an implementation must not report it as a
   server error. Where a body is optional, its absence is mapped to an empty object
-  ahead of the gate and everything else goes through the gate — optional never means
+  ahead of the gate and everything else goes through the gate; optional never means
   unvalidated.
 
 posture: normative-target

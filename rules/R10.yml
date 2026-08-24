@@ -10,13 +10,13 @@ summary: >-
 
 normative: >-
   A workflow exposure entry must name a port that is exposed on the target node
-  instance, resolved through the same chain as R7.c — the instance's
+  instance, resolved through the same chain as R7.c: the instance's
   `config.ports[].exposed` where it sets one, otherwise the node type's
   `exposedByDefault`. An entry naming a hidden port is refused with
   `R10_EXPOSURE_HIDDEN_PORT`, and the error names the workflow port, the node
   and the node's port. A port the node type's metadata does not declare is out
-  of scope, mirroring R7.d. R10 and R7 are disjoint by construction — R7 judges
-  edges, R10 judges exposure entries — so one hidden port never earns one
+  of scope, mirroring R7.d. R10 and R7 are disjoint by construction (R7 judges
+  edges, R10 judges exposure entries), so one hidden port never earns one
   exposure entry two reports.
 
 posture: normative-target

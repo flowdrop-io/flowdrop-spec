@@ -1,7 +1,7 @@
 # The FlowDrop Workflow Specification
 
-The rules a FlowDrop workflow obeys — how a workflow is written, stored,
-validated, and executed — stated independently of any one implementation.
+The rules a FlowDrop workflow obeys (how a workflow is written, stored,
+validated, and executed), stated independently of any one implementation.
 
 **Status: draft. Nothing here is published yet.** The rule corpus is being
 migrated out of [FlowDrop for Drupal][fddo], where it was first written.
@@ -10,7 +10,7 @@ migrated out of [FlowDrop for Drupal][fddo], where it was first written.
 
 This specification is a **target**. It states what a conforming implementation
 must do. Where an implementation disagrees with a rule, the rule is what is
-intended and the implementation has a defect — unless the rule itself is wrong,
+intended and the implementation has a defect, unless the rule itself is wrong,
 which is a reportable bug in this repository.
 
 It is **informative only**. It confers no status, issues no certification, and
@@ -44,17 +44,17 @@ recycled. CI enforces this.
 ## Contributing
 
 Corrections are welcome, including "this rule is wrong". Read
-[CONTRIBUTING.md](CONTRIBUTING.md) first — a change to what an implementation
+[CONTRIBUTING.md](CONTRIBUTING.md) first: a change to what an implementation
 must do is handled differently from an editorial fix.
 
 ## Licence
 
 Two licences, deliberately:
 
-- **The specification text** — `rules/`, `narrative/`, `conventions.md`, and the
-  prose in this README — is licensed **CC BY 4.0** ([LICENSE](LICENSE)). Quote it,
+- **The specification text** (`rules/`, `narrative/`, `conventions.md`, and the
+  prose in this README) is licensed **CC BY 4.0** ([LICENSE](LICENSE)). Quote it,
   translate it, build on it; attribute it.
-- **The code** — `scripts/`, and the site when it lands — is licensed **MIT**
+- **The code** (`scripts/`, and the site when it lands) is licensed **MIT**
   ([LICENSE-CODE](LICENSE-CODE)).
 
 [fddo]: https://www.drupal.org/project/flowdrop

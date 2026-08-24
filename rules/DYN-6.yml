@@ -5,14 +5,14 @@ part: I
 title: Dynamic ports carry no exposure state and are not addressable from outside
 summary: >-
   Exposure is a property of a port the processor declares. A dynamic port is not
-  declared, so there is nothing to hide and nothing to strip — and, for the same
-  reason, nothing an outside caller can name.
+  declared, so there is nothing to hide and nothing to strip, and for the same
+  reason nothing an outside caller can name.
 
 normative: >-
   A dynamic port has no exposure: it is always wireable, its value is never
   stripped from a node's output, and edge validation raises no exposure objection
   against it. For the same reason a dynamic port is not addressable at the
-  workflow boundary — a launch-input manifest entry naming one is refused, because
+  workflow boundary: a launch-input manifest entry naming one is refused, because
   the port is not declared by the node's processor.
 
 posture: normative-target

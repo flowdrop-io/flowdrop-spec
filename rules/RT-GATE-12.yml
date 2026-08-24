@@ -6,7 +6,7 @@ title: A resolved secret never persists in the gate prompt
 
 summary: >-
   The prompt an operator reads is stored verbatim. A credential that was substituted
-  into an argument must not be stored along with it — while the consent must still
+  into an argument must not be stored along with it, while the consent must still
   bind to the real call.
 
 normative: >-
@@ -18,7 +18,7 @@ normative: >-
   real values, so that consents for different secret values remain distinguishable,
   and only their digest is ever persisted (RT-GATE-3). This covers secrets supplied
   by configuration only: values delivered by an edge or produced upstream are shown
-  as they are, deliberately — the operator is approving what will be sent.
+  as they are, deliberately; the operator is approving what will be sent.
 
 posture: normative-target
 level: core

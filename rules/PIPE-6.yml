@@ -16,8 +16,8 @@ normative: >-
   handler must not re-implement a subset of the model, because doing so both
   locks out principals the surface admits and ignores extension points the model
   honours. Authority over a job is not authority over a run: a run the caller may
-  not view is refused before anything about it — its jobs, its summary, its label
-  — is assembled. Absence is answered before denial, so a request for an
+  not view is refused before anything about it (its jobs, its summary, its label)
+  is assembled. Absence is answered before denial, so a request for an
   identifier that does not exist is `404` even where a caller holding the
   surface's authority could not have viewed it; this is a decided trade, and
   identifiers must therefore carry no information beyond their existence.

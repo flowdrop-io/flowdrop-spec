@@ -7,7 +7,7 @@
 
 /* =====================================================================
    Palette. Light on bare `:root`; the same tokens redefined for dark
-   twice over — once behind `prefers-color-scheme` (guarded so an explicit
+   twice over: once behind `prefers-color-scheme` (guarded so an explicit
    light choice wins) and once behind the explicit dark selectors, so the
    theme toggle wins in both directions.
    ===================================================================== */
@@ -381,7 +381,7 @@ code {
   background: repeating-linear-gradient(to bottom, var(--rule) 0 3px, transparent 3px 6px);
 }
 
-/* A rail tally — used on the index and family pages, where the rail holds
+/* A rail tally, used on the index and family pages, where the rail holds
    counts instead of one rule's citation block. */
 .tally {
   display: grid;
@@ -590,7 +590,7 @@ code {
   font-size: 0.86em;
 }
 
-/* Posture notice — deprecated / descriptive / withdrawn, and the
+/* Posture notice: deprecated / descriptive / withdrawn, and the
    superseding pointer. Same stamp device the prototype gives `.supersedes`. */
 .supersedes {
   margin-top: 1.6rem;
@@ -971,7 +971,7 @@ span.rulechip {
 }
 
 /* =====================================================================
-   Breakpoint — the rail goes static, its nav and key fold away, and the
+   Breakpoint: the rail goes static, its nav and key fold away, and the
    facet list becomes a grid.
    ===================================================================== */
 

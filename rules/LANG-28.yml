@@ -5,8 +5,8 @@ part: I
 title: A condition node's operators are a closed set, and case folding spares the pattern
 
 normative: >-
-  A condition node compares with exactly six operators — `equals`, `not_equals`,
-  `contains`, `starts_with`, `ends_with` and `regex` — declared as an enumeration.
+  A condition node compares with exactly six operators (`equals`, `not_equals`,
+  `contains`, `starts_with`, `ends_with` and `regex`) declared as an enumeration.
   A workflow naming an operator outside that set is refused when it is saved and
   again when the parameter is resolved, and an operator that reaches execution
   outside the set fails the node. A pattern that cannot be compiled fails the node

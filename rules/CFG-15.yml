@@ -14,8 +14,8 @@ normative: >-
   the runtime inputs is copied into the resolved parameter set verbatim: no
   exposure gate, no `required` check, and no validation. A dynamic input's declared
   type is therefore descriptive only and is never enforced. A dynamic name that is
-  already a key in the resolved set is skipped, so a declared parameter always wins
-  — including one that resolved to null. An empty name is skipped. Dynamic
+  already a key in the resolved set is skipped, so a declared parameter always wins,
+  including one that resolved to null. An empty name is skipped. Dynamic
   definitions are read from the node's resolved `dynamicInputs` value, falling back
   to the raw configuration where none resolved.
 

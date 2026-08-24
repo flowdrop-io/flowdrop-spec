@@ -5,7 +5,7 @@ part: II
 title: A tool result carries artifacts alongside its data, never inside it
 
 summary: >-
-  A tool can return something structured — a chart, a record, a file reference —
+  A tool can return something structured (a chart, a record, a file reference)
   that the model should not have to read as prose. It travels beside the result,
   not inside it.
 

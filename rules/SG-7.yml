@@ -6,7 +6,7 @@ title: A loop's budget counts rounds of the loop, not executions of a node
 
 normative: >-
   Re-entry over a loopback edge happens only while the edge's branch is active and
-  the loop still has budget — either its iterator has more items, or the number of
+  the loop still has budget: either its iterator has more items, or the number of
   rounds the loop has run is below the configured maximum. That bound is per loop,
   keyed by the loop's head, and counts rounds rather than executions of any one
   node in the body. The two coincide only on a body where every node runs every

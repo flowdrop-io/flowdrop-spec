@@ -6,7 +6,7 @@ title: No edge key is structurally required
 
 normative: >-
   An edge is accepted structurally whatever keys it carries: an absent key takes its
-  empty default — the empty string for an endpoint or a handle, the empty list for a
+  empty default: the empty string for an endpoint or a handle, the empty list for a
   collection. An edge left without endpoints is not a parse failure; it is refused by
   validation as an edge missing an endpoint, so an author is told what is wrong with
   the wire rather than that the document could not be read.

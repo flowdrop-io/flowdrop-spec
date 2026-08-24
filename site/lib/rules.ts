@@ -60,7 +60,7 @@ export function slugify(id: string): string {
   return id.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
 }
 
-/** sha256(normative, whitespace-collapsed).slice(0,12) — matches scripts/validate-rules.mjs. */
+/** sha256(normative, whitespace-collapsed).slice(0,12); matches scripts/validate-rules.mjs. */
 function ruleHash(normative: string): string {
   return createHash('sha256')
     .update(normative.trim().replace(/\s+/g, ' '))
@@ -125,7 +125,7 @@ function build() {
     };
   });
 
-  // Slug collisions would silently drop pages — fail the build instead.
+  // Slug collisions would silently drop pages, so fail the build instead.
   const seen = new Map<string, string>();
   for (const r of rules) {
     const key = `${r.family}/${r.slug}`;
@@ -171,7 +171,7 @@ export const ruleById = (id: string): LoadedRule | undefined => data().byId.get(
 /**
  * The one authority on "does this identifier have a page?". Rule identifiers
  * resolve to their rule page; a family name (`GR-EDGE`, `RT-CMP`) resolves to
- * the family index. Anything else — a ruling, `ISO-8601`, `JSON` — resolves to
+ * the family index. Anything else (a ruling, `ISO-8601`, `JSON`) resolves to
  * nothing, and the caller renders it as text or as a marker.
  */
 export function urlForId(id: string): string | undefined {

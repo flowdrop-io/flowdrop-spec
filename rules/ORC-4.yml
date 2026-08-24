@@ -5,7 +5,7 @@ part: II
 title: State graph is the interactive-session default only
 summary: >-
   It is a caller's default, offered by the session surface, not a rung in the global
-  chain — so a background run never silently becomes a state-graph run.
+  chain, so a background run never silently becomes a state-graph run.
 
 normative: >-
   The state graph strategy is the default for interactive session and playground

@@ -7,7 +7,7 @@ title: Dynamic port names are constrained and unique across the node
 normative: >-
   A dynamic port name begins with an ASCII letter and continues with ASCII
   letters, digits or underscores. It must not be a reserved name, and it must be
-  unique across the union of the node's dynamic input and dynamic output names —
+  unique across the union of the node's dynamic input and dynamic output names:
   an input and an output on the same node may not share a name. A definition that
   breaks any of these is refused.
 

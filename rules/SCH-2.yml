@@ -15,7 +15,7 @@ normative: >-
   node type does not declare therefore appears in neither derived schema and in
   neither `required` list. Same-named keys written in the declared schema are not
   read by the gate, and are not stripped either: they survive verbatim into the
-  served schemas. A property-level `required: true` is read on exactly one path —
+  served schemas. A property-level `required: true` is read on exactly one path:
   where a node is exposed as a model-facing tool, it is lifted into the enclosing
   object's `required` array before the schema is handed to the model.
 

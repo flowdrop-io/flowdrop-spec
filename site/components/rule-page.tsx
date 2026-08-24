@@ -1,10 +1,12 @@
 import Link from 'next/link';
 import type { TOCItemType } from 'fumadocs-core/toc';
 import { ruleById, type LoadedRule, type ReferenceEntry } from '@/lib/rules';
-import { SPEC_VERSION } from '@/app/layout.config';
+import { SPEC_ORIGIN, SPEC_VERSION } from '@/app/layout.config';
 import { Prose } from './prose';
 import { RuleFacets } from './badges';
 import { RailId, RailKey, RailNav } from './rail';
+import { PageActions } from './page-actions';
+import { slugify } from '@/lib/rules';
 
 /**
  * The page anatomy is a menu, not a checklist: every section but the normative
@@ -91,6 +93,11 @@ export function RuleRail({ rule, toc }: { rule: LoadedRule; toc: TOCItemType[] }
       />
       <RuleFacets rule={rule} />
       <RailNav items={toc} />
+      <PageActions
+        mdPath={`/llms/${slugify(rule.family)}/${rule.slug}.md`}
+        citeUrl={`${SPEC_ORIGIN}${rule.url}.md`}
+        askAbout={`${rule.id} of the FlowDrop Workflow Specification. Quote the normative sentence before answering.`}
+      />
       <RailKey />
     </>
   );

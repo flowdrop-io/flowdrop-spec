@@ -35,17 +35,20 @@ jobs:
       # published; the image is built separately, on main only.
       - run: npm run build
         working-directory: site
-      - name: every rule has a page
+      - name: every rule has a page and a markdown twin
         run: |
           # Depth 3 is a rule page (rules/<family>/<rule>/index.html). Depth 2 is a
           # family index, of which there are 30, and counting those hides a shortfall.
           rules=$(ls rules/*.yml | wc -l)
           pages=$(find site/out/rules -mindepth 3 -name index.html | wc -l)
-          echo "$rules rule(s), $pages page(s)"
-          if [ "$rules" -ne "$pages" ]; then
-            echo "::error::$rules rules but $pages rule pages"
-            exit 1
-          fi
+          # Two more than the rules: conventions and the glossary.
+          md=$(find site/out/llms -name '*.md' | wc -l)
+          echo "$rules rule(s), $pages page(s), $md markdown file(s)"
+          [ "$rules" -eq "$pages" ] || { echo "::error::$rules rules but $pages rule pages"; exit 1; }
+          [ "$md" -eq "$((rules + 2))" ] || { echo "::error::$rules rules but $md markdown files"; exit 1; }
+          for f in site/out/llms.txt site/out/llms-full.txt; do
+            [ -s "$f" ] || { echo "::error::$f is missing or empty"; exit 1; }
+          done
 
   dco:
     name: sign-off

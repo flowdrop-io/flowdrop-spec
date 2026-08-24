@@ -50,6 +50,24 @@ container rather than assumed:
   `Cache-Control`, so the security headers live in `nginx-headers.conf` and are
   included into each location explicitly.
 
+## The markdown twins
+
+Every page is also published as markdown, because the specification is quoted into
+issues, reviews and model context as often as it is read: `/rules/gr-store/store-2.md`,
+`/conventions.md`, `/glossary.md`, plus `/llms.txt` (an index) and `/llms-full.txt`
+(the whole corpus, ~330KB, ~88KB gzipped).
+
+They are generated from the same YAML the pages are, in `lib/markdown.ts` — not
+scraped back out of the rendered HTML, so the two renderings cannot drift.
+
+**Why the files live under `/llms/` and not beside their pages.** A Next dynamic
+route segment cannot carry an extension: `[rule].md` is a literal folder name, not a
+parameter, so `/rules/gr-store/store-2.md` cannot be generated directly. The route
+emits `/llms/gr-store/store-2.md` and nginx serves it at the conventional URL. The
+`.md` URL is the address to cite; `/llms/…` is where the file happens to sit, and is
+what the in-page copy button fetches so it also works under `next dev`, where there
+is no nginx.
+
 ## How it fits together
 
 | File | Does |

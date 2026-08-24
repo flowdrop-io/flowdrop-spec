@@ -165,6 +165,22 @@ function data() {
 }
 
 export const allRules = (): LoadedRule[] => data().rules;
+
+/**
+ * Identifiers recorded in REGISTRY.lock as reserved: in use in an implementation's
+ * own registry for a rule this specification declined, and never issued here. A
+ * consumer resolving `MIG-1` needs to be able to tell "not ours" from "not yet".
+ */
+export function reservedIds(): { id: string; family: string }[] {
+  const out: { id: string; family: string }[] = [];
+  for (const line of fs.readFileSync(LOCK, 'utf8').split('\n')) {
+    const t = line.trim();
+    if (!t || t.startsWith('#')) continue;
+    const [id, family, ...flags] = t.split(/\s+/);
+    if (flags.includes('reserved')) out.push({ id, family });
+  }
+  return out;
+}
 export const allFamilies = (): Family[] => data().families;
 export const ruleById = (id: string): LoadedRule | undefined => data().byId.get(id);
 

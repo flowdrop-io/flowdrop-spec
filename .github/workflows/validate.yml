@@ -46,9 +46,18 @@ jobs:
           echo "$rules rule(s), $pages page(s), $md markdown file(s)"
           [ "$rules" -eq "$pages" ] || { echo "::error::$rules rules but $pages rule pages"; exit 1; }
           [ "$md" -eq "$((rules + 2))" ] || { echo "::error::$rules rules but $md markdown files"; exit 1; }
-          for f in site/out/llms.txt site/out/llms-full.txt; do
+          for f in site/out/llms.txt site/out/llms-full.txt site/out/rules.json \
+                   site/out/robots.txt site/out/sitemap.xml; do
             [ -s "$f" ] || { echo "::error::$f is missing or empty"; exit 1; }
           done
+          # The JSON feed is what a conformance tool reads, so a shape change that
+          # empties it must fail here rather than downstream.
+          node -e '
+            const j = require("./site/out/rules.json");
+            const n = '"$rules"';
+            if (j.rules.length !== n) { console.error(`::error::rules.json has ${j.rules.length} rules, expected ${n}`); process.exit(1); }
+            if (!j.reserved.length) { console.error("::error::rules.json lists no reserved identifiers"); process.exit(1); }
+          '
 
   dco:
     name: sign-off

@@ -20,3 +20,16 @@ export const MASTHEAD_LINKS: { text: string; url: string }[] = [
   { text: 'Conventions', url: '/conventions' },
   { text: 'Glossary', url: '/glossary' },
 ];
+
+/**
+ * The machine-readable corpus, linked from the head of every page so a crawler
+ * that never sees the front page still finds it.
+ *
+ * Next replaces `alternates` wholesale when a page declares its own, rather than
+ * merging with the layout's, so any page adding its markdown twin has to carry
+ * these along. That is why they live here instead of only in the root layout.
+ */
+export const MACHINE_ALTERNATES = {
+  'text/plain': [{ url: '/llms.txt', title: 'llms.txt: every rule, one line each' }],
+  'application/json': [{ url: '/rules.json', title: 'The rule corpus as data' }],
+};

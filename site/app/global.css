@@ -1178,3 +1178,48 @@ span.rulechip {
   font-weight: 600;
   text-decoration: none;
 }
+
+/* =====================================================================
+   Site footer
+   ===================================================================== */
+
+.siteftr {
+  border-top: 1px solid var(--rule);
+  margin-top: 4rem;
+  padding: 1.6rem 0 3rem;
+}
+.siteftr-inner {
+  /* Same measure as the masthead, so the page has one edge top and bottom. */
+  max-width: calc(var(--measure) + var(--rail) + 8rem);
+  margin: 0 auto;
+  padding: 0 1.5rem;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.9rem 2rem;
+  justify-content: space-between;
+  align-items: baseline;
+  font-size: 0.78rem;
+  color: var(--ink-3);
+}
+.siteftr p {
+  margin: 0;
+  max-width: 52ch;
+}
+.siteftr a {
+  color: var(--ink-2);
+  text-decoration: none;
+}
+.siteftr a:hover {
+  color: var(--accent);
+}
+.siteftr nav {
+  display: flex;
+  gap: 0.9rem;
+  flex-wrap: wrap;
+}
+.siteftr nav span {
+  font-family: var(--mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}

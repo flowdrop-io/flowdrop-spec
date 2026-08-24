@@ -6,7 +6,7 @@ import type { TOCItemType } from 'fumadocs-core/toc';
 import { source } from '@/lib/source';
 import { compiler } from '@/lib/mdx';
 import { allRules, allFamilies } from '@/lib/rules';
-import { SPEC_VERSION } from '@/app/layout.config';
+import { MACHINE_ALTERNATES, SPEC_VERSION } from '@/app/layout.config';
 import { Shell } from '@/components/shell';
 import { RailId, RailNav, RailTally } from '@/components/rail';
 import { RuleDoc, RuleRail, ruleToc } from '@/components/rule-page';
@@ -22,11 +22,30 @@ export const dynamicParams = false;
 export async function generateMetadata(props: { params: Promise<{ slug?: string[] }> }): Promise<Metadata> {
   const page = source.getPage((await props.params).slug);
   if (!page) return {};
-  const d = page.data as { kind: string; title: string; description?: string; rule?: { title: string } };
+  const d = page.data as {
+    kind: string;
+    title: string;
+    description?: string;
+    rule?: { title: string };
+  };
+  // A page's markdown twin is an alternate representation of that page, so it is
+  // declared per page rather than site-wide. `page.url` is the page's own path.
+  const markdown = d.kind === 'rule' ? `${page.url}.md` : mdTwin(page.url);
   return {
     title: d.kind === 'rule' ? `${d.title}: ${d.rule!.title}` : d.title,
     description: d.description,
+    alternates: {
+      types: {
+        ...MACHINE_ALTERNATES,
+        ...(markdown ? { 'text/markdown': [{ url: markdown, title: `${d.title} as markdown` }] } : {}),
+      },
+    },
   };
+}
+
+/** Conventions and the glossary have markdown twins; index and family pages do not. */
+function mdTwin(url: string): string | undefined {
+  return url === '/conventions' || url === '/glossary' ? `${url}.md` : undefined;
 }
 
 /** Only depth-2 and depth-3 headings belong in the rail. */

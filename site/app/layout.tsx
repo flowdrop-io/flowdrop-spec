@@ -1,4 +1,5 @@
 import type { Metadata } from 'next';
+import { MACHINE_ALTERNATES, SPEC_ORIGIN } from '@/app/layout.config';
 import { Spectral, IBM_Plex_Sans, IBM_Plex_Mono } from 'next/font/google';
 import { RootProvider } from 'fumadocs-ui/provider/next';
 import SpecSearchDialog from '@/components/search';
@@ -38,6 +39,8 @@ export const metadata: Metadata = {
   },
   description:
     'The rules a FlowDrop workflow obeys (how a workflow is written, stored, validated and executed), stated independently of any one implementation.',
+  metadataBase: new URL(SPEC_ORIGIN),
+  alternates: { types: MACHINE_ALTERNATES },
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {

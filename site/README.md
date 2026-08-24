@@ -50,12 +50,23 @@ container rather than assumed:
   `Cache-Control`, so the security headers live in `nginx-headers.conf` and are
   included into each location explicitly.
 
-## The markdown twins
+## Published for machines as well as people
 
-Every page is also published as markdown, because the specification is quoted into
-issues, reviews and model context as often as it is read: `/rules/gr-store/store-2.md`,
-`/conventions.md`, `/glossary.md`, plus `/llms.txt` (an index) and `/llms-full.txt`
-(the whole corpus, ~330KB, ~88KB gzipped).
+| URL | What |
+|---|---|
+| `/rules/<family>/<rule>.md` | Any page as markdown, with its identifier, facets and a link home |
+| `/conventions.md`, `/glossary.md` | The same, for the two reference pages |
+| `/llms.txt` | Index: every rule, one line each, with links |
+| `/llms-full.txt` | The whole corpus in one document (~330KB, ~88KB gzipped) |
+| `/rules.json` | The corpus as data, including declined identifiers (~470KB, ~97KB gzipped) |
+| `/sitemap.xml`, `/robots.txt` | 433 URLs; everything allowed, sitemap declared |
+
+Each page's head declares `llms.txt`, `rules.json` and its own markdown twin as
+`rel="alternate"`, and the footer links them as anchors, because crawlers follow
+anchors reliably and head links inconsistently. **Next replaces `alternates`
+wholesale when a page declares its own**, so `MACHINE_ALTERNATES` in
+`layout.config.tsx` is spread into every page's metadata — declaring it only in the
+root layout silently removes it from every page that sets its own.
 
 They are generated from the same YAML the pages are, in `lib/markdown.ts` — not
 scraped back out of the rendered HTML, so the two renderings cannot drift.

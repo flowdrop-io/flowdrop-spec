@@ -6,11 +6,21 @@ content here is the site chrome (`content/index.mdx`) and the glossary
 (`content/glossary.mdx`); rule text comes from the YAML, and the conventions page
 is `../conventions.md` read at build time.
 
-## Build
+## Run it locally
 
 ```bash
 npm install
+npm run dev        # → http://localhost:3000
+```
+
+Hot-reloads on a change to any rule YAML, to `../conventions.md`, or to a
+narrative file.
+
+## Build
+
+```bash
 npm run build      # → out/
+npm start          # serve out/ as it will actually be deployed
 ```
 
 `out/` is a plain directory of files (`output: 'export'`, `trailingSlash: true`),

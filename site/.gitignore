@@ -3,3 +3,9 @@ out/
 node_modules/
 next-env.d.ts
 tsconfig.tsbuildinfo
+
+# next dev generates these; agentRules:false in next.config.mjs stops it,
+# but a toolchain change must not be able to sneak them into the repo.
+# Per-repo CLAUDE.md masters live in the workspace, not here.
+AGENTS.md
+CLAUDE.md

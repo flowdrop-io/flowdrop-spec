@@ -5,310 +5,1027 @@
 @source '../app';
 @source '../components';
 
-/* ---- nav ------------------------------------------------------------- */
+/* =====================================================================
+   Palette. Light on bare `:root`; the same tokens redefined for dark
+   twice over — once behind `prefers-color-scheme` (guarded so an explicit
+   light choice wins) and once behind the explicit dark selectors, so the
+   theme toggle wins in both directions.
+   ===================================================================== */
 
-.spec-nav-mark {
-  font-weight: 700;
-  letter-spacing: -0.01em;
+:root {
+  --paper: #f5f7f9;
+  --surface: #ffffff;
+  --sunk: #edf1f5;
+  --ink: #101b26;
+  --ink-2: #46586a;
+  --ink-3: #75889b;
+  --rule: #dae2e9;
+  --rule-soft: #e7edf2;
+  --accent: #1d4e7c;
+  --accent-2: #2e6ea6;
+  --accent-wash: #e4edf5;
+  --ok: #2f6b52;
+  --ok-wash: #e2efe8;
+  --warn: #8a5a12;
+  --warn-wash: #f6ebd8;
+  --bad: #8c3a32;
+  --bad-wash: #f5e4e2;
+
+  --serif: var(--font-spectral), ui-serif, Georgia, serif;
+  --sans: var(--font-plex-sans), ui-sans-serif, system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --mono: var(--font-plex-mono), ui-monospace, SFMono-Regular, Menlo, monospace;
+
+  --measure: 68ch;
+  --rail: 216px;
 }
-.spec-nav-title {
-  margin-left: 0.45rem;
-  color: var(--color-fd-muted-foreground);
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme='light']):not(.light) {
+    --paper: #0d141b;
+    --surface: #141d26;
+    --sunk: #18232e;
+    --ink: #dee7ef;
+    --ink-2: #9db0c1;
+    --ink-3: #74899c;
+    --rule: #26343f;
+    --rule-soft: #1e2a34;
+    --accent: #7fb3dc;
+    --accent-2: #a3cbea;
+    --accent-wash: #152736;
+    --ok: #77be9c;
+    --ok-wash: #14261e;
+    --warn: #d4a45c;
+    --warn-wash: #29200f;
+    --bad: #d68c84;
+    --bad-wash: #2b1815;
+  }
+}
+
+:root[data-theme='dark'],
+:root.dark {
+  --paper: #0d141b;
+  --surface: #141d26;
+  --sunk: #18232e;
+  --ink: #dee7ef;
+  --ink-2: #9db0c1;
+  --ink-3: #74899c;
+  --rule: #26343f;
+  --rule-soft: #1e2a34;
+  --accent: #7fb3dc;
+  --accent-2: #a3cbea;
+  --accent-wash: #152736;
+  --ok: #77be9c;
+  --ok-wash: #14261e;
+  --warn: #d4a45c;
+  --warn-wash: #29200f;
+  --bad: #d68c84;
+  --bad-wash: #2b1815;
+}
+
+/* Fumadocs still owns the search dialog and the MDX callout. Point its
+   tokens at ours so the borrowed chrome wears the same palette. */
+:root,
+:root[data-theme='dark'],
+:root.dark {
+  --color-fd-background: var(--paper);
+  --color-fd-foreground: var(--ink);
+  --color-fd-muted: var(--sunk);
+  --color-fd-muted-foreground: var(--ink-3);
+  --color-fd-popover: var(--surface);
+  --color-fd-popover-foreground: var(--ink);
+  --color-fd-card: var(--surface);
+  --color-fd-card-foreground: var(--ink);
+  --color-fd-border: var(--rule);
+  --color-fd-primary: var(--accent);
+  --color-fd-primary-foreground: var(--paper);
+  --color-fd-secondary: var(--sunk);
+  --color-fd-secondary-foreground: var(--ink);
+  --color-fd-accent: var(--sunk);
+  --color-fd-accent-foreground: var(--ink);
+  --color-fd-ring: var(--accent-2);
+}
+
+/* =====================================================================
+   Base
+   ===================================================================== */
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  background: var(--paper);
+}
+
+body {
+  margin: 0;
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--sans);
+  font-size: 16px;
+  line-height: 1.65;
+  -webkit-font-smoothing: antialiased;
+}
+
+a {
+  color: var(--accent);
+  text-decoration-thickness: 1px;
+  text-underline-offset: 2px;
+}
+a:hover {
+  color: var(--accent-2);
+}
+:focus-visible {
+  outline: 2px solid var(--accent-2);
+  outline-offset: 2px;
+  border-radius: 2px;
+}
+
+code,
+.mono {
+  font-family: var(--mono);
+  font-size: 0.88em;
+}
+code {
+  background: var(--sunk);
+  padding: 0.1em 0.34em;
+  border-radius: 2px;
+}
+
+/* =====================================================================
+   Masthead
+   ===================================================================== */
+
+.masthead {
+  border-bottom: 1px solid var(--rule);
+  background: var(--surface);
+}
+.masthead-inner {
+  max-width: calc(var(--measure) + var(--rail) + 8rem);
+  margin: 0 auto;
+  padding: 0.9rem 1.5rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+.wordmark {
+  font-family: var(--serif);
+  font-size: 0.98rem;
+  font-weight: 600;
+  letter-spacing: 0.01em;
+  color: var(--ink);
+  text-decoration: none;
+}
+.wordmark em {
+  font-style: italic;
+  font-weight: 400;
+  color: var(--ink-2);
+}
+.masthead nav {
+  display: flex;
+  gap: 1.3rem;
+  align-items: baseline;
+  font-size: 0.82rem;
+  color: var(--ink-2);
+}
+.masthead nav a {
+  color: var(--ink-2);
+  text-decoration: none;
+}
+.masthead nav a:hover {
+  color: var(--accent);
+  text-decoration: underline;
+}
+.mast-search {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 0.5rem;
+  padding: 0;
+  border: 0;
+  background: none;
+  font: inherit;
+  color: var(--ink-2);
+  cursor: pointer;
+}
+.mast-search:hover {
+  color: var(--accent);
+}
+.mast-search kbd {
+  font-family: var(--mono);
+  font-size: 0.68rem;
+  padding: 0.05rem 0.3rem;
+  border: 1px solid var(--rule);
+  border-radius: 2px;
+  color: var(--ink-3);
+  background: var(--sunk);
+}
+
+/* =====================================================================
+   Shell
+   ===================================================================== */
+
+.shell {
+  max-width: calc(var(--measure) + var(--rail) + 8rem);
+  margin: 0 auto;
+  padding: 3rem 1.5rem 5rem;
+  display: grid;
+  grid-template-columns: var(--rail) minmax(0, 1fr);
+  gap: 3.5rem;
+  align-items: start;
+}
+.shell.wide {
+  grid-template-columns: var(--rail) minmax(0, 1fr);
+  max-width: calc(var(--measure) + var(--rail) + 20rem);
+}
+.shell.wide .doc {
+  max-width: none;
+}
+
+/* =====================================================================
+   Citation rail
+   ===================================================================== */
+
+.rail {
+  position: sticky;
+  top: 1.75rem;
+  display: grid;
+  gap: 1.6rem;
+}
+
+.rail-id .fam {
+  font-family: var(--mono);
+  font-size: 0.74rem;
+  letter-spacing: 0.08em;
+  color: var(--ink-3);
+  text-transform: uppercase;
+}
+.rail-id a.fam {
+  text-decoration: none;
+}
+.rail-id a.fam:hover {
+  color: var(--accent);
+}
+.rail-id .rid {
+  font-family: var(--mono);
+  font-size: 1.72rem;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  line-height: 1.1;
+  margin-top: 0.15rem;
+  overflow-wrap: anywhere;
+}
+.rail-id .rid.long {
+  font-size: 1.28rem;
+}
+.rail-id .part {
+  font-size: 0.78rem;
+  color: var(--ink-2);
+  margin-top: 0.35rem;
+  line-height: 1.45;
+}
+
+.facets {
+  display: grid;
+  gap: 0.55rem;
+  margin: 0;
+}
+.facet {
+  display: flex;
+  gap: 0.6rem;
+  align-items: baseline;
+  font-size: 0.79rem;
+}
+.facet dt {
+  color: var(--ink-3);
+  text-transform: uppercase;
+  letter-spacing: 0.07em;
+  font-size: 0.68rem;
+  min-width: 4.6em;
+}
+.facet dd {
+  margin: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.25rem;
+}
+
+.chip {
+  display: inline-block;
+  font-family: var(--mono);
+  font-size: 0.72rem;
+  padding: 0.1rem 0.42rem;
+  border-radius: 2px;
+  border: 1px solid var(--rule);
+  background: var(--sunk);
+  color: var(--ink-2);
+  white-space: nowrap;
+}
+.chip.warn {
+  background: var(--warn-wash);
+  border-color: transparent;
+  color: var(--warn);
+  font-weight: 500;
+}
+.chip.core {
+  background: var(--accent-wash);
+  border-color: transparent;
+  color: var(--accent);
   font-weight: 500;
 }
 
-/* ---- rule page ------------------------------------------------------- */
-
-.spec-eyebrow {
-  display: flex;
-  gap: 0.4rem;
-  align-items: center;
-  margin: 0 0 1rem;
+.rail-nav {
+  display: grid;
+  gap: 0.3rem;
+  border-top: 1px solid var(--rule);
+  padding-top: 1rem;
+}
+.rail-nav a {
   font-size: 0.8rem;
-  font-family: var(--font-mono, ui-monospace, monospace);
-  color: var(--color-fd-muted-foreground);
-}
-.spec-eyebrow a {
-  color: inherit;
+  color: var(--ink-2);
   text-decoration: none;
+  padding: 0.08rem 0;
 }
-.spec-eyebrow a:hover {
-  color: var(--color-fd-foreground);
+.rail-nav a:hover {
+  color: var(--accent);
+}
+.rail-nav a.depth-3 {
+  padding-left: 0.8rem;
+  color: var(--ink-3);
 }
 
-/* The binding sentence. Everything else on the page is context for it. */
-.spec-normative {
-  position: relative;
-  margin: 0 0 1.25rem;
-  padding: 1rem 1.15rem 1.15rem;
-  border: 1px solid var(--color-fd-border);
-  border-left: 3px solid var(--color-fd-primary);
-  border-radius: 0.5rem;
-  background: var(--color-fd-card);
+.key {
+  border-top: 1px solid var(--rule);
+  padding-top: 1rem;
+  display: grid;
+  gap: 0.5rem;
+  font-size: 0.75rem;
+  color: var(--ink-3);
 }
-.spec-normative-label {
-  margin: 0 0 0.5rem;
+.key div {
+  display: flex;
+  gap: 0.55rem;
+  align-items: center;
+}
+.key i {
+  width: 3px;
+  height: 1.05em;
+  display: block;
+  flex: none;
+}
+.key i.n {
+  background: var(--accent);
+}
+.key i.i {
+  background: repeating-linear-gradient(to bottom, var(--rule) 0 3px, transparent 3px 6px);
+}
+
+/* A rail tally — used on the index and family pages, where the rail holds
+   counts instead of one rule's citation block. */
+.tally {
+  display: grid;
+  gap: 0.35rem;
+  font-size: 0.79rem;
+  border-top: 1px solid var(--rule);
+  padding-top: 1rem;
+}
+.tally .row {
+  display: flex;
+  justify-content: space-between;
+  gap: 0.6rem;
+  color: var(--ink-2);
+}
+.tally .n {
+  font-family: var(--mono);
+  font-size: 0.76rem;
+  color: var(--ink-3);
+}
+.tally-head {
   font-size: 0.68rem;
-  font-weight: 700;
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+  color: var(--ink-3);
+}
+
+/* =====================================================================
+   Document column
+   ===================================================================== */
+
+.doc {
+  max-width: var(--measure);
+  min-width: 0;
+}
+
+.doc h1 {
+  font-family: var(--serif);
+  font-weight: 600;
+  font-size: clamp(1.75rem, 1.3rem + 1.6vw, 2.35rem);
+  line-height: 1.18;
+  letter-spacing: -0.012em;
+  text-wrap: balance;
+  margin: 0 0 0.5rem;
+}
+.standfirst {
+  font-size: 1rem;
+  color: var(--ink-2);
+  margin: 0 0 2.4rem;
+  max-width: 56ch;
+}
+/* No summary: the h1 still needs air before the rule itself. */
+.doc h1:last-child,
+.doc > h1 + section {
+  margin-top: 0;
+}
+.doc > h1 + section > h2:first-child,
+.doc > .standfirst + section > h2:first-child {
+  margin-top: 0;
+}
+
+.doc h2 {
+  font-family: var(--sans);
+  font-size: 0.74rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.13em;
+  color: var(--ink-3);
+  margin: 3.2rem 0 1rem;
+  padding-bottom: 0.5rem;
+  border-bottom: 1px solid var(--rule);
+}
+.doc h3 {
+  font-family: var(--serif);
+  font-size: 1.06rem;
+  font-weight: 600;
+  margin: 2rem 0 0.6rem;
+  color: var(--ink);
+}
+.doc h4 {
+  font-size: 0.92rem;
+  font-weight: 600;
+  margin: 1.5rem 0 0.5rem;
+}
+.doc p {
+  margin: 0 0 1.05rem;
+}
+.doc > p:last-child {
+  margin-bottom: 0;
+}
+.doc ul,
+.doc ol {
+  margin: 0 0 1.05rem;
+  padding-left: 1.3rem;
+}
+.doc li {
+  margin-bottom: 0.4rem;
+}
+.doc li > ul,
+.doc li > ol {
+  margin: 0.4rem 0 0;
+}
+.doc blockquote {
+  margin: 0 0 1.05rem;
+  padding-left: 1.1rem;
+  border-left: 3px solid var(--rule);
+  color: var(--ink-2);
+}
+.doc hr {
+  border: 0;
+  border-top: 1px solid var(--rule);
+  margin: 2.4rem 0;
+}
+.doc pre {
+  margin: 0 0 1.05rem;
+  padding: 0.9rem;
+  overflow-x: auto;
+  background: var(--surface);
+  border: 1px solid var(--rule);
+  border-radius: 3px;
+  font-family: var(--mono);
+  font-size: 0.8rem;
+  line-height: 1.6;
+}
+.doc pre code {
+  background: none;
+  padding: 0;
+  font-size: 1em;
+}
+.doc table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.9rem;
+  margin: 0 0 1.05rem;
+}
+.doc th,
+.doc td {
+  text-align: left;
+  padding: 0.45rem 0.6rem;
+  border-bottom: 1px solid var(--rule);
+  vertical-align: top;
+}
+.doc th {
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--ink-3);
+}
+.doc-scroll {
+  overflow-x: auto;
+}
+
+/* =====================================================================
+   Normative / informative edges
+   ===================================================================== */
+
+.normative,
+.informative {
+  padding-left: 1.5rem;
+  position: relative;
+}
+.normative::before,
+.informative::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0.25em;
+  bottom: 0.25em;
+  width: 3px;
+}
+.normative::before {
+  background: var(--accent);
+}
+.informative::before {
+  background: repeating-linear-gradient(to bottom, var(--rule) 0 3px, transparent 3px 6px);
+}
+
+.normative .label,
+.informative .label {
+  display: block;
+  font-family: var(--mono);
+  font-size: 0.7rem;
   letter-spacing: 0.09em;
   text-transform: uppercase;
-  color: var(--color-fd-primary);
+  color: var(--ink-3);
+  margin-bottom: 0.5rem;
 }
-.spec-normative-text {
-  margin: 0;
-  font-size: 1.02rem;
-  line-height: 1.65;
-  color: var(--color-fd-foreground);
-}
-
-/* ---- badges ---------------------------------------------------------- */
-
-.spec-badges {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.4rem;
-  margin: 0 0 1.5rem;
-}
-.spec-badge {
-  display: inline-flex;
-  align-items: center;
-  padding: 0.15rem 0.5rem;
-  border: 1px solid var(--color-fd-border);
-  border-radius: 999px;
-  font-size: 0.72rem;
-  line-height: 1.4;
-  color: var(--color-fd-muted-foreground);
-  background: var(--color-fd-secondary);
-  white-space: nowrap;
-}
-.spec-badge-core {
-  color: var(--color-fd-primary);
-  border-color: color-mix(in oklab, var(--color-fd-primary) 40%, transparent);
-}
-.spec-badge-profile {
-  font-family: var(--font-mono, ui-monospace, monospace);
-}
-.spec-badge-warn {
-  color: var(--color-fd-foreground);
-  border-color: color-mix(in oklab, currentColor 35%, transparent);
+.normative .label b {
+  color: var(--accent);
   font-weight: 600;
 }
 
-/* ---- callouts -------------------------------------------------------- */
-
-.spec-callout {
-  margin: 0 0 1.25rem;
-  padding: 0.75rem 1rem;
-  border: 1px solid var(--color-fd-border);
-  border-radius: 0.5rem;
-  background: var(--color-fd-secondary);
-  font-size: 0.9rem;
+.statement {
+  font-family: var(--serif);
+  font-size: 1.24rem;
+  line-height: 1.55;
+  color: var(--ink);
+  margin: 0;
+}
+.statement code {
+  font-size: 0.82em;
+  background: var(--accent-wash);
+  color: var(--accent);
+}
+.statement .spec-idlink,
+.statement .spec-ruling {
+  font-size: 0.86em;
 }
 
-/* ---- inline identifiers ---------------------------------------------- */
+/* Posture notice — deprecated / descriptive / withdrawn, and the
+   superseding pointer. Same stamp device the prototype gives `.supersedes`. */
+.supersedes {
+  margin-top: 1.6rem;
+  font-size: 0.92rem;
+  color: var(--ink-2);
+}
+.supersedes .stamp {
+  font-family: var(--mono);
+  font-size: 0.7rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--warn);
+  background: var(--warn-wash);
+  padding: 0.1rem 0.42rem;
+  border-radius: 2px;
+  margin-right: 0.5rem;
+}
+.supersedes p {
+  margin: 0.55rem 0 0;
+}
+.supersedes ul {
+  margin: 0.55rem 0 0;
+  padding-left: 1.1rem;
+}
+.supersedes li {
+  margin-bottom: 0.35rem;
+}
+
+/* A staleness notice on narrative prose. */
+.stale {
+  margin: 0 0 1.4rem;
+  font-size: 0.88rem;
+  color: var(--ink-2);
+  background: var(--warn-wash);
+  border-radius: 3px;
+  padding: 0.7rem 0.9rem;
+}
+.stale b {
+  color: var(--warn);
+  font-weight: 600;
+}
+
+/* =====================================================================
+   Worked exchange (styled for the examples P2 will add; nothing in the
+   corpus renders one yet, and an empty Example section is never emitted)
+   ===================================================================== */
+
+.exchange {
+  border: 1px solid var(--rule);
+  border-radius: 3px;
+  overflow: hidden;
+  background: var(--surface);
+  margin: 0 0 1.1rem;
+}
+.exchange > figcaption {
+  font-size: 0.76rem;
+  color: var(--ink-2);
+  padding: 0.55rem 0.9rem;
+  background: var(--sunk);
+  border-bottom: 1px solid var(--rule);
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+.exchange figcaption .verdict {
+  font-family: var(--mono);
+  font-size: 0.73rem;
+}
+.verdict.no {
+  color: var(--bad);
+}
+.verdict.yes {
+  color: var(--ok);
+}
+.exchange pre {
+  margin: 0;
+  padding: 0.9rem;
+  overflow-x: auto;
+  border: 0;
+  border-radius: 0;
+  background: var(--surface);
+  font-family: var(--mono);
+  font-size: 0.8rem;
+  line-height: 1.6;
+  color: var(--ink);
+}
+.exchange pre .k {
+  color: var(--accent);
+}
+.exchange pre .s {
+  color: var(--ok);
+}
+.exchange pre .c {
+  color: var(--ink-3);
+}
+
+/* =====================================================================
+   References
+   ===================================================================== */
+
+.refgroup + .refgroup {
+  margin-top: 1.6rem;
+}
+.refgroup > h3 {
+  font-family: var(--mono);
+  font-size: 0.7rem;
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+  color: var(--ink-3);
+  font-weight: 500;
+  margin: 0 0 0.8rem;
+}
+.refgroup.norm > h3 b {
+  color: var(--accent);
+  font-weight: 600;
+}
+.reflist {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 0.95rem;
+}
+.reflist li {
+  display: grid;
+  gap: 0.15rem;
+  padding-left: 1.5rem;
+  position: relative;
+  margin: 0;
+}
+.reflist li::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0.3em;
+  bottom: 0.3em;
+  width: 3px;
+}
+.refgroup.norm .reflist li::before {
+  background: var(--accent);
+}
+.refgroup.info .reflist li::before {
+  background: repeating-linear-gradient(to bottom, var(--rule) 0 3px, transparent 3px 6px);
+}
+.refsrc {
+  font-family: var(--mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: var(--ink-3);
+}
+.reftitle {
+  font-size: 0.97rem;
+}
+.refnote {
+  font-size: 0.87rem;
+  color: var(--ink-2);
+}
+
+/* =====================================================================
+   Related rules, backlinks, colophon
+   ===================================================================== */
+
+.chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+}
+a.rulechip {
+  font-family: var(--mono);
+  font-size: 0.78rem;
+  padding: 0.18rem 0.5rem;
+  border: 1px solid var(--rule);
+  border-radius: 2px;
+  background: var(--surface);
+  color: var(--ink-2);
+  text-decoration: none;
+}
+a.rulechip:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+  background: var(--accent-wash);
+}
+span.rulechip {
+  font-family: var(--mono);
+  font-size: 0.78rem;
+  padding: 0.18rem 0.5rem;
+  border: 1px dashed var(--rule);
+  border-radius: 2px;
+  color: var(--ink-3);
+}
+.chipgroup + .chipgroup {
+  margin-top: 1.3rem;
+}
+.chipgroup h3 {
+  font-family: var(--sans);
+  font-size: 0.8rem;
+  font-weight: 500;
+  color: var(--ink-2);
+  margin: 0 0 0.55rem;
+}
+.chipgroup h3 span {
+  color: var(--ink-3);
+  font-weight: 400;
+}
+
+.colophon {
+  margin-top: 3.5rem;
+  padding-top: 1.2rem;
+  border-top: 1px solid var(--rule);
+  font-size: 0.79rem;
+  color: var(--ink-3);
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+.colophon .mono {
+  font-size: 0.75rem;
+}
+
+/* =====================================================================
+   Inline identifiers
+   ===================================================================== */
 
 .spec-idlink {
-  font-family: var(--font-mono, ui-monospace, monospace);
-  font-size: 0.92em;
+  font-family: var(--mono);
+  font-size: 0.9em;
+  color: var(--accent);
   text-decoration: underline;
   text-decoration-style: dotted;
   text-underline-offset: 0.2em;
-  color: var(--color-fd-primary);
 }
 .spec-idlink:hover {
   text-decoration-style: solid;
 }
-/* A ruling has no page yet, so it is marked, never linked. */
+/* A ruling has no page, so it is marked, never linked. */
 .spec-ruling {
-  font-family: var(--font-mono, ui-monospace, monospace);
-  font-size: 0.92em;
-  padding: 0.05em 0.3em;
-  border-radius: 0.25rem;
-  border: 1px dashed var(--color-fd-border);
-  color: var(--color-fd-muted-foreground);
+  font-family: var(--mono);
+  font-size: 0.9em;
+  padding: 0.02em 0.3em;
+  border-radius: 2px;
+  border: 1px dashed var(--rule);
+  color: var(--ink-3);
 }
 
-/* ---- references ------------------------------------------------------ */
-
-.spec-refs {
-  list-style: none;
-  margin: 0;
-  padding: 0;
-  display: grid;
-  gap: 0.75rem;
-}
-.spec-ref {
-  padding: 0.7rem 0.9rem;
-  border-radius: 0.5rem;
-  background: var(--color-fd-card);
-}
-/* Binding references get a solid edge, background reading a dotted one — the
-   same distinction the References section itself draws. */
-.spec-ref-normative {
-  border: 1px solid var(--color-fd-border);
-  border-left: 3px solid var(--color-fd-primary);
-}
-.spec-ref-informative {
-  border: 1px dashed var(--color-fd-border);
-}
-.spec-ref-kind {
-  display: block;
-  font-size: 0.64rem;
-  letter-spacing: 0.09em;
-  text-transform: uppercase;
-  color: var(--color-fd-muted-foreground);
-  margin-bottom: 0.2rem;
-}
-.spec-ref a {
-  text-decoration: none;
-}
-.spec-ref-source {
-  font-weight: 600;
-  color: var(--color-fd-foreground);
-}
-.spec-ref-source::after {
-  content: ' — ';
-  color: var(--color-fd-muted-foreground);
-  font-weight: 400;
-}
-.spec-ref-title {
-  color: var(--color-fd-primary);
-}
-.spec-ref-note {
-  display: block;
-  margin-top: 0.3rem;
-  font-size: 0.85rem;
-  color: var(--color-fd-muted-foreground);
-}
-
-/* ---- rule cards (related / referenced by) ---------------------------- */
-
-.spec-rulecards {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(15rem, 1fr));
-  gap: 0.5rem;
-}
-.spec-rulecard {
-  display: flex;
-  flex-direction: column;
-  gap: 0.15rem;
-  padding: 0.55rem 0.75rem;
-  border: 1px solid var(--color-fd-border);
-  border-radius: 0.5rem;
-  background: var(--color-fd-card);
-  text-decoration: none;
-}
-.spec-rulecard:hover {
-  border-color: color-mix(in oklab, var(--color-fd-primary) 45%, transparent);
-}
-.spec-rulecard-id {
-  font-family: var(--font-mono, ui-monospace, monospace);
-  font-size: 0.78rem;
-  color: var(--color-fd-primary);
-}
-.spec-rulecard-title {
-  font-size: 0.85rem;
-  color: var(--color-fd-muted-foreground);
-  line-height: 1.4;
-}
-
-/* ---- lists ----------------------------------------------------------- */
+/* =====================================================================
+   Rule listings (family index, filtered index)
+   ===================================================================== */
 
 .spec-list {
   list-style: none;
-  margin: 1rem 0 0;
+  margin: 0.4rem 0 0;
   padding: 0;
-  border-top: 1px solid var(--color-fd-border);
+  border-top: 1px solid var(--rule-soft);
 }
 .spec-list li {
-  border-bottom: 1px solid var(--color-fd-border);
+  border-bottom: 1px solid var(--rule-soft);
+  margin: 0;
 }
 .spec-list a {
   display: grid;
-  grid-template-columns: 8rem 1fr auto;
-  gap: 0.75rem;
+  grid-template-columns: 7.5rem minmax(0, 1fr) auto;
+  gap: 0.9rem;
   align-items: baseline;
-  padding: 0.5rem 0.25rem;
+  padding: 0.5rem 0.4rem;
   text-decoration: none;
   color: inherit;
 }
 .spec-list a:hover {
-  background: var(--color-fd-secondary);
+  background: var(--sunk);
 }
 .spec-list-id {
-  font-family: var(--font-mono, ui-monospace, monospace);
-  font-size: 0.8rem;
-  color: var(--color-fd-primary);
+  font-family: var(--mono);
+  font-size: 0.79rem;
+  color: var(--accent);
 }
 .spec-list-title {
-  font-size: 0.9rem;
+  font-size: 0.92rem;
 }
 .spec-list-meta {
-  font-size: 0.72rem;
-  color: var(--color-fd-muted-foreground);
+  font-family: var(--mono);
+  font-size: 0.7rem;
+  letter-spacing: 0.04em;
+  color: var(--ink-3);
   white-space: nowrap;
 }
 @media (max-width: 640px) {
   .spec-list a {
-    grid-template-columns: 1fr;
-    gap: 0.15rem;
+    grid-template-columns: minmax(0, 1fr);
+    gap: 0.1rem;
   }
 }
 
-/* ---- facets ---------------------------------------------------------- */
+/* =====================================================================
+   Faceted index
+   ===================================================================== */
 
 .spec-search {
   width: 100%;
-  padding: 0.5rem 0.75rem;
-  border: 1px solid var(--color-fd-border);
-  border-radius: 0.5rem;
-  background: var(--color-fd-card);
+  padding: 0.5rem 0.7rem;
+  border: 1px solid var(--rule);
+  border-radius: 3px;
+  background: var(--surface);
+  color: var(--ink);
+  font-family: var(--sans);
   font-size: 0.9rem;
 }
+.spec-search::placeholder {
+  color: var(--ink-3);
+}
 .spec-facet {
-  margin: 1rem 0 0;
+  margin: 1.1rem 0 0;
   border: 0;
   padding: 0;
 }
 .spec-facet legend {
   font-size: 0.68rem;
-  letter-spacing: 0.09em;
+  letter-spacing: 0.07em;
   text-transform: uppercase;
-  color: var(--color-fd-muted-foreground);
-  margin-bottom: 0.35rem;
+  color: var(--ink-3);
+  margin-bottom: 0.4rem;
 }
 .spec-facet-options {
   display: flex;
   flex-wrap: wrap;
-  gap: 0.35rem;
+  gap: 0.3rem;
 }
 .spec-chip {
   display: inline-flex;
   gap: 0.35rem;
-  align-items: center;
-  padding: 0.15rem 0.5rem;
-  border: 1px solid var(--color-fd-border);
-  border-radius: 999px;
-  font-size: 0.75rem;
-  background: var(--color-fd-card);
+  align-items: baseline;
+  font-family: var(--mono);
+  font-size: 0.72rem;
+  padding: 0.14rem 0.45rem;
+  border: 1px solid var(--rule);
+  border-radius: 2px;
+  background: var(--surface);
+  color: var(--ink-2);
   cursor: pointer;
+}
+.spec-chip:hover {
+  border-color: var(--accent);
+  color: var(--accent);
 }
 .spec-chip-on {
-  border-color: var(--color-fd-primary);
-  color: var(--color-fd-primary);
-  background: color-mix(in oklab, var(--color-fd-primary) 12%, transparent);
+  border-color: transparent;
+  background: var(--accent-wash);
+  color: var(--accent);
+  font-weight: 500;
 }
 .spec-chip-count {
-  font-size: 0.68rem;
-  color: var(--color-fd-muted-foreground);
+  font-size: 0.66rem;
+  color: var(--ink-3);
+}
+.spec-chip-on .spec-chip-count {
+  color: var(--accent);
 }
 .spec-count {
-  margin: 1.25rem 0 0;
-  font-size: 0.8rem;
-  color: var(--color-fd-muted-foreground);
+  margin: 1.4rem 0 0;
+  font-family: var(--mono);
+  font-size: 0.74rem;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--ink-3);
 }
 .spec-clear {
-  margin-left: 0.5rem;
+  margin-left: 0.6rem;
+  color: var(--accent);
   text-decoration: underline;
   cursor: pointer;
+  font-family: var(--mono);
+  font-size: 0.74rem;
+  background: none;
+  border: 0;
+  padding: 0;
+}
+
+/* =====================================================================
+   Breakpoint — the rail goes static, its nav and key fold away, and the
+   facet list becomes a grid.
+   ===================================================================== */
+
+@media (max-width: 880px) {
+  .shell,
+  .shell.wide {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 2.2rem;
+    padding-top: 2rem;
+  }
+  .rail {
+    position: static;
+  }
+  .rail-nav,
+  .key {
+    display: none;
+  }
+  .facets {
+    grid-template-columns: repeat(auto-fit, minmax(9rem, 1fr));
+    display: grid;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation: none !important;
+    transition: none !important;
+  }
+}
+
+/* =====================================================================
+   Borrowed chrome: the shiki code block and the MDX callout keep their
+   fumadocs behaviour, wearing this palette and this cornering.
+   ===================================================================== */
+
+.doc figure.shiki {
+  margin: 0 0 1.1rem;
+  border-radius: 3px;
+  border-color: var(--rule);
+  box-shadow: none;
+}
+.doc figure.shiki pre {
+  margin: 0;
+  border: 0;
+  border-radius: 0;
+  background: none;
+}
+.doc figure.shiki code {
+  background: none;
+  padding: 0;
+}
+.doc h2 a,
+.doc h3 a,
+.doc h4 a {
+  color: inherit;
+  text-decoration: none;
 }

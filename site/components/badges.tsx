@@ -12,38 +12,71 @@ const LEVEL_TITLE: Record<string, string> = {
   optional: 'A genuinely optional capability.',
 };
 
-export function Badge({
+const POSTURE_TITLE: Record<string, string> = {
+  'normative-target': 'What a conforming implementation is required to do.',
+  descriptive: 'Records what is, rather than requiring it.',
+  deprecated: 'Kept so it stays citable; not to be relied on.',
+  withdrawn: 'No longer part of the specification; kept so it stays citable.',
+};
+
+export function Chip({
   children,
-  tone = 'neutral',
+  tone,
   title,
 }: {
   children: React.ReactNode;
-  tone?: 'neutral' | 'core' | 'profile' | 'warn';
+  tone?: 'core' | 'warn';
   title?: string;
 }) {
   return (
-    <span className={`spec-badge spec-badge-${tone}`} title={title}>
+    <span className={tone ? `chip ${tone}` : 'chip'} title={title}>
       {children}
     </span>
   );
 }
 
-export function RuleBadges({ rule }: { rule: LoadedRule }) {
+function Facet({ label, children }: { label: string; children: React.ReactNode }) {
   return (
-    <div className="spec-badges not-prose">
-      <Badge tone="core" title={LEVEL_TITLE[rule.level]}>
-        {rule.level}
-      </Badge>
-      {rule.profiles.map((p) => (
-        <Badge key={p} tone="profile" title={PROFILE_TITLE[p]}>
-          {p}
-        </Badge>
-      ))}
-      {rule.posture !== 'normative-target' && <Badge tone="warn">{rule.posture}</Badge>}
-      <Badge title="The specification version this rule was introduced in.">Added {rule.added}</Badge>
-      {rule.changed !== rule.added && (
-        <Badge title="The specification version this rule last changed in.">Changed {rule.changed}</Badge>
-      )}
+    <div className="facet">
+      <dt>{label}</dt>
+      <dd>{children}</dd>
     </div>
+  );
+}
+
+/**
+ * The rail's citation facets: the same five axes the faceted index filters on,
+ * stated once per rule as a definition list rather than a badge row.
+ */
+export function RuleFacets({ rule }: { rule: LoadedRule }) {
+  const posture = rule.posture !== 'normative-target';
+  return (
+    <dl className="facets">
+      <Facet label="Posture">
+        <Chip tone={posture ? 'warn' : undefined} title={POSTURE_TITLE[rule.posture]}>
+          {rule.posture}
+        </Chip>
+      </Facet>
+      <Facet label="Level">
+        <Chip tone={rule.level === 'core' ? 'core' : undefined} title={LEVEL_TITLE[rule.level]}>
+          {rule.level}
+        </Chip>
+      </Facet>
+      <Facet label="Profile">
+        {rule.profiles.map((p) => (
+          <Chip key={p} title={PROFILE_TITLE[p]}>
+            {p}
+          </Chip>
+        ))}
+      </Facet>
+      <Facet label="Added">
+        <Chip title="The specification version this rule was introduced in.">spec {rule.added}</Chip>
+      </Facet>
+      {rule.changed !== rule.added && (
+        <Facet label="Changed">
+          <Chip title="The specification version this rule last changed in.">spec {rule.changed}</Chip>
+        </Facet>
+      )}
+    </dl>
   );
 }

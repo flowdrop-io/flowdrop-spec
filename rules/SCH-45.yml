@@ -1,0 +1,32 @@
+id: SCH-45
+family: GR-SCHEMA
+part: I
+
+title: A stored lane overlay is checked when it is stored
+
+summary: >-
+  The overlay is the one piece of the vocabulary a site writes by hand, so it is the
+  one place a mistake should be reported to the person making it.
+
+normative: >-
+  Where an implementation lets a site store its own lane overlay (SCH-10.a), the
+  overlay is checked when it is stored: a structurally malformed overlay is refused
+  then, not accepted and discovered when something tries to render it. This is
+  distinct from a well-formed declaration the vocabulary declines on its own terms —
+  a shape naming a reserved lane id is ignored rather than fatal (SCH-44). A port
+  shape's JSON Schema is not part of this specification's keyspace: an implementation
+  must not refuse a schema keyword merely because it does not recognise it.
+
+posture: normative-target
+level: extended
+profiles:
+  - storage-api
+  - editor-client
+
+added: "1.0"
+changed: "1.0"
+
+related:
+  - SCH-10.a
+  - SCH-44
+  - SCH-46

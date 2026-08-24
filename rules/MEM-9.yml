@@ -1,0 +1,34 @@
+id: MEM-9
+family: GR-MEM
+part: I
+
+title: Driving a session is a write, and an absent identity owns nothing
+
+summary: >-
+  A turn spends the owner's memory, so the right to watch a conversation is not the
+  right to continue it. And the caller with no identity is not a caller whose
+  identity happens to be zero.
+
+normative: >-
+  Authorization to read a session does not authorize driving it. A principal that may
+  only view a session must not be able to send it a turn, stop it or reset it,
+  because the turn runs under the session owner's identity and reads and writes the
+  owner's memory (MEM-8). Every ownership test requires a real identity on both
+  sides. A principal carrying no identity never owns anything, and a session carrying
+  no owner is owned by nobody rather than by everybody, so an unidentified caller
+  never acquires ownership of a session, a transcript or a run snapshot by matching
+  one absent identity against another.
+
+posture: normative-target
+level: core
+profiles:
+  - storage-api
+  - runtime
+
+added: "1.0"
+changed: "1.0"
+
+related:
+  - MEM-6
+  - MEM-8
+  - MEM-15

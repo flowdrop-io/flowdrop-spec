@@ -15,7 +15,9 @@ normative: >-
   no active-branch list, or an empty one; and the port is a value port rather than
   a branch port. A port is a branch port when the source declares it among its
   configured branches, matched without regard to case; a port the source does not
-  so declare is a value port and is never gated.
+  so declare is a value port and is never gated. A source that declares no branches
+  at all therefore gates nothing, whatever it emitted: with no port declared a branch
+  port, every edge leaving it is followed.
 
 posture: normative-target
 level: core

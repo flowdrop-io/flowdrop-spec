@@ -1,0 +1,28 @@
+id: RT-TOOL-5
+family: RT-TOOL
+part: II
+
+title: Artifact collection is opened and released per run
+
+summary: >-
+  Collecting artifacts means holding payloads in memory, so the run that opens
+  collection is the run that ends it, on every way out.
+
+normative: >-
+  An implementation need not collect tool artifacts at all. Where it does: an
+  artifact is retained only while collection is open for the run it belongs to, and
+  an artifact arriving for a run whose collection was never opened is dropped.
+  Draining what has been collected does not end collection — a later tool call in the
+  same run still collects — and only releasing it does; an artifact arriving after
+  release is dropped. Collection is opened and released on the same path, so a run
+  that returns, pauses or fails releases it either way and cannot retain artifacts
+  beyond its own life. Whether artifacts are collected must not depend on which entry
+  point launched the run.
+
+posture: normative-target
+level: optional
+profiles:
+  - runtime
+
+added: "1.0"
+changed: "1.0"

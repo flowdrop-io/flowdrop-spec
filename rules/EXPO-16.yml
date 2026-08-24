@@ -1,0 +1,30 @@
+id: EXPO-16
+family: GR-EXPO
+part: I
+
+title: Seeding a port's default-exposure decision
+
+summary: >-
+  A suggestion fills a decision nobody has made yet, and only for a port that is
+  actually there.
+
+normative: >-
+  Where an authoring surface presents a port's default-exposure decision, a value
+  already stored for that port decides it. Where none is stored, the processor's
+  suggestion (EXPO-6) is applied only to a port the node type declares — an input it
+  declares connectable, an output it declares exposed — and a port the node type does
+  not declare is presented as not exposed by default. Exposure values are never
+  recorded for a port the node type does not declare.
+
+posture: normative-target
+level: extended
+profiles:
+  - storage-api
+  - editor-client
+
+added: "1.0"
+changed: "1.0"
+
+related:
+  - EXPO-6
+  - EXPO-8

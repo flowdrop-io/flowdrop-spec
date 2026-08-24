@@ -1,0 +1,24 @@
+id: MEM-15
+family: GR-MEM
+part: I
+
+title: A denial is final, and a message is not editable
+
+normative: >-
+  A denial by these access rules is final. Where an implementation offers extension
+  points that contribute to an access decision, none of them may grant what these
+  rules have denied. A session message is never updatable or deletable except at the
+  administrative tier. A message whose parent session cannot be loaded is denied
+  rather than left undecided, since the ownership it would be judged against cannot
+  be established.
+
+posture: normative-target
+level: core
+profiles:
+  - storage-api
+
+added: "1.0"
+changed: "1.0"
+
+related:
+  - MEM-9

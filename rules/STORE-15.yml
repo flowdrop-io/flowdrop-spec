@@ -1,0 +1,35 @@
+id: STORE-15
+family: GR-STORE
+part: I
+
+title: Searching the workflow list matches a literal substring of the name
+
+summary: >-
+  The term is text to find, not a pattern to interpret, so a name containing a
+  percent sign is found by searching for a percent sign.
+
+normative: >-
+  A list request may carry a search term, which filters the list to workflows whose
+  name contains it, compared without regard to case and matched anywhere in the name.
+  The term is matched literally and carries no pattern syntax: `%` and `_` match
+  themselves and nothing else. The same filter applies to the count, so the reported
+  total describes the filtered set rather than the collection (API-6). A term that
+  matches nothing answers an empty page with a coherent pagination block, not a
+  refusal and not a not-found. A term of `0` is an ordinary search term. A search
+  parameter that is not a single scalar value is refused with `400`.
+
+posture: normative-target
+level: extended
+profiles:
+  - storage-api
+  - editor-client
+
+added: "1.0"
+changed: "1.0"
+
+rulings:
+  - OPEN-19
+
+related:
+  - API-6
+  - STORE-14

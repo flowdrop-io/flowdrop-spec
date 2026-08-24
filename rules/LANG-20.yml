@@ -1,0 +1,27 @@
+id: LANG-20
+family: GR-LANG
+part: I
+
+title: Testing whether a path exists
+
+summary: >-
+  The test answers for every path, including the two that have no obvious answer: one
+  that cannot be walked, and one with nothing in it.
+
+normative: >-
+  Testing a path for existence reports whether that path can be read, and answers for
+  every path. A path that cannot be read reports absence, a property path applied to
+  a scalar among them, since a scalar has no property to read (LANG-8). The empty
+  path consumes no segments and therefore denotes the evaluation context itself,
+  which is always present, so the empty path reports presence.
+
+posture: normative-target
+level: core
+profiles:
+  - runtime
+
+added: "1.0"
+changed: "1.0"
+
+related:
+  - LANG-8

@@ -1,0 +1,31 @@
+id: STORE-8
+family: GR-STORE
+part: I
+
+title: A published contract version is three numbers
+
+summary: >-
+  The version is read by consumers that never read the contract itself, a cache
+  validator among them, so it has to be a value that always exists and always
+  compares.
+
+normative: >-
+  A workflow's published contract version is three dot-separated non-negative
+  integers. A workflow whose contract has never been built carries `0.0.0`, the
+  version from which the first build's bump is taken (MAN-18). The version is never
+  empty and never absent, so a consumer always has a usable value, including one
+  using it as a cache validator (META-6).
+
+posture: normative-target
+level: extended
+profiles:
+  - storage-api
+  - editor-client
+
+added: "1.0"
+changed: "1.0"
+
+related:
+  - MAN-18
+  - META-4
+  - META-6

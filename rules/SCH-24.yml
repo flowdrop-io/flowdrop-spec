@@ -1,0 +1,30 @@
+id: SCH-24
+family: GR-SCHEMA
+part: I
+
+title: A node type that fails to build does not fail the request
+
+summary: >-
+  One unbuildable node type costs the reader that node's metadata, not the whole
+  response.
+
+normative: >-
+  Where a node type cannot be built from its own declaration or stored data, the
+  failure is contained: the request being served still succeeds, the node is returned
+  unenriched (SCH-25), and the failure is recorded where an operator can find it. This
+  governs failures attributable to the node type. Behaviour when an implementation's
+  own extension code violates the contract it was written against is outside this
+  specification, which describes conforming implementations and not malfunctioning
+  ones.
+
+posture: normative-target
+level: core
+profiles:
+  - storage-api
+  - editor-client
+
+added: "1.0"
+changed: "1.0"
+
+related:
+  - SCH-25

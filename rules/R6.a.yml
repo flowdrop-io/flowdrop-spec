@@ -1,0 +1,30 @@
+id: R6.a
+family: GR-VAL
+part: I
+
+title: Config is a JSON object
+
+summary: >-
+  Every other rule about config addresses it by key, which presumes an object. This
+  is the rule that says so, and it holds for nodes no schema is judging.
+
+normative: >-
+  A node's `data.config`, where present, must be a JSON object. A string, number,
+  boolean or JSON array is refused with `R6_CONFIG_INVALID` at `node.{id}.config`
+  (where `{id}` is the node's id), and the save does not take effect. This is a
+  requirement on config's shape rather than on its contents, so it applies to every
+  node, including a node that records no node type and a node whose node type does
+  not resolve — neither of which has a derived schema against which the rest of R6
+  could judge anything (R6.j).
+
+posture: normative-target
+level: core
+profiles:
+  - storage-api
+
+added: "1.0"
+changed: "1.0"
+
+related:
+  - R6.b
+  - R6.j

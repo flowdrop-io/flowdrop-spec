@@ -1,0 +1,24 @@
+id: OCX-5
+family: RT-OCX
+part: II
+
+title: A trigger's condition set is a closed vocabulary
+
+summary: >-
+  A connector with its own data to carry has one place to put it, so a reader can
+  tell a declared condition from a connector's private key.
+
+normative: >-
+  A trigger's conditions are a closed vocabulary: the condition keys this
+  specification declares, and no others alongside them. Event-type-specific data a
+  connector needs to carry is written under the designated extension key, whose
+  contents this specification does not constrain. A connector writing its own keys
+  beside the declared ones is writing an invalid condition set.
+
+posture: normative-target
+level: extended
+profiles:
+  - runtime
+
+added: "1.0"
+changed: "1.0"

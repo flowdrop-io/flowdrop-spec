@@ -26,6 +26,22 @@ number is an HTTP status code with the meaning given in **RFC 9110, HTTP
 Semantics**. A refusal never partially applies: if a request is refused, nothing
 it asked for has taken effect.
 
+## Validation results
+
+A validation result's errors carry **no defined order**. Two implementations
+refusing the same workflow may report the same errors in different sequences, and
+one implementation may change its own order without notice, so a consumer must not
+depend on it. Where a rule needs an error to be identifiable, it says so by naming
+the code and the locator, never the position.
+
+## Authoring surfaces
+
+Some rules address what an authoring surface does. They constrain **the data such a
+surface may produce** — what it may record, and what it must not — and never how it
+presents controls. Widget shape, layout, enablement and the order things appear in
+are an implementation's own affair, and a rule that could only be satisfied by
+building a particular control is a defect in the rule.
+
 ## Payloads
 
 Request and response bodies are JSON, as defined in **RFC 8259**.

@@ -1,0 +1,16 @@
+{
+  "name": "@flowdrop/spec",
+  "private": true,
+  "type": "module",
+  "description": "The FlowDrop Workflow Specification",
+  "license": "SEE LICENSE IN LICENSE",
+  "scripts": {
+    "validate": "node scripts/validate-rules.mjs",
+    "hashes": "node scripts/validate-rules.mjs --update-hashes"
+  },
+  "devDependencies": {
+    "ajv": "^8.17.1",
+    "ajv-formats": "^3.0.1",
+    "yaml": "^2.6.0"
+  }
+}

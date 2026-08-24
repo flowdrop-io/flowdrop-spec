@@ -1,0 +1,57 @@
+# The FlowDrop Workflow Specification
+
+The rules a FlowDrop workflow obeys — how a workflow is written, stored,
+validated, and executed — stated independently of any one implementation.
+
+**Status: draft. Nothing here is published yet.** The rule corpus is being
+migrated out of [FlowDrop for Drupal][fddo], where it was first written.
+
+## What this is, and what it is not
+
+This specification is a **target**. It states what a conforming implementation
+must do. Where an implementation disagrees with a rule, the rule is what is
+intended and the implementation has a defect — unless the rule itself is wrong,
+which is a reportable bug in this repository.
+
+It is **informative only**. It confers no status, issues no certification, and
+grants no mark. It carries **no implementation status**: nothing here records
+which implementation meets which rule. Each implementation publishes its own
+standing against these rules in its own documentation.
+
+## Layout
+
+| Path | Contents |
+|---|---|
+| `rules/*.yml` | One file per rule. The normative text and its metadata. |
+| `rules/schema.json` | The schema every rule file must satisfy. |
+| `rules/REGISTRY.lock` | Every rule identifier ever issued. Append-only. |
+| `narrative/*.mdx` | Optional prose for a rule: what it means, examples, why. |
+| `conventions.md` | Vocabulary and references shared by every rule. |
+| `scripts/` | Validation run in CI. |
+
+The published site is not in this repository yet.
+
+## Rule identifiers are permanent
+
+`STORE-2` means one thing forever. Identifiers are never renumbered and never
+reused, because they are cited from tests, issues and other documents outside
+this repository. A withdrawn rule is marked withdrawn; its number is not
+recycled. CI enforces this.
+
+## Contributing
+
+Corrections are welcome, including "this rule is wrong". Read
+[CONTRIBUTING.md](CONTRIBUTING.md) first — a change to what an implementation
+must do is handled differently from an editorial fix.
+
+## Licence
+
+Two licences, deliberately:
+
+- **The specification text** — `rules/`, `narrative/`, `conventions.md`, and the
+  prose in this README — is licensed **CC BY 4.0** ([LICENSE](LICENSE)). Quote it,
+  translate it, build on it; attribute it.
+- **The code** — `scripts/`, and the site when it lands — is licensed **MIT**
+  ([LICENSE-CODE](LICENSE-CODE)).
+
+[fddo]: https://www.drupal.org/project/flowdrop

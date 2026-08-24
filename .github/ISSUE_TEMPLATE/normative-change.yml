@@ -1,0 +1,40 @@
+name: Propose a normative change
+description: Change what an implementation must do.
+labels: ["normative"]
+body:
+  - type: markdown
+    attributes:
+      value: >-
+        Normative changes need a **ruling** before they can merge. Please discuss
+        here before writing a pull request.
+  - type: input
+    id: rule
+    attributes:
+      label: Rule identifier
+      placeholder: STORE-2
+    validations:
+      required: true
+  - type: textarea
+    id: change
+    attributes:
+      label: Before and after
+      description: The sentence as it stands, and the sentence you propose.
+    validations:
+      required: true
+  - type: textarea
+    id: why
+    attributes:
+      label: Why
+      description: >-
+        What is wrong today. "Nothing requires this limit; it came from one
+        implementation's storage layer" is a good reason. "I would have designed
+        it differently" is not, on its own.
+    validations:
+      required: true
+  - type: textarea
+    id: blast
+    attributes:
+      label: Blast radius
+      description: What would an implementation conforming today have to change?
+    validations:
+      required: true

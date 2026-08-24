@@ -1,0 +1,18 @@
+name: A rule is unclear
+description: Two readings are both defensible, or the wording buries what it requires.
+labels: ["clarity"]
+body:
+  - type: input
+    id: rule
+    attributes:
+      label: Rule identifier
+      placeholder: STORE-2
+    validations:
+      required: true
+  - type: textarea
+    id: readings
+    attributes:
+      label: The two readings
+      description: What did you think it meant, and what else could it mean?
+    validations:
+      required: true

@@ -1,0 +1,7 @@
+blank_issues_enabled: true
+contact_links:
+  - name: Question about a rule
+    url: https://github.com/flowdrop-io/flowdrop-spec/discussions
+    about: >-
+      Not sure what a rule requires, or whether something is a defect? Start a
+      discussion. Most conversations should not begin as an issue.

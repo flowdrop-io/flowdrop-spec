@@ -1,0 +1,59 @@
+name: validate
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+jobs:
+  rules:
+    name: rule corpus
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - run: npm run validate
+
+  dco:
+    name: sign-off
+    if: github.event_name == 'pull_request'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: every commit carries Signed-off-by
+        run: |
+          missing=0
+          for sha in $(git rev-list origin/${{ github.base_ref }}..HEAD); do
+            author="$(git show -s --format='%an <%ae>' "$sha")"
+            if ! git show -s --format='%B' "$sha" | grep -qiF "Signed-off-by: $author"; then
+              echo "::error::$sha is not signed off by $author"
+              echo "  fix: git rebase --signoff origin/${{ github.base_ref }}"
+              missing=1
+            fi
+          done
+          exit $missing
+
+  links:
+    name: reference links
+    runs-on: ubuntu-latest
+    continue-on-error: true
+    steps:
+      - uses: actions/checkout@v4
+      - name: every reference url resolves
+        run: |
+          urls=$(grep -rhoE 'url: *https?://[^ ]+' rules/ | sed 's/url: *//' | sort -u)
+          bad=0
+          for u in $urls; do
+            code=$(curl -sS -o /dev/null -w '%{http_code}' -L --max-time 20 "$u" || echo 000)
+            if [ "$code" -ge 400 ] || [ "$code" = "000" ]; then
+              echo "::warning::$u -> $code"
+              bad=1
+            fi
+          done
+          exit $bad

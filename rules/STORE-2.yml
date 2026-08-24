@@ -1,0 +1,44 @@
+id: STORE-2
+family: GR-STORE
+part: I
+
+title: A workflow must be named
+summary: >-
+  Every workflow carries a name, on creation and on every update. The name is what
+  a person uses to find it again, so the system refuses to store one without it.
+
+normative: >-
+  A workflow's `name` is required when it is created and when it is updated, and
+  must be a non-empty string. An implementation must accept a name of at least 255
+  Unicode code points, and may accept longer. A request that omits the name, sends
+  an empty one, or exceeds the implementation's limit is refused with 400, and
+  nothing is stored.
+
+posture: normative-target
+level: core
+profiles:
+  - storage-api
+
+added: "1.0"
+changed: "1.0"
+
+rulings:
+  - OPEN-19
+
+# related: restored as the sibling STORE-* rules are migrated. The validator
+# refuses a reference to a rule that does not exist, which is the point.
+
+references:
+  normative:
+    - source: The Unicode Standard
+      title: Definition of code point
+      url: https://www.unicode.org/versions/latest/
+      note: The unit this rule counts.
+  informative:
+    - source: Unicode UAX #29
+      title: Unicode Text Segmentation
+      url: https://www.unicode.org/reports/tr29/
+      note: >-
+        Why the limit counts code points and not grapheme clusters, which are
+        closer to what a person calls a character and much harder for two
+        implementations to agree on.

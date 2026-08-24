@@ -1,0 +1,4 @@
+# Every change to the specification text needs a maintainer review.
+/rules/       @d34dman
+/narrative/   @d34dman
+/conventions.md @d34dman

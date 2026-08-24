@@ -1,0 +1,8 @@
+# Every rule identifier ever issued, one per line, with the family it belongs to.
+# Append-only. Identifiers are never renumbered and never reused, including after
+# a rule is withdrawn. CI fails if an identifier here has no rule file, or if a
+# rule file carries an identifier that is not here.
+#
+# Format: <ID> <FAMILY> [withdrawn]
+
+STORE-2 GR-STORE

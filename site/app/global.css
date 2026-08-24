@@ -82,8 +82,8 @@
   --bad-wash: #2b1815;
 }
 
-/* Fumadocs still owns the search dialog and the MDX callout. Point its
-   tokens at ours so the borrowed chrome wears the same palette. */
+/* Fumadocs still owns the search dialog. Point its tokens at ours so the
+   borrowed chrome wears the same palette. */
 :root,
 :root[data-theme='dark'],
 :root.dark {
@@ -103,6 +103,9 @@
   --color-fd-accent: var(--sunk);
   --color-fd-accent-foreground: var(--ink);
   --color-fd-ring: var(--accent-2);
+  /* Black in both themes: `--ink` inverts, and a light scrim over a dark
+     page is not a scrim. */
+  --color-fd-overlay: rgb(0 0 0 / 0.28);
 }
 
 /* =====================================================================
@@ -633,6 +636,55 @@ code {
   font-weight: 600;
 }
 
+/* An MDX <Callout>, wearing the same notice device: a wash, a left rule,
+   and the letterspaced mono label the stamps use. */
+.callout {
+  margin: 0 0 1.4rem;
+  padding: 0.7rem 0.9rem;
+  font-size: 0.9rem;
+  color: var(--ink-2);
+  background: var(--sunk);
+  border-left: 3px solid var(--rule);
+  border-radius: 3px;
+}
+.callout-title {
+  font-family: var(--mono);
+  font-size: 0.7rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--ink-3);
+  margin: 0 0 0.45rem;
+}
+.doc .callout > :last-child {
+  margin-bottom: 0;
+}
+
+.callout-tip,
+.callout-success {
+  background: var(--ok-wash);
+  border-left-color: var(--ok);
+}
+.callout-tip .callout-title,
+.callout-success .callout-title {
+  color: var(--ok);
+}
+.callout-warn,
+.callout-warning {
+  background: var(--warn-wash);
+  border-left-color: var(--warn);
+}
+.callout-warn .callout-title,
+.callout-warning .callout-title {
+  color: var(--warn);
+}
+.callout-error {
+  background: var(--bad-wash);
+  border-left-color: var(--bad);
+}
+.callout-error .callout-title {
+  color: var(--bad);
+}
+
 /* =====================================================================
    Worked exchange (styled for the examples P2 will add; nothing in the
    corpus renders one yet, and an empty Example section is never emitted)
@@ -1003,8 +1055,8 @@ span.rulechip {
 }
 
 /* =====================================================================
-   Borrowed chrome: the shiki code block and the MDX callout keep their
-   fumadocs behaviour, wearing this palette and this cornering.
+   Borrowed chrome: the shiki code block keeps its fumadocs behaviour,
+   wearing this palette and this cornering.
    ===================================================================== */
 
 .doc figure.shiki {
@@ -1027,5 +1079,69 @@ span.rulechip {
 .doc h3 a,
 .doc h4 a {
   color: inherit;
+  text-decoration: none;
+}
+
+/* The search dialog. Fumadocs ships it as a card — pill cornering, pill rows
+   and a half-black drop shadow — and none of that is this site. Flattened to
+   the same rule-and-wash device the rest of the chrome uses. Utilities are
+   layered, these rules are not, so they win without !important. */
+.spec-dialog {
+  border-radius: 3px;
+  border: 1px solid var(--rule);
+  background: var(--surface);
+  box-shadow: 0 14px 36px -22px rgb(0 0 0 / 0.45);
+}
+.spec-dialog input {
+  font-size: 0.98rem;
+}
+.spec-dialog input::placeholder {
+  color: var(--ink-3);
+}
+.spec-dialog > div:first-of-type svg {
+  color: var(--ink-3);
+  width: 1rem;
+  height: 1rem;
+}
+
+/* The ESC key, wearing the masthead's `kbd`. */
+.spec-dialog button[aria-label='Close Search'] {
+  font-family: var(--mono);
+  font-size: 0.68rem;
+  padding: 0.05rem 0.3rem;
+  border: 1px solid var(--rule);
+  border-radius: 2px;
+  color: var(--ink-3);
+  background: var(--sunk);
+}
+
+/* A result row: the `.spec-list` row, and the selected one carries the accent
+   edge rather than a filled pill. */
+.spec-dialog button[aria-selected] {
+  border-radius: 2px;
+  border-left: 2px solid transparent;
+  padding: 0.4rem 0.55rem;
+  background: none;
+  color: var(--ink);
+}
+.spec-dialog button[aria-selected='true'] {
+  background: var(--accent-wash);
+  border-left-color: var(--accent);
+}
+.spec-dialog button[aria-selected] p {
+  font-size: 0.9rem;
+  font-weight: 400;
+}
+/* The breadcrumb above a hit, and the hairline that marks a sub-heading hit. */
+.spec-dialog button[aria-selected] > div:first-child {
+  font-family: var(--mono);
+  font-size: 0.68rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--ink-3);
+}
+.spec-dialog button[aria-selected] span {
+  color: var(--accent);
+  font-weight: 600;
   text-decoration: none;
 }

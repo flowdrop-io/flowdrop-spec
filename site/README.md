@@ -30,6 +30,26 @@ One caveat for the nginx config: the search index is emitted as the extensionles
 file `out/api/search`, and the client fetches exactly `/api/search`. A rule that
 appends a trailing slash to every path will break search.
 
+## How it is deployed
+
+`Dockerfile` at the repository root builds this site into an nginx image
+(`ghcr.io/flowdrop-io/flowdrop-spec`) and `.github/workflows/deploy.yml` pushes it on
+every commit to `main`, then triggers the GitLab pipeline that runs the
+`static-sites` Helm chart. **The build context is the repository root, not `site/`** —
+the site reads `../rules` while it builds.
+
+Two things the nginx config exists to get right, both verified against a running
+container rather than assumed:
+
+- `trailingSlash: true` means every page is a directory, so nginx redirects the
+  slash-less form. The redirect is **relative** (`absolute_redirect off`), because
+  nginx sees plain HTTP on port 80 behind the ingress and would otherwise send a
+  reader from `https://spec.flowdrop.io/rules/x` to `http://spec.flowdrop.io:80/…`.
+- `add_header` does not merge across levels in nginx: a location setting any
+  `add_header` discards every one from the server block. Each location sets
+  `Cache-Control`, so the security headers live in `nginx-headers.conf` and are
+  included into each location explicitly.
+
 ## How it fits together
 
 | File | Does |

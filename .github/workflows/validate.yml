@@ -18,6 +18,35 @@ jobs:
       - run: npm ci
       - run: npm run validate
 
+  site:
+    name: site builds
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+          cache-dependency-path: site/package-lock.json
+      - run: npm ci
+        working-directory: site
+      # The site is generated from the rule corpus at build time, so a rule that
+      # validates can still break the page that renders it. Nothing here is
+      # published; the image is built separately, on main only.
+      - run: npm run build
+        working-directory: site
+      - name: every rule has a page
+        run: |
+          # Depth 3 is a rule page (rules/<family>/<rule>/index.html). Depth 2 is a
+          # family index, of which there are 30, and counting those hides a shortfall.
+          rules=$(ls rules/*.yml | wc -l)
+          pages=$(find site/out/rules -mindepth 3 -name index.html | wc -l)
+          echo "$rules rule(s), $pages page(s)"
+          if [ "$rules" -ne "$pages" ]; then
+            echo "::error::$rules rules but $pages rule pages"
+            exit 1
+          fi
+
   dco:
     name: sign-off
     if: github.event_name == 'pull_request'

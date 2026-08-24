@@ -1,0 +1,314 @@
+@import 'tailwindcss';
+@import 'fumadocs-ui/css/neutral.css';
+@import 'fumadocs-ui/css/preset.css';
+
+@source '../app';
+@source '../components';
+
+/* ---- nav ------------------------------------------------------------- */
+
+.spec-nav-mark {
+  font-weight: 700;
+  letter-spacing: -0.01em;
+}
+.spec-nav-title {
+  margin-left: 0.45rem;
+  color: var(--color-fd-muted-foreground);
+  font-weight: 500;
+}
+
+/* ---- rule page ------------------------------------------------------- */
+
+.spec-eyebrow {
+  display: flex;
+  gap: 0.4rem;
+  align-items: center;
+  margin: 0 0 1rem;
+  font-size: 0.8rem;
+  font-family: var(--font-mono, ui-monospace, monospace);
+  color: var(--color-fd-muted-foreground);
+}
+.spec-eyebrow a {
+  color: inherit;
+  text-decoration: none;
+}
+.spec-eyebrow a:hover {
+  color: var(--color-fd-foreground);
+}
+
+/* The binding sentence. Everything else on the page is context for it. */
+.spec-normative {
+  position: relative;
+  margin: 0 0 1.25rem;
+  padding: 1rem 1.15rem 1.15rem;
+  border: 1px solid var(--color-fd-border);
+  border-left: 3px solid var(--color-fd-primary);
+  border-radius: 0.5rem;
+  background: var(--color-fd-card);
+}
+.spec-normative-label {
+  margin: 0 0 0.5rem;
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+  color: var(--color-fd-primary);
+}
+.spec-normative-text {
+  margin: 0;
+  font-size: 1.02rem;
+  line-height: 1.65;
+  color: var(--color-fd-foreground);
+}
+
+/* ---- badges ---------------------------------------------------------- */
+
+.spec-badges {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+  margin: 0 0 1.5rem;
+}
+.spec-badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.15rem 0.5rem;
+  border: 1px solid var(--color-fd-border);
+  border-radius: 999px;
+  font-size: 0.72rem;
+  line-height: 1.4;
+  color: var(--color-fd-muted-foreground);
+  background: var(--color-fd-secondary);
+  white-space: nowrap;
+}
+.spec-badge-core {
+  color: var(--color-fd-primary);
+  border-color: color-mix(in oklab, var(--color-fd-primary) 40%, transparent);
+}
+.spec-badge-profile {
+  font-family: var(--font-mono, ui-monospace, monospace);
+}
+.spec-badge-warn {
+  color: var(--color-fd-foreground);
+  border-color: color-mix(in oklab, currentColor 35%, transparent);
+  font-weight: 600;
+}
+
+/* ---- callouts -------------------------------------------------------- */
+
+.spec-callout {
+  margin: 0 0 1.25rem;
+  padding: 0.75rem 1rem;
+  border: 1px solid var(--color-fd-border);
+  border-radius: 0.5rem;
+  background: var(--color-fd-secondary);
+  font-size: 0.9rem;
+}
+
+/* ---- inline identifiers ---------------------------------------------- */
+
+.spec-idlink {
+  font-family: var(--font-mono, ui-monospace, monospace);
+  font-size: 0.92em;
+  text-decoration: underline;
+  text-decoration-style: dotted;
+  text-underline-offset: 0.2em;
+  color: var(--color-fd-primary);
+}
+.spec-idlink:hover {
+  text-decoration-style: solid;
+}
+/* A ruling has no page yet, so it is marked, never linked. */
+.spec-ruling {
+  font-family: var(--font-mono, ui-monospace, monospace);
+  font-size: 0.92em;
+  padding: 0.05em 0.3em;
+  border-radius: 0.25rem;
+  border: 1px dashed var(--color-fd-border);
+  color: var(--color-fd-muted-foreground);
+}
+
+/* ---- references ------------------------------------------------------ */
+
+.spec-refs {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 0.75rem;
+}
+.spec-ref {
+  padding: 0.7rem 0.9rem;
+  border-radius: 0.5rem;
+  background: var(--color-fd-card);
+}
+/* Binding references get a solid edge, background reading a dotted one — the
+   same distinction the References section itself draws. */
+.spec-ref-normative {
+  border: 1px solid var(--color-fd-border);
+  border-left: 3px solid var(--color-fd-primary);
+}
+.spec-ref-informative {
+  border: 1px dashed var(--color-fd-border);
+}
+.spec-ref-kind {
+  display: block;
+  font-size: 0.64rem;
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+  color: var(--color-fd-muted-foreground);
+  margin-bottom: 0.2rem;
+}
+.spec-ref a {
+  text-decoration: none;
+}
+.spec-ref-source {
+  font-weight: 600;
+  color: var(--color-fd-foreground);
+}
+.spec-ref-source::after {
+  content: ' — ';
+  color: var(--color-fd-muted-foreground);
+  font-weight: 400;
+}
+.spec-ref-title {
+  color: var(--color-fd-primary);
+}
+.spec-ref-note {
+  display: block;
+  margin-top: 0.3rem;
+  font-size: 0.85rem;
+  color: var(--color-fd-muted-foreground);
+}
+
+/* ---- rule cards (related / referenced by) ---------------------------- */
+
+.spec-rulecards {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(15rem, 1fr));
+  gap: 0.5rem;
+}
+.spec-rulecard {
+  display: flex;
+  flex-direction: column;
+  gap: 0.15rem;
+  padding: 0.55rem 0.75rem;
+  border: 1px solid var(--color-fd-border);
+  border-radius: 0.5rem;
+  background: var(--color-fd-card);
+  text-decoration: none;
+}
+.spec-rulecard:hover {
+  border-color: color-mix(in oklab, var(--color-fd-primary) 45%, transparent);
+}
+.spec-rulecard-id {
+  font-family: var(--font-mono, ui-monospace, monospace);
+  font-size: 0.78rem;
+  color: var(--color-fd-primary);
+}
+.spec-rulecard-title {
+  font-size: 0.85rem;
+  color: var(--color-fd-muted-foreground);
+  line-height: 1.4;
+}
+
+/* ---- lists ----------------------------------------------------------- */
+
+.spec-list {
+  list-style: none;
+  margin: 1rem 0 0;
+  padding: 0;
+  border-top: 1px solid var(--color-fd-border);
+}
+.spec-list li {
+  border-bottom: 1px solid var(--color-fd-border);
+}
+.spec-list a {
+  display: grid;
+  grid-template-columns: 8rem 1fr auto;
+  gap: 0.75rem;
+  align-items: baseline;
+  padding: 0.5rem 0.25rem;
+  text-decoration: none;
+  color: inherit;
+}
+.spec-list a:hover {
+  background: var(--color-fd-secondary);
+}
+.spec-list-id {
+  font-family: var(--font-mono, ui-monospace, monospace);
+  font-size: 0.8rem;
+  color: var(--color-fd-primary);
+}
+.spec-list-title {
+  font-size: 0.9rem;
+}
+.spec-list-meta {
+  font-size: 0.72rem;
+  color: var(--color-fd-muted-foreground);
+  white-space: nowrap;
+}
+@media (max-width: 640px) {
+  .spec-list a {
+    grid-template-columns: 1fr;
+    gap: 0.15rem;
+  }
+}
+
+/* ---- facets ---------------------------------------------------------- */
+
+.spec-search {
+  width: 100%;
+  padding: 0.5rem 0.75rem;
+  border: 1px solid var(--color-fd-border);
+  border-radius: 0.5rem;
+  background: var(--color-fd-card);
+  font-size: 0.9rem;
+}
+.spec-facet {
+  margin: 1rem 0 0;
+  border: 0;
+  padding: 0;
+}
+.spec-facet legend {
+  font-size: 0.68rem;
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+  color: var(--color-fd-muted-foreground);
+  margin-bottom: 0.35rem;
+}
+.spec-facet-options {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.35rem;
+}
+.spec-chip {
+  display: inline-flex;
+  gap: 0.35rem;
+  align-items: center;
+  padding: 0.15rem 0.5rem;
+  border: 1px solid var(--color-fd-border);
+  border-radius: 999px;
+  font-size: 0.75rem;
+  background: var(--color-fd-card);
+  cursor: pointer;
+}
+.spec-chip-on {
+  border-color: var(--color-fd-primary);
+  color: var(--color-fd-primary);
+  background: color-mix(in oklab, var(--color-fd-primary) 12%, transparent);
+}
+.spec-chip-count {
+  font-size: 0.68rem;
+  color: var(--color-fd-muted-foreground);
+}
+.spec-count {
+  margin: 1.25rem 0 0;
+  font-size: 0.8rem;
+  color: var(--color-fd-muted-foreground);
+}
+.spec-clear {
+  margin-left: 0.5rem;
+  text-decoration: underline;
+  cursor: pointer;
+}

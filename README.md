@@ -28,8 +28,11 @@ standing against these rules in its own documentation.
 | `narrative/*.mdx` | Optional prose for a rule: what it means, examples, why. |
 | `conventions.md` | Vocabulary and references shared by every rule. |
 | `scripts/` | Validation run in CI. |
+| `site/` | The published site. Generates one page per rule from `rules/`; nothing it renders is committed. |
 
-The published site is not in this repository yet.
+The site reads `rules/`, `narrative/` and `conventions.md` directly and renders
+one page per rule. No page source is generated into git. See
+[`site/README.md`](site/README.md) to build it.
 
 ## Rule identifiers are permanent
 

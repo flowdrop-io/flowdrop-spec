@@ -1,0 +1,109 @@
+The vocabulary the rules are written in. Ported from the registry the corpus was
+extracted from, with everything that described one implementation's internals
+removed.
+
+## The building blocks
+
+- **Workflow** — what the author draws on the canvas: nodes connected by edges,
+  stored as one document.
+- **Node** — one step in a workflow ("run this prompt", "save this entity").
+  Each node on the canvas is an *instance* of a node type.
+- **Node type** — a reusable, site-configurable definition of a kind of node. It
+  points at the node processor that does the work and can override that
+  processor's defaults.
+- **Node processor** — what actually executes a node. It declares what inputs it
+  accepts (its *parameter schema*) and what it produces (its *output schema*).
+- **Port** — a named connection point on a node. Input ports receive values,
+  output ports produce them. Ports are derived from the processor's schemas.
+- **Edge (wire)** — a connection from one node's output port to another node's
+  input port. An edge has no declared type — its *meaning* is deduced from the
+  ports it connects (see GR-EDGE).
+- **Handle** — the string the editor stores to say which port an edge attaches
+  to, e.g. `mynode-input-message`.
+
+## Special ports and edges
+
+- **trigger** — a control wire: "run B after A". Carries no data.
+- **error** — a wire that fires only when its source node *fails*. Every
+  executable node gets an `error` output; it ships hidden.
+- **tool** — a wire that offers a node as a callable tool to an AI-agent node,
+  instead of passing data.
+- **loop_back** — a wire feeding a result back into a loop node (ForEach); the
+  one kind of cycle that is deliberately legal.
+- **unified I/O** — optional single `input`/`output` ports that bundle all of a
+  node's input or output values into one JSON object.
+- **Dynamic ports** — extra ports an author adds to a single node instance,
+  beyond what the node type declares.
+- **Reserved names** — port/parameter names the system injects or treats
+  specially (`trigger`, `error`, `tool`, `input`, `output`, `engine`, anything
+  `__`-prefixed). Authors cannot repurpose them.
+
+## Configuration and exposure
+
+- **`data.config`** — the values the author typed into a node's config form. The
+  *only* user-owned configuration store.
+- **Gate flags** — per-parameter switches set on the node type: `connectable`
+  (may receive a wire), `configurable` (appears in the config form), `required`.
+- **Exposure** — whether a port is visible and usable on a node instance. **A
+  hidden port effectively does not exist**: it cannot be wired, and a hidden
+  output's value is stripped before anyone sees it. `exposed_by_default` on the
+  node type is nothing more than the default position of the per-instance
+  show/hide toggle.
+- **Parameter resolution** — where a parameter's value comes from when a node
+  runs, in priority order: value delivered on a wire → author's saved config →
+  schema default (GR-CFG).
+
+## Saving and validating
+
+- **Save path vs run path** — saving and validating must see the workflow
+  *exactly as stored*; running is allowed to normalize it first (fill defaults,
+  drop dangling edges).
+- **Validator / R-codes** — the save-time rule checker. Each check has a code
+  (R1–R13). Severity **E** (error) blocks the save; **W** (warning) does not.
+- **Locator** — the machine-readable "where" in a validation message, e.g.
+  `node.abc.config.model`.
+
+## Running
+
+- **Orchestrator** — the engine that executes a workflow. Four strategies:
+  **direct sync** (one in-memory pass, no loops), **sync pipeline** and **async**
+  (job-queue based, loops possible), **StateGraph** (adds shared state and loop
+  semantics; the playground default).
+- **Pipeline / job** — the persisted record of one run: the pipeline is the run,
+  each node execution is a job with a status.
+- **Compilation** — turning the stored workflow into an executable plan: which
+  nodes run, in what order, which cycles are legal (RT-CMP).
+- **Output / error Output** — the envelope a node execution returns. A processor
+  signals failure, and the runtime converts that into an error-status Output.
+- **Error routing** — if a failed node has an error wire, the failure flows down
+  it and the run continues; if it has none, the run fails (RT-ERR).
+- **Branching / `active_branches`** — a gateway node reports which named branches
+  stay alive; wires leaving inactive branch ports are not followed.
+- **Readiness** — when a node has enough inputs to run: several wires into the
+  *same* port = any one suffices (OR); wires into *different* ports = all must
+  arrive (AND).
+- **Interrupt** — a node pausing the run to ask a human; resolving the interrupt
+  resumes the run.
+- **Snapshot / checkpoint** — saved run progress, so a run can resume where it
+  stopped.
+- **StateGraph state / reducers** — shared state carried across loop iterations,
+  merged per field: `messages` append, `data` merges, everything else is
+  replaced.
+- **initialData** — the input payload a run is launched with.
+
+## Launching from outside
+
+- **Launch-input manifest (`input_ports`)** — the workflow's public face: the
+  author explicitly names which inner ports may be filled by an outside caller.
+  Anything not declared does not exist at the launch boundary.
+- **Exposure entry** — one manifest row: `{name, node_id, port}`.
+- **Schema snapshot** — a frozen copy of each declared input's schema, so callers
+  validate against what the author *published*, not against live node-type code.
+  (Not the same as the run-progress snapshot above.)
+
+## Expressions
+
+- **Expression engines** — the four mini-languages authors write inside nodes:
+  **expression_language** (calculations), **twig** (text templates),
+  **property_path** (dot-paths into data), **jsonpath** (`$.…` queries). Chosen
+  per node via the reserved `engine` param.

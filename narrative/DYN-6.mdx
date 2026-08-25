@@ -1,0 +1,37 @@
+---
+rule: DYN-6
+rule_hash: fe5d84c8c4b0
+---
+
+## What it means
+
+A dynamic port carries none of the machinery an ordinary port carries: no
+default exposure, no per-instance override, nothing edge validation can weigh
+a wire against. The missing machinery does not fall on the cautious side —
+it is not treated as hidden. A dynamic port is always wireable, and a value
+produced under its name reaches the node's output exactly as produced,
+because there is no schema entry to strip it against.
+
+The same absence cuts the other way at the workflow's outside edge. A
+launch-input manifest entry only succeeds against a port the node's
+processor actually declares, and a dynamic port is never declared by the
+processor. Naming one in the manifest is refused for that reason — the
+freedom a dynamic port enjoys inside a run does not extend to being
+something an outside caller can build a launch on.
+
+## Example
+
+A node type hides one of its declared outputs. Alongside it, the node also
+produces a value under a name the type never declared at all:
+
+```json title="A node's output before exposure is applied" verdict="produced"
+{"result": "ok", "dynamic_field": "kept", "ssn": "secret"}
+```
+
+```json title="What reaches the caller" verdict="kept"
+{"result": "ok", "dynamic_field": "kept"}
+```
+
+`ssn`, a declared output the node type does not expose, is the one key
+removed. `dynamic_field`, declared nowhere, has no schema entry to be removed
+against, so it passes through untouched.

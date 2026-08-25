@@ -1,0 +1,33 @@
+---
+rule: DYN-3
+rule_hash: 42cb8482614d
+---
+
+## What it means
+
+The pattern is ASCII-only: a name begins with a letter from `a`-`z` or
+`A`-`Z` and continues with ASCII letters, digits or underscores. A name
+written with a non-ASCII letter fails even though it reads as an ordinary
+word to a person, and a single ASCII letter on its own is enough to pass.
+
+Uniqueness is checked across the union of a node's dynamic inputs and dynamic
+outputs, not within each side separately. An input and an output on the same
+node cannot share a name, even though one is never confused for the other at
+the point where a value is delivered.
+
+## Example
+
+```json title="A name that reads as a word but carries a non-ASCII letter" verdict="refused"
+"pörtchen"
+```
+
+```json title="Input definitions that validate, one of them a single letter" verdict="accepted"
+[{ "name": "in_1" }, { "name": "Alpha2" }, { "name": "a" }]
+```
+
+The same definition declared on both sides of one node, not just repeated
+within one side, is refused too:
+
+```json title="A definition declared as both an input and an output" verdict="refused"
+[{ "name": "shared" }]
+```

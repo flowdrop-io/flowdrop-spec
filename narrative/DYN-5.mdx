@@ -1,0 +1,27 @@
+---
+rule: DYN-5
+rule_hash: 744f6e9a6b6b
+---
+
+## What it means
+
+A node instance can name a dynamic port whatever it likes, so nothing stops
+an author choosing a name the node's processor already declares as its own
+parameter. Where that happens the two do not blend and neither takes turns:
+the declared parameter's own resolution — its wiring, its default — is what
+the node receives, and a value arriving for the same name over the dynamic
+channel is discarded outright, never held as a fallback.
+
+## Example
+
+A node instance declares a dynamic port named `static_param`, the same name
+the node's processor already declares as its own parameter, and a value
+arrives for that name over the dynamic channel:
+
+```json title="The value delivered over the dynamic channel for static_param" verdict="ignored"
+"smuggled_must_lose"
+```
+
+```json title="What the declared parameter resolves to instead" verdict="default"
+{ "value": "static_default", "source": "default" }
+```

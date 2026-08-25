@@ -1,0 +1,29 @@
+---
+rule: DYN-2
+rule_hash: 882b1c984633
+---
+
+## What it means
+
+A dynamic port definition needs exactly three keys to be usable: `name`,
+`label` and `dataType`. Leaving `dataType` out is not the same as refusing the
+definition — it defaults to `mixed` instead. The lanes an editor may offer for
+`dataType` exclude the ones that carry no value at all: a dynamic port is a
+value port by definition, so a lane that exists only to route control is not
+among the choices, whatever else the vocabulary contains.
+
+That closure only shapes what an editor offers. A definition naming a
+`dataType` outside the offered set is not refused, and nothing downstream
+checks a dynamic port's declared type against the value it actually carries.
+
+## Example
+
+A definition naming a `dataType` outside the offered set still resolves:
+
+```json title="A definition whose dataType is outside the offered set" verdict="accepted"
+[{ "name": "alpha", "label": "Alpha", "dataType": "object" }]
+```
+
+```json title="What resolving it still returns" verdict="unaffected"
+{ "alpha": "a value" }
+```

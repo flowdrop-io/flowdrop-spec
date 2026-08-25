@@ -1,0 +1,28 @@
+---
+rule: DYN-1
+rule_hash: 8e9be5ed30d8
+---
+
+## What it means
+
+Opting in adds exactly two keys to a node type's declared parameters, each
+holding a list of port definitions with an empty default. A node type that
+never opts in never carries those keys, so a node built from it cannot have a
+dynamic port at all — there is nothing to add one to.
+
+What a stored definition looks like when it is not usable matters as much as
+what it looks like when correctly authored: a value that is not a list at all
+reads back as an empty list rather than surfacing the malformed content or
+refusing the node outright.
+
+## Example
+
+A node's stored definitions are not lists — one is a string, one a number:
+
+```json title="Stored definitions that are not lists" verdict="unusable"
+{ "dynamicInputs": "not-an-array", "dynamicOutputs": 42 }
+```
+
+```json title="What reading them back returns" verdict="empty"
+[[], []]
+```

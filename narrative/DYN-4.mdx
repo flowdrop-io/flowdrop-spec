@@ -1,0 +1,23 @@
+---
+rule: DYN-4
+rule_hash: e4d79f216911
+---
+
+## What it means
+
+A dynamic input with nothing wired to it is not left out of a node's resolved
+inputs — it is present, holding null. A processor reading its inputs cannot
+tell "nothing arrived on this wire" apart from "this port does not exist"
+by checking for the key; it has to check the value.
+
+## Example
+
+A node declares two dynamic inputs, and only one has anything wired to it:
+
+```json title="A dynamic input with nothing wired to it"
+{ "dynamicInputs": [{ "name": "connected", "label": "C", "dataType": "string" }, { "name": "unconnected", "label": "U", "dataType": "string" }], "connected": "value" }
+```
+
+```json title="What resolving the node's inputs returns" verdict="present"
+{ "connected": "value", "unconnected": null }
+```

@@ -1,0 +1,37 @@
+---
+rule: EDGE-1
+rule_hash: 317fee0f5a0c
+---
+
+## What it means
+
+A handle is split at the first `-input-` or `-output-` marker it contains,
+not the last. Everything after that first marker is the port name, verbatim
+— including a second direction marker, if the port itself happens to be
+named with one. Reading a handle by counting segments from the end, or by
+searching for the marker nearest the port name, misparses exactly the cases
+where a node identifier or a port name contains one of the reserved words
+itself.
+
+## Example
+
+A handle whose port name itself repeats the marker that split it:
+
+```json title="A handle whose port name itself contains a direction marker" verdict="declared"
+"a-output-b-output-c"
+```
+
+```json title="Its port name, split at the first marker" verdict="extracted"
+"b-output-c"
+```
+
+A handle whose node identifier, not its port name, carries the opposite
+direction's marker:
+
+```json title="A handle whose node identifier repeats the opposite marker" verdict="declared"
+"weird-input-node-output-text"
+```
+
+```json title="Its port name, read for the output side" verdict="extracted"
+"text"
+```

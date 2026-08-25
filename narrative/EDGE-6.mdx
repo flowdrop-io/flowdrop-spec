@@ -1,0 +1,32 @@
+---
+rule: EDGE-6
+rule_hash: 3be18be5a33f
+---
+
+## What it means
+
+A failing step whose failure has somewhere to go does not raise it: the run
+continues down the error wire instead, carrying a payload built for that
+purpose rather than the step's own output. The step is still recorded as
+having failed — routing a failure is not the same outcome as the step
+succeeding — but that failure is marked as having been routed, so a resume
+does not treat it as the kind of failure that stops the run.
+
+## Example
+
+A step named `boom` fails, and carries one outgoing wire from its error
+output:
+
+```json title="The wire out of the failing step's error output" verdict="declared"
+{ "source": "boom", "source_handle": "boom-output-error", "target": "handler", "target_handle": "handler-input-input" }
+```
+
+```json title="The message in the error payload the run carries onward" verdict="routed"
+"boom blew up"
+```
+
+The payload's `node_id` is `boom`; the step's job is recorded as failed and
+marked as routed, never as completed.
+
+Without that wire, the same failure is never routed: it stops the run
+instead.

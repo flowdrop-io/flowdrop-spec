@@ -1,0 +1,37 @@
+---
+rule: EDGE-8
+rule_hash: 181b2cb89291
+---
+
+## What it means
+
+A stored condition is not quietly dropped: it survives exactly as written on
+every subsequent save. Nothing about it is consulted, though — a conditioned
+edge routes precisely as an unconditioned one would.
+
+The warning this produces is not a one-off. It is emitted wherever a source
+node's outgoing edges are resolved, so a source that runs more than once
+inside a loop warns again on every pass, not once per run. An absent or an
+empty condition never warns at all — only a non-empty string does.
+
+## Example
+
+An edge carries a non-empty condition:
+
+```json title="An edge stored with a condition" verdict="ignored"
+{
+  "id": "e_conditioned",
+  "source": "src",
+  "target": "sink",
+  "sourceHandle": "src-output-text",
+  "targetHandle": "sink-input-message",
+  "data": { "condition": "false" }
+}
+```
+
+```json title="The message the target still receives" verdict="delivered"
+"payload"
+```
+
+The same condition on a loopback edge inside a loop produces one warning per
+re-entry, not one for the whole run.

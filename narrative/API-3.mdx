@@ -1,0 +1,31 @@
+---
+rule: API-3
+rule_hash: 64a724ec4ae9
+---
+
+## What it means
+
+A session that has lost its workflow reference has not been sent anything
+wrong — there is nothing to correct in the request. The problem is the
+session's own state, so the refusal is the same family as a turn refused
+because another one is already running: a 409, not a 400 and not a 500. This
+holds on every door that serves that session.
+
+The response carries a fixed, generic message. The detail that would identify
+which session failed goes to the log and never into the body a caller sees —
+so a refusal that would otherwise leak a session's existence to someone who
+should not learn it stays silent about which one.
+
+## Example
+
+A turn sent to a session whose workflow reference has been cleared is refused
+before anything about the turn itself is read.
+
+```http title="A turn against a session with no workflow" verdict="409 refused"
+POST /api/flowdrop/session/{session}/turn
+
+{"content": "hi"}
+```
+
+Whatever door reaches that same session gives the same verdict and the same
+generic body.

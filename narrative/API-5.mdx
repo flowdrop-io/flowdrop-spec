@@ -1,0 +1,40 @@
+---
+rule: API-5
+rule_hash: 0c76c65b4910
+---
+
+## What it means
+
+A result and a refusal are the two envelopes every door already answers in.
+A paginated result is a third, and it is a shape of its own, not the result
+envelope with a block appended by whichever door happens to return one: the
+same four keys, in the same order, on every paginated door.
+
+`has_more` is arithmetic the door itself can do — whether the offset and
+limit it just reported would still leave rows unseen — not a second query
+run to find out. And it keeps its snake_case spelling regardless of the
+casing convention the rows beside it use: the block belongs to the shared
+envelope, not to the endpoint it happens to sit in, so a door must not rename
+it to match its own rows, and must not build a pagination block of its own.
+
+## Example
+
+Two workflows, unfiltered: three keys, and the pagination block reports the
+whole set (rows elided).
+
+```http title="A list door with two rows" verdict="200 paginated"
+GET /api/flowdrop/workflows
+
+{"success": true, "data": [ … ], "pagination": {"total": 2, "limit": 50, "offset": 0, "has_more": false}}
+```
+
+The same four keys, in the same order, sit beside rows spelled the other way.
+
+```http title="A list door whose rows are spelled the other way" verdict="200 paginated"
+GET /api/flowdrop/workflows/{workflow}/playground/sessions
+
+{"success": true, "data": [ … ], "pagination": {"total": 1, "limit": 50, "offset": 0, "has_more": false}}
+```
+
+`has_more` is spelled the same both times: once beside rows spelled the same
+way as the pagination block, once beside rows that are not.

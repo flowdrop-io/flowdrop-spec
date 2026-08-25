@@ -1,0 +1,35 @@
+---
+rule: API-8
+rule_hash: 4e7d7fc53ee4
+---
+
+## What it means
+
+The human-readable message on a refusal is for a person; it is never what a
+client is allowed to match against. A client that classifies a refusal by
+matching a substring of the message is reading a field that can be reworded
+at will, and a rewording that drops the substring it depended on
+reclassifies the refusal without anything failing anywhere. The `error_code`
+exists so a client never has to do that.
+
+A code, once published, keeps its meaning forever and is never reused for
+something else — the same status code can and does cover more than one
+reason, and the code is what tells those reasons apart.
+
+## Example
+
+Two refusals on sibling doors share a status and nothing else.
+
+```http title="Resuming a pipeline with no pause to resolve" verdict="409 NO_ACTIVE_PAUSE"
+POST /flowdrop/api/pipelines/{pipeline}/resume
+
+{}
+```
+
+```http title="Cancelling a pipeline that already has a signal pending" verdict="409 INWARD_SIGNAL_ALREADY_PENDING"
+POST /flowdrop/api/pipelines/{pipeline}/cancel
+
+{}
+```
+
+Both are 409s; the code is what a client reads to tell one from the other.

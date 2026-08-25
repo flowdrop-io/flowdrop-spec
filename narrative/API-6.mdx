@@ -1,0 +1,38 @@
+---
+rule: API-6
+rule_hash: f0f1acf8d69c
+---
+
+## What it means
+
+Out-of-range paging is corrected, not refused — there is no 400 for asking
+for too much or for a negative offset. But the correction is not silent in
+the sense of invisible: the values reported back are the ones actually used,
+so a caller who asked for far more rows than the cap allows is told the
+capped number, and its own arithmetic on `has_more` still holds.
+
+`total` is counted before pagination is applied, and under whatever filter
+the request carries. A filtered page's total describes the filtered set, not
+the whole collection — a search that matches nothing is an empty page with a
+`total` of zero, not the size of the unfiltered table.
+
+## Example
+
+Asking for far more than the cap still gets a coherent, corrected answer.
+
+```http title="A limit far above the cap" verdict="200 clamped"
+GET /api/flowdrop/workflows?limit=1000
+
+{"pagination": {"total": 3, "limit": 100, "offset": 0, "has_more": false}}
+```
+
+A filter that matches nothing still gets a well-formed, empty page.
+
+```http title="A search term matching no row" verdict="200 counted"
+GET /api/flowdrop/workflows?search=nothing+here
+
+{"pagination": {"total": 0, "limit": 50, "offset": 0, "has_more": false}}
+```
+
+`total` is the filtered count in both cases, never the size of the whole
+collection behind it.

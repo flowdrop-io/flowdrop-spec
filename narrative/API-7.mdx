@@ -1,0 +1,40 @@
+---
+rule: API-7
+rule_hash: 8c34f9f745c0
+---
+
+## What it means
+
+A generic failure message exists for the case an implementation genuinely
+cannot name: something broke, and nothing about the failure tells the door
+which refusal it should have been. That message is a last resort, not a
+convenience. Anything a door can attribute — a record that does not exist, a
+caller without the permission it needed, a body that failed the shared gate
+— must be answered as that specific thing, never folded into the same
+catch-all just because the code path happens to have one.
+
+The two failures read identically to a caller who only sees a status and a
+message that says nothing: "this has never worked" and "something broke just
+now" become indistinguishable. The underlying cause still belongs in the
+log; only the caller-facing body is generic, and only when nothing more
+specific was knowable.
+
+## Example
+
+The same route answers a missing record and a denied one differently —
+neither collapses into the other's message.
+
+```http title="A pipeline id nothing matches" verdict="404 refused"
+GET /api/flowdrop/pipeline/{pipeline}/logs
+
+{"success": false, "error": "Pipeline with ID 99999 does not exist."}
+```
+
+```http title="The same route, denied to a caller with no permission on it" verdict="403 refused"
+GET /api/flowdrop/pipeline/{pipeline}/logs
+
+{"success": false, "error": "Access denied"}
+```
+
+Nothing this door cannot attribute to one of these is answered any other
+way: it gets the one fixed message, and the detail stays in the log.

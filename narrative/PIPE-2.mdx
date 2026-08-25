@@ -1,0 +1,25 @@
+---
+rule: PIPE-2
+rule_hash: 8df6614115a8
+---
+
+## What it means
+
+A run with no jobs yet, and a run whose jobs could not be read at all, both
+report the identical set of counters a run that ran normally would report —
+the same keys, in the same order, only every one of them zero instead of
+populated. That parity is what lets a caller treat "we do not know yet" and
+"there is genuinely nothing" the same way it treats "there were zero of
+every status," rather than having to branch on which of several build paths
+happened to answer. The counter set itself is derived from nothing narrower
+than every defined job status, so a status added to the vocabulary later
+cannot be forgotten by one path while another remembers it.
+
+## Example
+
+No jobs have run yet, so every counter is zero and none of the vocabulary's
+statuses is missing.
+
+```json title="The zeroed summary" verdict="zeroed"
+{"total": 0, "idle": 0, "pending": 0, "running": 0, "completed": 0, "failed": 0, "cancelled": 0, "skipped": 0, "interrupted": 0}
+```

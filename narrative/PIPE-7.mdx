@@ -1,0 +1,44 @@
+---
+rule: PIPE-7
+rule_hash: 65377bc5405f
+---
+
+## What it means
+
+Three surfaces publish a job, and all three answer through the one key set,
+in the one order — not a per-surface copy that happens to agree today.
+`execution_time_us` is the clause worth pausing on: it is not always the
+figure recorded on the job. Where none was recorded it is derived from the
+start and completion stamps, at second granularity, and that derived figure
+is computed once and published unchanged wherever a job's execution time
+appears — so two payloads naming the same job can never disagree on it
+numerically, even though neither is reading a stored precise duration.
+
+A `pipeline_id` that is not a string or an integer is not published as
+whatever it happens to be: it is discarded, because nothing inside the
+system ever writes a `pipeline_id` of that shape, so its presence means
+something outside the implementation wrote it.
+
+## Example
+
+A job with no recorded precise duration, started and completed ten seconds
+apart:
+
+```json title="The job's start and completion stamps" verdict="recorded"
+{ "started": 1700000000, "completed": 1700000010 }
+```
+
+```json title="The execution_time_us the job entry publishes" verdict="derived"
+10000000
+```
+
+A job whose stored `pipeline_id` is a list rather than a scalar, read in the
+context of a run the caller named:
+
+```json title="The stored pipeline_id" verdict="discarded"
+["not", "a", "scalar"]
+```
+
+```json title="The pipeline_id the job entry publishes" verdict="substituted"
+"caller-pipeline"
+```

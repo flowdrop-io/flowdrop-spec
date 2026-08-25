@@ -1,0 +1,32 @@
+---
+rule: PIPE-1
+rule_hash: 8e61849afcd3
+---
+
+## What it means
+
+Two different reads publish the same live picture of a run because both are
+windows onto the same persisted record, never an in-memory tracker that
+could disagree with it from one process to the next, or lag behind a status
+that was just written. The two reads deliberately diverge in only one
+respect: the lightweight document must not carry the jobs payload at all,
+because it exists for a caller polling too fast to justify the weight of the
+full one. Where the run cannot be found at all, the answer is `404` naming
+the id; where it exists but the caller may not view it, that is `403` —
+never a payload with some of its fields quietly blank instead.
+
+## Example
+
+The same distinction — missing versus denied — holds on both doors.
+
+```http title="A run nothing matches" verdict="404 refused"
+GET /api/flowdrop/pipeline/{pipeline_id}
+
+{"success": false, "error": "Pipeline with ID 99999 does not exist."}
+```
+
+```http title="An existing run, denied to a caller with no permission on it" verdict="403 refused"
+GET /api/flowdrop/pipeline/{pipeline_id}/status
+
+{"success": false, "error": "Access denied"}
+```

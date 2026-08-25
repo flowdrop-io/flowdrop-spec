@@ -1,0 +1,28 @@
+---
+rule: PIPE-6
+rule_hash: 9299c8e15324
+---
+
+## What it means
+
+Absence is answered before denial: a job identifier that resolves to nothing
+gets the documented not-found response even for a caller who, had the job
+existed, could not have viewed it. That is a deliberate trade — identifiers
+carry no information beyond their existence — not an oversight, so an
+identifier must not be built so that its shape alone reveals anything.
+
+Authority over a job and authority over the run it belongs to are separate
+questions: holding one is not evidence for the other, so a run the caller may
+not view is refused before anything about it, its jobs included, is
+assembled.
+
+## Example
+
+A job identifier that does not exist gets the same shape regardless of what
+the caller could have seen had it existed.
+
+```http title="A job identifier that does not exist" verdict="404 refused"
+GET /api/flowdrop/job/{job_id}
+
+{"error": "Job not found", "message": "…"}
+```

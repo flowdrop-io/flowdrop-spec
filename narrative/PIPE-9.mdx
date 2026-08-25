@@ -1,0 +1,26 @@
+---
+rule: PIPE-9
+rule_hash: 8d87f4dd9e07
+---
+
+## What it means
+
+A run that has not finished has no finish time, and the response says so
+directly: `lastExecuted` is null, not the moment the request happened to be
+made and not the run's start time standing in for its end. The same null, on
+the same run, is what both the full document and the lightweight one answer
+— there is no version of the run where one gives an honest null and the
+other improvises.
+
+## Example
+
+A run that has never completed, polled through both the full document and
+the lightweight one, then the same run after it finishes:
+
+```json title="lastExecuted on both documents while the run is unfinished" verdict="null"
+null
+```
+
+```json title="lastExecuted once the completion stamp is set" verdict="stamped"
+"2025-01-01T00:00:00+00:00"
+```

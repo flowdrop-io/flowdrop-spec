@@ -1,0 +1,42 @@
+---
+rule: PIPE-4
+rule_hash: bcd6085a476d
+---
+
+## What it means
+
+`node_statuses` is keyed by the same node id the stored workflow holds, never
+by the id of the job record that recorded a run of it and never by the node type it
+is an instance of — a key derived from either of those would resolve every
+node on a workflow to the same identifier, or to none the editor recognises,
+and the badge lookup would miss. A loop producing many jobs for the same
+workflow node still collapses onto one entry keyed by that plain node id, with
+the per-iteration detail living inside the entry rather than spread across
+suffixed keys.
+
+Within a collapsed entry, the fields do not all come from the same job.
+`status` comes from the newest job in the group; `last_executed` and the
+execution timing come from the most recent job that actually started,
+because a job that was created later but never ran has no timing to offer;
+`error` follows that same started job rather than the newest one, so a
+never-started duplicate cannot surface a stale message; `executions` counts
+only jobs that started; and `status_counts` counts every job in the group,
+started or not — so a node can show one more job in its counts than it
+reports executions for.
+
+## Example
+
+A node's original job completed after starting; a second job for the same
+node, created sixty seconds later, is marked failed without ever starting.
+
+```json title="The status_counts of the collapsed entry" verdict="both"
+{"completed": 1, "failed": 1}
+```
+
+```json title="The executions of the collapsed entry" verdict="one"
+1
+```
+
+`status` is `failed`, following the newer job; `error` is null, because the
+job that actually started never failed; `last_executed` and the timing are
+those of the job that ran.

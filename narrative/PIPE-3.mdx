@@ -1,0 +1,31 @@
+---
+rule: PIPE-3
+rule_hash: 699c418753b0
+---
+
+## What it means
+
+`total` and the per-status buckets in `job_status_summary` are answering two
+different questions from the same payload: `total` counts every job that
+exists, full stop, while a bucket only ever increments for a persisted value
+that is actually part of the defined vocabulary. A value the vocabulary has
+never seen — left behind by an older release, say — is still counted in
+`total`, but claims no bucket of its own, so the buckets can legitimately sum
+to less than `total`; a reader who expects them to always add up has found a
+gap that is not a bug. That guard is scoped to the summary alone. The
+per-node status counts sitting in the very same payload count the raw
+persisted value with no such filter, so the identical unrecognised value
+that never appears as a key in the summary shows up there as its own key, and
+as the node's own reported status.
+
+## Example
+
+A job's persisted status is a value the vocabulary has never defined:
+
+```json title="A persisted job status outside the vocabulary" verdict="persisted"
+"from_the_future"
+```
+
+On the next read of the full document it is the node's `status` and a key in
+the node's `status_counts`, and it is not a key in `job_status_summary` —
+the job counts toward `total` there and claims no bucket.

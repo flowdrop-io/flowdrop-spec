@@ -1,0 +1,37 @@
+---
+rule: TRIG-1
+rule_hash: 970abdad47b2
+---
+
+## What it means
+
+The buffer is a mailbox with one slot, not a queue: a second firing that
+arrives while one is already held does not stack behind it and does not
+replace it — it is simply dropped, and the first firing's data is what the
+mailbox still holds. A reader expecting FIFO behaviour, or expecting the
+newest firing to win, gets neither.
+
+Release carries the same surprise the other way. When the blocking run ends
+and the buffered firing is let through, it runs with the payload it was
+holding when it was deferred — not with whatever data the firing that
+triggered the release happened to carry. The current firing's own data is
+discarded; only the fact that something is now due survives from it.
+
+## Example
+
+A run is active, one firing is buffered, and a second firing arrives before
+the first is released:
+
+```json title="The buffer's trigger data after a second firing arrives" verdict="unchanged"
+{"n": 1}
+```
+
+Once the blocking run ends, the release carries the buffered firing's own
+data, not the payload of whatever firing caused the release:
+
+```json title="What proceeds once the blocking run is gone" verdict="buffered"
+{"n": "buffered"}
+```
+
+The firing that triggered the release, which had carried `{"n": "current"}`,
+contributes nothing but the fact that it was time to check again.

@@ -1,0 +1,38 @@
+---
+rule: TRIG-3
+rule_hash: 25871b765c81
+---
+
+## What it means
+
+A skip is written for diagnosis, not treated as a run. It appends to the
+history like an execution does, but it leaves the last-run time and the run
+count exactly where they were — a schedule that decides against firing must
+not look, afterwards, like it fired. The distinction shows up in the
+history entry itself: an executed entry gets the sequence number it earned;
+a skipped one carries none at all.
+
+The history is bounded independently of the count. Trimming the log to its
+ten most recent entries does not trim what it is counting: a trigger that
+has run far more than ten times still reports its true total, even though
+only the ten most recent entries — of either kind — remain to read back.
+
+## Example
+
+A first execution, recorded with the message `ran fine`, and a skip recorded
+with the reason `outside time window`, on the same trigger:
+
+```json title="The execution_number on the execution's history entry" verdict="counted"
+1
+```
+
+```json title="The execution_number on the skip's history entry" verdict="uncounted"
+null
+```
+
+After thirteen executions, only the ten most recent survive in the history —
+but the count itself is not trimmed with it:
+
+```json title="The run count after thirteen executions" verdict="thirteen"
+13
+```

@@ -1,0 +1,52 @@
+---
+rule: RT-TOOL-10
+rule_hash: 182e2d6009eb
+---
+
+## What it means
+
+A repeat batch can look, from every other port, exactly like work getting
+done: it still returns a full list of tool messages (each repeat re-emits
+its stored message) and a successful outcome, having invoked nothing new.
+`executed_any` is the one port that answers the question a loop actually
+needs answered — whether anything happened this pass — and it is the only
+one that says no.
+
+A name that is not wired to any tool still sets `executed_any`: nothing ran,
+but the recoverable failure the model gets back is a new result it has not
+seen, and that is enough for a loop to re-enter safely. A call with no
+identifier always runs and always sets `executed_any`, but is named in
+neither `executed` nor `skipped` — it cannot be recorded either way. Only a
+malformed call is excluded from all of it: dropped before anything is
+checked, present in neither list, and leaving `executed_any` false.
+
+## Example
+
+A batch resending a call that already ran, with nothing new in it:
+
+```json title="A batch of nothing but an already-executed call" verdict="resent"
+{ "tool_calls": [{ "name": "do_thing", "args": [], "tool_call_id": "call_a" }] }
+```
+
+```json title="The executed_any output of the repeat pass" verdict="idle"
+false
+```
+
+The same repeat alongside one genuinely new call:
+
+```json title="The same repeat, plus one new call" verdict="sent"
+{
+  "tool_calls": [
+    { "name": "do_thing", "args": [], "tool_call_id": "call_a" },
+    { "name": "other_thing", "args": [], "tool_call_id": "call_b" }
+  ]
+}
+```
+
+```json title="The executed output of the mixed pass" verdict="active"
+["call_b"]
+```
+
+`skipped` is `["call_a"]` in both passes, `ok` is true in both and
+`tool_messages` is non-empty in both; only `executed_any` and `executed`
+tell them apart.

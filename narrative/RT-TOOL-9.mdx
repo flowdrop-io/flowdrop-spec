@@ -1,0 +1,56 @@
+---
+rule: RT-TOOL-9
+rule_hash: 7cd5f6cbea21
+---
+
+## What it means
+
+A call is recorded as executed only once it has returned — succeeded, or
+failed in a way the run can recover from — never at the moment it is
+invoked. A call that pauses the node to ask for approval never reaches that
+point, so re-asking it after approval invokes it for real rather than
+finding it already recorded and being dropped.
+
+The repeat itself is never simply discarded, either. Its first result is
+re-emitted among the batch's tool messages, under the same identifier,
+because a batch that paused partway through never delivered that message
+downstream the first time — dropping the repeat would leave a declared call
+unanswered and push the model to retry it under a fresh identifier nobody
+can guard.
+
+A call with no identifier cannot be checked against anything already
+recorded, so it always runs, on every pass.
+
+## Example
+
+One call already executed, and the same batch sent again:
+
+```json title="One declared call, sent a second time" verdict="skipped"
+{ "tool_calls": [{ "name": "do_thing", "args": [], "tool_call_id": "call_a" }] }
+```
+
+```json title="The skipped output of the repeat run" verdict="recorded"
+["call_a"]
+```
+
+The tool ran once across both runs; the repeat's tool message is the stored
+first result, under `call_a`, and the run's outcome is the stored success.
+
+A batch with one call that already ran and one that only paused for
+approval, resent once approval is granted:
+
+```json title="A batch resent after the gated call is approved" verdict="resumed"
+{
+  "tool_calls": [
+    { "name": "do_thing", "args": [], "tool_call_id": "call_a" },
+    { "name": "gated_thing", "args": [], "tool_call_id": "call_gate" }
+  ]
+}
+```
+
+```json title="The executed output of the resumed run" verdict="mixed"
+["call_gate"]
+```
+
+`call_a` was recorded on the first pass and is skipped again; `call_gate`
+only paused the node last time, so it was never recorded and runs now.

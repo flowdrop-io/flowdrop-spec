@@ -1,0 +1,28 @@
+---
+rule: ERR-1
+rule_hash: 92cf6336206d
+---
+
+## What it means
+
+A failure a node signals in a routable way never shows up as a failed node.
+The node's own lifecycle record reports it as completed — the same status a
+node that raised nothing at all would report — because the node did finish;
+only the value on its output carries the verdict. A reader expecting the
+node's own status to reflect the failure will read the trail backwards:
+`failed` is reserved for a failure that escapes the node altogether (ERR-3),
+never for one that converted cleanly.
+
+Where the node also has an error edge, ERR-7 governs what happens to that
+output next.
+
+## Example
+
+A node raises an ordinary failure inside its own run.
+
+```json title="The status trail broadcast for the node's own run" verdict="completed"
+["running", "completed"]
+```
+
+The trail never reaches `failed`; that status is reserved for a failure that
+escapes the node entirely, not one converted to an output.

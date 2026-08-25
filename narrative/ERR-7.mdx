@@ -1,0 +1,25 @@
+---
+rule: ERR-7
+rule_hash: 949181110e2a
+---
+
+## What it means
+
+The envelope does not sit alongside the node's own output — it replaces it.
+Whatever the node would have produced on success is gone; a node downstream
+of the error edge sees only `message`, `code`, `node_id` and `retryable`,
+and can be written against that shape without ever knowing which node type
+failed or what it would otherwise have returned. The node's own unit of work
+is still recorded failed, not merely routed as if routing undid the
+failure — the run continuing is a decision about what happens next, not a
+change to what happened. `details` is the one key that is not always
+there: it appears only when the failure itself supplied something
+structured, never as an empty placeholder.
+
+## Example
+
+A node with a wired error edge fails; a node downstream reads its output.
+
+```json title="What arrives in place of the failing node's own output" verdict="routed"
+{"error": {"message": "boom blew up", "node_id": "boom"}}
+```

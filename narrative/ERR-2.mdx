@@ -1,0 +1,26 @@
+---
+rule: ERR-2
+rule_hash: c6691ccf121c
+---
+
+## What it means
+
+Retryability is not a boolean field with a default; it is a key that either
+exists or does not. A retry gate that treats it like an ordinary flag —
+`false` as an authoritative "no", any truthy value as a "yes" — reads this
+backwards. The gate here checks the value against the literal `true` and
+nothing else, so writing `false` on purpose changes nothing: the failure
+still does not retry, exactly as an absent key does not.
+
+## Example
+
+The same node failing twice, once in a way the runtime marks retryable and
+once in a way it does not.
+
+```json title="A failure the runtime marks retryable" verdict="true"
+{"error_retryable": true}
+```
+
+```json title="The same shape of failure, unmarked" verdict="absent"
+{}
+```

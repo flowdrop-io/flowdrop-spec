@@ -1,0 +1,28 @@
+---
+rule: ERR-5
+rule_hash: 4168f44b6b40
+---
+
+## What it means
+
+A node that stops the run is not failing quietly — the run finishes with the
+same status a run that executed everything normally reports. Everything
+downstream of the stopping node, and anything else not yet started, simply
+never happens: not marked failed, not marked skipped, not recorded at all. A
+reader who expects a partially-executed run to say so somewhere is expecting
+the wrong signal; `completed` here means the run ended deliberately, not
+that every node ran.
+
+## Example
+
+Three nodes in a line; the middle one stops the run.
+
+```json title="Nodes executed before the stop, in order" verdict="stopped"
+["node_a", "node_b"]
+```
+
+```json title="What the run itself finishes as" verdict="completed"
+"completed"
+```
+
+The third node never runs and never appears in the run's results.

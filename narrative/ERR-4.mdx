@@ -1,0 +1,25 @@
+---
+rule: ERR-4
+rule_hash: 3f84a5db06ae
+---
+
+## What it means
+
+An interrupt is not a third kind of failure sitting between ERR-1 and ERR-3
+— it gets its own status, distinct from both, and it must reach the caller
+as the exact object the node raised, not wrapped or replaced, because
+whatever resolves the interrupt needs its own identity intact. That
+identity is read from whatever attached itself to the interrupt along the
+way, not fixed by the node itself: a run with nothing attached still pauses,
+carrying empty identity fields rather than failing where a stricter reading
+might expect one.
+
+## Example
+
+```json title="The status trail broadcast for an interrupting node" verdict="interrupted"
+["running", "interrupted"]
+```
+
+```json title="What the broadcast carries when nothing attaches an identity" verdict="empty"
+{"interrupt_id": "", "interrupt_type": ""}
+```

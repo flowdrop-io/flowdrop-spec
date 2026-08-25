@@ -1,0 +1,26 @@
+---
+rule: ERR-3
+rule_hash: 987abb996456
+---
+
+## What it means
+
+A failure that never becomes a routable error output is not a milder version
+of ERR-1's outcome — it is the escape hatch that has to exist for an error
+edge to mean anything at all. The node itself is recorded failed, and no
+output exists for it, so there is nothing an error edge could route to,
+however the workflow wires the node downstream: the run fails outright. What
+does carry forward is the original cause — the failure reported to the
+caller keeps it, rather than a generic message that discards where the
+failure actually came from.
+
+## Example
+
+The same kind of node run as ERR-1, but with a failure the runtime does not
+convert.
+
+```json title="The status trail broadcast for an escaping failure" verdict="failed"
+["running", "failed"]
+```
+
+Contrast ERR-1's trail for a converted failure: it never reaches `failed`.

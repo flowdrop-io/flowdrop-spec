@@ -1,0 +1,25 @@
+---
+rule: ERR-13
+rule_hash: 18ba51f0690e
+---
+
+## What it means
+
+The contract holds even for the strategy with the least machinery behind it.
+A strategy that runs a workflow in one pass, with nothing persisted between
+steps, still owes the same envelope a strategy built around persisted steps
+delivers: the same four keys, in the same shape, to the same downstream
+input. Having no step record to carry the envelope in is not a reason to
+carry less of it, or to shape it differently because the surrounding
+machinery differs. Nothing about how a strategy is built earns it its own
+error-handling behaviour.
+
+## Example
+
+A node with a wired error edge fails under the strategy that keeps no record
+between steps; the downstream node's input arrives exactly as it would under
+any other strategy.
+
+```json title="What the downstream node's input port receives" verdict="routed"
+{"message": "boom blew up", "code": "E42", "node_id": "boom", "retryable": false}
+```

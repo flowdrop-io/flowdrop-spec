@@ -1,0 +1,43 @@
+---
+rule: DATA-9
+rule_hash: 1565d6bd86a1
+---
+
+## What it means
+
+The exclusion of `_`-prefixed keys and the reserved `trigger` key does not
+depend on how the node type configures them. Marking a key like `_debug`
+exposed on the node type has no effect: the leading underscore itself marks
+the value as plumbing rather than published data, and `trigger` is excluded
+the same way whatever its own exposure setting says, because it carries no
+data to begin with.
+
+The other clause runs the opposite way from what a stricter reading would
+suggest. An output key the node type's own configuration never mentions still
+counts as exposed and is composed into `output`. That is what stops a node
+whose behaviour produces more than its declared output schema from silently
+losing the extra value: nobody has to configure a key for it to be kept.
+
+## Example
+
+A node's result carries an ordinary output alongside an internal key that the
+node type happens to mark exposed anyway.
+
+```json title="What the node produced" verdict="produced"
+{"result": "ok", "_debug": "trace"}
+```
+
+```json title="What the unified output port composes" verdict="composed"
+{"result": "ok"}
+```
+
+The same node type declares only `result`, but the node also produces
+`extra`, a key its configuration never mentions.
+
+```json title="What the node produced, one undeclared key" verdict="produced"
+{"result": "ok", "extra": "bonus"}
+```
+
+```json title="What the unified output port composes with nothing declared" verdict="composed"
+{"result": "ok", "extra": "bonus"}
+```

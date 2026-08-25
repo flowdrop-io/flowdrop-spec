@@ -1,0 +1,33 @@
+---
+rule: DATA-12
+rule_hash: bdf9c07e5064
+---
+
+## What it means
+
+A node type that only forwards tools is accepted for wiring even though it
+never consumes any of them itself — it exists purely to fan the same tools
+out to more than one consumer, and every consumer wired to it sees the whole
+set, not a private share carved out for it alone.
+
+The other clause cuts against treating tool binding as something decided once
+and then left alone. A node reached again on a later round of a loop is not
+running on a binding made the first time it was reached: every round
+re-derives which tools it receives, so a node reached a second, third, or
+hundredth time still gets everything it is wired to.
+
+## Example
+
+Two calculators, wired as `adder` and `multiplier`, both feed a single shared
+forwarding node; that node feeds two separate tool-consuming nodes.
+
+```json title="Each consumer's tool manifest" verdict="listed"
+["adder", "multiplier"]
+```
+
+A single tool-consuming node sits inside a loop, re-entered on every round,
+with one calculator wired to it directly.
+
+```json title="The consumer's tool manifest, every round of the loop" verdict="listed"
+["adder"]
+```

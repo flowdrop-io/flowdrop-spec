@@ -1,0 +1,34 @@
+---
+rule: DATA-1
+rule_hash: 49774b52af03
+---
+
+## What it means
+
+What decides whether a value is delivered is whether the source's output
+contains the wired key at all, not whether the value found there is useful.
+Even an explicit `null` counts as delivered, and a delivered `null` still
+outranks whatever the target's own configuration or schema default would
+otherwise supply.
+
+The other side of the same clause is silent absence: an edge whose handle
+cannot be split into a port name — because the direction marker is missing —
+names no port, and delivers nothing. Nothing is logged and the run is not
+failed; the target simply falls through to its own configuration and default,
+exactly as if the edge had never been drawn.
+
+## Example
+
+A node wires another node's `result` output to its `data` input, but the
+source's actual output never carried a `result` key.
+
+```json title="What the source node produced" verdict="produced"
+{"other": "alpha"}
+```
+
+```json title="What the target's data port receives" verdict="empty"
+{}
+```
+
+A handle with no `-output-`/`-input-` marker to split on behaves the same
+way: the port name resolves to nothing, and nothing arrives.

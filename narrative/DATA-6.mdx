@@ -1,0 +1,32 @@
+---
+rule: DATA-6
+rule_hash: 3d287fcbdfc2
+---
+
+## What it means
+
+Initial data is a fallback, not a second source competing with an edge: it
+only ever fills the ports an edge left untouched. An edge-delivered `null`
+still counts as delivered, so it still wins over a seeded value at the same
+port — the merge is keyed on presence, not on usefulness. An entry keyed for
+a node other than the one running is ignored outright, and an entry that is
+not itself a map of port names to values is dropped rather than merged in
+some other shape.
+
+## Example
+
+A node's `message` port is fed by an edge; its `seed` port is not. Initial
+data carries a value for both ports, keyed to this node.
+
+```json title="What the run's initial data offers this node" verdict="offered"
+{"message": "from_initial_data", "seed": "only_in_initial_data"}
+```
+
+```json title="What the node actually receives" verdict="merged"
+{"message": "from_edge", "seed": "only_in_initial_data"}
+```
+
+The wired port keeps the edge's value; the unwired one takes the seed. Where
+the edge instead delivers an explicit `null` on `message`, the node still
+receives `{"message": null}` — the seed does not get a second chance because
+the delivered value happens to be empty.

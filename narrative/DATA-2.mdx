@@ -1,0 +1,34 @@
+---
+rule: DATA-2
+rule_hash: c1ed41a2880d
+---
+
+## What it means
+
+A port fed by several edges never accumulates a list; it resolves to exactly
+one value, and the resolution has a strict order of preference. A source that
+completed later wins over one that completed earlier. Only when neither
+source recorded a completion order at all does the tie-break fall to the
+source node's own identifier — and that fallback is a genuine lexicographic
+sort, not the order the edges happen to be drawn in a workflow: which edge
+was drawn first has no bearing on which source wins.
+
+## Example
+
+Two sources, `node_early` and `node_late`, both wire into the same port. Each
+completes with its own execution order recorded.
+
+```json title="Resolved by completion order" verdict="resolved"
+{"data": "second"}
+```
+
+The same port, fed by `node_a` and `node_b`, neither of which recorded a
+completion order — and the edge from `node_b` is drawn first in the
+workflow, ahead of `node_a`'s:
+
+```json title="Resolved by source node identifier" verdict="resolved"
+{"data": "from_a"}
+```
+
+`node_a` wins on the alphabetical sort even though its edge was declared
+second.

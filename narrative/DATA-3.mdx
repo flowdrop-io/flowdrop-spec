@@ -1,0 +1,24 @@
+---
+rule: DATA-3
+rule_hash: deacf6be5d32
+---
+
+## What it means
+
+A trigger edge carries only the fact that its source finished, never a
+value — and that holds even where the edge's target handle names an
+ordinary input port. Pointing a trigger edge at a port that looks like a
+data port does not make it one: the port is never filled.
+
+## Example
+
+`node_a` produces an output, and a trigger edge wires it to `node_z`'s
+`data` port.
+
+```json title="What node_a produced" verdict="produced"
+{"result": "alpha"}
+```
+
+```json title="What node_z receives on the wired port" verdict="empty"
+{}
+```

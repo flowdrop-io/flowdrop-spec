@@ -1,0 +1,34 @@
+---
+rule: DATA-11
+rule_hash: efcf6af2b17d
+---
+
+## What it means
+
+The two ways a workflow can already decide a parameter are treated
+identically, and a reader might expect otherwise: a value the author typed
+into the tool node's own configuration and a value another node feeds it on a
+wire both drop out of the model-facing schema the same way. The model is
+never asked to guess at something the workflow has already committed to
+supply, however that value arrives — it makes no difference to what the model
+is offered.
+
+## Example
+
+A tool node's parameter schema declares two connectable parameters, `url` and
+`query`; the workflow pins a value for `url` in the node's own configuration.
+
+```json title="The tool node's declared parameter schema" verdict="declared"
+{
+  "type": "object",
+  "properties": { "url": { "type": "string" }, "query": { "type": "string" } },
+  "required": ["url"]
+}
+```
+
+Only `query` survives into the model-facing `properties`, and `required` is
+left empty: the pinned `url` drops out of both.
+
+An edge feeding `url` from another node instead of a pinned configuration
+value removes it the same way — the same `properties`, the same empty
+`required`.

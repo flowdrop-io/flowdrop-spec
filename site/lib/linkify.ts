@@ -1,3 +1,5 @@
+import type { TermMatcher } from './glossary';
+
 /**
  * The ID matcher. One implementation, two call sites:
  *
@@ -8,6 +10,11 @@
  *
  * Only identifiers that resolve to a real rule page become links. A ruling
  * (`OPEN-19`, `DF-7`) has no page, so it renders as a marker, never a dead link.
+ *
+ * Glossary terms ride the same pass, after identifiers, so a term inside an
+ * identifier is never touched. They are opt-in per block: the caller hands in a
+ * `TermLinker`, whose `seen` set makes the first occurrence per block the only
+ * one linked. No linker, no term links.
  */
 
 /** Candidate identifier shapes, per rules/schema.json's `id` pattern. */
@@ -18,9 +25,15 @@ const RULING = /^(?:OPEN|DF)-[0-9]+$/;
 export type Segment =
   | { type: 'text'; value: string }
   | { type: 'link'; value: string; url: string }
-  | { type: 'marker'; value: string };
+  | { type: 'marker'; value: string }
+  | { type: 'term'; value: string; url: string; title: string };
 
 export type Resolver = (id: string) => string | undefined;
+
+/** Per-block state for glossary linking: which terms this block has already linked. */
+export type TermLinker = { matchers: TermMatcher[]; seen: Set<string> };
+
+export const termLinker = (matchers: TermMatcher[]): TermLinker => ({ matchers, seen: new Set() });
 
 /**
  * Trim one trailing `.seg` / `-seg` group at a time, so `SCH-10.b` still links
@@ -42,7 +55,7 @@ function* candidates(token: string): Generator<string> {
 }
 
 /** Split a plain-text string into linked / marked / literal segments. */
-export function segment(text: string, resolve: Resolver): Segment[] {
+export function segment(text: string, resolve: Resolver, terms?: TermLinker): Segment[] {
   const out: Segment[] = [];
   let last = 0;
   TOKEN.lastIndex = 0;
@@ -72,6 +85,34 @@ export function segment(text: string, resolve: Resolver): Segment[] {
     TOKEN.lastIndex = last;
   }
 
+  if (last < text.length) out.push({ type: 'text', value: text.slice(last) });
+  return terms ? out.flatMap((s) => (s.type === 'text' ? linkTerms(s.value, terms) : [s])) : out;
+}
+
+/** Link the first not-yet-seen occurrence of each glossary term in a text run. */
+function linkTerms(text: string, terms: TermLinker): Segment[] {
+  const hits: { start: number; end: number; m: TermMatcher }[] = [];
+  for (const m of terms.matchers) {
+    if (terms.seen.has(m.slug)) continue;
+    m.re.lastIndex = 0;
+    const x = m.re.exec(text);
+    if (!x) continue;
+    // Earlier term wins an overlap; ties keep the longer match.
+    const clash = hits.find((h) => x.index < h.end && x.index + x[0].length > h.start);
+    if (clash) continue;
+    hits.push({ start: x.index, end: x.index + x[0].length, m });
+    terms.seen.add(m.slug);
+  }
+  if (hits.length === 0) return [{ type: 'text', value: text }];
+  hits.sort((a, b) => a.start - b.start);
+
+  const out: Segment[] = [];
+  let last = 0;
+  for (const h of hits) {
+    if (h.start > last) out.push({ type: 'text', value: text.slice(last, h.start) });
+    out.push({ type: 'term', value: text.slice(h.start, h.end), url: h.m.url, title: h.m.title });
+    last = h.end;
+  }
   if (last < text.length) out.push({ type: 'text', value: text.slice(last) });
   return out;
 }

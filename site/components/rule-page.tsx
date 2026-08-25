@@ -8,6 +8,8 @@ import { RailId, RailKey, RailNav } from './rail';
 import { PageActions } from './page-actions';
 import { slugify } from '@/lib/rules';
 import { clauses } from '@/lib/clauses';
+import { termLinker } from '@/lib/linkify';
+import { GLOSSARY_URL, termMatchers } from '@/lib/glossary';
 
 /**
  * The page anatomy is a menu, not a checklist: every section but the normative
@@ -60,10 +62,13 @@ export function ruleToc(rule: LoadedRule, narrativeToc: TOCItemType[] = []): TOC
  */
 function Statement({ normative }: { normative: string }) {
   const parts = clauses(normative);
+  // One linker for the whole statement: a term is linked where it first
+  // appears, whichever clause that is, and nowhere else in the block.
+  const terms = termLinker(termMatchers(GLOSSARY_URL));
   if (parts.length < 2) {
     return (
       <p className="statement">
-        <Prose>{normative}</Prose>
+        <Prose terms={terms}>{normative}</Prose>
       </p>
     );
   }
@@ -71,7 +76,7 @@ function Statement({ normative }: { normative: string }) {
     <ol className="statement clauses">
       {parts.map((c, i) => (
         <li key={i} id={`c${i + 1}`}>
-          <Prose>{c}</Prose>
+          <Prose terms={terms}>{c}</Prose>
         </li>
       ))}
     </ol>

@@ -100,6 +100,21 @@ removed.
 - **Schema snapshot**: a frozen copy of each declared input's schema, so callers
   validate against what the author *published*, not against live node-type code.
   (Not the same as the run-progress snapshot above.)
+- **Door**: a public API route through which a caller reaches a workflow, a
+  session or a run: the launch door, the turn door, the workflow store's doors.
+  The GR-API rules constrain what every door accepts and how it refuses, so a
+  caller learns one contract rather than one per route.
+
+## Sessions
+
+- **Session**: a persisted conversation bound to one workflow, driven a turn at
+  a time. A session has an owner (MEM-8); reading it and driving it are
+  different permissions (MEM-9), and a session with no workflow refuses every
+  request against it (API-3).
+- **Turn**: one exchange in a session: a caller's message, with optional
+  `inputs`, that runs the session's workflow once and yields the assistant's
+  reply. A session runs one turn at a time; a turn's `inputs` are judged exactly
+  as a launch's are (API-2). (A *step* is one node's execution, not a turn.)
 
 ## Expressions
 

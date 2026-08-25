@@ -2,6 +2,7 @@ import { createCompiler } from '@fumadocs/mdx-remote';
 import { parseCodeBlockAttributes, rehypeCodeDefaultOptions } from 'fumadocs-core/mdx-plugins';
 import { remarkSpecAutolink } from './remark-autolink';
 import { urlForId } from './rules';
+import { GLOSSARY_URL, termMatchers } from './glossary';
 
 /**
  * A worked exchange is a fenced block with a caption and a verdict:
@@ -32,6 +33,6 @@ function parseMetaString(meta: string) {
  * TOC are already assigned when the autolinker runs.
  */
 export const compiler = createCompiler({
-  remarkPlugins: (v) => [...v, [remarkSpecAutolink, { resolve: urlForId }]],
+  remarkPlugins: (v) => [...v, [remarkSpecAutolink, { resolve: urlForId, terms: termMatchers(GLOSSARY_URL) }]],
   rehypeCodeOptions: { ...rehypeCodeDefaultOptions, parseMetaString },
 });

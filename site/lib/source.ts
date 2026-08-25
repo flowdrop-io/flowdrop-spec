@@ -4,6 +4,7 @@ import { loader, type StaticSource, type InferPageType } from 'fumadocs-core/sou
 import { structure } from 'fumadocs-core/mdx-plugins';
 import type { StructuredData } from 'fumadocs-core/mdx-plugins';
 import { allFamilies, allRules, urlForId, slugify, type Family, type LoadedRule } from './rules';
+import { anchoredGlossary } from './glossary';
 
 const REPO = path.join(process.cwd(), '..');
 const CONTENT = path.join(process.cwd(), 'content');
@@ -93,7 +94,9 @@ function files() {
       kind: 'doc',
       title: 'Glossary',
       description: 'The vocabulary the rules are written in.',
-      body: glossaryBody(),
+      // The page gets anchored entries (`<dfn id>`), so term links land on the
+      // definition; the search index keeps the plain source.
+      body: anchoredGlossary(glossaryBody()),
       structuredData: () => structure(glossaryBody()),
     } as PageData,
   });

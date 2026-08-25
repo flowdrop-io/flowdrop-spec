@@ -1,0 +1,45 @@
+# Glossary terms the site links automatically.
+#
+# Key: the glossary entry's anchor, which is the entry's slug — the first
+# alternative of its bold term, lower-cased, non-alphanumerics to hyphens
+# ("Pipeline / job" → pipeline, "Snapshot / checkpoint" → snapshot). The build
+# fails on a key with no entry.
+#
+# match: a case-insensitive regex, applied at word boundaries to prose outside
+# code spans and outside rule identifiers. Write the pattern to exclude verb
+# and compound uses — "turns on", "session-bound" — because a mislink is worse
+# than no link. The first match per block is linked; later ones are left plain.
+#
+# Terms are linked in the normative statement and in narrative prose. Titles,
+# standfirsts and reference notes never carry term links.
+
+turn:
+  # Not the verb ("turns on", "turns a working node into"), not the idiom
+  # ("take its turn").
+  match: "(?<!its |their )turns?(?! (?:on|out|into|off|to|an?|the|it|them)\\b)"
+session:
+  match: "sessions?(?![-'])"
+door:
+  match: "doors?"
+interrupt:
+  # Singular noun only: "an interrupt", "the interrupt's id". The plural form
+  # is the verb in this corpus ("a node that interrupts").
+  match: "interrupt(?![se]|ing)(?! (?:the|a|an|it|its)\\b)"
+orchestrator:
+  match: "orchestrators?"
+locator:
+  match: "locators?"
+readiness:
+  match: "readiness"
+compilation:
+  match: "compilation"
+exposure-entry:
+  match: "exposure entr(?:y|ies)"
+schema-snapshot:
+  match: "schema snapshots?"
+snapshot:
+  match: "checkpoints?"
+launch-input-manifest:
+  # Not the verb ("a drift that manifests as"), and not another manifest
+  # ("capability manifest").
+  match: "(?<!capability )(?:launch-input |input )?manifests?(?! as\\b)"

@@ -1026,6 +1026,75 @@ span.rulechip {
 .spec-idlink:hover {
   text-decoration-style: solid;
 }
+/* A glossary term: a definition link, so it keeps the text's own colour and
+   marks itself only by a dotted underline, the way a dictionary does. The
+   definition's first sentence rides in the title attribute. */
+.spec-term {
+  color: inherit;
+  text-decoration: underline;
+  text-decoration-style: dotted;
+  text-decoration-color: var(--ink-3);
+  text-decoration-thickness: 1px;
+  text-underline-offset: 0.22em;
+}
+.spec-term:hover,
+.spec-term:focus-visible {
+  color: var(--accent);
+  text-decoration-color: var(--accent);
+}
+/* The definition, as a themed tooltip. Drawn from data-def, so it is the
+   glossary's own first sentence; a native title cannot take the palette. It
+   waits a beat so a pointer crossing the text does not flash it, and it sits
+   below the term's first line box, ink on paper inverted so it reads as a
+   note over the page rather than part of it. */
+.spec-term {
+  position: relative;
+}
+.spec-term::after {
+  content: attr(data-def);
+  position: absolute;
+  left: 0;
+  top: calc(100% + 0.5em);
+  z-index: 10;
+  width: max-content;
+  max-width: min(36ch, 80vw);
+  padding: 0.55rem 0.75rem;
+  border-radius: 3px;
+  background: var(--ink);
+  color: var(--paper);
+  font-family: var(--sans);
+  font-size: 0.8rem;
+  font-weight: 400;
+  line-height: 1.45;
+  letter-spacing: normal;
+  text-align: left;
+  text-decoration: none;
+  white-space: normal;
+  box-shadow: 0 6px 20px -8px rgb(0 0 0 / 0.35);
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(-2px);
+  transition: opacity 120ms ease, transform 120ms ease, visibility 0s linear 120ms;
+  pointer-events: none;
+}
+.spec-term:hover::after,
+.spec-term:focus-visible::after {
+  opacity: 1;
+  visibility: visible;
+  transform: none;
+  transition-delay: 180ms;
+}
+/* The glossary entry a term links to. */
+dfn {
+  font-style: normal;
+  font-weight: 600;
+  scroll-margin-top: 1.5rem;
+}
+li:has(> dfn:target) {
+  background: var(--accent-wash);
+  box-shadow: 0 0 0 0.45rem var(--accent-wash);
+  border-radius: 2px;
+}
 /* A ruling has no page, so it is marked, never linked. */
 .spec-ruling {
   font-family: var(--mono);

@@ -1,0 +1,37 @@
+---
+rule: META-7
+rule_hash: 64086cb5b0b3
+---
+
+## What it means
+
+Only one comparison is implemented: the tag sent must equal, character for
+character, the tag of the variant actually being requested. The wildcard,
+a comma-separated list of tags and weak comparison are not read at all — a
+caller sending any of them falls through to the full response rather than
+being told, wrongly, that nothing has changed. A partial reading of the
+wildcard would be worse than none: it would tell a caller holding no copy at
+all that its (nonexistent) copy is still current.
+
+Because the tag carries the variant (META-6), a tag minted for one variant
+does not short-circuit a request for the other — each variant answers only
+its own conditional request.
+
+## Example
+
+```http title="A held copy's tag, sent back unchanged" verdict="304 unchanged"
+GET /api/flowdrop/workflows/{id}/schema
+If-None-Match: "1.2.3"
+
+{}
+```
+
+```http title="The plain copy's tag, sent while asking for the annotated body" verdict="200 unconditional"
+GET /api/flowdrop/workflows/{id}/schema?annotated=1
+If-None-Match: "1.2.3"
+```
+
+```http title="A wildcard match, which this door does not read" verdict="200 unconditional"
+GET /api/flowdrop/workflows/{id}/schema
+If-None-Match: *
+```

@@ -1,0 +1,26 @@
+---
+rule: META-3
+rule_hash: be602e609ce1
+---
+
+## What it means
+
+A failed read does not forward whatever the underlying failure said: the
+caller gets one fixed message naming what failed, and the real detail goes
+only to the implementation's own error channel. This holds even on a door
+whose successful response is cacheable — a cacheable response path is not an
+exemption from the rule, so an error answer must not slip through it
+unfiltered.
+
+## Example
+
+A storage failure that would otherwise say exactly what broke:
+
+```http title="A read whose storage layer failed" verdict="500 refused"
+GET /api/flowdrop/categories
+
+{"success": false, "error": "Failed to fetch categories"}
+```
+
+Nothing about the storage failure itself — its own raised message —
+reaches that body.

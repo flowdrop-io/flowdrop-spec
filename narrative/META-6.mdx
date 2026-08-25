@@ -1,0 +1,30 @@
+---
+rule: META-6
+rule_hash: a21abe949f9e
+---
+
+## What it means
+
+The schema version alone is not enough to tag the response: `?annotated=1`
+returns a different body from the same version, so a tag keyed on the
+version alone makes the two bodies indistinguishable to a conditional
+request. A caller holding the plain body's tag can send it back while asking
+for the annotated one and, if the tag does not carry the variant, be told
+nothing has changed — and go on serving a document with every title and
+description missing.
+
+## Example
+
+```http title="Reading a workflow's plain schema" verdict="200 tagged"
+GET /api/flowdrop/workflows/{id}/schema
+
+ETag: "3.4.5"
+```
+
+```http title="Reading the same workflow's annotated schema" verdict="200 tagged"
+GET /api/flowdrop/workflows/{id}/schema?annotated=1
+
+ETag: "3.4.5+annotated"
+```
+
+Same workflow, same schema version, two tags that must never collide.

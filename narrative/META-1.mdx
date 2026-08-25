@@ -1,0 +1,26 @@
+---
+rule: META-1
+rule_hash: 3f23d8d26cce
+---
+
+## What it means
+
+`name` is the category's identifier, not a label a consumer may render as
+one — there is no separate `id` key to reach for instead, so a consumer that
+shows `name` to an author is showing a machine name. And the list is a
+filtered view, not a flagged one: a disabled category is left out entirely,
+which means a consumer cannot tell "disabled" apart from "never existed" —
+both look like the category is simply absent.
+
+## Example
+
+One enabled category, alongside a disabled one that never appears at all.
+
+```http title="Two stored categories, one disabled" verdict="200 served"
+GET /api/flowdrop/categories
+
+{"success": true, "data": [{"name": "automation", "label": "Automation", "icon": "mdi:robot", "color": "#ABCDEF", "description": "Nodes that automate things."}]}
+```
+
+The disabled category contributes nothing to `data` — not a row with a
+flag, not a shorter row, no trace at all.

@@ -1,0 +1,30 @@
+---
+rule: META-4
+rule_hash: 63ae64664608
+---
+
+## What it means
+
+This door answers with no envelope at all: no `success`, no `data`, just the
+three keys themselves. And where a workflow declares no ports, the missing
+schema is `null`, not an empty object and not a key left out — the three
+shapes ("no ports", "an empty object", "key missing") would otherwise all
+look the same to a consumer that has to guess which one it is looking at.
+
+## Example
+
+A workflow with both a declared input and a declared output:
+
+```http title="A workflow's declared parameter and output schemas" verdict="200 served"
+GET /api/flowdrop/workflows/{id}/schema
+
+{"schema_version": "2.1.0", "parameter_schema": {"type": "object", "properties": {"name": {"type": "string"}}}, "output_schema": {"type": "object", "properties": {"result": {"type": "string"}}}}
+```
+
+A workflow that declares no ports at all:
+
+```http title="A workflow with no declared ports" verdict="200 served"
+GET /api/flowdrop/workflows/{id}/schema
+
+{"schema_version": "0.0.0", "parameter_schema": null, "output_schema": null}
+```

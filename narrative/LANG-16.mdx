@@ -1,0 +1,35 @@
+---
+rule: LANG-16
+rule_hash: 73f4022b48dd
+---
+
+## What it means
+
+Whether a string context is parsed turns entirely on whether it parses, not
+on whether it looks like ordinary text or looks like data. The sharp edge is
+the four-character string "null": it reads like the kind of text a
+pass-through would leave alone, but it is itself a complete, valid JSON
+document, so it decodes to the JSON value null rather than surviving as the
+four-letter word. Nothing about the surrounding path decides this — the
+context alone does.
+
+## Example
+
+The context is a string in both cases; only whether it parses as JSON
+decides what querying the root returns.
+
+```json title="A context that is the word null" verdict="context"
+"null"
+```
+
+```json title="What querying the root of it returns" verdict="decoded"
+null
+```
+
+```json title="A context that is a JSON object as text" verdict="context"
+"{\"name\": \"Test\", \"value\": 123}"
+```
+
+```json title="What querying its name returns" verdict="decoded"
+"Test"
+```

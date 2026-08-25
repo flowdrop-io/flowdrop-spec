@@ -1,0 +1,31 @@
+---
+rule: LANG-3
+rule_hash: 53d058b61aab
+---
+
+## What it means
+
+An empty expression is not treated as an author mistake in either direction a
+node can use one. What "empty" resolves to is fixed by which of the two
+families (LANG-1) the node belongs to, not by the engine selected: a node that
+writes an output from an expression gets `null` for an empty one, and a node
+that reads a value out of a context by path returns that context unchanged,
+still reporting success, when the path is empty. Neither shape depends on
+which engine is configured — the short-circuit happens before an engine ever
+runs.
+
+## Example
+
+A mapping node produces one output whose expression is empty:
+
+```json title="The value of a mapper output whose expression is empty" verdict="null"
+null
+```
+
+An extractor given a path of `""` against an input of `{"a": 1}` never reaches
+an engine either. It reports success, reports no match, and delivers the
+context it was handed back unchanged:
+
+```json title="The data an extractor with an empty path delivers" verdict="unchanged"
+{"a": 1}
+```

@@ -1,0 +1,22 @@
+---
+rule: LANG-17
+rule_hash: 49a0730a55b5
+---
+
+## What it means
+
+Dot and bracket segments are not two dialects an implementation merely
+tolerates side by side — they are normalized to one form before anything is
+parsed, so no code path can see the difference. A dot segment reaching into a
+list by numeral, `users.0.name`, is not a special case handled separately
+from `store.name`: it normalizes the same way, and the same value comes back
+whichever spelling reached it.
+
+## Example
+
+The same value in the evaluation context, reached once as `store.name` and
+once as `[store][name]`:
+
+```json title="What both the dot form and the bracket form return" verdict="identical"
+"Test Store"
+```

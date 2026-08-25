@@ -1,0 +1,28 @@
+---
+rule: LANG-18
+rule_hash: cd56ee904eb9
+---
+
+## What it means
+
+A mapping value that starts with `literal:`, or that is wrapped in a matching
+pair of quotes, never reaches the path evaluator at all — it is not a path
+that happens to resolve to a fixed string, it is never looked up in the
+context in the first place. The quotes themselves are stripped from what is
+delivered, so a mapping cannot deliver a quoted string literally; quoting is
+consumed entirely by the escape. This behaviour is scoped to trigger
+mappings: an ordinary path elsewhere is not read this way just because it
+starts with a matching pair of quote characters.
+
+## Example
+
+Three mapping values, escaped three different ways, against the same
+context.
+
+```json title="A mapping with three literal-escaped values" verdict="input"
+{"static_key": "literal:my_static_value", "quoted_value": "\"quoted string\"", "single_quoted": "'single quoted'"}
+```
+
+Each produces the string it spells — `my_static_value`, `quoted string`,
+`single quoted` — with the prefix or the quotes consumed; none is looked up
+in the context.

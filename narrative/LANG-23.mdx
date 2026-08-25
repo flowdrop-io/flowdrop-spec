@@ -1,0 +1,30 @@
+---
+rule: LANG-23
+rule_hash: ec3fcc072409
+---
+
+## What it means
+
+Whether a list result gets reduced to its first match turns on which engine
+ran, not on what the path string looks like. A `$`-rooted path evaluated by
+the property-path engine is still read as a property path — the leading `$`
+is not enough on its own to trigger the reduction. The flag that reports
+whether the path looked like a JSONPath query is independent of this: it
+answers the prefix question alone, so it can read true for a path the
+property-path engine went on to deliver whole, unreduced.
+
+## Example
+
+The evaluator returns the same two-element list either way; only the engine
+differs, against the same `$`-rooted path.
+
+```json title="The data output under the property-path engine" verdict="whole"
+["first", "second"]
+```
+
+```json title="The data output under the jsonpath engine, same path" verdict="unwrapped"
+"first"
+```
+
+Both report the path as a JSONPath query (`is_jsonpath` true); only the
+second reduces it, and only the second counts two matches.

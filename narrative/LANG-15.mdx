@@ -1,0 +1,28 @@
+---
+rule: LANG-15
+rule_hash: a1a3f1fb9d69
+---
+
+## What it means
+
+Whether a result comes back as a bare value or as a list is decided by
+reading the query's own syntax, not by counting how many things it happened
+to match today. A query with no wildcard, filter or slice in it is written
+to find one thing, so a single match is handed back directly. A query that
+carries one of those — even when, on a given record, it only ever matches
+one item — keeps its list shape regardless, because the query was written
+to select many and the day it matches one is not a promise it always will.
+
+## Example
+
+Two queries against the same stored data: `$.store.name`, an ordinary path,
+and `$.store.books[?(@.price < 9)].title`, a filter written to select many —
+each matching exactly one item.
+
+```json title="What the ordinary path returns" verdict="unwrapped"
+"Test Store"
+```
+
+```json title="What the filter path returns" verdict="list"
+["Book 3"]
+```

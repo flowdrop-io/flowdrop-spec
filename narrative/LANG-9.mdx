@@ -1,0 +1,24 @@
+---
+rule: LANG-9
+rule_hash: 056464c26ab5
+---
+
+## What it means
+
+A JSONPath query can fail in two quite different ways — the string never
+compiles at all, or it compiles and runs but matches nothing — and the
+engine treats both as the same outcome. Neither raises, and both hand back
+whatever default the caller supplied, null if none was given. The returned
+value carries no trace of which of the two happened, so a caller cannot use
+it to distinguish a typo in the query from a query that was simply looking
+in the wrong place.
+
+## Example
+
+Two failing queries against the same data: `$.[invalid`, which cannot
+compile, and `$.store.nonexistent`, which compiles and runs but matches
+nothing — both evaluated with the same supplied default.
+
+```json title="What both queries return" verdict="fallback"
+"fallback"
+```

@@ -1,0 +1,52 @@
+---
+rule: LANG-27
+rule_hash: 4f0cb7f90322
+---
+
+## What it means
+
+The parameter is named `expression`, but no expression engine ever sees it. A
+value that happens to look like a query — a JSONPath-shaped string, say — is
+still just a string, compared for exact equality against each branch's own
+value in the order the branches are declared. There is no coercion either: the
+comparison also requires the same type, so a value and a branch that would be
+equal after a type conversion still miss each other.
+
+Only the first branch to match becomes active, and its declared name is what
+the gateway reports. Nothing matching falls through to the configured default
+branch; nothing matching and no usable default fails the node outright.
+
+## Example
+
+A value shaped exactly like a JSONPath query, matched against a branch whose
+own configured value is that same literal string:
+
+```json title="The expression and the branches it is compared against"
+{
+  "expression": "$.user.role",
+  "default_branch": "default",
+  "branches": [
+    { "name": "Admin", "value": "admin" },
+    { "name": "Literal", "value": "$.user.role" }
+  ]
+}
+```
+
+```json title="The active branch" verdict="active"
+["Literal"]
+```
+
+The same strictness rules out a type match that a looser comparison would
+allow:
+
+```json title="A string expression against a branch whose value is the integer 1"
+{ "expression": "1", "default_branch": "Fallback", "branches": [{ "name": "IntOne", "value": 1 }] }
+```
+
+```json title="The active branch" verdict="active"
+["Fallback"]
+```
+
+`"1"` and `1` are equal after conversion but not of the same type, so the
+comparison misses and the configured default branch, `Fallback`, is what
+activates.

@@ -1,0 +1,32 @@
+---
+rule: ORC-15
+rule_hash: 3effaebf55ad
+---
+
+## What it means
+
+Anything watching for a run to finish must not mistake a cancelled run for
+one still in progress: cancellation ends the run through its own path, and
+that path is easy to forget to announce, so this rule pins the announcement
+as mandatory rather than incidental. A listener that only checks for
+completion, and treats silence as "still running," is exactly the bug this
+closes.
+
+A cancelled sub-workflow resolving to its caller is the same rule seen from
+the other side. Whatever the resolved response looked like — no response at
+all, a bare status, or an outputs field that is not itself a set of values —
+none of it is treated as partial results. The caller sees an empty result,
+never a fabricated one assembled from whatever happened to be present.
+
+## Example
+
+A sub-workflow's resolved response, in shapes a cancellation or an
+outputless resume can leave behind:
+
+```json title="A resolved response with no outputs field at all" verdict="cancelled"
+{ "status": "cancelled" }
+```
+
+```json title="What the caller receives from it" verdict="empty"
+{}
+```

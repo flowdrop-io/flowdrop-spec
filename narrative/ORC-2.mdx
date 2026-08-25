@@ -1,0 +1,36 @@
+---
+rule: ORC-2
+rule_hash: eee385d518ea
+---
+
+## What it means
+
+The chain runs presave first, unconditionally. Even where a trigger declares
+asynchronous and the implementation's own default is state graph, a run fired
+by a presave event still executes synchronously, because the record's save is
+still in flight and only an in-request pass can observe it before it lands.
+
+What counts as presave is a substring match, not a fixed prefix: any event
+name that carries `.presave` anywhere in it qualifies. A differently-prefixed
+event forces the same synchronous strategy as the conventional one.
+
+Past that first step, each remaining step in the chain is honoured only if it
+validates as usable — a step naming a strategy the implementation cannot
+resolve is skipped in favour of the next, so a stale or uninstalled
+configuration cannot silently capture the default.
+
+## Example
+
+A run whose trigger defaults to asynchronous and whose implementation
+defaults to state graph, fired by two differently-named presave events:
+
+```json title="A conventionally-prefixed presave event" verdict="synchronous"
+"entity.node.presave"
+```
+
+```json title="A presave event with an unrelated prefix" verdict="synchronous"
+"flowdrop.custom.presave.something"
+```
+
+Both resolve to the synchronous strategy, ahead of either configured
+default.

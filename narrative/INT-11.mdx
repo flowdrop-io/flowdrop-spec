@@ -1,0 +1,33 @@
+---
+rule: INT-11
+rule_hash: ad76a09906b9
+---
+
+## What it means
+
+Re-running is not resuming. A run that already reached completed, failed or
+cancelled is dead, and re-entering it — through whichever door tries — does
+nothing: no work executes and the run's own record is left exactly as it
+was. What looks like "starting it again" always means a second, independent
+run, seeded with the first one's input.
+
+That second run starts from scratch, not from wherever the first one left
+off. It carries the same input the dead run carried, but its own status
+begins at the beginning — nothing about a terminal run's outcome, progress or
+identity survives into the run created from it, beyond the input and a
+record of which run it was re-run from.
+
+## Example
+
+A cancelled run carrying one input value, and the run created by re-running it.
+
+```json title="A cancelled run's stored input" verdict="cancelled"
+{ "answer": 42 }
+```
+
+```json title="The new run created by re-running it" verdict="pending"
+{ "input": { "answer": 42 } }
+```
+
+The new run also records which run it was re-run from; the cancelled run
+keeps its status untouched.

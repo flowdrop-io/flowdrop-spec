@@ -1,0 +1,37 @@
+---
+rule: ORC-5
+rule_hash: ac2d633acaf6
+---
+
+## What it means
+
+Whether a strategy is treated as stateful comes only from its own
+declaration: nothing infers it from behaviour, and nothing infers it from
+which strategy it is.
+
+"Synchronous", as a capability query, means something narrower than "runs
+synchronously": it is the declared capability for synchronous execution
+*and* the absence of the stateful capability. State graph is synchronous in
+its mechanics, but it also declares itself stateful, so the synchronous
+query answers false for it — the two capabilities are read together, not as
+alternatives.
+
+A strategy with no declaration at all, or a declaration that carries no
+capabilities, answers every capability query the same way: false. There is
+no separate "unknown" outcome.
+
+## Example
+
+Two strategy declarations, queried for the same two
+capabilities:
+
+```json title="A definition declaring both capabilities" verdict="stateful"
+["synchronous_execution", "stateful"]
+```
+
+```json title="A definition declaring only one" verdict="synchronous"
+["synchronous_execution"]
+```
+
+The first answers true for stateful and false for synchronous; the second
+answers the other way round.

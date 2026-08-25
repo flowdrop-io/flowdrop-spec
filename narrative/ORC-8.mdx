@@ -1,0 +1,36 @@
+---
+rule: ORC-8
+rule_hash: 3c873691a934
+---
+
+## What it means
+
+The filter is opt-in, keyed only on whether a run's initial data names a
+trigger node. Naming one selects exactly that trigger to run and drops every
+other trigger node the workflow declares — but only trigger nodes are ever
+dropped this way; anything downstream of the firing trigger still runs
+exactly as compiled.
+
+Leaving the name out — a manual or externally launched run, rather than one
+started by a specific trigger firing — runs the compiled order verbatim,
+trigger nodes included.
+
+## Example
+
+A workflow with two trigger nodes feeding a shared step, launched two ways:
+
+```json title="A run naming the trigger that fired" verdict="filtered"
+{ "trigger_node_id": "cron_trigger" }
+```
+
+```json title="The compiled order, filtered to that trigger" verdict="filtered"
+["cron_trigger", "worker"]
+```
+
+```json title="A run naming no trigger at all" verdict="unfiltered"
+{}
+```
+
+```json title="The compiled order, run verbatim" verdict="unfiltered"
+["cron_trigger", "webhook_trigger"]
+```

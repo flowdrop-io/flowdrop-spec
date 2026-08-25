@@ -59,6 +59,33 @@ jobs:
             if (!j.reserved.length) { console.error("::error::rules.json lists no reserved identifiers"); process.exit(1); }
           '
 
+      # The site is published under /spec. Next adds that prefix to its own links
+      # but not to a string built by hand, so the two ways to get this wrong are a
+      # doubled prefix and a missing one — and both live only in the
+      # machine-readable surface, which nobody looks at.
+      - name: absolute urls carry the base path exactly once
+        run: |
+          if grep -rl '/spec/spec' site/out; then
+            echo "::error::a doubled base path is published; SPEC_ORIGIN already ends in /spec"
+            exit 1
+          fi
+          if grep -rl 'spec\.flowdrop\.io' site/out; then
+            echo "::error::spec.flowdrop.io has no DNS record and must not be published"
+            exit 1
+          fi
+          # A spot check that the prefix is present at all, not merely un-doubled.
+          node -e '
+            const j = require("./site/out/rules.json");
+            const bad = [j.source, ...j.rules.flatMap((r) => [r.url, r.markdown])]
+              .filter((u) => !u.startsWith("https://flowdrop.io/spec"));
+            if (bad.length) { console.error(`::error::${bad.length} url(s) miss the base path, e.g. ${bad[0]}`); process.exit(1); }
+            console.log(`${j.rules.length * 2 + 1} url(s) in rules.json carry https://flowdrop.io/spec`);
+          '
+
+      # The schema's $id is an https URL, so it has to resolve to these bytes.
+      - name: the rule schema is published at its own identifier
+        run: node scripts/check-schema-published.mjs
+
   dco:
     name: sign-off
     if: github.event_name == 'pull_request'

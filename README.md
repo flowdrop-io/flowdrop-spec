@@ -24,7 +24,7 @@ standing against these rules in its own documentation.
 | Path | Contents |
 |---|---|
 | `rules/*.yml` | One file per rule. The normative text and its metadata. |
-| `rules/schema.json` | The schema every rule file must satisfy. |
+| `rules/schema.json` | The schema every rule file must satisfy. Published at its own `$id`, `https://flowdrop.io/spec/schema/1/rule.json`. |
 | `rules/REGISTRY.lock` | Every rule identifier ever issued **or blocked**. Append-only. |
 | `narrative/*.mdx` | Optional prose for a rule: what it means, examples, why. |
 | `conventions.md` | Vocabulary and references shared by every rule. |

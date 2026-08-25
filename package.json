@@ -6,6 +6,7 @@
   "license": "SEE LICENSE IN LICENSE",
   "scripts": {
     "validate": "node scripts/validate-rules.mjs",
+    "check:schema": "node scripts/check-schema-published.mjs",
     "hashes": "node scripts/validate-rules.mjs --update-hashes"
   },
   "devDependencies": {

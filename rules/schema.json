@@ -1,6 +1,6 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "https://spec.flowdrop.io/schema/rule.json",
+  "$id": "https://flowdrop.io/spec/schema/1/rule.json",
   "title": "FlowDrop specification rule",
   "type": "object",
   "additionalProperties": false,

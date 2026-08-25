@@ -27,8 +27,34 @@ npm start          # serve out/ as it will actually be deployed
 ready for the nginx static-site chart. There is no server component.
 
 One caveat for the nginx config: the search index is emitted as the extensionless
-file `out/api/search`, and the client fetches exactly `/api/search`. A rule that
-appends a trailing slash to every path will break search.
+file `out/api/search`, and the client fetches exactly `/spec/api/search`. A rule
+that appends a trailing slash to every path will break search.
+
+## It is published under `/spec`
+
+The site is a subfolder of `https://flowdrop.io`, not a host of its own:
+`spec.flowdrop.io` has no DNS record and is not going to get one. `basePath:
+'/spec'` in `next.config.mjs` is what makes that work, and it has two consequences
+worth knowing before editing anything here.
+
+**The export is still written to `out/` with no `spec/` directory in it.** basePath
+is baked into the emitted markup and asset URLs, not into the file layout, so the
+Dockerfile copies `out/` to `<nginx root>/spec`. The base path exists in the
+filesystem rather than in a rewrite, which is why every `try_files $uri` in
+`nginx.conf` still means what it says. An ingress `rewrite-target` would strip the
+prefix before nginx saw it, and the client-side router and the extensionless
+`/spec/api/search` fetch would then both fail, quietly.
+
+**Next adds the base path to its own links and to nothing else.** `<Link>`, assets,
+`router.push` and metadata resolved against `metadataBase` all get it. A plain
+`<a href>`, a `fetch()` argument, and anything concatenated onto `SPEC_ORIGIN` do
+not. So:
+
+- Hand-written paths go through `withBase()` from `layout.config.tsx`.
+- `SPEC_ORIGIN` already ends in `/spec`, and everything appended to it is a
+  base-path-less site path (`/rules/x`), so the prefix is contributed exactly once.
+  A `/spec/spec/…` would appear only in `rules.json` and the markdown twins, which
+  is why CI greps the export for it.
 
 ## How it is deployed
 
@@ -44,7 +70,7 @@ container rather than assumed:
 - `trailingSlash: true` means every page is a directory, so nginx redirects the
   slash-less form. The redirect is **relative** (`absolute_redirect off`), because
   nginx sees plain HTTP on port 80 behind the ingress and would otherwise send a
-  reader from `https://spec.flowdrop.io/rules/x` to `http://spec.flowdrop.io:80/…`.
+  reader from `https://flowdrop.io/spec/rules/x` to `http://flowdrop.io:80/…`.
 - `add_header` does not merge across levels in nginx: a location setting any
   `add_header` discards every one from the server block. Each location sets
   `Cache-Control`, so the security headers live in `nginx-headers.conf` and are
@@ -54,12 +80,13 @@ container rather than assumed:
 
 | URL | What |
 |---|---|
-| `/rules/<family>/<rule>.md` | Any page as markdown, with its identifier, facets and a link home |
-| `/conventions.md`, `/glossary.md` | The same, for the two reference pages |
-| `/llms.txt` | Index: every rule, one line each, with links |
-| `/llms-full.txt` | The whole corpus in one document (~330KB, ~88KB gzipped) |
-| `/rules.json` | The corpus as data, including declined identifiers (~470KB, ~97KB gzipped) |
-| `/sitemap.xml`, `/robots.txt` | 433 URLs; everything allowed, sitemap declared |
+| `/spec/rules/<family>/<rule>.md` | Any page as markdown, with its identifier, facets and a link home |
+| `/spec/conventions.md`, `/spec/glossary.md` | The same, for the two reference pages |
+| `/spec/llms.txt` | Index: every rule, one line each, with links |
+| `/spec/llms-full.txt` | The whole corpus in one document (~330KB, ~88KB gzipped) |
+| `/spec/rules.json` | The corpus as data, including declined identifiers (~470KB, ~97KB gzipped) |
+| `/spec/schema/1/rule.json` | The schema a rule file must satisfy, at its own `$id`. `/spec/schema/rule.json` redirects here |
+| `/spec/sitemap.xml`, `/spec/robots.txt` | 433 URLs; everything allowed, sitemap declared. `robots.txt` is only honoured at the origin root, so the operative copy is `flowdrop.io/robots.txt` |
 
 Each page's head declares `llms.txt`, `rules.json` and its own markdown twin as
 `rel="alternate"`, and the footer links them as anchors, because crawlers follow

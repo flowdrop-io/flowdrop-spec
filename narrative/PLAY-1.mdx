@@ -1,0 +1,34 @@
+---
+rule: PLAY-1
+rule_hash: 8b328693fdc9
+---
+
+## What it means
+
+Every identifier a caller sends back to a door, and every identifier a door
+publishes, is a UUID — with one deliberate exception. The session list's
+`ids` filter takes internal identifiers inbound, not UUIDs, because it exists
+to narrow a list the caller can already see, never to address a record from
+the outside. Filtering on it is forgiving rather than strict: a value that is
+not a positive integer is dropped rather than rejected, so junk in the filter
+narrows toward nothing instead of raising an error.
+
+A caller who assumes every identifier on this surface is interchangeable would
+expect `ids` to take the same UUIDs the rows themselves publish. It does not —
+this is the one door that reads inward in a different currency than it
+answers outward.
+
+## Example
+
+Filtering the session list with nothing but junk — a zero, a negative number,
+a non-numeric string:
+
+```http title="Filtering the session list by internal id" verdict="200 counted"
+GET /api/flowdrop/workflows/{workflow_id}/playground/sessions?ids=0,-4,abc
+
+{"success": true, "data": [], "pagination": {"total": 0, … }}
+```
+
+None of the three values is a positive integer, so none narrows the list to
+anything — the caller is left with an empty page, not the unfiltered list and
+not a refusal.

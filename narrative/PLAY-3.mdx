@@ -1,0 +1,35 @@
+---
+rule: PLAY-3
+rule_hash: 289eccdfe553
+---
+
+## What it means
+
+The message poll does not reuse the shared paginated envelope: `hasMore`,
+`hasOlder` and `sessionStatus` sit beside `data`, not nested inside a
+`pagination` block, and there is no `has_more` key alongside them. A reader
+used to the paginated shape elsewhere on this surface would look for the
+flags in the wrong place.
+
+The two boolean flags answer different questions and are not interchangeable.
+`hasMore` only reports whether the page came back as full as it was asked to
+be — an inference from the count, not a lookup. `hasOlder` is a real lookup:
+it tells a client scrolling backward whether anything precedes the page it
+already has, so it never has to make a speculative fetch just to find out the
+history has run out. A cursor that is not a string of digits is silently
+ignored rather than refused, so a poller sending a stale or malformed cursor
+still gets a window back instead of an error.
+
+## Example
+
+An empty session, polled with no cursor at all:
+
+```http title="Polling a session with no messages yet" verdict="200 counted"
+GET /api/flowdrop/playground/sessions/{session_id}/messages
+
+{"success": true, "data": [], "hasMore": false, "hasOlder": false, "sessionStatus": …}
+```
+
+Sending junk instead of a real cursor (`since=abc&before=xyz`) does not
+refuse the request either — it falls back to the default window as if no
+cursor had been sent.

@@ -1,0 +1,39 @@
+---
+rule: PLAY-5
+rule_hash: 5b6d1047f046
+---
+
+## What it means
+
+Ownership does not bind only the rows a caller can see; it binds the count
+that comes back beside them. A list scoped by ownership but a total taken
+from an unscoped count would tell a caller with no authority how many
+sessions exist in total — a narrower leak than the rows themselves, and an
+easy one to miss because the two numbers are computed by separate queries.
+
+The `ids` filter cannot widen that scope. Naming a session id the caller
+does not own returns nothing, not a 404 and not the session — the filter can
+only narrow what ownership already allows, never substitute for it. And
+where every value in the filter fails to parse, the answer is the same empty
+page with a zero total, never the unfiltered list a naive empty-filter check
+would fall through to.
+
+## Example
+
+A workflow with two sessions, one per owner: what the total answers depends
+on which authority is asking, and it moves together with the rows.
+
+```json title="pagination.total answered to a caller who may view only their own sessions" verdict="scoped"
+1
+```
+
+```json title="pagination.total answered to a caller who may view any session" verdict="unscoped"
+2
+```
+
+Naming another owner's session id in the filter, or a filter that parses
+away entirely, both reach the same floor:
+
+```json title="pagination.total when every value in the id filter fails to parse" verdict="zero"
+0
+```

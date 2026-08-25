@@ -1,0 +1,31 @@
+---
+rule: NET-2
+rule_hash: 7d3d38d402ac
+---
+
+## What it means
+
+Pinning the original host protects only the first hop. Left there, a public
+host that answers with a redirect could send the connection anywhere on its
+next request, past a guard that already reported success once. Re-validating
+every hop closes that gap without closing off ordinary redirects: a hop that
+lands on another public host — a link shortener, a canonical-host bounce —
+is still followed. Only a hop that resolves into a private or reserved range
+is refused, at the moment it would be taken, not the destination it started
+from.
+
+## Example
+
+A first hop lands on a different public host:
+
+```json title="The redirect target of the first hop" verdict="a public host"
+"https://target.example.com/real"
+```
+
+```json title="The body the node delivers once the hop is followed" verdict="followed"
+"arrived"
+```
+
+The same request shape, redirected instead into a private or reserved
+address, never reaches that second response — the hop is refused before it
+is taken.

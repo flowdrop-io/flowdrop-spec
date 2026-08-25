@@ -1,0 +1,25 @@
+---
+rule: OCX-8
+rule_hash: eab0440d20a5
+---
+
+## What it means
+
+A poll exists so a caller can eventually reach an end state for every run it
+is watching, so the terminal statuses it reports cannot stop at completed and
+failed. A cancelled run is just as terminal, and leaving it out of what a
+poll reports would leave a caller who cancelled a run waiting forever for a
+verdict that story never delivers. The rule draws the boundary from both
+sides: a run that is genuinely still paused belongs in no poll response —
+reporting it there would tell a caller to stop watching a run that is going
+to resume — while every run that has actually finished, however it finished,
+belongs in one.
+
+## Example
+
+One externally invoked run is recorded in each terminal status, each named
+after its status; a single poll reports all three (sorted here for reading).
+
+```json title="The workflow ids a poll returns" verdict="reported"
+["terminal_cancelled", "terminal_completed", "terminal_failed"]
+```

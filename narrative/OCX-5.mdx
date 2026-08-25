@@ -1,0 +1,36 @@
+---
+rule: OCX-5
+rule_hash: 6cecba14b4f2
+---
+
+## What it means
+
+A reader inspecting a trigger's conditions has to be able to tell a declared
+condition from whatever a connector decided to carry alongside it, without
+knowing which connector wrote the record. That is only possible if every
+connector's own data lands in the same one place rather than each writing
+its own top-level keys, which is why the vocabulary is closed: the declared
+condition keys, one designated key for everything else, and nothing beside
+them.
+
+## Example
+
+An event type's own condition data, carried entirely under the one
+designated key:
+
+```json title="A trigger's conditions" verdict="valid"
+{
+  "custom": {
+    "payload_schema": {
+      "type": "object",
+      "additionalProperties": true,
+      "properties": { "title": { "type": "string", "title": "Title" } }
+    },
+    "required_fields": ["title"]
+  }
+}
+```
+
+Nothing here is declared beside `custom`: `payload_schema` and
+`required_fields` are the connector's own data, and both sit inside it rather
+than alongside it.

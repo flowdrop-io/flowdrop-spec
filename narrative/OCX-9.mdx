@@ -1,0 +1,29 @@
+---
+rule: OCX-9
+rule_hash: ed864371ff1b
+---
+
+## What it means
+
+Paging exists so a caller with a large backlog can walk it without the poll
+itself failing or blocking on an unbounded read, but a page bound only works
+if the caller is guaranteed to reach the end by walking it. Two things make
+that guarantee hold. First, if the row that ends a page shares its completion
+time with rows the page cut off, the page is extended past its nominal size
+to sweep in the whole group — a caller advancing its cursor to a split
+group's timestamp would otherwise skip whatever got split off, for good,
+because completion times repeat and are not themselves a safe cursor.
+Second, a page that happens to filter down to nothing must never come back
+as an empty answer while rows genuinely remain past the cursor: an empty
+answer reads to a caller as "there is nothing new," and a caller that parks
+its cursor there never asks again.
+
+## Example
+
+More runs than a page holds, none of them externally invoked, sit ahead of
+the one run the caller needs; the first poll, by timestamp or by id, still
+surfaces it rather than answering empty.
+
+```json title="The workflow ids the first poll returns" verdict="exposed"
+["external"]
+```

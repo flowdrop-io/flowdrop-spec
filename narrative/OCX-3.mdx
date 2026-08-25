@@ -1,0 +1,41 @@
+---
+rule: OCX-3
+rule_hash: dd21853fe21a
+---
+
+## What it means
+
+Every trigger kind stamps a configuration identifier onto the run it starts,
+so that identifier cannot be what a poll selects on — scoping by it would
+answer with every internally triggered run alongside the externally invoked
+ones. The marker that does the selecting is written in exactly one place and
+read in exactly one place; if the two ever disagree, nothing raises an error.
+A poll simply returns nothing for a run that should have been visible, and
+keeps returning nothing, because there is no failure for anything to report.
+
+## Example
+
+Three completed runs of three workflows, `orch_workflow`, `cron_workflow` and
+`manual_workflow`. Only the first was started by an external caller; the
+second was started by a scheduled trigger and so also carries a trigger
+configuration identifier, but not the marker; the third was started by hand:
+
+```json title="Initial data of the externally invoked run" verdict="marked"
+{
+  "source": "orchestration",
+  "trigger_config_id": "orch_workflow__orchestration_trigger_1",
+  "payload": { "title": "external" }
+}
+```
+
+```json title="Initial data of the scheduled run" verdict="unmarked"
+{ "trigger_config_id": "cron_workflow__entity_trigger_1" }
+```
+
+```json title="Initial data of the run started by hand" verdict="unmarked"
+{}
+```
+
+```json title="The workflow ids a poll returns" verdict="scoped"
+["orch_workflow"]
+```

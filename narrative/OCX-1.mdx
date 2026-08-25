@@ -1,0 +1,35 @@
+---
+rule: OCX-1
+rule_hash: d8199d77c3b4
+---
+
+## What it means
+
+The trigger's declared output schema says the caller's payload lives at
+`data.payload`. An envelope keyed by the trigger node's own id would put that
+same payload at `data.{node id}.payload` instead — reachable only by an
+expression that already knows the node's id, and broken the moment that node
+is renamed. Keeping the identifiers alongside the payload rather than above it
+is what keeps the shape identical to every other trigger kind, so a workflow
+author writes one expression regardless of what invoked the run.
+
+## Example
+
+An external caller's payload arrives as trigger data for the trigger node
+`orchestration_trigger.1`:
+
+```json title="The trigger data handed to the run" verdict="received"
+{
+  "payload": { "title": "Council approves new tram line" },
+  "trigger_config_id": "envelope_probe__orchestration_trigger_1",
+  "trigger_node_id": "orchestration_trigger.1"
+}
+```
+
+```json title="The payload key of the run's initial data" verdict="flat"
+{ "title": "Council approves new tram line" }
+```
+
+The initial data has no `orchestration_trigger.1` key: the payload sits at the
+top level, with `trigger_config_id` and `trigger_node_id` beside it, exactly
+where `data.payload` on the trigger's output schema says to look for it.

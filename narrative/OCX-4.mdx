@@ -1,0 +1,28 @@
+---
+rule: OCX-4
+rule_hash: e1f6da5fd3f2
+---
+
+## What it means
+
+The pipeline identifier is not assembled from whatever an external
+invocation happens to know — the workflow id, an invocation id, anything
+built fresh per call. It is resolved through the same configured settings
+every other trigger kind resolves it through, so a trigger configured for
+`reuse` or a `singleton` pipeline mode keeps behaving that way regardless of
+who or what started the run. An invocation-specific identifier would silently
+give every external call its own pipeline, discarding whichever of those two
+modes was configured.
+
+## Example
+
+A trigger configured with pipeline mode `singleton`, on trigger node id
+`orchestration_trigger.1` of trigger configuration
+`envelope_probe__orchestration_trigger_1`:
+
+```json title="The resolved pipeline identifier" verdict="resolved"
+"singleton_envelope_probe__orchestration_trigger_1"
+```
+
+The identifier is the configured mode and the trigger configuration's own
+identifier, with nothing from the invocation in it.

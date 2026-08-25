@@ -1,0 +1,40 @@
+---
+rule: OCX-7
+rule_hash: ca259f8a7ec6
+---
+
+## What it means
+
+An external invocation only ever gets one of three answers up front —
+`completed`, `interrupted`, or `queued` — and in every one of them the
+`execution_id` the platform receives is the persisted run's own identifier,
+never whatever identifier the engine handling the invocation happens to
+return on its own. Some engines answer synthetically, with a request
+identifier of their own rather than the run's; the correlation only works if
+that gets replaced with the persisted identifier before the response leaves,
+because it is the same value a later poll reports back as `pipeline_id`. A
+platform that correlated on whatever `execution_id` an engine originally
+handed back could launch a run through one engine and never be able to match
+it against the run a poll later reports.
+
+Where no persisted run exists behind the identifier at all, there is nothing
+to swap it for, so the value passed through is whatever the caller already
+had.
+
+## Example
+
+An engine that answers with a synthetic request identifier of its own
+carries the persisted one in its own metadata; the connector reads it out and
+republishes it in place of the synthetic one.
+
+```json title="An engine's raw response" verdict="raw"
+{ "execution_id": "pipeline_orch_triage_orch_6a6def528fe387.43126579", "status": "queued", "metadata": { "pipeline_id": 6918 } }
+```
+
+```json title="The execution_id the caller is given" verdict="normalised"
+"6918"
+```
+
+An engine whose own `execution_id` already is the persisted identifier is
+left unchanged, and a response with no persisted run behind it at all keeps
+whatever id it already carried.

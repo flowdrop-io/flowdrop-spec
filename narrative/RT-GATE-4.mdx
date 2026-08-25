@@ -1,0 +1,25 @@
+---
+rule: RT-GATE-4
+rule_hash: 7c06702c84b7
+---
+
+## What it means
+
+A decline is not a second set of branch ports appearing on the node because
+confirmation happens to be turned on for it. It is the same error port every
+other failure on that node would use, carrying a verdict shaped like any
+other structured error. An author who wants a decision a workflow can branch
+on wires an explicit confirmation node instead; a gate is not that node.
+
+## Example
+
+A node the operator declines never runs; what its reserved error port
+carries instead:
+
+```json title="What the declined node's error port carries" verdict="declined"
+{
+  "code": "confirmation_declined",
+  "details": { "type": "confirmation_declined", "reason": "declined" }
+}
+```
+

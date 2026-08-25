@@ -1,0 +1,41 @@
+---
+rule: RT-GATE-15
+rule_hash: 46cde6c5c76e
+---
+
+## What it means
+
+"Mutates persistent state" and "an operator should approve this" are two
+different questions, and a node type that ships without an answer is not
+defaulting to a neutral position — it is letting the gate's own fail-safe
+answer a governance question nobody actually decided. The two questions
+happen to agree for a call that leaves the implementation's own boundary,
+which is exactly why it is easy to assume they always agree.
+
+Once a shipped type has an answer, delivering it to a site that already
+exists is one-directional. The pass may fill in a policy that was never
+stored, but it must recognise every other shape as somebody's answer already:
+a stored policy, a narrowed list of controls with no policy yet, and an
+older tri-state waiting for a separate migration to translate all count, and
+none of them may be replaced by the shipped default.
+
+## Example
+
+A confirmation mapping records a policy alongside which controls stay
+available. Left undecided, filling it in from what the type ships looks like
+this:
+
+```json title="A node type's confirmation mapping, undecided" verdict="undecided"
+{ "policy": null, "authorControls": ["waive", "require"], "dynamicControls": [] }
+```
+
+```json title="The same mapping once the shipped policy is delivered" verdict="skip"
+{ "policy": "skip", "authorControls": ["waive", "require"], "dynamicControls": [] }
+```
+
+Where a policy was already stored, the same delivery finds nothing undecided
+to fill in — even on a node type whose shipped default disagrees with it:
+
+```json title="An administrator's own choice, on a type shipped with skip" verdict="untouched"
+{ "policy": "ask", "authorControls": [], "dynamicControls": [] }
+```

@@ -1,0 +1,24 @@
+---
+rule: RT-GATE-1
+rule_hash: 2bce7d370cef
+---
+
+## What it means
+
+A run can arrive at an expired question in two different ways, and they do
+not resolve the same way. A question swept up as overdue while the run is
+still sitting there ends the run outright — cancelled, and announced
+(INT-18). A question that is instead found already past its expiry the
+moment execution re-enters it does not end anything: it is simply consumed
+as a decline, and the run continues down whatever path a decline takes.
+Nothing about either path leaves the question answerable a second time.
+
+## Example
+
+A gate question nobody answered before its expiry, found only when the run
+re-enters it:
+
+```json title="A gate question found already past its expiry on re-entry" verdict="declined"
+{ "reason": "expired" }
+```
+

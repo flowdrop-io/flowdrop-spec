@@ -1,0 +1,27 @@
+---
+rule: RT-GATE-3
+rule_hash: b3b590488d30
+---
+
+## What it means
+
+A pending question is not safe from being replaced by a later one for the
+same node. Where the arguments have drifted since the question was raised,
+the earlier question is withdrawn before the new one is asked — an operator
+who has not yet answered never sees a question about a call that no longer
+matches what would actually run. Only a question for the identical call is
+re-raised as itself rather than duplicated.
+
+## Example
+
+A question already waiting in the inbox, for arguments that no longer match
+the call at hand:
+
+```json title="The pending question already in the inbox" verdict="withdrawn"
+{ "message": "old args" }
+```
+
+```json title="The call that arrives instead" verdict="paused"
+{ "message": "send it", "level": "info" }
+```
+

@@ -1,0 +1,36 @@
+---
+rule: RT-GATE-14
+rule_hash: c35e939ea548
+---
+
+## What it means
+
+The authority to administer node types does not carry this one. An actor who
+can rename, recategorise or otherwise edit a node type still cannot touch its
+confirmation governance without the separate, dedicated authority — and
+without it, the governance controls are not merely disabled, they are not
+shown at all.
+
+The clause a careful reader would miss is what happens to the rest of the
+save. An actor without the authority can still save the node type for
+everything the form does show them; the governance mapping simply has to
+survive that save untouched, byte for byte, rather than being silently reset
+to whatever the hidden controls would have defaulted to.
+
+## Example
+
+A node type's stored governance before either actor saves it:
+
+```json title="The stored governance before a save" verdict="stored"
+{ "policy": "ask", "author_controls": ["require"], "dynamic_controls": ["require"] }
+```
+
+An actor without the dedicated authority still saves the node type — the
+label changes, the governance does not:
+
+```json title="What that save is still allowed to change" verdict="renamed"
+{ "label": "Renamed Gated Type" }
+```
+
+The stored governance above is exactly what a second read of that node type
+returns afterward.

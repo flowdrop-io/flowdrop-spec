@@ -1,0 +1,30 @@
+---
+rule: RT-GATE-7
+rule_hash: 939c1f34e976
+---
+
+## What it means
+
+A stored mapping is never read as a hint. Where an admin has unchecked every
+control a node type's governance offers, that emptied list is the answer —
+revocation, not an instruction to fall back on the wider set a node type
+gets when nobody has stored anything at all. The two look alike (both are
+short, both restrict what an author can do) but only one of them is
+"nobody decided yet."
+
+## Example
+
+A node type that has never stored a confirmation mapping gets the full
+default reach:
+
+```json title="A node type with no stored mapping" verdict="default"
+{ "authorControls": ["waive", "require"], "dynamicControls": [] }
+```
+
+A node type whose admin stored a mapping with every control unchecked keeps
+exactly that, not the default:
+
+```json title="A node type whose admin unchecked every control" verdict="revoked"
+{ "authorControls": [], "dynamicControls": [] }
+```
+

@@ -1,0 +1,29 @@
+---
+rule: RT-GATE-6
+rule_hash: ac301f1a05d2
+---
+
+## What it means
+
+A paused tool call is not a failure sitting in the trail waiting to be
+relabelled. It is recorded as interrupted from the start, and resuming it
+does not simply flip that same record to a finished state: the interrupted
+attempt is closed out as cancelled, superseded by a new attempt of its own
+that carries the finished status. Two records, not one repurposed — and
+neither of them is ever a failure, so neither counts toward the run's
+unhandled failures.
+
+## Example
+
+The tool's own record while the run sits paused on the gate:
+
+```json title="The tool job while the run is paused on the gate" verdict="interrupted"
+{ "status": "interrupted", "output": {} }
+```
+
+The same node's two job records once the call is resumed:
+
+```json title="The same node's job records once resumed" verdict="reconciled"
+["cancelled", "completed"]
+```
+

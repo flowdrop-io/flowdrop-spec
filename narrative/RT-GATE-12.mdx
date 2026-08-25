@@ -1,0 +1,47 @@
+---
+rule: RT-GATE-12
+rule_hash: 84dee4722a1e
+---
+
+## What it means
+
+Redaction works by parameter name, not by searching the resolved value for
+the secret's own text. That is why a partial substitution (a token pasted
+into the middle of a longer string) and a nested one (a reference buried
+inside a structured value) are both replaced wholesale: the whole value
+disappears behind `<secret>`, not just the substring that came from the
+reference. Matching on the text itself would miss a secret concatenated,
+templated or re-encoded on its way into the parameter.
+
+The consent question does not use the redacted view. What is hashed to bind
+the operator's approval to this exact call is the real, resolved value, so a
+call made with one secret and the same call made with a different one are
+different questions — approving one never approves the other.
+
+This only concerns a secret reference resolved from configuration. A value
+that arrives already filled in — on a wire, or produced by an earlier step —
+is shown to the operator exactly as it is, on purpose: the operator is
+approving what will actually be sent, and a value the workflow itself
+produced is not something the gate has any reason to hide.
+
+## Example
+
+A call resolves one parameter with a secret pasted into a longer string and
+another with the same secret nested inside a structured value; a third
+parameter carries no secret at all.
+
+```json title="What the call resolved" verdict="resolved"
+{
+  "url": "https://example.com/hook",
+  "auth": "Bearer sk_live_do_not_leak",
+  "headers": { "Authorization": "Bearer sk_live_do_not_leak" }
+}
+```
+
+```json title="What the operator is shown" verdict="redacted"
+{
+  "url": "https://example.com/hook",
+  "auth": "<secret>",
+  "headers": "<secret>"
+}
+```

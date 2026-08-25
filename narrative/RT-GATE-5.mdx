@@ -1,0 +1,20 @@
+---
+rule: RT-GATE-5
+rule_hash: b9bddb90f04f
+---
+
+## What it means
+
+Declining one tool call is not a reason to fail the whole run that asked for
+it. The model that made the call is told the call did not happen and carries
+on from there — the run reaches its own completion regardless of what the
+model does with that answer.
+
+## Example
+
+An agent's consumer node calls a gated tool, and the call is declined:
+
+```json title="What the consumer receives when the call is declined" verdict="completed"
+{ "called": "log_tool", "success": false }
+```
+

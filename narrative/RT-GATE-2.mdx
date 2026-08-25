@@ -1,0 +1,23 @@
+---
+rule: RT-GATE-2
+rule_hash: 45cc5553fbdb
+---
+
+## What it means
+
+An approval is not the only verdict that gets consumed exactly once. A
+consent that was declined, one whose question was cancelled, and one left to
+lapse all settle the same way as an approval: consumed the moment they are
+read, never re-fired on a later entry, and never mistaken for authorization
+either. What repeats is the question, not the answer — the same call,
+entered again, finds nothing left to reuse and pauses on a fresh question of
+its own.
+
+## Example
+
+The same node, called again with arguments that have not changed at all:
+
+```json title="A call already answered, entered again unchanged" verdict="paused"
+{ "message": "send it", "level": "info" }
+```
+

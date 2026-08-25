@@ -1,0 +1,44 @@
+---
+rule: SG-20
+rule_hash: 90a959980fa6
+---
+
+## What it means
+
+The round barrier in SG-19 stops a stale source from satisfying an edge, but
+on its own that turns a gateway that routes away from an in-loop source into
+a silent hang: the consumer waits for a round that will never come. This
+rule is what ends the wait. A data port held back by the round comparison
+stops waiting once no execution still to run, pending or in progress can
+reach the source over the forward graph — the source counted as able to
+reach itself. A live loop head, being an ancestor of everything in its own
+body, holds the port open across a re-entry on that basis alone, and so does
+an out-of-loop ancestor still on its way; an execution whose own round is
+already behind the consumer's does not count as live, or a branch the run
+never took would hold the port open forever.
+
+Four restrictions keep this from over-firing. It applies to data edges only,
+and only to a consumer with no trigger and no error edge. Every source on
+the port must share a loop with the consumer — one out-of-loop source is
+enough to keep the port fillable regardless of the rest. At least one edge
+on the port must actually have been held back by the round comparison; a
+source that was simply never dispatched is an ordinary skipped branch, not
+this rule's business. And the run must carry the reachability sets the check
+depends on.
+
+Where it fires, the port's consumer fails exactly like any other node
+failure — routed down an error edge if the author wired one, failing the run
+if not. The failure names the port, the source, and the consumer's round on
+the innermost loop the two share; it names the gateway that routed away only
+where that is determinable from the source's own incoming branch edges, and
+otherwise says only that no value for this round can still be produced.
+
+## Example
+
+A gateway heading the loop routes only to `write` on round one, so
+`fact_check` — the only in-loop source of `assembler`'s `citations` port —
+is never redispatched, and nothing still running can reach it.
+
+```json title="What the round-one failure reports" verdict="failed"
+"port 'citations' cannot be satisfied in round 1 — its only in-loop source 'fact_check' was skipped by gateway 'planner'"
+```

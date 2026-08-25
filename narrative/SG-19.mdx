@@ -1,0 +1,51 @@
+---
+rule: SG-19
+rule_hash: 2c940b703de9
+---
+
+## What it means
+
+Inside a loop, a completed source is not automatically a current one. A
+consumer on round two that reads a source's value from round one is reading
+last round's answer as if it were this round's, and the rule exists to stop
+exactly that: a completed source stops satisfying a trigger, error or data
+edge once the source and the consumer share a loop and the source is behind
+the consumer on it.
+
+Behindness is not "behind on any shared loop" — it is decided by
+intersecting the two round stamps and comparing them lexicographically,
+outermost loop first. The first shared loop where the two differ settles
+the question, and nothing nested inside that loop can overturn the verdict,
+even if the inner numbers alone would look like the source is lagging.
+
+Where the two share no loop at all, the source is never behind. A source
+outside every loop its consumer is in will never fire again on its own
+terms, so its value is the current one forever — gating it on a round that
+cannot arrive would hang the consumer permanently.
+
+The consequence differs by edge class. A gated trigger or error edge simply
+leaves the consumer waiting, to be swept up and skipped once the run ends.
+A gated data port cannot be left waiting the same way; it has to be
+terminated (SG-20).
+
+## Example
+
+```json title="A source stamped behind its consumer on their shared loop" verdict="stale"
+{"source": {"loop_a": 0}, "consumer": {"loop_a": 1}}
+```
+
+```json title="A source outside every loop its consumer is in" verdict="current"
+{"source": {}, "consumer": {"loop_a": 3}}
+```
+
+```json title="A source ahead on the outer loop but behind on the inner" verdict="current"
+{"source": {"outer": 2, "inner": 0}, "consumer": {"outer": 1, "inner": 5}}
+```
+
+```json title="A source equal on the outer loop but behind on the inner" verdict="stale"
+{"source": {"outer": 1, "inner": 0}, "consumer": {"outer": 1, "inner": 2}}
+```
+
+The outermost shared loop always decides first: ahead on the outer loop
+outweighs behind on the inner one, and only once the outer rounds match does
+the inner comparison get a say.

@@ -1,0 +1,74 @@
+---
+rule: SG-17
+rule_hash: e8b4478e464f
+---
+
+## What it means
+
+A run's loops are computed once, at launch, and the run works from that
+result for the rest of its life. An author who edits the workflow mid-run
+cannot redraw the body of a loop that is already several rounds deep.
+
+Alongside each body, the run also records — for every node in it — the set
+of nodes that can still reach it over the forward graph, the node itself
+included. That set is deliberately not bounded by the loop's body: a node
+upstream of the loop can be an ancestor of a node inside it, and if the
+recorded set stopped at the body's edge, a liveness check reading it would
+conclude nothing could still produce a value while that outside input was
+still on its way.
+
+Every execution of every node carries a stamp of the rounds it belongs to,
+one entry per loop, outermost first — including an empty stamp for a node in
+no loop, and including round 0 explicitly, so an absent entry can never be
+read as either "outside every loop" or "inside one at round 0".
+
+When a paused run resumes, its round counters come back by replaying those
+stamps in the order the executions were created, the newest stamp for each
+loop winning. Taking the highest round ever recorded for a loop instead is
+the intuitive-looking shortcut, and it is wrong: a loop nested inside another
+gets reset every time the outer round advances (SG-18), so the highest
+figure on record can belong to an earlier outer round entirely, and resuming
+from it spends an inner loop's budget before the current outer round has
+even begun.
+
+## Example
+
+A loop fed from outside itself: `load_corpus` is upstream of the loop but
+never inside it.
+
+```json title="A loop with an out-of-loop node feeding into it"
+[
+  {"source": "head", "target": "fact_check"},
+  {"source": "load_corpus", "target": "fact_check"},
+  {"source": "fact_check", "target": "tail"},
+  {"source": "tail", "target": "head"}
+]
+```
+
+```json title="What can still reach fact_check" verdict="unrestricted"
+["fact_check", "head", "load_corpus"]
+```
+
+A run pauses after its inner loop has spent five rounds under the outer
+loop's round 0, the outer round then advances and resets the inner one, and
+the inner loop is one round into outer round 1 when the pause happens. Six
+executions, oldest first, each carrying the rounds it ran under:
+
+```json title="Six executions' round stamps, oldest first"
+[
+  {"outer_head": 0, "inner_head": 0},
+  {"outer_head": 0, "inner_head": 4},
+  {"outer_head": 0, "inner_head": 5},
+  {"outer_head": 1},
+  {"outer_head": 1, "inner_head": 0},
+  {"outer_head": 1, "inner_head": 1}
+]
+```
+
+```json title="What the resumed run restores the rounds to" verdict="restored"
+{"outer_head": 1, "inner_head": 1}
+```
+
+Taking the highest inner figure on record would restore the inner loop to 5
+— the budget it spent under an outer round that no longer applies — and the
+loop would stop rounds early for the rest of the run.

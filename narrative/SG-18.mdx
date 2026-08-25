@@ -1,0 +1,66 @@
+---
+rule: SG-18
+rule_hash: 04c2ced043d2
+---
+
+## What it means
+
+Two loops can relate to each other in three ways, and only one of them
+leaves both loops standing as drawn. Where one loop's body is a strict
+subset of another's, the two stay distinct, each with its own round —
+reported outermost first wherever a node reports which loops it belongs to.
+Advancing the outer loop's round resets every loop nested inside it back to
+round 0; without that reset an inner loop would spend its whole budget once
+for the entire run, and a round number on the inner loop would mean nothing
+across different passes of the outer one.
+
+Where two loops share nodes without one containing the other — including two
+heads whose bodies turn out identical — there is no consistent way to assign
+a round to the shared nodes, and the engine does not refuse the workflow
+over it. It merges the two into one coarser loop over the union of their
+bodies, keyed by whichever head has the larger body, tied lexicographically.
+The merge is sound rather than a compromise: a coarser loop never claims two
+nodes are in different rounds where the topology cannot say so. Both a merge
+like this and a loopback edge that closes no cycle are surfaced to the
+author as static diagnostics on the workflow, not as run-time warnings —
+each is a property of the graph itself, not of any one run of it.
+
+## Example
+
+An inner loop nested inside an outer one:
+
+```json title="An inner loop nested inside an outer one"
+[
+  {"source": "outer_head", "target": "inner_head"},
+  {"source": "inner_head", "target": "inner_tail"},
+  {"source": "inner_tail", "target": "outer_tail"},
+  {"source": "inner_tail", "target": "inner_head"},
+  {"source": "outer_tail", "target": "outer_head"}
+]
+```
+
+```json title="The two loops the graph resolves to" verdict="distinct"
+{"inner_head": ["inner_head", "inner_tail"], "outer_head": ["inner_head", "inner_tail", "outer_head", "outer_tail"]}
+```
+
+The shared node `inner_tail` reports its loops outermost first: `outer_head`
+before `inner_head`. Two loops that overlap without either containing the
+other resolve differently:
+
+```json title="Two loops sharing one node, neither containing the other"
+[
+  {"source": "head_a", "target": "shared"},
+  {"source": "head_b", "target": "shared"},
+  {"source": "shared", "target": "tail_a"},
+  {"source": "shared", "target": "tail_b"},
+  {"source": "tail_a", "target": "head_a"},
+  {"source": "tail_b", "target": "head_b"}
+]
+```
+
+```json title="What the two merge into" verdict="merged"
+{"head_a": ["head_a", "head_b", "shared", "tail_a", "tail_b"]}
+```
+
+Both bodies are the same size, so the lexicographic tie-break decides:
+`head_a` sorts first and survives as the merged loop's key.

@@ -1,0 +1,32 @@
+---
+rule: SG-5
+rule_hash: 2ca0ce0bad5c
+---
+
+## What it means
+
+`loop_back` is not one signal with two names. On a ForEach node it carries
+data: whatever arrives on it stands in for the round's `item_result` when
+that port is not otherwise filled, so a loop body that only wires its result
+back to `loop_back` still folds it in. On every other node type the same
+port carries nothing readable — a value delivered there is read by nobody,
+because a node with no iteration state has nothing to fold a result into. A
+node type that wants the value declares its own port under that name, and
+that declaration is exactly what stops the reserved, dataless injection.
+
+## Example
+
+A ForEach node mid-loop, resumed with a value on `loop_back` instead of on
+`item_result`:
+
+```json title="The re-entry input"
+{"loop_back": "loopback_result"}
+```
+
+```json title="What the next round reports" verdict="advanced"
+{"current_item": "b"}
+```
+
+The loop advances exactly as it would have if the same value had arrived on
+`item_result` — `loop_back` supplied the round's result, not a re-entry
+signal with no payload.

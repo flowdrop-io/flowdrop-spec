@@ -1,0 +1,29 @@
+---
+rule: SG-9
+rule_hash: d82a75206c59
+---
+
+## What it means
+
+A condition stored on an edge looks like it should gate whether that edge is
+followed, and it does not — not on an ordinary edge, and not on a loopback
+edge either, which is the one place dispatch actually does decide whether to
+re-enter. The edge is stored unchanged and always followed; the condition is
+reduced to a warning, so a workflow carrying one keeps its shape and keeps
+working, but the author is told the expression is not consulted.
+
+The warning is emitted each time the source's outgoing edges are resolved,
+not once per edge overall. A source visited more than once — a loop body —
+warns again on every pass.
+
+## Example
+
+An edge storing a condition that would, if it still gated, suppress it:
+
+```json title="An edge with a stored condition" verdict="stored"
+{ "id": "e_conditioned", "source": "src", "target": "sink", "data": { "condition": "false" } }
+```
+
+```json title="What the target receives anyway" verdict="delivered"
+{ "message": "payload" }
+```

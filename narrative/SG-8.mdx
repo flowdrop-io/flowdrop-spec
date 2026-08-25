@@ -1,0 +1,27 @@
+---
+rule: SG-8
+rule_hash: 5954626cc347
+---
+
+## What it means
+
+Only the first execution of a node keeps its bare identifier. Every later
+execution — a body re-entering a loop — is reported under
+`{nodeId}:{n}`, counting from zero, so the second execution is `:1` and the
+third `:2`, not `:2` and `:3`. A reader who assumes the suffix counts the
+execution itself, rather than how many came before it, will look for the
+wrong key.
+
+The same ordering decides what a port sees when several sources feed it: the
+execution stamped with the highest order wins, which inside a loop means a
+node reading from an upstream source always gets that source's most recent
+pass, never a stale one left over from an earlier iteration.
+
+## Example
+
+A node that runs three times in one run reports its results under these
+keys, first pass bare:
+
+```json title="Three completed executions of one node" verdict="keyed"
+["loop_node", "loop_node:1", "loop_node:2"]
+```

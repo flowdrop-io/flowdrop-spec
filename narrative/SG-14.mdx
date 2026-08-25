@@ -1,0 +1,31 @@
+---
+rule: SG-14
+rule_hash: 98f9ab15ad1c
+---
+
+## What it means
+
+Reaching the configured maximum is allowed; only going past it ends the run.
+A caller who sets the budget expecting the last permitted iteration to still
+happen is right — the guard only trips on the update that would push the
+count strictly beyond the maximum.
+
+Where it does trip, the run does not pause. Nothing about the verdict looks
+like the pause a run takes to wait on an interrupt or a deferred step: no
+resume handle is offered, and the status reported is never `paused`. The
+response carries no partial results, only the terminal status together with
+the maximum that was configured, the count actually reached, and which node's
+update reached it.
+
+## Example
+
+A run configured with a maximum of 5, whose current node pushes the count to
+999:
+
+```json title="What the run reports" verdict="terminal"
+{
+  "status": "max_iterations_exceeded",
+  "results": [],
+  "metadata": { "max_iterations": 5, "current_iterations": 999, "node_id": "loop_node" }
+}
+```

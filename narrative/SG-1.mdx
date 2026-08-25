@@ -1,0 +1,34 @@
+---
+rule: SG-1
+rule_hash: d4f6c5f4535f
+---
+
+## What it means
+
+Only two fields get anything like a deep merge, and even those merge one
+level, not recursively without limit: `messages` appends, `data` and
+`metadata` merge key by key. Every other field — a loop's current node, its
+iteration count — is replaced outright by whatever the update carries,
+never combined with what was there. A field the update leaves out is not
+reset to a default; it keeps whatever the current state already holds.
+
+The merge never touches the state it started from. Applying an update
+produces a new state; the state it was applied to still reads exactly as it
+did before, so anything else still holding a reference to it sees no change.
+
+## Example
+
+A state carries `{"existing": "value"}` under `data` and an empty
+`currentNodeId`, and receives this update:
+
+```json title="The update applied to it"
+{"data": {"new": "data"}, "currentNodeId": "node_2"}
+```
+
+```json title="What the merge yields" verdict="merged"
+{"data": {"existing": "value", "new": "data"}, "currentNodeId": "node_2"}
+```
+
+`data` comes out holding both keys; `currentNodeId` comes out holding only
+the update's value. The state the update was applied to still reads
+`currentNodeId` as `""` — the merge used it without changing it.

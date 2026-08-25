@@ -1,0 +1,52 @@
+---
+rule: SG-12
+rule_hash: 0fa396a66c37
+---
+
+## What it means
+
+A run's starting state is not one thing: seeding a new turn from a thread
+whose last run ended keeps what the thread itself accumulated and clears
+everything the finished run owned. The two halves pull in different
+directions, and it is easy to keep the wrong one. Kept: the messages, the
+data, the metadata, the thread identifier — what a conversation carries
+forward. Cleared: the outcome, so the new turn reports its own rather than
+inheriting a finished one's, and the execution position — the iteration
+count, the current node, the iterator — so the new turn's loops start from
+the beginning rather than resuming mid-iteration inside a turn that never
+asked to resume.
+
+Seeding from a run that is paused rather than ended is not this path at all:
+a pause is restored untouched, execution position included, which is what
+lets a pause taken mid-loop actually resume there.
+
+## Example
+
+A finished run's state, cancelled, with one turn's worth of accumulated
+conversation and execution position:
+
+```json title="A cancelled run's state" verdict="cancelled"
+{
+  "status": "cancelled",
+  "isComplete": true,
+  "data": { "k": "v" },
+  "metadata": { "m": 1 },
+  "threadId": "thread_1",
+  "currentNodeId": "node_a",
+  "iterationCount": 3
+}
+```
+
+```json title="What seeds the next turn on that thread" verdict="cleared"
+{
+  "status": null,
+  "isComplete": false,
+  "error": null,
+  "data": { "k": "v" },
+  "metadata": { "m": 1 },
+  "threadId": "thread_1",
+  "currentNodeId": "",
+  "iterationCount": 0,
+  "iterator": null
+}
+```

@@ -1,0 +1,62 @@
+---
+rule: SG-16
+rule_hash: 121eafd4093a
+---
+
+## What it means
+
+A loopback edge is drawn from one node back to an earlier one, but the loop
+it closes is not "everything the loopback edge touches" — it is the
+intersection of what the head can still reach and what can still reach the
+tail, over the forward graph alone. An edge type excluded from execution
+(a tool wire, an agent-result wire, the loopback edge itself) is excluded
+from that computation too, so a tool consumer downstream of the loop never
+pulls the loop's body wider than it is.
+
+Two clauses are easy to get backwards. First, a loop is keyed by its head,
+not by the loopback edge that closes it: two tails re-entering the same node
+are two continuations of one loop with one round counter, not two loops each
+counting its own rounds. Second, a loopback edge whose tail cannot reach its
+head closes no cycle at all — but that is not treated as if no loop existed;
+it yields a body containing only the head.
+
+Membership is topological, not observed. A node on a conditional arm inside
+the body is in the loop on every round, including the rounds it does not
+run, because what decides membership is whether the topology lets it
+influence a later round — not whether this particular round happened to
+reach it.
+
+## Example
+
+A gateway's two arms both loop back into the same head:
+
+```json title="Two tails re-entering one head"
+[
+  {"source": "head", "target": "gateway"},
+  {"source": "gateway", "target": "tail_a"},
+  {"source": "gateway", "target": "tail_b"},
+  {"source": "tail_a", "target": "head"},
+  {"source": "tail_b", "target": "head"}
+]
+```
+
+```json title="The loop the two tails resolve to" verdict="unioned"
+{"head": ["gateway", "head", "tail_a", "tail_b"]}
+```
+
+One loop, one body — not two loops sharing a head. A loopback edge whose tail
+cannot reach its head behaves differently again:
+
+```json title="A loopback edge whose tail cannot reach the head"
+[
+  {"source": "a", "target": "b"},
+  {"source": "elsewhere", "target": "head"}
+]
+```
+
+```json title="The body it resolves to" verdict="head-only"
+["head"]
+```
+
+The loop still exists — it is not discarded — its body is simply the head
+alone, with nothing between it and itself to re-run.

@@ -1,0 +1,39 @@
+---
+rule: SG-7
+rule_hash: 1e98d348961e
+---
+
+## What it means
+
+The budget belongs to the loop, not to any node inside it. A loop with a
+conditional arm can have a node that only runs on some rounds; counting that
+node's own executions would under-count the rounds actually spent, and the
+loop would keep re-entering after the budget the author set was gone. The
+round count is kept per loop, identified by the loop's head, precisely so a
+lagging node inside it cannot buy the loop extra rounds.
+
+That count has to survive a pause. A run paused mid-loop and resumed later
+does not start the loop's counter over: the round each loop had reached is
+recovered, so the same budget that would have applied without the pause
+still applies after it.
+
+## Example
+
+A loop paused mid-run has left five jobs behind for its one loop head,
+each carrying the round it was stamped with — one carrying no stamp:
+
+```json title="The paused run's jobs, each carrying the round it ran under"
+[
+  {"id": 11, "metadata": {"loops": {"reason": 2}}},
+  {"id": 1, "metadata": {"loops": {"reason": 0}}},
+  {"id": 12, "metadata": {"loops": {"reason": 3}}},
+  {"id": 2, "metadata": {"loops": {"reason": 0}}},
+  {"id": 3, "metadata": {}}
+]
+```
+
+```json title="What the resumed run restores the loop's round count to" verdict="restored"
+{"reason": 3}
+```
+
+The job with no stamp at all contributes nothing and resets nothing.

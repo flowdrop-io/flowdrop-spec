@@ -1,0 +1,29 @@
+---
+rule: SG-10
+rule_hash: "000062967499"
+---
+
+## What it means
+
+A loopback edge's branch is read off the port it leaves its source by, and
+`trigger` is a control signal, not a named branch — leaving by it extracts to
+no branch at all. Where a source declares branches and gates re-entry by
+which one fired, a loopback edge driven from `trigger` sits outside that
+gate: the re-entry it drives happens regardless of which branch, if any, the
+source reports as active.
+
+## Example
+
+A loopback edge leaves its source by the reserved trigger port rather than by
+a branch port such as the one whose handle ends in `False`.
+
+```json title="The source handle of a loopback edge leaving the trigger port"
+"gw.1-output-trigger"
+```
+
+```json title="The branch name extracted from it" verdict="unbranched"
+""
+```
+
+An empty branch name is what attributes a loopback edge to no branch; the
+same extraction on a handle ending in `False` yields `False`.

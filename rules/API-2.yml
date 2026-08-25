@@ -20,3 +20,7 @@ profiles:
 
 added: "1.0"
 changed: "1.0"
+
+related:
+  - MAN-13
+  - MAN-15

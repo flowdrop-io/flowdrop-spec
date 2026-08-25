@@ -1,0 +1,36 @@
+---
+rule: CMP-3
+rule_hash: eb51d46f65cf
+---
+
+## What it means
+
+The cheapest checks run first, and in a fixed order: the workflow's own
+identifier, then whether it has any node at all, then — per node, in
+definition order — that the node has an identifier and that it has a type.
+A workflow missing its own identifier is refused before any node is
+examined at all, whatever shape those nodes are in. Within the per-node
+pass, the first node in definition order that fails is the one named in the
+failure; a later node's problems are never reported instead.
+
+## Example
+
+```json title="A workflow with no identifier" verdict="given"
+{ "nodes": [{ "id": "node1", "type": "text_input" }] }
+```
+
+```json title="What compilation reports" verdict="refused"
+"Workflow must have an ID"
+```
+
+The same shape, with an identifier but a node missing its type:
+
+```json title="A node with no declared type" verdict="given"
+{ "id": "test_workflow", "nodes": [{ "id": "node1" }] }
+```
+
+```json title="What compilation reports" verdict="refused"
+"Node node1 must have a type"
+```
+
+The message names the node — `node1` — not merely that some node failed.

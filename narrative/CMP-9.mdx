@@ -1,0 +1,51 @@
+---
+rule: CMP-9
+rule_hash: b89cf9b4661d
+---
+
+## What it means
+
+Two things about the check are easy to guess wrong. First, it is not scoped
+to the tools wired straight onto a node: the flattened set includes every
+tool reachable through any number of passthrough hops, so a collision two
+hops away is refused exactly as one on a direct wire would be, and a
+passthrough node's own name plays no part in it — only the leaf tools it
+forwards count, checked where they finally land. Second, the check is scoped
+to one node's own view, not to the workflow as a whole: the same name landing
+on two different nodes is not a collision at all.
+
+## Example
+
+Two tools, reached by an agent through a passthrough box, whose labels look
+different but resolve to the same name:
+
+```json title="Two tools reaching one node through a box" verdict="refused"
+{
+  "nodes": [
+    { "id": "tool_a", "type": "http_request", "data": { "label": "Web Search" } },
+    { "id": "tool_b", "type": "http_request", "data": { "label": "web-search" } },
+    { "id": "box_1", "type": "toolbox", "data": { "label": "My Tools" } }
+  ],
+  "edges": [
+    { "source": "tool_a", "target": "box_1", "data": { "edgeType": "tool_availability" } },
+    { "source": "tool_b", "target": "box_1", "data": { "edgeType": "tool_availability" } },
+    { "source": "box_1", "target": "agent_1", "data": { "edgeType": "tool_availability" } }
+  ]
+}
+```
+
+The same pair of labels causes no trouble at all once they sit on two
+different nodes instead of one:
+
+```json title="The same tool name at two different consumers" verdict="accepted"
+{
+  "nodes": [
+    { "id": "tool_a", "type": "http_request", "data": { "label": "Search" } },
+    { "id": "tool_b", "type": "http_request", "data": { "label": "Search" } }
+  ],
+  "edges": [
+    { "source": "tool_a", "target": "agent_1", "data": { "edgeType": "tool_availability" } },
+    { "source": "tool_b", "target": "agent_2", "data": { "edgeType": "tool_availability" } }
+  ]
+}
+```

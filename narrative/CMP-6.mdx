@@ -1,0 +1,35 @@
+---
+rule: CMP-6
+rule_hash: 5a8bbfab7aab
+---
+
+## What it means
+
+Being wired to something real does not earn a node a place in the execution
+graph. A node whose type is marked non-executable is excluded regardless of
+what touches it — including an ordinary incoming connection from a node that
+does run — because the exclusion is decided from the node's own type before
+its wiring is considered at all. The same precedence protects the opposite
+case: a node with no edges at all, or none incoming, is included rather than
+treated as an orphan to drop.
+
+## Example
+
+A record-only node wired downstream of a node that does run:
+
+```json title="A record-only node with a real incoming connection" verdict="given"
+{
+  "nodes": [
+    { "id": "input", "type": "text_input" },
+    { "id": "mynote", "type": "note" }
+  ],
+  "edges": [{ "source": "input", "target": "mynote" }]
+}
+```
+
+```json title="What compilation records for it" verdict="excluded"
+{ "id": "mynote", "reason": "non_executable" }
+```
+
+The upstream node is unaffected — only the record-only one is left out of
+the execution graph.

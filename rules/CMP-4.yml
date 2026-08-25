@@ -14,3 +14,6 @@ profiles:
 
 added: "1.0"
 changed: "1.0"
+
+related:
+  - EDGE-5

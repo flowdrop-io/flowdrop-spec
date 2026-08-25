@@ -24,3 +24,6 @@ changed: "1.0"
 
 rulings:
   - OPEN-19
+
+related:
+  - SCH-29

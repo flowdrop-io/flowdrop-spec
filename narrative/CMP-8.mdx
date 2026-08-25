@@ -1,0 +1,28 @@
+---
+rule: CMP-8
+rule_hash: c5a3605dc7f1
+---
+
+## What it means
+
+The order that comes out of compilation is a topological order and nothing
+more: a node runs only after everything it depends on, but two nodes with no
+dependency between them can come out in either relative order. An
+implementation may even produce the same order on every run without that
+constancy being anything an author may depend on — nothing about a node's
+identifier or its position in the stored workflow decides the order; only a
+wire does. Forcing one node to run before another that it does not otherwise
+need means adding an edge between them.
+
+## Example
+
+One node, `root`, feeds two others, `zulu` and `alpha`, which share no
+dependency between themselves. One order the implementation produced:
+
+```json title="One legal execution order" verdict="topological"
+["root", "zulu", "alpha"]
+```
+
+`root` precedes both, as it must. The relative order of `zulu` and `alpha` is
+not guaranteed by this run or any other — only an edge between them, which
+this workflow does not draw, would fix it.

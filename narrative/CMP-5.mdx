@@ -1,0 +1,36 @@
+---
+rule: CMP-5
+rule_hash: 7993e658e6c2
+---
+
+## What it means
+
+Cycle detection does not walk the graph as stored — it first removes every
+tool-availability, loopback and agent-result edge, then checks what is left
+for a cycle. A cycle is legal exactly when it disappears once those edge
+types are taken out, whatever mix of edge types formed it. The one case a
+mix does not save: a cycle built entirely from ordinary connections has
+nothing for the removal to take out, so it always refuses compilation.
+
+## Example
+
+The same two-node shape, back and forth, once with both edges ordinary and
+once with the return edge a loopback:
+
+```json title="Two edges back and forth, both ordinary connections" verdict="refused"
+[
+  { "source": "node_a", "target": "node_b" },
+  { "source": "node_b", "target": "node_a" }
+]
+```
+
+```json title="The same shape, the return edge a loopback" verdict="legal"
+[
+  { "source": "iterator_1", "target": "node_b", "sourceHandle": "iterator_1-output-item" },
+  { "source": "node_b", "target": "iterator_1", "targetHandle": "iterator_1-input-loop_back" }
+]
+```
+
+The first refuses compilation with `Circular dependency detected in
+workflow`; the second compiles, because removing the loopback edge before
+checking leaves nothing but a single forward connection.

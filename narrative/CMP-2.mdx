@@ -1,0 +1,27 @@
+---
+rule: CMP-2
+rule_hash: 16109c4920c6
+---
+
+## What it means
+
+Stored node metadata is a cache the author can edit, not a source of truth.
+Every time a workflow is compiled, its node metadata is thrown away and
+rebuilt from the node types themselves, so whatever a stored record claims
+about a node — up to and including which processor runs it — never survives
+past compilation unless the live node type still agrees with it.
+
+## Example
+
+A stored node claims a description that no longer matches its node type:
+
+```json title="What the stored node claims" verdict="stale"
+{ "node_type_id": "live_probe", "description": "Stale description" }
+```
+
+```json title="What compilation records for it" verdict="fresh"
+{ "node_type_id": "live_probe", "description": "Fresh description" }
+```
+
+The node type's own description wins; the stored claim never reaches the
+compiled workflow at all.

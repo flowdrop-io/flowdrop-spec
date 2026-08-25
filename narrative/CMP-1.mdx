@@ -1,0 +1,35 @@
+---
+rule: CMP-1
+rule_hash: d63e1150713d
+---
+
+## What it means
+
+Compilation runs six stages in a fixed order: structure preconditions,
+dependency graph, cycle detection, tool wiring, execution graph, node
+mappings. Wherever in that order something goes wrong, the caller sees one
+failure shape, not six, and its message names which stage caught it.
+
+The detail a fixed order does not make obvious on its own: the prefix is
+never doubled. A structure precondition (CMP-3) is itself already reported
+as a compilation failure — the cheapest stage runs first and reports in the
+same shape everything else does — so wrapping its message a second time
+could easily stack the prefix twice. It does not: compilation reports the
+outer message once, and the failure that was actually detected stays
+reachable underneath it rather than being discarded.
+
+## Example
+
+A workflow whose only node has no declared type — a structure precondition,
+caught at the first stage:
+
+```json title="A node with no declared type" verdict="given"
+{ "id": "wrap_probe", "nodes": [{ "id": "node1" }] }
+```
+
+```json title="What compilation reports" verdict="reported"
+"Workflow compilation failed: Node node1 must have a type"
+```
+
+The failure reachable underneath that message is `Node node1 must have a
+type` — the detecting stage's own message, present once, not twice.

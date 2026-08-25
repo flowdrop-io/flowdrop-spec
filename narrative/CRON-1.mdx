@@ -1,0 +1,30 @@
+---
+rule: CRON-1
+rule_hash: da899f86b435
+---
+
+## What it means
+
+A cleared schedule expression is not special-cased on the way in — it is a
+stored value like any other, and the component that decides a trigger is due
+and the component that reports its next run must read that value the same
+way. Both must treat a blank expression as "not scheduled," never as a
+schedule that fires on every pass.
+
+The clause that a careful reader misses is the second one: "blank" means
+exactly blank. An expression that only looks unfilled, such as a single `0`,
+is a real schedule expression the parser rejects, not an absent one.
+Reporting it as absent tells whoever is debugging a dead trigger to go fill
+in a field that already holds a character.
+
+## Example
+
+The same missing next run, reported for two different stored expressions:
+
+```json title="The reported code for a cleared expression" verdict="unset"
+"no_expression"
+```
+
+```json title="The reported code for a stored expression of a single zero" verdict="malformed"
+"invalid_expression"
+```

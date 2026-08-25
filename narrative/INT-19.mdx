@@ -1,0 +1,46 @@
+---
+rule: INT-19
+rule_hash: 08dac5a95c16
+---
+
+## What it means
+
+A remote system has no session to ride, so the human route's request token
+is not something it can ever present; it gets a callback route built for
+what it actually is, addressed by the interrupt's own unguessable
+identifier instead of a session. Reaching that route does not make a caller
+a human: resolving by callback is a distinct authority that grants nothing
+else, in particular not the authority to answer as a person would.
+
+The bite is in the guard order, not just its existence. The route is scoped
+by interrupt *type* first — only the one shape a remote system was invited
+to answer is resolvable here — and the direction check sits behind it. Every
+human prompt is stamped outward exactly as an external call is, so checking
+direction alone would let the callback credential answer a person's approval
+prompt. And the missing-`value` check runs before the interrupt is even
+looked up: a malformed request gets refused without learning whether the
+identifier it named exists at all.
+
+## Example
+
+```http title="A machine caller answering the call it was invited to answer" verdict="200 resolved"
+POST /api/flowdrop/interrupts/{interrupt_id}/callback
+
+{"value": {"ok": true}}
+```
+
+```http title="A malformed request against an identifier that does not exist" verdict="400 refused"
+POST /api/flowdrop/interrupts/{interrupt_id}/callback
+
+{}
+```
+
+```http title="The same body, against a human-facing prompt" verdict="409 refused"
+POST /api/flowdrop/interrupts/{interrupt_id}/callback
+
+{"value": true}
+```
+
+The second request is refused for what it is missing, before anything is
+looked up; only a well-formed request against an unknown identifier reaches
+`404`.

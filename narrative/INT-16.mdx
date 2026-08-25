@@ -1,0 +1,50 @@
+---
+rule: INT-16
+rule_hash: 1c5dab73ccbb
+---
+
+## What it means
+
+Three different refusals on the signal API share the one status, `409`, so
+the status alone cannot tell an operator which of the three happened; the
+`error_code` is what does. A code, once published, keeps its meaning
+forever — API-8 covers that guarantee for two of the three codes here; the
+third, `PIPELINE_TERMINAL`, is the same contract applied to a run that has
+already finished.
+
+Success is not one code either: creating a new signal and resolving one
+that already existed are different events on the same door, and they answer
+differently so a caller can tell which happened without inspecting the
+body.
+
+The existence check on a missing run is scoped to who is asking. A caller
+who may already act on any run loses nothing by being told a run does not
+exist, so they get an honest `404`. Everyone else gets the same opaque
+`403` whether the run does not exist or simply is not theirs — the two
+cases must be indistinguishable, or the difference between them becomes a
+way to enumerate which runs exist.
+
+## Example
+
+```http title="Cancelling a run that has already finished" verdict="409 PIPELINE_TERMINAL"
+POST /flowdrop/api/pipelines/{pipeline}/cancel
+
+{}
+```
+
+```http title="Pausing a run for the first time" verdict="202 accepted"
+POST /flowdrop/api/pipelines/{pipeline}/pause
+
+{}
+```
+
+```http title="Resuming that same pause" verdict="200 resolved"
+POST /flowdrop/api/pipelines/{pipeline}/resume
+
+{}
+```
+
+A caller with blanket authority over runs who cancels one that does not
+exist gets `404`; every other caller gets `403` for that same request, and
+`403` again for a run that exists but is someone else's — the two answers
+are identical on purpose.

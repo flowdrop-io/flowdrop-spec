@@ -1,0 +1,38 @@
+---
+rule: INT-1
+rule_hash: 4bdde683fa18
+---
+
+## What it means
+
+An interrupt is not reported as a bare "paused" flag. The job that raised it
+carries the interrupt's own identifier, so a caller reading the job already
+knows which question it is waiting on. The response goes further: it hands
+back the persisted interrupt's public shape — its identifier, which node
+raised it, and its status — under the response metadata, and it hands back
+every node that finished before the pause. A caller does not have to make a
+second call to learn what already ran.
+
+The results are exactly the completed prefix, no more: a node reached after
+the interrupt does not appear at all, not even as an empty placeholder.
+
+## Example
+
+A confirmation node interrupts a three-node run partway through.
+
+```json title="The response to a run that stopped to ask" verdict="interrupted"
+{
+  "status": "interrupted",
+  "results": { "log_before": "…" },
+  "metadata": {
+    "interrupt": {
+      "id": "…",
+      "nodeId": "confirm",
+      "status": "pending"
+    }
+  }
+}
+```
+
+The node after the confirmation is missing from `results` entirely — it never
+ran — while the node before it is there in full.

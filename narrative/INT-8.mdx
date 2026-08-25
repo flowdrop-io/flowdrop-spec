@@ -1,0 +1,40 @@
+---
+rule: INT-8
+rule_hash: dc275ffce98f
+---
+
+## What it means
+
+Validating a snapshot against a workflow definition treats two kinds of
+mismatch very differently. A snapshot node the definition no longer knows —
+the graph changed under a run that is trying to resume into it — is an
+error: the result is invalid and resuming must not proceed. A definition
+node the snapshot has simply not reached yet is only a warning: that is the
+ordinary shape of a mid-run snapshot, and a warning must never flip the
+result invalid, or every resumable snapshot would be refused.
+
+The version check has an exception worth naming: an empty snapshot version
+skips the comparison entirely rather than counting as a mismatch. A snapshot
+built with no known version has nothing to compare, and treating "unknown"
+as "different" would refuse every such snapshot regardless of the
+definition it is checked against.
+
+## Example
+
+The workflow declares two nodes, `node_1` and `node_2`. Only `node_1` has
+completed so far.
+
+```json title="A snapshot node the definition does not know" verdict="invalid"
+{"id": "unknown_node"}
+```
+
+```json title="A definition node the snapshot has not reached yet" verdict="valid"
+{"id": "node_2"}
+```
+
+```json title="What validation reports for the second case"
+{"code": "WARNING_ORPHAN_NODE", "nodeId": "node_2"}
+```
+
+The first case invalidates the result; the second is recorded as a warning
+and the result stays valid.

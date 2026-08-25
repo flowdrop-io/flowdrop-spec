@@ -1,0 +1,47 @@
+---
+rule: INT-6
+rule_hash: e094fab922f7
+---
+
+## What it means
+
+A snapshot's per-node status is not a direct copy of the job status behind
+it — two collapses are deliberate, and both go against the more intuitive
+guess. A cancelled job is recorded as skipped, not as failed and not with its
+own separate status: a cancelled node did not run, and a resume must not
+treat "did not run because cancelled" any differently from "did not run
+because the workflow finished first." A status the reader does not
+recognise at all becomes idle, on the same reasoning: unrecognised means "not
+done yet," the only assumption that cannot make a resume worse. Output and
+error are gated the other way round from what a merge might suggest: a job's
+output is carried only when that job actually completed, and its error only
+when it actually failed — a failed job never carries stale output forward,
+and a completed one never carries a phantom error.
+
+None of this may cost the run anything. Where there is no state to read, or
+producing the snapshot itself raises an error, the result is simply no
+snapshot — recorded in the log, not thrown.
+
+## Example
+
+Four jobs mid-pause, and what the snapshot records for each.
+
+```json title="Four jobs' own statuses" verdict="mid-run"
+{ "n_done": "completed", "n_failed": "failed", "n_cancelled": "cancelled", "n_bogus": "not_a_status" }
+```
+
+```json title="What the snapshot records for each" verdict="recorded"
+{
+  "n_done": { "status": "completed", "output": { "result": "ok" } },
+  "n_failed": { "status": "failed", "error": "it blew up" },
+  "n_cancelled": { "status": "skipped" },
+  "n_bogus": { "status": "idle" }
+}
+```
+
+A run with no workflow behind it still gets a snapshot, with a placeholder
+identity rather than a missing one:
+
+```json title="A run with no workflow to snapshot" verdict="unknown"
+{ "workflowId": "unknown", "workflowVersion": "" }
+```

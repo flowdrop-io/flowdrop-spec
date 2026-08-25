@@ -1,0 +1,35 @@
+---
+rule: INT-10
+rule_hash: dac060559f51
+---
+
+## What it means
+
+Deferred execution cannot replay a run's history; the only currency it
+understands is work still to be scheduled. Seeding it from a snapshot means writing back
+each already-completed node's output and marking it distinctly, so that
+only what genuinely remains is scheduled and nothing downstream mistakes
+a seeded record for work this run actually performed. The marker matters
+because a seeded record and a genuine one look identical except for it: the
+same completed status, the same output.
+
+A snapshot node with no matching job in the resumed run — the workflow
+changed since the snapshot was taken — is not an error here; it is simply
+skipped, and the discrepancy is noted rather than blocking the handover.
+
+## Example
+
+A run got as far as two of three nodes before being handed over. The
+third node is left exactly as an unseeded run would leave it: no `injected`
+key at all.
+
+```json title="A node the snapshot already completed" verdict="injected"
+{"status": "completed", "output": {"message": "two"}, "injected": true}
+```
+
+A later snapshot naming a node the workflow no longer has seeds nothing for
+it:
+
+```json title="A snapshot node the workflow no longer has" verdict="skipped"
+{"id": "deleted_since", "output": {"message": "gone"}}
+```

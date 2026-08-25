@@ -1,0 +1,31 @@
+---
+rule: INT-22
+rule_hash: 0afae3d49198
+---
+
+## What it means
+
+Every endpoint that publishes an interrupt publishes the same 24 keys, in
+the same order, whichever door answered. A consumer that reads this shape
+once can read it everywhere; a consumer that has to special-case one
+endpoint's fields is reading a contract that was never actually shared.
+
+The clause worth catching is presence, not content: an unset member is
+published as the key with a `null` value, never left out of the object. A
+consumer that checks whether a key exists, instead of reading its value,
+would read an unset member as though the endpoint had a different shape
+than the one that set it — the two are indistinguishable unless absence is
+never allowed to mean anything.
+
+## Example
+
+```json title="The interrupt entry's key set, in order"
+["id", "type", "status", "message", "nodeId", "workflowId", "pipelineId", "sessionId", "schema", "options", "context", "defaultValue", "responseData", "createdAt", "expiresAt", "scheduledAt", "resolvedAt", "resolvedBy", "direction", "jobId", "targetPipelineId", "initiatorUid", "reason", "linkedInterruptId"]
+```
+
+```json title="One interrupt's unset members" verdict="null"
+{"schema": null, "options": null, "context": null, "expiresAt": null, "scheduledAt": null, "resolvedAt": null, "resolvedBy": null}
+```
+
+Nothing here is omitted; each of these keys sits in its place in the 24-key
+entry above, carrying `null` rather than being left out.

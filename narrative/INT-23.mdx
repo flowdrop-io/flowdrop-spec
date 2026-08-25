@@ -1,0 +1,33 @@
+---
+rule: INT-23
+rule_hash: 965225762f89
+---
+
+## What it means
+
+Two different shapes both mean "wait indefinitely" — a missing expiry and
+one set to zero — and a sweep has to exclude both, or an open-ended question
+to a human would be reaped the first time the sweep runs. Treating only one
+of the two as the sentinel is the mistake this rule rules out.
+
+The two paths that do expire an interrupt differ in exactly one observable,
+and that asymmetry is deliberate rather than an oversight. A sweep finding
+an overdue row expires it and announces the expiry — that announcement is
+what ends the run holding it open (INT-18). A caller answering a row that
+turns out to already be overdue also expires it, as a side effect of
+refusing the answer, but announces nothing: that path is one person
+answering one question late, and letting it end the run would let a late
+click end a run nobody meant to stop.
+
+## Example
+
+```json title="An interrupt with no expiry set" verdict="never expires"
+{"expires": null}
+```
+
+```json title="An interrupt whose expiry is zero" verdict="never expires"
+{"expires": 0}
+```
+
+Both stay pending through every sweep, and both are still answerable long
+after they were created.

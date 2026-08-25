@@ -1,0 +1,33 @@
+---
+rule: INT-5
+rule_hash: 5d8d40defc7e
+---
+
+## What it means
+
+A cancel and a pause are both observed only at the boundary between job
+iterations, never mid-node — the job already running always finishes first.
+Past that boundary the two diverge in a way that is easy to get backwards.
+Cancel is terminal: it announces the cancellation itself, and separately
+announces the run as complete (carrying the cancelled status), because
+anything that only listens for completion — a session closing out, a parent
+run waiting on this one — must hear that the run is over. Pause is not
+terminal: it announces only the pause, and nothing tells a completion
+listener the run has ended, because it has not. The signal a pause left
+behind stays exactly as it was, because that record is the same one a later
+resolution resumes against (INT-3).
+
+## Example
+
+The same kind of poll, answered with a cancel and with a pause.
+
+```json title="A run answering a pending cancel" verdict="cancelled"
+{ "status": "cancelled", "metadata": { "signal_id": "signal-1", "reason": "operator stopped the run" } }
+```
+
+```json title="The same run, answering a pending pause instead" verdict="paused"
+{ "status": "paused", "metadata": { "signal_id": "signal-1" } }
+```
+
+Only the cancel is followed by a second, completion announcement; the pause
+produces exactly one.

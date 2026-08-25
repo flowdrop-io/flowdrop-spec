@@ -1,0 +1,23 @@
+---
+rule: INT-13
+rule_hash: 730c1a8bfb68
+---
+
+## What it means
+
+"Finished" looks the same whether a run completed, failed or was cancelled,
+if all that is stored is whether it finished at all. Deriving the outcome
+from completion alone cannot tell a deliberate cancellation apart from an
+ordinary finish, so the outcome has to be written down as its own fact, and
+a checkpoint has to carry that fact forward rather than reconstructing it.
+
+Cancellation recorded this way still does not close a conversation thread:
+seeding a new turn from a terminal state clears the run's outcome along
+with its execution position, so the next turn starts clean. Only resuming
+the run itself is gated (INT-14); continuing the conversation is not.
+
+## Example
+
+```json title="A checkpoint written with the outcome recorded" verdict="cancelled"
+{"isComplete": true, "error": null, "status": "cancelled"}
+```

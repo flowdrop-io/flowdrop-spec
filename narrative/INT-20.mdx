@@ -1,0 +1,38 @@
+---
+rule: INT-20
+rule_hash: d86070c73c82
+---
+
+## What it means
+
+The callback address a remote system is told to answer at is built from the
+interrupt's identifier, so the interrupt has to exist before there is
+anything to tell the remote — the order is the rule, not an incidental
+detail of how the node happens to be written. A fast remote can answer the
+callback before the outbound call has even returned, and the interrupt must
+already be there to receive it.
+
+The reverse direction is guarded just as deliberately. A call that fails to
+go out cancels the interrupt it already created rather than pausing on it:
+a run waiting on a message nobody was ever asked to send is worse off than a
+failed node. The wait itself is bounded by construction — there is no value
+meaning "forever" — and it is operational rather than human-facing, so it
+never surfaces where an operator could hand the workflow a fabricated
+answer.
+
+## Example
+
+```json title="What the remote receives — the interrupt already exists"
+{"payload": {"order": 42}, "interrupt_id": "{interrupt}", "callback_url": "…/api/flowdrop/interrupts/{interrupt}/callback"}
+```
+
+The `interrupt_id` in the body and the id embedded in `callback_url` are the
+same value: the identifier the interrupt was given before this request was
+ever sent.
+
+```json title="An answer arriving through the callback" verdict="unchanged"
+{"decision": "approved", "nested": {"score": 7}}
+```
+
+Resumption hands this payload downstream exactly as received; only the
+workflow's author knows what the remote's contract means.

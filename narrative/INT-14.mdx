@@ -1,0 +1,34 @@
+---
+rule: INT-14
+rule_hash: 0da95f19be7e
+---
+
+## What it means
+
+A finished run stays finished. Resuming it — whether from the snapshot
+itself or from the checkpoint that captured it — would re-fire
+side-effecting nodes against an outcome that is already recorded and
+already announced, so both paths are refused before any run or job is
+created, and the refusal names the snapshot or checkpoint and its status.
+
+The clause that bites is what does *not* count as resuming. Restoring a
+thread's latest checkpoint to seed a new turn is continuing a conversation,
+not resuming the finished one, and it is never gated: it carries the
+accumulated conversation state forward whatever the previous turn's outcome
+was, completed or cancelled alike. The gate binds to run resume, not to
+thread continuity — the same checkpoint can be refused down one path and
+accepted down the other.
+
+## Example
+
+A run finishes and its final checkpoint records the outcome. The same
+checkpoint answers two different requests differently, because the requests
+are different operations, not because the checkpoint changed.
+
+```json title="That checkpoint, explicitly resumed as a run" verdict="refused"
+{"status": "completed"}
+```
+
+```json title="The same checkpoint, restored to seed a new turn" verdict="continued"
+{"status": "completed"}
+```

@@ -10,11 +10,17 @@ export function Masthead() {
           {MASTHEAD_TITLE} <em>{SPEC_VERSION}</em>
         </Link>
         <nav>
-          {MASTHEAD_LINKS.map((l) => (
-            <Link key={l.url} href={l.url}>
-              {l.text}
-            </Link>
-          ))}
+          {MASTHEAD_LINKS.map((l) =>
+            l.external ? (
+              <a key={l.url} href={l.url} className="offsite">
+                {l.text}
+              </a>
+            ) : (
+              <Link key={l.url} href={l.url}>
+                {l.text}
+              </Link>
+            ),
+          )}
           <SearchButton />
         </nav>
       </div>

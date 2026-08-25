@@ -41,10 +41,21 @@ export const withBase = (path: string) => `${SPEC_BASE_PATH}${path}`;
 
 export const MASTHEAD_TITLE = 'FlowDrop Workflow Specification';
 
-export const MASTHEAD_LINKS: { text: string; url: string }[] = [
+/**
+ * `external` links leave this Next app for a sibling site on the same origin
+ * (flowdrop.io, /docs). They render as plain anchors: a `<Link>` would have the
+ * router try to resolve a route this app does not own, and Next would not add
+ * the base path to them anyway.
+ */
+export const MASTHEAD_LINKS: { text: string; url: string; external?: boolean }[] = [
   { text: 'Rules', url: '/rules' },
   { text: 'Conventions', url: '/conventions' },
   { text: 'Glossary', url: '/glossary' },
+  // The specification states what implementations must do; the docs are how you
+  // actually do it. A reader who arrives on a rule from a search result or a
+  // quoted identifier needs a route there without going via the footer.
+  { text: 'Docs', url: 'https://flowdrop.io/docs', external: true },
+  { text: 'FlowDrop', url: 'https://flowdrop.io', external: true },
 ];
 
 /**

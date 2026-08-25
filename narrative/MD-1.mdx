@@ -1,0 +1,36 @@
+---
+rule: MD-1
+rule_hash: df29a9e492a0
+---
+
+## What it means
+
+Encoding happens over the whole input before any block or inline pattern is
+applied — not at each place text later gets written out. The clause that
+bites is the one about where a block starts: a block whose very first
+character is a tag does not get a free pass just because it looks, at that
+point, like it is already built. Nothing survives from the source that the
+conversion did not write itself, wherever in the block it sits.
+
+## Example
+
+Markup buried inside a line of prose:
+
+```json title="Markdown with a tag inside the text"
+"Hello <script>alert(1)</script> there"
+```
+
+```json title="What the paragraph carries" verdict="encoded"
+"<p>Hello &lt;script&gt;alert(1)&lt;/script&gt; there</p>"
+```
+
+The same holds when the tag is the very first thing in the block, not
+something the paragraph wraps around:
+
+```json title="Markdown that opens with a tag"
+"<script>alert(1)</script>"
+```
+
+```json title="What the paragraph carries" verdict="encoded"
+"<p>&lt;script&gt;alert(1)&lt;/script&gt;</p>"
+```

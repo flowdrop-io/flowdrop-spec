@@ -1,0 +1,41 @@
+---
+rule: MD-2
+rule_hash: bfef24aba647
+---
+
+## What it means
+
+The encoding MD-1 requires runs once, over the whole input, so nothing
+downstream may run it again on a sequence the conversion itself already
+wrote — a `<` in the source becomes `&lt;` and stays `&lt;`, never
+`&amp;lt;`.
+
+The clause a careful reader still gets wrong is about quote characters, and
+it runs opposite to what "encode everything" suggests. A quote sitting in
+ordinary text is harmless and is left alone. The same character, once it
+lands inside a value placed between the double quotes of an attribute — a
+link target, an image source, an image's alternative text — has to be
+escaped there, because left alone it can end that attribute early and open
+a new one next to it.
+
+## Example
+
+A quote inside ordinary text:
+
+```json title="A quote inside ordinary text"
+"He said \"hi\" and it's fine"
+```
+
+```json title="What the paragraph carries" verdict="kept"
+"<p>He said \"hi\" and it's fine</p>"
+```
+
+The same character inside an image's alternative text:
+
+```json title="A quote inside an image's alternative text"
+"![x\" onerror=\"alert(1)](a.png)"
+```
+
+```json title="What the image tag carries" verdict="escaped"
+"<img src=\"a.png\" alt=\"x&quot; onerror=&quot;alert(1)\">"
+```

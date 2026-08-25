@@ -1,0 +1,33 @@
+---
+rule: SNAP-1
+rule_hash: 5464a06a54d8
+---
+
+## What it means
+
+The same execution id is spelled two ways one nesting level apart, and
+neither spelling is the "wrong" one to normalise away. At the envelope
+level — an acknowledgement, a list row — the key is snake_case. Inside the
+published snapshot document itself, the same value sits under the
+camelCase spelling. A consumer that reads one and assumes the other is
+just a stylistic inconsistency will read the wrong key at the wrong level.
+
+The save door is the one asymmetry worth naming directly: it accepts a
+body in either spelling, but what it hands back — like every read — is
+always camelCase. Leniency runs one way only.
+
+## Example
+
+```json title="The execution_id field of the save acknowledgement" verdict="saved"
+"exec_saved"
+```
+
+```json title="The executionId field inside the read snapshot" verdict="read"
+"exec_get"
+```
+
+```http title="Deleting a snapshot by execution id" verdict="200 deleted"
+DELETE /api/flowdrop-runtime/snapshot/{execution_id}
+
+{"success": true, "data": {"message": "Snapshot deleted", "execution_id": "exec_delete_me"}}
+```

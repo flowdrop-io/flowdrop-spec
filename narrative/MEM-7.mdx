@@ -1,0 +1,35 @@
+---
+rule: MEM-7
+rule_hash: 4c16e77bdeb5
+---
+
+## What it means
+
+A refused scope and a scope that legitimately resolves to an empty
+identifier can look the same from one field alone — both report an empty
+`resolved_scope_id` — so the rule is what makes them distinguishable as a
+whole response. A refusal's read reports a fixed default and `found: false`
+on top of the empty identifier; a non-identity scope resolving to the same
+empty identifier because it has nothing else to resolve to reports whatever
+was actually stored there, `found` included. Neither the fixed default nor
+the stored value crosses paths with the other, because a refusal never calls
+the storage backend at all.
+
+## Example
+
+A `user` scope with no usable identity, reading a key with a fallback
+default:
+
+```json title="Reading a preference in a refused user scope" verdict="refused"
+{ "value": "fallback", "found": false, "scope": "user", "resolved_scope_id": "" }
+```
+
+A `global` scope — not identity-scoped — legitimately resolves to the same
+empty identifier, and reads normally:
+
+```json title="Reading the same key in the global scope" verdict="resolved"
+{ "value": "val", "found": true, "scope": "global", "resolved_scope_id": "" }
+```
+
+The empty `resolved_scope_id` is identical in both; only `found` and the
+value tell them apart.

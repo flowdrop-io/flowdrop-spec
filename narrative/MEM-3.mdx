@@ -1,0 +1,47 @@
+---
+rule: MEM-3
+rule_hash: fd43cad3feed
+---
+
+## What it means
+
+A crashed or interrupted loop can leave a buffer with an assistant turn that
+declared a call and no result answering it. Healing does not wait for the
+buffer to end before closing that pair: the synthetic result is inserted
+directly after the turn that declared the call, wherever that is, because a
+result has to sit next to its call for the history to be sendable at all. A
+conversation that carried on past the crash — more turns appended after the
+dangling call, before anyone appends a `user` message — still gets its
+synthetic result inserted mid-buffer, not tacked onto the end.
+
+The other clause worth noting: healing runs only at a `user`-turn boundary.
+Appending a `tool` or `assistant` message never triggers it, even when the
+buffer already holds an unanswered call.
+
+## Example
+
+A call goes unanswered, and two more turns are appended before anyone
+appends a `user` message:
+
+```json title="The buffer before the healing user turn" verdict="unhealed"
+[
+  { "role": "assistant", "content": "", "metadata": { "tool_calls": [{ "tool_call_id": "c1", "name": "search" }] } },
+  { "role": "user", "content": "anything?", "metadata": {} },
+  { "role": "assistant", "content": "sorry, lost it", "metadata": {} }
+]
+```
+
+```json title="What appending a user turn produces" verdict="healed"
+[
+  { "role": "assistant", "content": "", "metadata": { "tool_calls": [{ "tool_call_id": "c1", "name": "search" }] } },
+  { "role": "tool", "content": "Tool call was interrupted; no result.", "metadata": { "tool_call_id": "c1", "healed": true } },
+  { "role": "user", "content": "anything?", "metadata": {} },
+  { "role": "assistant", "content": "sorry, lost it", "metadata": {} },
+  { "role": "user", "content": "try again", "metadata": {} }
+]
+```
+
+The synthetic result lands at index 1, next to the call it answers, not at
+the end where the new user turn was appended. Appending a `tool` message
+against the same dangling call, instead of a `user` message, leaves the call
+unanswered — healing never runs.

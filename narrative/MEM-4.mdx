@@ -1,0 +1,39 @@
+---
+rule: MEM-4
+rule_hash: 2f07d01fb54c
+---
+
+## What it means
+
+The output order follows how the author declared the ports, not the order a
+caller might expect from the port names or from wiring them up. Declare `b`
+before `a` and wire both — `b`'s messages come first regardless of what the
+names suggest.
+
+The other clause is the one a reader coming from a message-merging node would
+get wrong: an input port that is unwired, or carries no value, contributes
+nothing at all — no null placeholder takes its place in the output. A
+three-port assembly with the middle port unwired produces a two-item list,
+not a three-item list with a gap in it.
+
+## Example
+
+Two ports declared in the order `b`, then `a`, each wired to one message:
+
+```json title="Ports declared b before a" verdict="assembled"
+{ "b": [{ "role": "user", "content": "second-declared-first" }], "a": [{ "role": "user", "content": "first-declared-second" }] }
+```
+
+```json title="What the assembly outputs"
+[{ "role": "user", "content": "second-declared-first" }, { "role": "user", "content": "first-declared-second" }]
+```
+
+Three ports declared, the middle one left unwired:
+
+```json title="in_1 and in_3 wired, in_2 left unwired" verdict="assembled"
+{ "in_1": [{ "role": "user", "content": "a" }], "in_3": [{ "role": "user", "content": "c" }] }
+```
+
+```json title="What the assembly outputs"
+[{ "role": "user", "content": "a" }, { "role": "user", "content": "c" }]
+```

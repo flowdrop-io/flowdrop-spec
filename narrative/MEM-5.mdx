@@ -1,0 +1,53 @@
+---
+rule: MEM-5
+rule_hash: 71655473b93e
+---
+
+## What it means
+
+The reported drop count has to come from the repair pass itself, never from
+a second count kept alongside it — the two can disagree on a case a reader
+would not think to try. A tool call id can be present in the buffer and
+still be unusable: `"0"` is a legal id string but a falsy value, and once the
+call carrying it is treated as unusable, the turn that declared it, the id
+itself, and the result answering it all have to go — one unusable id costing
+three drops, not one, from a buffer of two entries.
+
+The other clause worth reading closely is what happens at the front of the
+list. A tool result placed before the assistant turn that declares its id is
+not caught by id-matching alone — the declaring call exists somewhere in the
+list, just not before its result — so a separate leading-orphan guard strips
+it. Stripping it un-answers the assistant turn it was answering, so tool
+pairing is applied again; the result is provider-sendable, not merely
+orphan-free.
+
+## Example
+
+A call id that is technically declared but falsy:
+
+```json title="A call id and its result, both spelled \"0\"" verdict="unusable"
+[
+  { "role": "assistant", "content": "", "tool_calls": [{ "tool_call_id": "0", "name": "search" }] },
+  { "role": "tool", "content": "result", "tool_call_id": "0" }
+]
+```
+
+```json title="What normalization resolves it to" verdict="dropped"
+[]
+```
+
+A tool result appearing before the call that declares its id:
+
+```json title="A result placed ahead of its declaring call" verdict="misordered"
+[
+  { "role": "tool", "content": "out of order", "tool_call_id": "c1" },
+  { "role": "assistant", "content": "", "tool_calls": [{ "tool_call_id": "c1", "name": "search" }] }
+]
+```
+
+```json title="What normalization resolves it to" verdict="repaired"
+[
+  { "role": "assistant", "content": "", "tool_calls": [{ "tool_call_id": "c1", "name": "search" }] },
+  { "role": "tool", "content": "Tool call was interrupted; no result.", "tool_call_id": "c1" }
+]
+```

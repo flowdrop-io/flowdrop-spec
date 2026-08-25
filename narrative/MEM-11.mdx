@@ -1,0 +1,35 @@
+---
+rule: MEM-11
+rule_hash: 323f23c02a06
+---
+
+## What it means
+
+A tool call's id can arrive spelled two ways: the shape this buffer writes
+itself, and the flat shape a provider payload carries straight through. Both
+name the same call. The rule that bites is that every reader of that id —
+whether it is checking for a duplicate, looking for a call nobody answered, or
+recording what a turn declared — has to accept either spelling, because a
+buffer built from raw provider turns and one built by appending through this
+node can end up sitting side by side in the same conversation.
+
+A checker that only recognises its own spelling does not fail loudly. It
+simply stops seeing calls written the other way, so a call already answered
+looks unanswered, or a duplicate looks new.
+
+## Example
+
+An assistant turn declares a call in the flat spelling a provider payload
+uses, and the turn that follows does not answer it.
+
+```json title="A declared call in the provider-flat spelling"
+{"role": "assistant", "content": "", "metadata": {"tool_calls": [{"id": "call_1", "name": "search"}]}}
+```
+
+```json title="The synthesized placeholder the buffer inserts for it" verdict="healed"
+{"role": "tool", "metadata": {"tool_call_id": "call_1", "healed": true}}
+```
+
+The placeholder carries the normalized spelling, `tool_call_id`, but the id it
+names, `call_1`, came from reading the declaring turn's flat `id` — the same
+call the normalized spelling would have named `tool_call_id`.

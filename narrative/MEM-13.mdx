@@ -1,0 +1,33 @@
+---
+rule: MEM-13
+rule_hash: b3aeb9b6caa8
+---
+
+## What it means
+
+Refusing and resolving to the empty scope identifier look similar from the
+outside — neither reads a caller-specific bucket — but they are different
+answers. The empty identifier is a real resolution: it selects the one shared
+bucket every identity-less execution reads and writes. Refusing means no
+bucket is selected at all, and nothing is read or written under this scope
+for this call. A `session` scope with no usable session identifier — absent,
+empty, zero, or anything that is not a real identifier — refuses; it does not
+fall through to the shared bucket the way a scope with no identity concept at
+all does.
+
+Every consumer of this scope honours the refusal the same way: none of them
+treat "no session" as license to read or write the global bucket instead.
+
+## Example
+
+A read against the `session` scope, from an execution context that carries no
+session identifier, with a fallback default of `"fallback"`.
+
+```json title="What the read reports" verdict="refused"
+{"value": "fallback", "found": false, "scope": "session", "resolved_scope_id": ""}
+```
+
+`resolved_scope_id` is the empty string, the same value the shared bucket
+would use — but `found` stays false and `value` is the caller's own fallback,
+never something read from storage: the empty string here names a refusal, not
+a bucket that was actually read.

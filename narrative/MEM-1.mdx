@@ -1,0 +1,42 @@
+---
+rule: MEM-1
+rule_hash: 42396e5da4ab
+---
+
+## What it means
+
+A retried step or a re-delivered result carries the same tool call id it
+carried the first time, so the buffer can tell a repeat from a second call
+without any cooperation from whatever is retrying. The count reported back is
+the deduplicated count, not a running total, so a re-fire is invisible to
+anything reading it afterward.
+
+The exception is the clause worth reading twice: an id currently held by a
+synthetic healed placeholder is not deduplicated against — it is replaced.
+Without that exception, a real result landing after MEM-3 healed its call
+would be dropped as a duplicate of its own placeholder, and the buffer would
+keep telling the model the call was interrupted after it had in fact
+returned.
+
+## Example
+
+A buffer already holds a turn that declared tool call `c1` and a result that
+answered it.
+
+```json title="A result naming an id already answered" verdict="dropped"
+{ "role": "tool", "content": "re-fired result", "tool_call_id": "c1" }
+```
+
+```json title="A result naming an id not yet seen" verdict="appended"
+{ "role": "tool", "content": "second result", "tool_call_id": "c2" }
+```
+
+Now the same id is held only by a synthetic placeholder, not a real result:
+
+```json title="A placeholder still standing in for c1" verdict="held"
+{ "role": "tool", "content": "Tool call was interrupted; no result.", "metadata": { "tool_call_id": "c1", "healed": true } }
+```
+
+```json title="The real result for c1 arriving late" verdict="replaced"
+{ "role": "tool", "content": "Found 3 cats", "tool_call_id": "c1" }
+```

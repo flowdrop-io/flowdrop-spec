@@ -1,0 +1,34 @@
+---
+rule: MEM-6
+rule_hash: 0ca54f79089c
+---
+
+## What it means
+
+A refusal is not the same outcome as resolving to an empty scope identifier.
+The empty identifier is a legitimate answer for scopes that are not tied to
+an identity — it selects one shared bucket, and every caller in that shape
+of execution shares it on purpose. The `user` scope cannot degrade to that
+same empty identifier when it has no usable identity, because doing so would
+merge every identity-less execution path into the one shared bucket, and
+every anonymous caller into another single bucket alongside every other
+anonymous caller. So it refuses instead of resolving.
+
+The identifier `0` — the value an owner-less record reports for "no owner",
+not the absence of a value — refuses for the same reason, in both its integer
+and string spelling: accepting it would put every anonymous caller in one
+`user:0` bucket.
+
+## Example
+
+```json title="A user scope in a context whose user_id is 0" verdict="refused"
+{ "user_id": 0 }
+```
+
+```json title="A user scope in a context whose user_id is the string \"0\"" verdict="refused"
+{ "user_id": "0" }
+```
+
+```json title="A user scope in a context carrying a real user id" verdict="resolved"
+{ "user_id": "7" }
+```

@@ -1,0 +1,35 @@
+---
+rule: MEM-10
+rule_hash: e67b84f36342
+---
+
+## What it means
+
+A healed placeholder exists so the conversation stays readable while a call's
+real answer is still missing. It is a guess standing in a real slot, and once
+the real result arrives the guess has to go — not sit alongside it, not get
+appended after it, but be overwritten in the exact position it held, so the
+result still reads immediately after the turn that declared the call.
+
+The overwrite is the whole effect: the entry becomes an ordinary answered
+result afterwards, indistinguishable from one that was never healed. A second
+copy of the same result arriving later is deduplicated the normal way, because
+by then there is nothing marked healed left to reclaim.
+
+## Example
+
+A buffer holds a synthetic placeholder for a call whose real result never
+arrived before the turn was saved. The real result then arrives for the same
+id.
+
+```json title="The buffer holding a healed placeholder for call c1"
+{"role": "tool", "content": "Tool call was interrupted; no result.", "metadata": {"tool_call_id": "c1", "healed": true}}
+```
+
+```json title="What the same slot holds once the real result replaces it" verdict="replaced"
+{"role": "tool", "content": "Found 3 cats", "metadata": {"tool_call_id": "c1"}}
+```
+
+The buffer is no longer than it was: the turns on either side keep their
+positions, and the append this produces is reported as none, since a
+replacement changes an entry rather than adding one.

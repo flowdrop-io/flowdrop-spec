@@ -1,0 +1,25 @@
+---
+rule: MEM-2
+rule_hash: cce9f086f09a
+---
+
+## What it means
+
+The assistant side of MEM-1's guard is not symmetric with it. A tool result
+is one id; an assistant turn can declare several at once, and dropping the
+whole turn because *some* of its ids are already known would silently lose
+whichever ones are not. A turn is a duplicate only when every id it declares
+is already declared somewhere in the buffer — a single new id is enough to
+keep it.
+
+## Example
+
+A buffer already holds a turn that declared tool call `c1`.
+
+```json title="A turn declaring only the id already known" verdict="dropped"
+{ "role": "assistant", "content": "", "tool_calls": [{ "tool_call_id": "c1", "name": "search" }] }
+```
+
+```json title="A turn declaring one known id and one new one" verdict="kept"
+{ "role": "assistant", "content": "", "tool_calls": [{ "tool_call_id": "c1", "name": "search" }, { "tool_call_id": "c2", "name": "lookup" }] }
+```

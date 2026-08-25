@@ -1,0 +1,35 @@
+---
+rule: MEM-14
+rule_hash: 5b16cc1b8fa7
+---
+
+## What it means
+
+The count that changes is not the buffer's size. A windowed buffer can evict
+as many older entries as an append adds, so the total count after a call that
+genuinely added a message can be exactly what it was before. The number a
+caller needs is how many of the incoming messages actually became new
+entries — the delta the buffer's own size cannot show. A message dropped as a
+duplicate, and a placeholder a real result replaces in place, both add zero
+entries, so both report zero even though the buffer's size does not tell them
+apart from a message that landed cleanly.
+
+## Example
+
+A three-message window already holds three entries; the incoming message is
+new content, and the window evicts the oldest to make room.
+
+```json title="A new message arriving at a full three-message window" verdict="appended"
+{"count": 3, "appended": 1, "appended_any": true}
+```
+
+The buffer is still three messages long — the same size it was — but one of
+those three is the message that just arrived, and `appended` says so where
+the count alone could not.
+
+```json title="A tool result re-fired under an id the buffer already holds" verdict="dropped"
+{"count": 2, "appended": 0, "appended_any": false}
+```
+
+Here the buffer size does not change either, but for the opposite reason:
+nothing new landed at all.

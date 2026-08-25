@@ -1,0 +1,32 @@
+---
+rule: STORE-3
+rule_hash: 9a125d33f8bd
+---
+
+## What it means
+
+A caller may name the id it wants a new workflow to have, rather than being
+handed one. That is a convenience with one sharp edge: an id is also how an
+existing workflow is addressed, so a create request naming an id already in
+use is ambiguous between "make this" and "replace that". The rule resolves
+the ambiguity in one direction only — it is never an update. The incumbent
+workflow is left exactly as it was, and the request that collided is refused.
+
+## Example
+
+The same id, sent as a create twice.
+
+```http title="A new id" verdict="201 stored"
+POST /api/flowdrop/workflows
+
+{"id": "taken", "name": "The incumbent"}
+```
+
+```http title="The same id, claimed again" verdict="409 refused"
+POST /api/flowdrop/workflows
+
+{"id": "taken", "name": "The impostor"}
+```
+
+The second request never reaches the workflow named `taken`; the incumbent
+keeps its own name.

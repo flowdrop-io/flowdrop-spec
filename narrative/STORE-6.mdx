@@ -1,0 +1,49 @@
+---
+rule: STORE-6
+rule_hash: f83c81492fa0
+---
+
+## What it means
+
+An editor keeps state that only means something while a person is looking at
+it — which node is selected, which is mid-drag, whether it can currently be
+deleted. Storing the workflow is where that state is thrown away, which is
+why reading back what was just written does not return it: it was never
+kept in the first place.
+
+The same write also trims a node's own metadata down to the one thing
+storage needs to find the node's type again. Everything else in that
+metadata is not lost so much as not this layer's problem: it is rebuilt from
+the type on read (STORE-14). That rebuilding is what makes the trim safe —
+and it is also what makes the one exception necessary. A node whose declared
+type cannot be resolved has nothing to rebuild from, so trimming its
+metadata would destroy information with no way back. That node keeps its
+metadata, and its own `type`, exactly as sent.
+
+Doing this twice changes nothing the second time: a workflow that has
+already been through this write has nothing left in it for the write to
+find.
+
+## Example
+
+Two nodes sent in the same shape, one with a type the store can resolve and
+one without.
+
+```http title="A node whose type resolves, carrying the editor's own state alongside it" verdict="201 stored"
+POST /api/flowdrop/workflows
+
+{"id": "wf", "name": "WF", "nodes": [{"id": "calculator.1", "type": "universalNode", "position": {"x": 900, "y": 200}, "data": {"label": "E2E Calculator", "config": {"operation": "add"}, "metadata": {"id": "calculator", "name": "Derived Name"}, "nodeId": "calculator.1"}, "deletable": true, "measured": {"width": 290, "height": 647}, "selected": true, "dragging": false}]}
+```
+
+```http title="A node with nothing to resolve its type from" verdict="201 stored"
+POST /api/flowdrop/workflows
+
+{"id": "wf2", "name": "WF2", "nodes": [{"id": "mystery.1", "type": "universalNode", "data": {"metadata": {"name": "Hand written", "inputs": []}, "nodeId": "mystery.1"}, "selected": true}]}
+```
+
+The first node keeps its `position`, `measured` and `data.config` unchanged,
+loses `selected`, `dragging`, `deletable` and `data.nodeId`, and has its
+`data.metadata` reduced to `{"node_type_id": "calculator"}`. The second loses
+the same editor-only fields, but its metadata and its `type` survive
+untouched — there is no type to rebuild them from later, so nothing is
+thrown away that could not be recovered.

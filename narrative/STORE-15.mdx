@@ -1,0 +1,43 @@
+---
+rule: STORE-15
+rule_hash: 4f3f956526a4
+---
+
+## What it means
+
+A search term is text to find, never a pattern to interpret. That matters
+because the family of characters a pattern language treats specially —
+`%` and `_`, in the pattern syntax this rule explicitly rules out — are
+ordinary characters in a workflow name, and a caller who names a workflow
+`100% coverage` has to be able to find it by searching for the percent sign
+literally, not by learning to escape it first.
+
+A term that matches nothing is not a refusal and not a not-found: it is an
+ordinary page, empty, with a pagination block that still reports correctly
+on zero rows. And the filter and the count agree with each other — the
+reported total describes the filtered set the caller is looking at, not the
+whole collection behind it (API-6).
+
+## Example
+
+```http title="A search matching two workflows by a case-different substring" verdict="200 paginated"
+GET /api/flowdrop/workflows?search=INVOICE
+
+{"success": true, "data": [ … ], "pagination": {"total": 2, "limit": 50, "offset": 0, "has_more": false}}
+```
+
+```http title="A percent sign, matched literally rather than read as a wildcard" verdict="200 paginated"
+GET /api/flowdrop/workflows?search=%25
+
+{"success": true, "data": [ … ], "pagination": {"total": 1, "limit": 50, "offset": 0, "has_more": false}}
+```
+
+```http title="A term no name contains" verdict="200 paginated"
+GET /api/flowdrop/workflows?search=nothing+here
+
+{"success": true, "data": [], "pagination": {"total": 0, "limit": 50, "offset": 0, "has_more": false}}
+```
+
+A wildcard reading of `_nvoice` would match a name containing `Invoice`; a
+literal one, which is what this rule requires, matches nothing — the same
+empty, coherent answer as any other term nothing contains.

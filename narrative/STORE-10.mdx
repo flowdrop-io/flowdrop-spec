@@ -1,0 +1,54 @@
+---
+rule: STORE-10
+rule_hash: 5153b5306116
+---
+
+## What it means
+
+Reading a workflow to run it is allowed to be more forgiving than reading it
+to save or validate it, and the rule is about keeping those two readings from
+sharing code. A dangling edge, a duplicated id, a node missing an edge id —
+compiling or executing can quietly repair all three, because a run has to
+proceed on the best available graph. Validation exists specifically to
+report those same conditions, so a repair that runs before validation sees
+them hides exactly what the caller needed to be told. The save, validate and
+mutate paths must see the workflow exactly as it was submitted or as it is
+stored — dangling edge, duplicate id, missing id and all.
+
+Two of the normalisations have a direction worth naming, because the wrong
+one is the more intuitive-sounding choice. Config filling only fills the
+keys an author left absent: the value the author actually saved wins over
+whatever default the node type now declares, never the reverse — a stale
+node-type default is not allowed to override real input. And when a node or
+edge id repeats, the last occurrence read wins, silently dropping every
+earlier copy under that id; a validator reading the same raw list, unrepaired,
+sees both copies and can report the collision the repair would have erased.
+
+## Example
+
+A node's stored config and its node type's default disagree on one key and
+the default carries a second key the author never set.
+
+```json title="The node's stored config"
+{"operation": "multiply"}
+```
+
+```json title="The node type's default config"
+{"operation": "add", "precision": 2}
+```
+
+```json title="What the read path resolves it to" verdict="stored wins"
+{"operation": "multiply", "precision": 2}
+```
+
+A workflow whose node list carries the id `a` twice reads, on the read path,
+as one node — the second occurrence's data, the first discarded without a
+trace:
+
+```json title="Two nodes carrying the same id" verdict="last wins"
+[{"id": "a", "data": {"label": "first"}}, {"id": "b", …}, {"id": "a", "data": {"label": "third"}}]
+```
+
+The read path resolves this to two nodes, `a` and `b`, with `a` labelled
+`"third"`. Validation, reading the same three-node list unrepaired, is where
+a duplicate id is reported at all.

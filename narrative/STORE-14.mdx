@@ -1,0 +1,50 @@
+---
+rule: STORE-14
+rule_hash: fd71456c5aab
+---
+
+## What it means
+
+A client that has decoded a workflow from one surface can decode it from any
+other without a special case: same nine keys, same order, same casing. That
+includes the list surface, where each row is a full workflow object rather
+than a thinner projection — a caller does not have to fetch a workflow a
+second time to learn a field the list already carried.
+
+`interface`, the tenth key, is conditional on the workflow itself, not on
+which surface answered. A workflow with no declared input or output is one
+object short everywhere, not just on the surfaces that happen to check; a
+workflow with at least one declared port carries `interface` everywhere,
+never as an empty placeholder. Absent and empty mean different things
+elsewhere in this specification, and this is the case where the difference
+is load-bearing: an author who removes every declared port should see the
+key disappear, not turn into `{}`.
+
+## Example
+
+Unfiltered, `interface` does not appear at all.
+
+```http title="A workflow with no declared ports" verdict="200 read"
+GET /api/flowdrop/workflows/{workflow}
+
+{"id": "wf_no_ports", "name": "No ports", "description": "", "nodes": [ … ], "edges": [ … ], "metadata": { … }, "created": …, "changed": …, "uid": … }
+```
+
+Declare one input, and the same nine keys gain a tenth, in the same
+position, on create as much as on read.
+
+```http title="Creating a workflow that declares one input" verdict="201 stored"
+POST /api/flowdrop/workflows
+
+{"id": "wf_shape_iface", "name": "Shape with interface", "nodes": [ … ], "interface": {"inputs": [{"id": "numbers", "bindings": [{"nodeId": "calc1", "portId": "values"}]}]}}
+```
+
+```http title="The same workflow, read back" verdict="200 read"
+GET /api/flowdrop/workflows/{workflow}
+
+{"id": "wf_shape_iface", "name": "Shape with interface", "description": "", "nodes": [ … ], "edges": [ … ], "metadata": { … }, "created": …, "changed": …, "uid": …, "interface": {"inputs": [ … ]}}
+```
+
+The list surface answers the same shape, row by row: a caller scanning
+`GET /api/flowdrop/workflows` sees `interface` on exactly the rows that
+declare a port, never on the rows that do not.

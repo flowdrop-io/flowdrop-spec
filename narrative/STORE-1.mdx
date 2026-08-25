@@ -1,0 +1,41 @@
+---
+rule: STORE-1
+rule_hash: e6d8e7b9b60d
+---
+
+## What it means
+
+This is the storage door's own copy of the gate API-1 describes: the same
+checks, with the numbers fixed. A body over 8 MiB, nested 64 levels or
+deeper, malformed, or not an object or array at its top level never reaches
+workflow-level meaning.
+
+The depth bound is easy to get off by one. The bound is a maximum *depth*, so
+a document nested 64 levels deep is already one level past what is accepted;
+the deepest document an implementation must accept nests 63 levels.
+
+The other clause that bites is the one API-1 states in general and this rule
+makes concrete: a door whose body is optional is not a door the gate skips.
+An absent body is fine, but a body that is present and malformed is refused
+like any other — the gate does not degrade "nothing to check" into "nothing
+checked".
+
+## Example
+
+A door whose body is optional still runs whatever is actually sent through
+the same gate as any other door.
+
+```http title="A scalar, not a shape the gate can work with" verdict="400 refused"
+POST /api/flowdrop/workflows/{workflow}/playground/sessions
+
+5
+```
+
+```http title="Well-formed on the outside, broken underneath" verdict="400 refused"
+POST /api/flowdrop/workflows/{workflow}/playground/sessions
+
+{"name": "unterminated
+```
+
+Sending nothing at all to this same door is still accepted — the gate's
+bounds apply to what is sent, not to whether something was sent.

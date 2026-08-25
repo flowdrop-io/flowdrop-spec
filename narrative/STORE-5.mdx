@@ -1,0 +1,42 @@
+---
+rule: STORE-5
+rule_hash: ae666c73f72e
+---
+
+## What it means
+
+A workflow either passes validation or it is refused whole; there is no
+version of "stored, but with problems noted". That symmetry runs both ways.
+On the refusing side, every error is reported — none is dropped for being
+one of several — and each carries a `locator` naming where in the submitted
+workflow it applies, since a client acting on the refusal needs to point at
+the offending part without guessing from the message alone. On the
+accepting side, a warning is not a smaller version of an error: it never
+blocks the save and it never appears in the response, so a caller cannot
+detect from the write alone that anything was noted.
+
+Create and update are refused by exactly the same check, and a refused
+update leaves the stored workflow exactly as it was — the same guarantee
+STORE-3 gives a refused create.
+
+## Example
+
+Two requests to the same door, one over the line and one short of it.
+
+```http title="A node whose declared executor cannot be resolved" verdict="422 refused"
+POST /api/flowdrop/workflows
+
+{"id": "ghost_wf", "name": "Ghost WF", "nodes": [ … ]}
+```
+
+```http title="A node carrying a config key its type does not recognise" verdict="201 stored"
+POST /api/flowdrop/workflows
+
+{"id": "warn_wf", "name": "Warn WF", "nodes": [ … ]}
+```
+
+The first comes back as `{"success": false, "error": "Workflow validation failed", "details": [{"code": "R1_PLUGIN_MISSING", "message": "…", "locator": "…"}]}` —
+one entry per error, the whole shape a client can rely on regardless of which
+check fired (R1.a). Nothing from the request was stored. The second is
+accepted outright: an unrecognised config key is a warning, not an error, so
+it neither blocks the save nor shows up anywhere in the response.

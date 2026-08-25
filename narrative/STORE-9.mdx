@@ -1,0 +1,53 @@
+---
+rule: STORE-9
+rule_hash: 24531d86877b
+---
+
+## What it means
+
+Generating node types happens before the workflow is known to be acceptable,
+because a bundle can only be validated once the processors it describes exist
+to validate against. That ordering choice is what forces the rest of the
+rule: anything the import creates ahead of validation — a node type, most of
+all — has to be rolled back the moment a later gate refuses, or a refused
+import would leave behind exactly the debris a caller has no way to see or
+undo.
+
+The exposure-entry coercion runs even for a bundle whose publisher is
+trusted. Trust decides whether the bundle may be imported at all, not
+whether the entries inside it are safe to hand to the workflow validator: a
+malformed entry is normalised to an empty one that keeps its original
+position, so a validation error still names the entry it belongs to instead
+of shifting onto whichever entry happened to land at that index next. What
+is stored, though, is the entry as the bundle submitted it — the coercion
+protects the validator's reads, not what ends up on record.
+
+A missing processor is reported ahead of workflow validation for the same
+reason node-type generation runs early: without the processor, the workflow
+would fail validation with a wall of structural errors that all trace back
+to one absent capability. Naming the capability first is what makes the
+refusal actionable.
+
+## Example
+
+```http title="A bundle from an untrusted publisher" verdict="403 refused"
+POST /api/flowdrop/workflows/import
+
+{"format": "flowdrop.bundle/v1", "payload": {"flow": {"id": "imported_flow", "label": "Imported Flow", "nodes": [ … ], "edges": []}}}
+```
+
+```http title="A bundle needing a processor the installation lacks" verdict="422 refused"
+POST /api/flowdrop/workflows/import
+
+{"format": "flowdrop.bundle/v1", "payload": {"publisher": "acme", "flow": {"id": "imported_flow", "label": "Imported Flow", "nodes": [{"id": "g.1", "data": {"metadata": {"node_type_id": "ghost", "executor_plugin": "ghost_module:ghost"}}}], "edges": []}}}
+```
+
+```http title="A bundle whose flow id is already taken" verdict="409 refused"
+POST /api/flowdrop/workflows/import
+
+{"format": "flowdrop.bundle/v1", "payload": {"publisher": "acme", "flow": {"id": "imported_flow", "label": "Imported Flow", "nodes": [ … ], "edges": []}}}
+```
+
+The 409 never overwrites: the workflow already on record under that id is
+untouched, and nothing from the rejected bundle — including any node type it
+would have generated — survives the refusal.

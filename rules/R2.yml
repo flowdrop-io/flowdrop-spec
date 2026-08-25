@@ -24,3 +24,6 @@ changed: "1.0"
 
 rulings:
   - OPEN-4
+
+related:
+  - R3

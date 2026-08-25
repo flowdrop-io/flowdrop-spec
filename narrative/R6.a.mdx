@@ -1,0 +1,30 @@
+---
+rule: R6.a
+rule_hash: 4d7832d8d39e
+---
+
+## What it means
+
+Every other check under R6 depends on a schema derived from the node's type,
+so a node whose type does not resolve has nothing left for those checks to
+compare its config against (R6.j). This one does not depend on a schema at
+all: it looks only at the shape of `data.config`, not its content, so it
+still runs on a node whose type cannot be resolved to an executor — the one
+part of R6 a reader tracking R6.j's exemption could easily assume it covers
+too.
+
+## Example
+
+A node anchored to a type that resolves normally, with `config` set to a
+plain string:
+
+```json title="A node's config set to a plain string" verdict="refused"
+"not-an-object"
+```
+
+A node anchored to a type that cannot be resolved to an executor, with
+`config` set to a number:
+
+```json title="The same shape check on a node whose type does not resolve" verdict="refused"
+7
+```

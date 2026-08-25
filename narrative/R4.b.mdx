@@ -1,0 +1,29 @@
+---
+rule: R4.b
+rule_hash: 85abf6d234e5
+---
+
+## What it means
+
+The rule fixes what counts as a collision but not which of the colliding
+entries is at fault: it takes the second entry to use a name, not the first,
+so the entry a reader reaches first in the list is never the one carrying the
+error.
+
+## Example
+
+Two input exposure entries claiming the same name:
+
+```json title="Two input exposures both named dup" verdict="one flagged"
+[
+  { "name": "dup", "node_id": "n1", "port": "a" },
+  { "name": "dup", "node_id": "n1", "port": "b" }
+]
+```
+
+```json title="The error the second entry gets" verdict="reported"
+{ "code": "R4_NAME_DUPLICATE", "locator": "schema.input.1" }
+```
+
+The first entry, at `schema.input.0`, is not named in any error — the name it
+introduced was fine until the second entry repeated it.

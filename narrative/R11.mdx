@@ -1,0 +1,34 @@
+---
+rule: R11
+rule_hash: d6e80fa8da5e
+---
+
+## What it means
+
+Not every value written where an expression is expected is checked as one. A
+Data Shaper's mapping accepts reserved sentinel values — a literal, a "now"
+marker — that the runtime never evaluates as an expression at all, so
+checking their syntax would only invent errors against data that is already
+well formed. The walk does still reach into a mapping entry that iterates a
+nested source: a `_source`/`_each` pair inside an entry is not itself a
+sentinel, and the runtime does evaluate it, so its expression is checked
+exactly as a top-level one would be. An engine that raises rather than
+returning a verdict is treated the same as one that returns a rejection: the
+save still fails with the same per-expression error, never with the failure
+of the engine itself.
+
+## Example
+
+A mapping with two sentinel values and one nested, iterated source whose
+expression cannot parse:
+
+```json title="A mapping mixing sentinel values with a nested source" verdict="refused"
+{
+  "literal": "_LITERAL:not [a path",
+  "stamp": "_NOW_",
+  "items": { "_source": "[unclosed", "_each": { "name": "[title]" } }
+}
+```
+
+Neither sentinel is checked; the mapping is refused for the unparseable
+nested source alone.

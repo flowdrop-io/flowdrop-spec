@@ -1,0 +1,30 @@
+---
+rule: R10
+rule_hash: ae9013242d8d
+---
+
+## What it means
+
+An exposure entry is judged against the port's exposure as it stands after
+the instance override is applied, not against the node type's own default in
+isolation. A port the node type hides by default is not permanently out of
+reach: an instance that turns it back on legalises every exposure entry
+naming it, exactly as R7.c resolves the same chain for edges. The reverse
+also holds — an instance can hide a port the node type exposes by default —
+so neither the type's default nor the presence of an exposure entry, on its
+own, says whether the entry is refused.
+
+## Example
+
+A node type declares its `error` output hidden by default, and the workflow
+exposes it anyway:
+
+```json title="An exposure entry for a node's type-hidden output" verdict="refused"
+{ "name": "err", "node_id": "s", "port": "error" }
+```
+
+The same entry, once the node instance turns that output back on:
+
+```json title="The instance override that legalises the same entry" verdict="accepted"
+{ "ports": { "outputs": [{ "id": "error", "exposed": true }] } }
+```

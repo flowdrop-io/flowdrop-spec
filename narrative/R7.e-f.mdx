@@ -1,0 +1,38 @@
+---
+rule: R7.e/f
+rule_hash: dc7875bca3f1
+---
+
+## What it means
+
+A broken edge is not one verdict. Each endpoint is judged on its own facts, so
+an edge whose source node has vanished and whose target port is hidden earns
+both complaints at once: R8's missing-source error and R7's hidden-target
+error, side by side, not one swallowing the other. The same independence runs
+the other way: an endpoint R7 cannot judge (an unparseable handle, an absent
+or unresolvable node, a node type that will not resolve) drops out of R7's
+count silently, while the surviving endpoint is still checked in full. R7
+never reports on a node it could not resolve — an unknown node type is R9's
+error, a resolvable type with no executor is R1's, and a legitimate
+anchor-less node earns neither.
+
+## Example
+
+An edge whose source node no longer exists and whose target port is hidden:
+
+```json title="An edge with a missing source and a hidden target" verdict="reported"
+{
+  "id": "e1",
+  "source": "ghost",
+  "sourceHandle": "ghost-output-result",
+  "target": "t",
+  "targetHandle": "t-input-value"
+}
+```
+
+```json title="The two errors this one edge produces" verdict="both kept"
+["R8_EDGE_SOURCE_MISSING", "R7_EDGE_TARGET_NOT_EXPOSED"]
+```
+
+Neither error stands in for the other: dropping the source lookup would still
+leave the hidden port unreported, and vice versa.

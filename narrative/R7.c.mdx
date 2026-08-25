@@ -1,0 +1,27 @@
+---
+rule: R7.c
+rule_hash: 834171737bf6
+---
+
+## What it means
+
+R7.a and R7.b each refuse an edge on a port that is "not exposed" without
+saying where that verdict comes from. R7.c is the one chain both of them
+defer to: an instance's own recorded exposure first, and only when the
+instance has recorded none does the node type's own default decide. There is
+no separate flag for "this edge is legal" distinct from "this port is
+exposed" — recording the override in the instance's own configuration is the
+whole act.
+
+Because the check is per instance, two nodes of the same type can disagree:
+overriding one node's port does nothing to the same port on another instance
+of that type.
+
+## Example
+
+A node type ships one of its input ports hidden by default; a single
+instance's own configuration records an override for it:
+
+```json title="The override recorded on one node's own configuration" verdict="exposed"
+{ "inputs": [{ "id": "loop_back", "exposed": true }], "outputs": [] }
+```

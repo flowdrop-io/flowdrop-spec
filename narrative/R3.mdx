@@ -1,0 +1,30 @@
+---
+rule: R3
+rule_hash: a6b9819479ca
+---
+
+## What it means
+
+The duplicate check reads the `id` field itself, not what the edges
+connect. Two edges that wire completely different ports still collide if
+they carry the same `id`: sharing that one string is enough, independent of
+R13's separate check for edges that connect the same pair of ports twice. An
+edge with no `id` at all is refused the same way, located by its position in
+the list since it never had an id to name.
+
+## Example
+
+Two edges wired to different ports on the target node, sharing one `id`:
+
+```json title="Two edges over different ports, one id repeated" verdict="refused"
+[
+  { "id": "e1", "source": "s", "target": "t", "targetHandle": "t-input-a" },
+  { "id": "e1", "source": "s", "target": "t", "targetHandle": "t-input-b" }
+]
+```
+
+An edge carrying no `id` field at all:
+
+```json title="An edge with no id" verdict="refused"
+{ "source": "s", "target": "t" }
+```

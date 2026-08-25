@@ -1,0 +1,28 @@
+---
+rule: R7.a
+rule_hash: 29149032c161
+---
+
+## What it means
+
+"Not exposed" folds two different origins into one refusal: a port this
+instance has explicitly hidden, and a port the node type itself hides by
+default that this instance never touched. R7.a does not distinguish between
+them — either way, an edge into it is refused the same way. R7.c is what
+decides which of the two is in force for a given instance.
+
+The check only fires for a port the target node's type actually declares; a
+dynamic or author-defined port is out of its scope entirely (R7.d).
+
+## Example
+
+The target node's type declares a `value` input; this instance's own
+configuration records it as hidden:
+
+```json title="An edge landing on a port this instance has hidden"
+{ "id": "e1", "source": "s", "sourceHandle": "s-output-result", "target": "t", "targetHandle": "t-input-value" }
+```
+
+```json title="The code and locator of the finding it produces" verdict="refused"
+{ "code": "R7_EDGE_TARGET_NOT_EXPOSED", "locator": "edge.0" }
+```

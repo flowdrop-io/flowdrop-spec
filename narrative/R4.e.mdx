@@ -1,0 +1,32 @@
+---
+rule: R4.e
+rule_hash: 40f40c2b8130
+---
+
+## What it means
+
+R4.a's alphabet admits names that start with an underscore, and that is
+exactly where the runtime's own injected parameters live. This rule closes
+that gap by name, not by pattern: it refuses the specific reserved names, not
+every name that happens to start with an underscore, and it does so on the
+output side exactly as it does on the input side, even though the reserved
+name in question exists to carry an interrupt reply in.
+
+## Example
+
+The same reserved name, claimed once as an input and once as an output:
+
+```json title="An exposure entry claiming the reserved interrupt name" verdict="checked"
+{ "name": "__interrupt_id__", "node_id": "n1", "port": "result" }
+```
+
+```json title="The error when that entry sits among the inputs" verdict="refused"
+{ "code": "R4_NAME_RESERVED", "locator": "schema.input.0" }
+```
+
+```json title="The error when the same entry sits among the outputs" verdict="refused"
+{ "code": "R4_NAME_RESERVED", "locator": "schema.output.0" }
+```
+
+Nothing about the output side makes the collision less real: an author could
+shadow the injected name there just as easily.

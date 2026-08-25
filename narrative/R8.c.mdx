@@ -1,0 +1,23 @@
+---
+rule: R8.c
+rule_hash: 5980697ec718
+---
+
+## What it means
+
+A checker that stops at the first bad endpoint would report only one of two
+real problems. R8.a and R8.b are judged independently of each other, so an
+edge missing both endpoints earns both findings, not whichever is checked
+first.
+
+## Example
+
+An edge naming a source and a target the workflow has neither:
+
+```json title="An edge whose source and target both name no node"
+{ "id": "e1", "source": "x", "target": "y" }
+```
+
+```json title="The codes both findings carry" verdict="refused"
+["R8_EDGE_SOURCE_MISSING", "R8_EDGE_TARGET_MISSING"]
+```

@@ -1,0 +1,31 @@
+---
+rule: R4.d
+rule_hash: 8685fd220307
+---
+
+## What it means
+
+The skip this rule allows is narrower than it sounds. Losing the ability to
+resolve a node's declared ports only silences this one check and R10; it does
+not silence R4.a's name-format check or R4.b's uniqueness check, both of which
+are decided from the entry's own fields and need nothing from the node. An
+entry can therefore fail on its name at the same time its port check is
+skipped for want of a resolvable node — one refusal, not a cascade of
+guesses about a port that was never checked.
+
+## Example
+
+An exposure entry naming an unresolvable node, with a name that also fails
+the format check:
+
+```json title="An exposure entry on a node whose executor can't be resolved" verdict="checked"
+{ "name": "Bad Name", "node_id": "n1", "port": "no_such_port" }
+```
+
+```json title="The two errors reported for that entry" verdict="reported"
+["R1_PLUGIN_MISSING", "R4_NAME_FORMAT"]
+```
+
+`R4_PORT_MISSING` does not appear: with no resolvable executor there is no
+port list to check the entry's `port` against, so this check stays silent
+while the name-format complaint still reaches the caller.

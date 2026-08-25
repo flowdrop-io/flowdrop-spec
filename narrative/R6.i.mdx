@@ -1,0 +1,23 @@
+---
+rule: R6.i
+rule_hash: 3efb5f44e061
+---
+
+## What it means
+
+Presence and value are judged separately. A required key set to `null` is
+still present, so it satisfies the requirement, and once it is treated as
+unset no other constraint on that key is ever evaluated — a `null` cannot
+fail a type, `enum`, bound or `pattern` check it would otherwise fail, because
+none of those checks run against it at all.
+
+## Example
+
+A required key's schema demands a string at least five characters long,
+matching a pattern, and the key's value is `null`:
+
+```json title="A required key set to null" verdict="accepted"
+{"url": null}
+```
+
+None of the string's type, minimum length or pattern is evaluated against it.

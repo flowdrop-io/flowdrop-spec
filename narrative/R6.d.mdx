@@ -1,0 +1,33 @@
+---
+rule: R6.d
+rule_hash: 4fffd3794da7
+---
+
+## What it means
+
+The type check only bites when the schema names a type the implementation
+recognises. A schema that leaves `type` out, or spells a name nothing checks
+for, imposes no constraint at all — the value passes whatever it is, which
+runs against the instinct that an unrecognised or missing declaration should
+be treated as stricter, not looser.
+
+R6.d shares its code and locator with R6.e through R6.h, and all five run in
+one fixed order — type first — stopping at the first violation. A value that
+breaks two of them at once is charged with exactly one error, for the
+constraint checked earliest.
+
+## Example
+
+One key's schema names a type the checker has never heard of; another
+declares no `type` at all:
+
+```json title="The two keys' declared schemas"
+{"weird": {"type": "uuid"}, "untyped": {}}
+```
+
+```json title="The config values assigned to them" verdict="accepted"
+{"weird": 42, "untyped": ["anything"]}
+```
+
+Neither value is held to any type: an unrecognised type word and an absent
+one both impose no constraint.

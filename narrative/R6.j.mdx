@@ -1,0 +1,23 @@
+---
+rule: R6.j
+rule_hash: 98e9ae2abd91
+---
+
+## What it means
+
+Without a resolved node type there is nothing to derive a config schema
+from, so none of R6's schema-driven checks run for that node — not the
+required-key check, not type or `enum` or bounds or `pattern`, and not even
+the unknown-key warning a stray key would otherwise draw. The node is silent
+on all of it, favourably or not: a key nobody declared draws no warning
+either, for want of anything to compare it against.
+
+That silence does not reach the config's own shape. A node whose type does
+not resolve still has its `config` checked for being an object at all
+(R6.a) — the skip is for the schema-driven checks alone.
+
+## Example
+
+```json title="Config on a node whose type does not resolve" verdict="accepted"
+{"undeclared": "value"}
+```

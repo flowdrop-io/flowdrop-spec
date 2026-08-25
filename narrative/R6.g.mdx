@@ -1,0 +1,28 @@
+---
+rule: R6.g
+rule_hash: 6d88cbc0f990
+---
+
+## What it means
+
+A length bound is measured against how many code points a string is written
+in, not how many bytes it takes up. A value that is well within a bound when
+counted one way can be over it when counted the other, and the two counts
+diverge exactly for the text a byte-based check would punish hardest: text
+written outside the single-byte range.
+
+## Example
+
+A key's schema requires at least five code points; the value assigned to it
+is four characters long, eight bytes in a multi-byte encoding:
+
+```json title="A schema requiring at least five code points"
+{"type": "string", "minLength": 5}
+```
+
+```json title="The value assigned to that key" verdict="refused"
+"äöüß"
+```
+
+Four code points is short of the minimum of five, even though the same value
+is eight bytes long.

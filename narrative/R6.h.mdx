@@ -1,0 +1,22 @@
+---
+rule: R6.h
+rule_hash: dc53c0701a33
+---
+
+## What it means
+
+A pattern that does not compile is treated the opposite way from a value
+that does not match one: a mismatch refuses the value, but a pattern the
+implementation cannot even evaluate refuses nothing. The schema is at fault
+there, not the value offered against it, so the author is not the one who
+pays for it.
+
+## Example
+
+```json title="The value assigned to a key requiring an https prefix" verdict="refused"
+"ftp://example.com"
+```
+
+```json title="The value assigned to a key whose own pattern cannot compile" verdict="accepted"
+"anything at all"
+```

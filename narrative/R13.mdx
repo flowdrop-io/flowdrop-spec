@@ -1,0 +1,31 @@
+---
+rule: R13
+rule_hash: 2ec7af35ae52
+---
+
+## What it means
+
+The comparison reads the four fields as they are written, not as they
+resolve. Nothing expands an omitted handle to whatever port it defaults to,
+so two edges over what is otherwise the same logical connection — one
+spelling both handles out, the other leaving them unset — compare unequal
+and are both accepted. Only a document that repeats all four values
+verbatim is a duplicate.
+
+## Example
+
+One edge leaves both handles unset; the other spells out the identical
+connection in full:
+
+```json title="One edge with handles omitted, one with them spelled out" verdict="accepted"
+[
+  { "id": "e1", "source": "s", "target": "t" },
+  {
+    "id": "e2",
+    "source": "s",
+    "sourceHandle": "s-output-result",
+    "target": "t",
+    "targetHandle": "t-input-value"
+  }
+]
+```

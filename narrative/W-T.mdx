@@ -1,0 +1,31 @@
+---
+rule: W-T
+rule_hash: 165295d27508
+---
+
+## What it means
+
+The count is per edge, not per terminal node: a terminal node with several
+outgoing edges earns one warning for each of them, not one warning naming the
+node once. None of them blocks the save — the workflow stays valid, because
+the author may simply be mid-edit — and the check only ever looks at an
+edge's source. A dangling source produces no warning here at all; that
+belongs to R8.
+
+## Example
+
+A terminal node wired to two other nodes:
+
+```json title="Edges leaving the same terminal node" verdict="checked"
+[
+  { "id": "e1", "source": "stop1", "target": "after1" },
+  { "id": "e2", "source": "stop1", "target": "after2" }
+]
+```
+
+```json title="The locators of the two warnings this produces" verdict="one each"
+["edge.0", "edge.1"]
+```
+
+The workflow is still reported valid; a save of it would go through with
+every one of these warnings attached.

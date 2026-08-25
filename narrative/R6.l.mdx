@@ -1,0 +1,24 @@
+---
+rule: R6.l
+rule_hash: 62058244dee8
+---
+
+## What it means
+
+The check exists because a missing `$` fails silently at run time rather
+than at save time: `{{ secrets.NAME }}` without the leading `$` is not a
+secret reference at all, so nothing about it stops the save or fails the
+run — it simply never resolves to the secret the author meant. The warning
+is the only point where the missing character is still visible. It reaches
+a reference no matter how deep it sits inside a key's value, so a reference
+nested a level down still draws the warning.
+
+## Example
+
+```json title="A header value nested inside a node's config" verdict="warns"
+{"headers": {"Authorization": "Bearer {{ secrets.stripe }}"}}
+```
+
+```json title="The same header written with the leading $" verdict="accepted"
+{"headers": {"Authorization": "Bearer ${{ secrets.stripe }}"}}
+```

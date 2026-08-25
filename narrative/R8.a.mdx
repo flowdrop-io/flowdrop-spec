@@ -1,0 +1,29 @@
+---
+rule: R8.a
+rule_hash: f5cc0fba9774
+---
+
+## What it means
+
+The locator counts position, not identity: it is built from where the edge
+sits in the workflow's edge list, never from the edge's own `id`. An edge
+named `e1` that happens to be first in the list is reported at `edge.0`
+regardless of what its `id` says.
+
+An empty `source` counts as missing on the same footing as one naming a node
+the workflow does not have — there is no separate "malformed edge" outcome
+for it.
+
+## Example
+
+An edge named `e1` names a source the workflow has no node for:
+
+```json title="An edge whose source names no node in the workflow"
+{ "id": "e1", "source": "gone", "target": "t" }
+```
+
+```json title="The code and locator of the finding it produces" verdict="refused"
+{ "code": "R8_EDGE_SOURCE_MISSING", "locator": "edge.0" }
+```
+
+The locator addresses the edge by its position, not by the `e1` it carries.

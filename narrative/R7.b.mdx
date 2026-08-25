@@ -1,0 +1,26 @@
+---
+rule: R7.b
+rule_hash: 491ad3b32084
+---
+
+## What it means
+
+R7.b's "not exposed" is satisfied without any instance ever touching the
+port: the `error` output every executable node carries ships hidden by
+default, so an edge leaving it is refused on the type's own default alone,
+with no override in play at all. An instance override is one way a port
+ends up not exposed; a type default nobody has changed is another, and
+R7.b treats them alike (R7.c decides which applies).
+
+## Example
+
+The source node's type declares its `error` output; this instance never
+overrides the default that hides it:
+
+```json title="An edge leaving a port this node's type hides by default"
+{ "id": "e1", "source": "s", "sourceHandle": "s-output-error", "target": "t", "targetHandle": "t-input-value" }
+```
+
+```json title="The code and locator of the finding it produces" verdict="refused"
+{ "code": "R7_EDGE_SOURCE_NOT_EXPOSED", "locator": "edge.0" }
+```

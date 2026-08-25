@@ -7,6 +7,7 @@ import { RuleFacets } from './badges';
 import { RailId, RailKey, RailNav } from './rail';
 import { PageActions } from './page-actions';
 import { slugify } from '@/lib/rules';
+import { clauses } from '@/lib/clauses';
 
 /**
  * The page anatomy is a menu, not a checklist: every section but the normative
@@ -50,6 +51,31 @@ export function ruleToc(rule: LoadedRule, narrativeToc: TOCItemType[] = []): TOC
   if (s.references) toc.push({ title: 'References', url: '#references', depth: 2 });
   if (s.related) toc.push({ title: 'Related rules', url: '#related', depth: 2 });
   return toc;
+}
+
+/**
+ * The normative sentence, one clause per line with a marginal number. A
+ * single-sentence rule renders as the plain statement it always was: a number
+ * on a lone clause would only be noise.
+ */
+function Statement({ normative }: { normative: string }) {
+  const parts = clauses(normative);
+  if (parts.length < 2) {
+    return (
+      <p className="statement">
+        <Prose>{normative}</Prose>
+      </p>
+    );
+  }
+  return (
+    <ol className="statement clauses">
+      {parts.map((c, i) => (
+        <li key={i} id={`c${i + 1}`}>
+          <Prose>{c}</Prose>
+        </li>
+      ))}
+    </ol>
+  );
 }
 
 function RuleChip({ id }: { id: string }) {
@@ -133,9 +159,7 @@ export function RuleDoc({
           <span className="label">
             <b>Normative</b>: this is the rule
           </span>
-          <p className="statement">
-            <Prose>{rule.normative}</Prose>
-          </p>
+          <Statement normative={rule.normative} />
         </div>
 
         {rule.posture !== 'normative-target' && (

@@ -1,0 +1,56 @@
+---
+rule: API-1
+rule_hash: 6d1b35a96f5d
+---
+
+## What it means
+
+A door is any route that takes a JSON request body. The gate is the check every
+such door runs before it reads a single field: is the body present, is it within
+the size bound, does it nest no deeper than the depth bound, is it JSON at all,
+and is its top level a shape the door can work with. The rule does not fix the
+bounds; it fixes that there is one gate, that every door runs the same one, and
+that an implementation cannot make an exception for one route because that route
+"never gets big bodies".
+
+Two consequences carry most of the weight.
+
+**A gate refusal is a 400, never a 500.** The gate refuses because of what the
+caller sent, so the answer is the caller's to act on. An implementation that lets
+the refusal fall through a general failure handler and surface as a server error
+has told the caller the wrong thing, and made the two indistinguishable. API-7
+says why that matters in general; this rule is the specific case where the door
+already knows the answer.
+
+**Optional is a statement about presence, not about checking.** Where a door's
+body is optional, an absent body is read as `{}` before the gate, and the gate
+then runs on that. A body that is present goes through the gate whether or not
+the door needed it. So a malformed body on an optional-body door is refused, not
+quietly treated as absent.
+
+## Example
+
+The same three bodies, sent to any JSON door, get the same three answers. The
+gate answers before any workflow-level meaning is read, so the door's own rules
+never see the first two.
+
+```http title="A body that is not JSON" verdict="400 refused"
+POST /api/flowdrop/workflows
+
+{"name":
+```
+
+```http title="Well-formed JSON whose top level is a scalar, not a shape a door can read fields from" verdict="400 refused"
+POST /api/flowdrop/workflows
+
+"just a string"
+```
+
+```http title="An object: through the gate, and on to the door's own rules" verdict="201 stored"
+POST /api/flowdrop/workflows
+
+{"name": "WF"}
+```
+
+Whatever the door refuses from here on (STORE-2, say) is a workflow-level
+refusal, and the gate has nothing further to say.

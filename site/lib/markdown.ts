@@ -1,4 +1,5 @@
 import { allFamilies, allRules, FAMILY_LABEL, type LoadedRule } from './rules';
+import { clauses } from './clauses';
 import { SPEC_ORIGIN, SPEC_VERSION } from '@/app/layout.config';
 import fs from 'node:fs';
 import path from 'node:path';
@@ -64,12 +65,13 @@ export function ruleToMarkdown(rule: LoadedRule, { standalone = true } = {}): st
   // The one part that binds, marked as such. A reader quoting this file should be
   // able to tell the rule from everything written around it.
   out.push(`${h}# The rule`, '', '> **Normative.** This is the rule.', '>');
+  // Mirrors the page: one clause per line, numbered when there is more than
+  // one, so "API-1 ¶2" means the same thing to a reader of either.
+  const parts = clauses(rule.normative);
   out.push(
-    rule.normative
-      .trim()
-      .split('\n')
-      .map((l) => `> ${l.trim()}`)
-      .join('\n'),
+    parts.length < 2
+      ? `> ${parts[0] ?? rule.normative.trim()}`
+      : parts.map((c, i) => `> ${i + 1}. ${c}`).join('\n>\n'),
     '',
   );
 

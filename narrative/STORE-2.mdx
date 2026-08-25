@@ -16,21 +16,17 @@ rejected update leaves the stored workflow exactly as it was.
 
 ## Example
 
-```http
+```http title="Creating a workflow with no name" verdict="400 refused"
 POST /api/flowdrop/workflows
 
 { "nodes": [], "edges": [] }
 ```
 
-Refused with `400`: no name.
-
-```http
+```http title="A name that is a single zero: a string, so a name" verdict="201 stored"
 POST /api/flowdrop/workflows
 
 { "name": "0" }
 ```
-
-Stored. A single zero is a string, so it is a name.
 
 ## Why
 

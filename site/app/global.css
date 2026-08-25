@@ -358,36 +358,89 @@ code {
   color: var(--ink-3);
 }
 
+/* One split control: the copy, and a disclosure for the rest. Same
+   rule-and-wash device as the chips, so it reads as chrome and not as a
+   call to action. */
 .machine {
+  position: relative;
   border-top: 1px solid var(--rule);
   padding-top: 1rem;
-  display: grid;
-  gap: 0.3rem;
-  justify-items: start;
+  display: flex;
+  align-items: stretch;
 }
-.machine h3 {
-  font-family: var(--mono);
-  font-size: 0.72rem;
-  font-weight: 500;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  color: var(--ink-3);
-  margin: 0 0 0.15rem;
-}
-.machine button,
-.machine a {
+.machine button {
   font: inherit;
-  font-size: 0.8rem;
+  font-size: 0.76rem;
   color: var(--ink-2);
-  background: none;
-  border: 0;
-  padding: 0.08rem 0;
-  text-decoration: none;
-  text-align: left;
+  background: var(--surface);
+  border: 1px solid var(--rule);
   cursor: pointer;
+  text-align: left;
+  white-space: nowrap;
 }
-.machine button:hover,
-.machine a:hover {
+.machine-copy {
+  flex: 1 1 auto;
+  min-width: 0;
+  padding: 0.3rem 0.5rem;
+  border-radius: 3px 0 0 3px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.machine-more {
+  flex: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 1.85rem;
+  margin-left: -1px;
+  padding: 0;
+  border-radius: 0 3px 3px 0;
+  color: var(--ink-3);
+}
+.machine button:hover {
+  color: var(--accent);
+  border-color: var(--accent-2);
+  z-index: 1;
+}
+.machine button:focus-visible {
+  outline: 2px solid var(--accent-2);
+  outline-offset: 1px;
+  z-index: 1;
+}
+.machine-more[aria-expanded='true'] {
+  background: var(--sunk);
+  color: var(--accent);
+}
+.machine-more svg {
+  transition: transform 0.12s ease;
+}
+.machine-more[aria-expanded='true'] svg {
+  transform: rotate(180deg);
+}
+
+.machine-menu {
+  position: absolute;
+  z-index: 20;
+  top: calc(100% + 0.3rem);
+  left: 0;
+  min-width: 100%;
+  display: grid;
+  padding: 0.2rem;
+  border: 1px solid var(--rule);
+  border-radius: 3px;
+  background: var(--surface);
+}
+.machine-menu a {
+  font-size: 0.76rem;
+  color: var(--ink-2);
+  text-decoration: none;
+  padding: 0.28rem 0.45rem;
+  border-radius: 2px;
+  white-space: nowrap;
+}
+.machine-menu a:hover,
+.machine-menu a:focus-visible {
+  background: var(--sunk);
   color: var(--accent);
 }
 

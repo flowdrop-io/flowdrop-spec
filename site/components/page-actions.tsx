@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 
 /**
  * The rail's machine-readable block.
@@ -14,6 +14,10 @@ import { useState } from 'react';
  * differ because a Next dynamic segment cannot carry an extension, so nginx serves
  * `<page>.md` from `/llms/…`. In development only the generated path resolves, so
  * the fetch uses it and the link offers the canonical one.
+ *
+ * Shaped as one split control rather than a stack of links: four rail-width menu
+ * items cost more vertical space in the rail than the actions are worth, and only
+ * the copy is reached often. The rest live behind the disclosure.
  */
 export function PageActions({
   mdPath,
@@ -25,6 +29,25 @@ export function PageActions({
   askAbout: string;
 }) {
   const [state, setState] = useState<'idle' | 'copied' | 'failed'>('idle');
+  const [open, setOpen] = useState(false);
+  const box = useRef<HTMLDivElement>(null);
+
+  /* A disclosure that outlives a click elsewhere on the page is a stuck menu. */
+  useEffect(() => {
+    if (!open) return;
+    function onDown(e: PointerEvent) {
+      if (!box.current?.contains(e.target as Node)) setOpen(false);
+    }
+    function onKey(e: KeyboardEvent) {
+      if (e.key === 'Escape') setOpen(false);
+    }
+    document.addEventListener('pointerdown', onDown);
+    document.addEventListener('keydown', onKey);
+    return () => {
+      document.removeEventListener('pointerdown', onDown);
+      document.removeEventListener('keydown', onKey);
+    };
+  }, [open]);
 
   async function copy() {
     try {
@@ -41,26 +64,53 @@ export function PageActions({
   const prompt = `Read ${citeUrl} — ${askAbout}`;
 
   return (
-    <div className="machine">
-      <h3>For a machine</h3>
-      <button type="button" onClick={copy} aria-live="polite">
+    <div className="machine" ref={box}>
+      <button type="button" className="machine-copy" onClick={copy} aria-live="polite">
         {state === 'copied' ? 'Copied' : state === 'failed' ? 'Copy failed' : 'Copy as markdown'}
       </button>
-      <a href={mdPath}>View markdown</a>
-      <a
-        href={`https://claude.ai/new?q=${encodeURIComponent(prompt)}`}
-        target="_blank"
-        rel="noreferrer noopener"
+      <button
+        type="button"
+        className="machine-more"
+        aria-haspopup="menu"
+        aria-expanded={open}
+        aria-label="Other machine-readable formats"
+        onClick={() => setOpen((v) => !v)}
       >
-        Open in Claude
-      </a>
-      <a
-        href={`https://chatgpt.com/?q=${encodeURIComponent(prompt)}`}
-        target="_blank"
-        rel="noreferrer noopener"
-      >
-        Open in ChatGPT
-      </a>
+        <svg viewBox="0 0 12 12" width="11" height="11" aria-hidden focusable="false">
+          <path
+            d="M2.5 4.5 6 8l3.5-3.5"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="1.3"
+            strokeLinecap="square"
+          />
+        </svg>
+      </button>
+      {open && (
+        <div className="machine-menu" role="menu">
+          <a role="menuitem" href={mdPath} onClick={() => setOpen(false)}>
+            View markdown
+          </a>
+          <a
+            role="menuitem"
+            href={`https://claude.ai/new?q=${encodeURIComponent(prompt)}`}
+            target="_blank"
+            rel="noreferrer noopener"
+            onClick={() => setOpen(false)}
+          >
+            Open in Claude
+          </a>
+          <a
+            role="menuitem"
+            href={`https://chatgpt.com/?q=${encodeURIComponent(prompt)}`}
+            target="_blank"
+            rel="noreferrer noopener"
+            onClick={() => setOpen(false)}
+          >
+            Open in ChatGPT
+          </a>
+        </div>
+      )}
     </div>
   );
 }

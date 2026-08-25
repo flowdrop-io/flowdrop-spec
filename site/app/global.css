@@ -1,4 +1,7 @@
 @import 'tailwindcss';
+/* Brand values only — no fonts, no palette. This site keeps its own; the
+   shared footer is the one surface that binds to these. See ../brand/README.md. */
+@import '../brand/tokens.css';
 @import 'fumadocs-ui/css/neutral.css';
 @import 'fumadocs-ui/css/preset.css';
 
@@ -1302,11 +1305,14 @@ span.rulechip {
    Ported from `src/lib/components/Footer.svelte` in the flowdrop-website
    repo, so flowdrop.io, /docs and /spec end on the same block.
 
-   The values are literals, not tokens: this site does not vendor
-   `brand/tokens.css` the way the docs site does, and pulling the whole
-   brand sheet in to set four colours would fight the typographic scale
-   this site was designed around. They are copied from brand/tokens.css and
-   noted inline so a brand change can be traced here.
+   The colours and spacing bind to the brand tokens, vendored at
+   `site/brand/tokens.css` (see its README). They used to be literals copied
+   out of that file, on the reasoning that pulling in the whole brand sheet
+   to set four values would fight the typographic scale this site is built
+   on. It does not: `tokens.css` declares custom properties and nothing
+   else, so an unreferenced token applies no styling. The literals were a
+   silent drift risk for no gain — this is the one surface that has to match
+   flowdrop.io exactly, so it reads the same values the master does.
 
    Deliberately not theme-aware: the footer is the ink panel in both light
    and dark, exactly as on the website.
@@ -1318,8 +1324,8 @@ span.rulechip {
 }
 
 .fdftr {
-  /* --brand-ink / --brand-grey-900 */
-  background-color: hsl(221 39% 11%);
+  background-color: var(--brand-ink);
+  /* No token: the website sets this one as a literal too. */
   color: rgb(147, 154, 169);
   font-size: 1rem;
   font-family: var(--sans);
@@ -1341,13 +1347,12 @@ span.rulechip {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 2rem;
-  /* --brand-space-16 / --brand-page-spacing-fixed */
-  padding: 64px 2.1875rem;
+  gap: var(--brand-space-8);
+  padding: var(--brand-space-16) var(--brand-page-spacing-fixed);
 }
 
 .fdftr-wrapper--links {
-  margin-block-start: -64px;
+  margin-block-start: calc(-1 * var(--brand-space-16));
   align-items: flex-start;
   flex-wrap: wrap;
 }
@@ -1376,8 +1381,7 @@ span.rulechip {
 }
 
 .fdftr-creditLink:hover {
-  /* --brand-orange */
-  color: hsl(15 78% 43%);
+  color: var(--brand-orange);
 }
 
 .fdftr-ext {

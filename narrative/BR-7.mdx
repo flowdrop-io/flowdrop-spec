@@ -1,0 +1,36 @@
+---
+rule: BR-7
+rule_hash: b073da297268
+---
+
+## What it means
+
+The reason token `branch_not_active` names one observable fact — nothing on
+the node fired a trigger — not one specific cause. A reader could assume it
+only ever means "an untaken gateway branch," but the same token, on the same
+three announcements, also covers a node whose only would-be source never ran
+at all; nothing in the skip record itself lets a caller tell the two apart.
+
+A skip is not a lesser kind of failure: the node simply never executes, the
+run is not failed by it, and the identifier is folded into the same count and
+list every time, whatever caused it. That is the opposite case from a node
+with no incoming trigger edge at all — such a node always executes, because
+readiness never depended on a trigger it does not have.
+
+## Example
+
+A gateway resolves to its `false` branch, so the node wired to the untaken
+`true` branch is skipped rather than executed.
+
+```json title="The nodes_skipped count in the run's response metadata" verdict="counted"
+1
+```
+
+```json title="The skip_reason on the node's snapshot record" verdict="skipped"
+"branch_not_active"
+```
+
+`skipped_node_ids` in the same metadata names `false_branch_node`, and the
+snapshot record's `status` is `skipped`. The same `branch_not_active` token also rides the node-level skip event and the
+real-time status update for that node — three separate announcements agreeing
+on one fixed reason, whatever unexecuted trigger source produced it.

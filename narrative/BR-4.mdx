@@ -1,0 +1,38 @@
+---
+rule: BR-4
+rule_hash: b094bc45c0f0
+---
+
+## What it means
+
+A gateway's configured branches, not the value it happens to emit, decide which
+output port is real: an entry without a usable name is dropped before any
+comparison runs, so it can never be matched or emitted. Matching an outcome
+against what survives is deliberately not a loose cast — a boolean outcome
+matches only a branch whose configured value actually denotes a boolean (a real
+boolean, `0`/`1`, or the strings `true`/`false`/`1`/`0`), because treating any
+non-empty string as truthy would let a boolean match a branch configured with
+an unrelated string. Strings compare without regard to case; anything else must
+agree in both type and value.
+
+Where nothing configured matches, the gateway is not free to fall back to
+whatever it would have said with no configuration at all: it must either
+declare a default branch that receives the outcome, or fail with a routable
+error. A name that answers to no port silently gates off everything downstream,
+with nothing said.
+
+## Example
+
+A gateway configured with branches named `Yes` and `No`, given a `true`
+outcome:
+
+```json title="The gateway's inputs: the outcome and its configured branches" verdict="configured"
+{"value": true, "branches": [{"name": "Yes", "value": true}, {"name": "No", "value": false}]}
+```
+
+```json title="The active_branches output" verdict="emitted"
+["Yes"]
+```
+
+The renamed port, not a hardcoded `true`, is what leaves the gateway — an edge
+drawn from `Yes` is the only one that can be reached.

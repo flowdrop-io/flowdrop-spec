@@ -1,0 +1,32 @@
+---
+rule: BR-3
+rule_hash: 89a809d84f29
+---
+
+## What it means
+
+A bare string is not a shorthand for several names — it is one name, taken
+exactly as written, commas included. Splitting it would corrupt the
+legitimate case: a branch genuinely named `a, b` is one port, and splitting
+its name on the comma produces two names that match no port at all. Only a
+list has several entries; a string never does.
+
+## Example
+
+```json title="A bare string holding a comma" verdict="one name"
+"a, B ,c"
+```
+
+```json title="What the bare string parses to" verdict="parsed"
+["a, b ,c"]
+```
+
+A list entry that is not a string is dropped rather than turned into one:
+
+```json title="A list with a name among non-strings" verdict="mixed list"
+["keep", 5, null, ""]
+```
+
+```json title="What the mixed list parses to" verdict="parsed"
+["keep"]
+```

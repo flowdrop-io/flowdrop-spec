@@ -1,0 +1,24 @@
+---
+rule: RT-TOOL-7
+rule_hash: f0f3b75bf81e
+---
+
+## What it means
+
+A pause is the hard case: a tool already ran and produced an artifact before
+the run stopped to ask a question, and there is no assistant message yet to
+carry it. The artifact is held rather than lost, but it stays off the wire
+while it waits — a caller polling the paused turn never sees it. Only the
+resume's write-back takes it, and taking it is destructive: once delivered
+on the resumed turn's assistant message, the same artifact is never handed
+out again, even if the run pauses a second time.
+
+## Example
+
+```json title="What is held against the paused turn" verdict="held"
+{ "type": "link", "payload": { "url": "https://example.com/report" }, "tool_call_id": "call_1" }
+```
+
+Answering the question resumes the run and delivers it exactly once, on the
+resumed turn's assistant message; asking the same question again finds
+nothing left to deliver.

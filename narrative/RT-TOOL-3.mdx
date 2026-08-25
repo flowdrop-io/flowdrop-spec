@@ -1,0 +1,34 @@
+---
+rule: RT-TOOL-3
+rule_hash: f4664b813918
+---
+
+## What it means
+
+The prose the model reads back is built from `data` alone — an artifact
+never leaks into it, even as a stray mention of a URL or a name that also
+appears in the artifact's payload. The two travel on entirely separate
+paths: prose in the tool message, artifacts on `tool_artifacts`, paired to
+the call that produced them by `tool_call_id` so a node invoking several
+tools at once can still tell whose artifact is whose. That port carries the
+artifacts whether or not the author exposed it — delivery does not wait on
+an exposure decision that governs only what a person sees in an editor.
+
+## Example
+
+One tool call returns a result whose `data` is a short confirmation string
+and whose artifact is a link the confirmation never mentions.
+
+```json title="What the tool result carries" verdict="produced"
+{
+  "data": { "result": "Created node 5 (draft)." },
+  "artifacts": [{ "type": "link", "payload": { "url": "https://example.com/node/5" } }]
+}
+```
+
+```json title="What lands on the node's tool_artifacts port" verdict="surfaced"
+[{ "type": "link", "payload": { "url": "https://example.com/node/5" }, "tool_call_id": "c1" }]
+```
+
+The prose fed back to the model stays `"Created node 5 (draft)."` — nothing
+about the link appears in it.

@@ -1,0 +1,28 @@
+---
+rule: RT-TOOL-6
+rule_hash: aef47d053505
+---
+
+## What it means
+
+Once a run's collection has accepted or dropped an artifact at the point it
+was collected, nothing downstream checks it again — a consumer reading the
+retained list is not re-validating what it receives. A drop never leaves a
+gap for the entry it removed: the list a consumer sees is exactly the
+artifacts that survived, in the order they arrived, with no placeholder
+marking where one was dropped. The drop is decided per artifact, not once
+for the whole run: an artifact that crosses a bound does not disqualify a
+later, smaller one that still fits what remains of the budget.
+
+## Example
+
+A run's aggregate budget is already mostly spent by earlier artifacts; the
+next one would cross it and is dropped, but a small one after that still
+fits what is left:
+
+```json title="The artifact collected after the drop" verdict="kept"
+{ "type": "citation", "payload": { "ref": "kept" }, "tool_call_id": "call_last" }
+```
+
+Nothing in the retained list marks where the dropped artifact would have
+sat.

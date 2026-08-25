@@ -1,0 +1,26 @@
+---
+rule: RT-TOOL-5
+rule_hash: 6a0cb215d0ff
+---
+
+## What it means
+
+Collection is opt-in per run, not automatic: a tool call that produces an
+artifact while nobody has opened collection for its run does not queue up
+waiting for someone to ask — it is simply not kept. Nothing later can
+recover it, and opening collection afterwards does not reach back for it.
+Draining what has been collected so far is not the same as ending
+collection: a run can drain, then have a later tool call in the same run
+still add to what it collects. Only release ends collection outright.
+
+## Example
+
+A tool call produces an artifact for a run that never opened collection:
+
+```json title="What the tool call produced" verdict="produced"
+{ "type": "citation", "payload": { "ref": "a" }, "tool_call_id": "call_1" }
+```
+
+```json title="What the run's collection holds" verdict="dropped"
+[]
+```

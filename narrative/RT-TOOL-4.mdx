@@ -1,0 +1,33 @@
+---
+rule: RT-TOOL-4
+rule_hash: 72ac9282b98e
+---
+
+## What it means
+
+Artifacts are not a run-scoped, in-memory extra that a reload would lose:
+they land on the assistant message itself, so reading the turn back later
+still returns them. A caller reading the wire form never sees the storage
+key they were kept under — they arrive as their own top-level field, not
+nested inside the message's general metadata, so a client does not have to
+know the internal name to find them.
+
+## Example
+
+```json title="An artifact a tool call produced during the turn" verdict="produced"
+{ "type": "link", "payload": { "url": "https://example.com/report" }, "tool_call_id": "call_1" }
+```
+
+```json title="The assistant message as the door reports it" verdict="reported"
+{
+  "toolArtifacts": [
+    { "type": "link", "payload": { "url": "https://example.com/report" }, "tool_call_id": "call_1" }
+  ],
+  "metadata": {}
+}
+```
+
+The message's `metadata` never carries the artifacts under their storage
+key — a client that only reads `toolArtifacts` sees everything there is to
+see.
+

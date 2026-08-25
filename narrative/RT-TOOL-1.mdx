@@ -1,0 +1,28 @@
+---
+rule: RT-TOOL-1
+rule_hash: 3d8b730148e4
+---
+
+## What it means
+
+An artifact-free result is indistinguishable from a plain three-key result —
+`artifacts` only appears once at least one artifact was attached. A caller
+that never expects artifacts can keep reading `{success, data, error}` and
+never notice the key exists. `data` and `artifacts` stay disjoint: an
+artifact is never folded into `data` alongside the prose-facing values, and
+attaching one never changes what `data` already holds.
+
+## Example
+
+```json title="A result with nothing attached" verdict="plain"
+{ "success": true, "data": { "ok": true }, "error": null }
+```
+
+```json title="The same result, once one artifact is attached" verdict="attached"
+{
+  "success": true,
+  "data": { "ok": true },
+  "error": null,
+  "artifacts": [{ "type": "link", "payload": { "url": "https://example.com" } }]
+}
+```

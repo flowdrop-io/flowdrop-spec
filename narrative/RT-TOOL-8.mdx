@@ -1,0 +1,35 @@
+---
+rule: RT-TOOL-8
+rule_hash: 9dd125fab17c
+---
+
+## What it means
+
+The two repairs are independent and run on different things. JSON-string
+decoding looks only at whether the tool's own schema declares that
+parameter `array` or `object`, and only fires when the parsed result
+actually has that shape — a string that parses as JSON but produces the
+wrong shape (an object where the schema declares an array) is left exactly
+as sent, never coerced or substituted. Entity decoding, by contrast, runs on
+every string leaf regardless of what the schema declares, repeating until
+the value stops changing, so a doubly-escaped value resolves fully rather
+than stopping one level short. Keys are never touched by either repair.
+
+## Example
+
+A title argument arrives HTML-escaped twice over:
+
+```json title="A doubly-escaped title argument" verdict="sent"
+{ "title": "Ember &amp;amp; Oak" }
+```
+
+```json title="What reaches the tool" verdict="decoded"
+{ "title": "Ember & Oak" }
+```
+
+An object literal sent for a parameter the schema declares `array` is left
+untouched rather than substituted into the wrong shape:
+
+```json title="An object literal where the schema declares an array" verdict="sent"
+{ "ops": "{\"op\":\"add\"}" }
+```

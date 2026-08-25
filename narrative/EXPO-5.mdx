@@ -1,0 +1,27 @@
+---
+rule: EXPO-5
+rule_hash: 1eccfc4ba4d2
+---
+
+## What it means
+
+The comparison is identity, not truthiness. A processor asking for a port to
+ship hidden has exactly one way to say so — the boolean `false`, and nothing
+else. Every near-miss a loosely-typed schema or a round trip through another
+format might produce — `null`, `0`, an empty string, even the string
+`"false"` — leaves the port exposed. A malformed or half-migrated flag fails
+towards visible, never towards hidden.
+
+## Example
+
+```json title="The one hiding value" verdict="hidden"
+{ "x-exposed-by-default": false }
+```
+
+```json title="The string false, quoted, where the boolean was meant" verdict="exposed"
+{ "x-exposed-by-default": "false" }
+```
+
+```json title="The key absent altogether" verdict="exposed"
+{}
+```

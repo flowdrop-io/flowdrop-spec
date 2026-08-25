@@ -1,0 +1,29 @@
+---
+rule: EXPO-7
+rule_hash: 38a9da0509b6
+---
+
+## What it means
+
+What a node type publishes states only its own decision, and only where that
+decision diverges from the default. A processor's own schema for the same
+port is never consulted at publication time and never survives into what
+ships — even where the node type's stored value agrees with the processor,
+or contradicts it outright, the published schema is built from the stored
+value alone.
+
+## Example
+
+```json title="The node type's stored default exposure for the port: false" verdict="hidden"
+{ "connectable": true, "exposed_by_default": false }
+```
+
+```json title="What that publishes" verdict="materialized"
+{ "x-exposed-by-default": false }
+```
+
+Where the node type's own stored value is anything else — unset, or an
+explicit `true` even against a processor schema that itself declares
+`x-exposed-by-default: false` for that port — the published schema carries
+no such key at all. A processor's own value for the key never reaches what
+publishes; only the node type's stored word does.

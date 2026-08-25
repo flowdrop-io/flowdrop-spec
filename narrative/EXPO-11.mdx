@@ -1,0 +1,37 @@
+---
+rule: EXPO-11
+rule_hash: 29965c3ee8a1
+---
+
+## What it means
+
+Stripping only reaches keys the processor's output schema names as ports.
+Anything else in a node's result — a dynamic output an author added beyond
+the declared set, a reserved control port — passes straight through, not
+because it is judged safe but because the pass that removes hidden values has
+no way to recognise it as a port at all.
+
+That reach limit does not shrink the obligation at the edge: a hidden
+declared output must still be stripped even where the processor's schema
+declares no output ports at all. An empty declared set is not licence to
+leave a node type's own hidden-port marking unenforced — it is the one case
+where enforcing it matters most, because nothing else in the pass would
+otherwise catch it.
+
+## Example
+
+A node's result carries three keys: one declared output the node type keeps
+visible, one declared output the node type hides, and one key the
+processor's output schema never names at all.
+
+```json title="A node's raw result" verdict="produced"
+{"result": "ok", "dynamic_field": "kept", "ssn": "secret"}
+```
+
+```json title="What the result delivers, with ssn a hidden declared output" verdict="stripped"
+{"result": "ok", "dynamic_field": "kept"}
+```
+
+`dynamic_field` is not a name the output schema declares, so it is outside
+stripping's reach in either direction — kept because it was never examined,
+not because it was judged harmless.

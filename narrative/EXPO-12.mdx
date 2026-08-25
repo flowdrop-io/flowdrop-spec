@@ -1,0 +1,30 @@
+---
+rule: EXPO-12
+rule_hash: 098932f92938
+---
+
+## What it means
+
+Control outputs are exempt from every lever that strips an ordinary port —
+the node type's own default, an instance override, all of it. They are not
+something an author shows or hides at all; they are the engine's own
+channel, and branching and state merging depend on them arriving whole every
+time, whatever exposure a workflow otherwise records for that node.
+
+## Example
+
+A node's type marks every one of its outputs — `active_branches`,
+`state_update`, and an ordinary port — hidden, and the workflow's own
+instance override hides `state_update` again on top of that: the least
+favourable exposure available for all three.
+
+```json title="What the node produced" verdict="produced"
+{"state_update": {"iterator": {"index": 1}}, "active_branches": "true", "debug": "internal trace"}
+```
+
+```json title="What the result delivers" verdict="kept"
+{"state_update": {"iterator": {"index": 1}}, "active_branches": "true"}
+```
+
+`debug`, an ordinary output hidden the same way, is the one key stripping
+removes.

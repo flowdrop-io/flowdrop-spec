@@ -1,0 +1,22 @@
+---
+rule: EXPO-3
+rule_hash: 4bdb72bdf138
+---
+
+## What it means
+
+An input and an output that happen to share a name are two different ports,
+not one port seen from two sides, and their exposure overrides live in two
+different maps. Hiding an input named `other` says nothing about an output
+also named `other` — a lookup that ignored direction and matched by name
+alone would leak one port's override onto the other.
+
+## Example
+
+```json title="The stored overrides: other hidden, but only in inputs" verdict="hidden"
+{ "inputs": [{ "id": "other", "exposed": false }] }
+```
+
+Checked as an input, `other` resolves hidden. Checked as an output, the same
+port name finds no entry at all — the `outputs` map carries none — and
+resolves to its own default, exposed.

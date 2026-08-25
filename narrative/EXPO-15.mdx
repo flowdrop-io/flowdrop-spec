@@ -1,0 +1,32 @@
+---
+rule: EXPO-15
+rule_hash: 980f0fa3f527
+---
+
+## What it means
+
+A parameter reaches the model only when three things hold at once:
+connectable, exposed, and not already fed by a wire. Missing any one pins
+it — the model cannot fill it, and it does not even appear in the schema
+offered to the model. The wire check is independent of the other two: a
+wired parameter is withheld because a wire's value is deterministic run
+state, and the model must not compete with it, whether or not that same
+parameter would otherwise be exposed. A parameter the workflow hides is
+withheld the same way, whether the hiding comes from an explicit instance
+override or from the node type's own default exposure.
+
+## Example
+
+A node offers four parameters as a callable tool: two connectable and
+exposed by default, one not connectable, and one internal.
+
+```json title="The parameters the model may fill, nothing wired" verdict="fillable"
+["query", "url"]
+```
+
+```json title="The same parameters, with url fed by a data edge" verdict="fillable"
+["query"]
+```
+
+The non-connectable and internal parameters never appear in either list —
+being wired or hidden was never the reason they were excluded.

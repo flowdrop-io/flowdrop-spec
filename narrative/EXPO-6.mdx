@@ -1,0 +1,30 @@
+---
+rule: EXPO-6
+rule_hash: cf0447fa8cd4
+---
+
+## What it means
+
+A processor's exposure suggestion is read exactly once: when a node type is
+first derived from it. After that read, the suggestion is inert — changing
+the processor's schema later does not change what an already-derived node
+type publishes, because nothing at execution or publication time goes back
+to ask the processor again. What a node type reports is always its own
+stored decision (EXPO-7), never a live read of the processor.
+
+## Example
+
+A processor's schema offers no opinion on one port and asks for the other to
+ship hidden.
+
+```json title="The processor's own schema for two of its ports"
+{ "visible_in": { "type": "string" }, "hidden_in": { "type": "string", "x-exposed-by-default": false } }
+```
+
+```json title="What the node type stores for hidden_in, once, at derivation" verdict="hidden"
+{ "exposed_by_default": false }
+```
+
+`visible_in` gets no such key at all — the derivation writes the flag only
+where it diverges from exposed. From that point on, a change to the
+processor's own schema reaches neither entry.

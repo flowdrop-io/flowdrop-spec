@@ -1,0 +1,32 @@
+---
+rule: EXPO-2
+rule_hash: 93bc10ed31b6
+---
+
+## What it means
+
+Being named in the direction-scoped overrides is not, by itself, an override.
+An entry for a port can exist there for reasons that have nothing to do with
+exposure, so the only thing that flips a port away from its default is that
+entry carrying an `exposed` key. A port named but silent on `exposed` reads
+exactly as a port not named at all.
+
+## Example
+
+The port `value` defaults exposed; `error` defaults hidden (EXPO-4). Three
+override shapes for `value` land on two different answers.
+
+```json title="An override entry with an explicit exposed: false" verdict="hidden"
+{ "id": "value", "exposed": false }
+```
+
+```json title="An override entry with an explicit exposed: true, on a port that defaults hidden" verdict="exposed"
+{ "id": "error", "exposed": true }
+```
+
+```json title="An entry naming value, but with no exposed key at all" verdict="exposed"
+{ "id": "value" }
+```
+
+The third entry names the same port as the first, and still resolves to the
+default: naming a port is not deciding about it.

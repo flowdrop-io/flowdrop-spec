@@ -1,0 +1,27 @@
+---
+rule: EXPO-8
+rule_hash: 870be4989cd6
+---
+
+## What it means
+
+A port with no stored exposure value reads exactly like a port nobody has an
+opinion about, even where the processor itself asked for that exact port to
+ship hidden. That request only ever reaches a node type through the
+one-time read of EXPO-6, and a port a node type never derived a decision for
+is a port that read never happened for. Fail-open wins: the port shows up.
+
+## Example
+
+```json title="The processor's own schema for the port" verdict="suggested"
+{ "type": "string", "x-exposed-by-default": false }
+```
+
+```json title="The node type's own stored entry for the same port" verdict="exposed"
+{ "connectable": true }
+```
+
+The node type's entry carries no `exposed_by_default` at all — nothing was
+ever derived for this port. What gets published for it carries no exposure
+flag either, the same shape as a port nobody has decided about, regardless
+of what the processor asked for.

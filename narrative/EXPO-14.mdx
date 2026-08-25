@@ -1,0 +1,38 @@
+---
+rule: EXPO-14
+rule_hash: 8753764ddbad
+---
+
+## What it means
+
+Stripping is not one check among several that a node's result passes
+through; it is the first thing that happens to it. Everything else that
+looks at a node's output — the unified port that bundles values into one
+object, delivery to run records, checkpoints, real-time updates, a tool
+result — reads the already-filtered result, never the raw one. That ordering
+is what makes "a hidden output never reaches anything downstream" a fact
+about every one of those destinations at once, rather than something each
+would have to enforce for itself.
+
+The unified port is the case worth naming, because composing it looks like a
+separate step that could plausibly run first: it is built from whatever the
+result holds by the time composition runs, so if stripping ran after
+composition a hidden value would still be sitting inside it even though its
+own port was empty.
+
+## Example
+
+A node produces a value on a port the node type hides, and the workflow
+exposes the unified `output` port that bundles every visible output into one
+object.
+
+```json title="What the node produced" verdict="produced"
+{"result": "ok", "ssn": "123-45-6789"}
+```
+
+```json title="The composed unified output" verdict="composed"
+{"output": {"result": "ok"}}
+```
+
+The hidden `ssn` value never appears inside `output` either — composition
+worked from the result stripping had already produced.

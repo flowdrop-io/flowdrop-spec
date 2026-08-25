@@ -1,0 +1,32 @@
+---
+rule: EXPO-13
+rule_hash: 0af1cf09ade7
+---
+
+## What it means
+
+Two node-type-level signals both start an output hidden, but only one of
+them can be reversed by the workflow's own instance override. Marking a port
+`exposed: false` says the port does not exist at all: nothing an instance
+records can restore it. The node type's default exposure, by contrast, is
+only a starting position — the instance's own override decides over it, and
+only the node type's default is consulted when the instance has recorded
+none.
+
+## Example
+
+```json title="A result carrying an output the node type declares does not exist (exposed: false)" verdict="stripped"
+{"result": "ok", "debug": "internal trace"}
+```
+
+```json title="A different port, merely hidden by the node type's default exposure" verdict="stripped"
+{"throttled": true}
+```
+
+```json title="A default-hidden port the instance overrides back on" verdict="kept"
+{"debug": "now wanted"}
+```
+
+The first case takes no override — none could change the outcome. The third
+starts from the same kind of hiding as the second and reverses it, because a
+default is only ever a starting position.

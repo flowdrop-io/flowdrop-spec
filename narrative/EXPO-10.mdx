@@ -1,0 +1,50 @@
+---
+rule: EXPO-10
+rule_hash: a1fcb62beab2
+---
+
+## What it means
+
+Hiding a connectable input is a precedence change, not a removal. A value
+arriving on the port's wire, or supplied by a caller, is skipped entirely
+rather than merged, refused, or recorded — resolution carries on exactly as
+if that value had never arrived, landing on the author's saved value where
+one exists.
+
+The consequence that is easy to miss is the floor under that skip: it must
+never leave the parameter unset. Where the parameter is not even
+configurable, so there is nothing saved to fall back on, resolution continues
+all the way to the schema's own default rather than stopping short — a
+hidden port that resolved to null would turn hiding it into breaking the node
+it hides.
+
+Internal parameters sit outside this gate altogether. They are not authored
+ports a workflow shows or hides, so a runtime value reaches them whatever a
+port-exposure override happens to say about them.
+
+## Example
+
+A parameter is connectable and configurable, the author saved a value for
+it, and a caller also supplies one for the same call — but the port is
+hidden.
+
+```json title="The parameter's resolved value, with a caller's value also on offer" verdict="kept"
+"from-config"
+```
+
+Hiding a non-configurable parameter with nothing saved does not leave it
+unset either: resolution falls through to the schema's own default.
+
+```json title="A hidden parameter with no config to fall back on" verdict="kept"
+"from-schema"
+```
+
+An internal parameter, hidden the same way an authored one would be, still
+takes the caller's value: the gate was never describing it.
+
+```json title="An internal parameter's port marked hidden" verdict="kept"
+"from-runtime"
+```
+
+Hidden governs which value a wire or a caller may deliver; it never decides
+whether the parameter ends up with one.

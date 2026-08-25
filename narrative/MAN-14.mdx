@@ -1,0 +1,35 @@
+---
+rule: MAN-14
+rule_hash: 33c61a56002c
+---
+
+## What it means
+
+MAN-13 refuses a caller for sending a key the manifest never declared, and it
+is tempting to read strictness as one blanket setting: reject anything the
+resolution step cannot make sense of. This rule draws the line strictness is
+not allowed to cross. A malformed manifest entry — one an author (or an
+earlier version of the workflow) left with a missing or empty `name`,
+`node_id` or `port` — is not the caller's mistake, and refusing the caller's
+launch over it fixes nothing: the caller cannot edit a manifest they do not
+own. So a launch that is otherwise as strict as it gets still drops a broken
+entry with a warning and keeps resolving everything else, exactly as a
+lenient resolution would.
+
+## Example
+
+The workflow's manifest entry for `message` names a node, `deleted.1`, no
+longer in the graph.
+
+```json title="A value sent for a declared input whose target node is gone" verdict="dropped"
+{ "message": "hello" }
+```
+
+The same happens when an entry's `node_id` or `port` is empty outright:
+
+```json title="Values sent for two entries with an empty node id and an empty port" verdict="dropped"
+{ "a": 1, "b": 2 }
+```
+
+Neither launch is refused; both drop the broken entry's value and resolve
+whatever else the manifest can still make sense of.

@@ -1,0 +1,61 @@
+---
+rule: MAN-5
+rule_hash: 2a9da8ad6d04
+---
+
+## What it means
+
+A contract fragment is a reduction of the bound port's own schema down to a
+fixed set of structural keys — the shape of the value, never the words around
+it. The strip is not a top-level filter: it recurses into every declared
+property and into an item schema, so an annotation or an extension key buried
+two levels inside an object's own properties is dropped exactly as one sitting
+at the top would be. A non-annotation key at that same depth — `maxLength`,
+`pattern` — survives, because the rule drops a closed set of keys, not
+"annotations" as a category.
+
+Author-facing words are never baked into the stored snapshot, even when the
+caller asks nothing special: they are re-attached only when the contract is
+read with annotation explicitly requested (MAN-6). The stored contract itself
+stays the same either way.
+
+## Example
+
+A port's own schema carries a title and two extension keys, one nested inside
+`properties` and one inside `items`.
+
+```json title="A port's declared schema, annotated at every depth"
+{
+  "type": "object",
+  "title": "Payload",
+  "x-exposed-by-default": false,
+  "properties": {
+    "inner": { "type": "string", "title": "Inner", "x-config-order": 3, "maxLength": 10 }
+  },
+  "items": { "type": "string", "description": "An item.", "x-port-order": 2, "pattern": "^a" }
+}
+```
+
+```json title="What the published contract keeps"
+{
+  "type": "object",
+  "properties": { "inner": { "type": "string", "maxLength": 10 } },
+  "items": { "type": "string", "pattern": "^a" },
+  "x-data-type": "json"
+}
+```
+
+Asking the same workflow for its contract with annotation requested fills the
+words back in, without changing what is stored:
+
+```http title="Fetching the contract as stored" verdict="200 unannotated"
+GET /api/flowdrop/workflows/{workflow}/schema
+
+{"parameter_schema": {"properties": {"name": {"type": "string"}}}}
+```
+
+```http title="Fetching the same contract with annotation requested" verdict="200 filled"
+GET /api/flowdrop/workflows/{workflow}/schema?annotated=1
+
+{"parameter_schema": {"properties": {"name": {"type": "string", "title": "Text value", "description": "A plain text field."}}}}
+```

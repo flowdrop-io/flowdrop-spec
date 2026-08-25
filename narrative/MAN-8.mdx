@@ -1,0 +1,31 @@
+---
+rule: MAN-8
+rule_hash: 7c67a650e141
+---
+
+## What it means
+
+A manifest can go wrong in two different ways, and neither costs the workflow
+the rest of its contract. An entry can be structurally malformed — its
+`name`, `node_id` or `port` missing or empty — in which case it never named
+anything to resolve in the first place. Or it can be well-formed but point
+nowhere real: a node that is not in the graph, or a port its node's own
+type never declared. Either way the entry is dropped and the build carries on with
+whatever else the manifest names.
+
+## Example
+
+```json title="An entry naming a node absent from the graph" verdict="skipped"
+{ "name": "gone", "node_id": "ghost", "port": "key" }
+```
+
+```json title="An entry naming a port its node's own type never declared" verdict="skipped"
+{ "name": "gone", "node_id": "n1", "port": "nope" }
+```
+
+```json title="An entry with no name at all" verdict="skipped"
+{ "node_id": "n1", "port": "key" }
+```
+
+None of the three contributes a property to the built contract; a valid
+sibling entry elsewhere in the same manifest still would.

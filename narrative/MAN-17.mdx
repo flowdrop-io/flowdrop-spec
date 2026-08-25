@@ -1,0 +1,35 @@
+---
+rule: MAN-17
+rule_hash: e77c80d8910a
+---
+
+## What it means
+
+Presence is decided by whether the key exists, not by whether the value is
+truthy. A node that produced `null` on its bound port produced something,
+and that null is returned under the declared output name. That is different
+from a node whose bound port never appears in what it produced at all — that
+case is dropped from the result, with a warning, because there is nothing to
+return.
+
+A malformed entry — one missing its name, its node id or its port — is
+skipped without a warning: it never named a real output in the first place,
+so there is nothing to warn about.
+
+## Example
+
+The workflow declares two outputs bound to the same node: `answer`, on its
+`text` port, and `hidden`, on a `debug` port the node did not produce this
+run.
+
+```json title="What the bound node produced" verdict="retained"
+{ "llm.1": { "text": null } }
+```
+
+```json title="The declared outputs resolved against it" verdict="retained"
+{ "answer": null }
+```
+
+The `debug` port never appears in `llm.1`'s results at all, so `hidden` is
+dropped from the outputs, with a warning naming it. A malformed entry — an empty name, an empty node id, or an empty port — is
+skipped the same way, but without the warning the dropped case above gets.

@@ -1,0 +1,35 @@
+---
+rule: MAN-1
+rule_hash: 65584dca5796
+---
+
+## What it means
+
+The launch-input manifest is a list the author wrote, not a computation over
+the workflow's nodes. That cuts both ways, and the second direction is the one
+that bites. A node's parameter can be hidden on the instance and still sit in
+the manifest — the entry still reaches the contract, because hiding a port is
+an instance setting, not an edit to what the author declared. And a node's
+parameter can be exposed, wired, fully visible in the editor, and never reach
+the contract at all, because nothing in the manifest names it.
+
+The consequence: adding a parameter to a node type, or exposing one that used
+to be hidden, never by itself changes what a caller may send. Only an edit to
+the manifest itself does that (MAN-2, MAN-3).
+
+## Example
+
+The node type declares two parameters, `key` and `other`. The instance hides
+`key` and exposes `other` — the opposite of what the manifest entry below
+declares.
+
+```json title="The manifest names key, the port the instance hides"
+{ "name": "lookup_key", "node_id": "n1", "port": "key" }
+```
+
+```json title="What the workflow publishes as its contract"
+{ "properties": { "lookup_key": { "type": "string", "x-data-type": "string" } } }
+```
+
+`other` is exposed on the instance and never appears. `lookup_key` is hidden
+on the instance and appears anyway, because the manifest named it.

@@ -1,0 +1,33 @@
+---
+rule: MAN-18
+rule_hash: 08d95d9f9b36
+---
+
+## What it means
+
+The trigger is the port list, not what changed underneath it. A bound port's
+own schema can change entirely — a fragment's `type`, its `minLength`,
+anything a node type declares — and the published contract does not move,
+because nothing rebuilds it until the input or output port list itself
+differs from the one already stored, or a rebuild is forced. A caller
+reading the published contract is reading what was last published, not a
+live reflection of the ports it names.
+
+A side with no declared entries stores no schema for that side at all —
+there is nothing to build. And a build that fails leaves the previously
+published contract in place: the workflow still saves, the failure is
+recorded, and nothing about the failed rebuild reaches the caller.
+
+## Example
+
+```json title="An input port list identical to the one already published" verdict="skipped"
+[ { "name": "in", "node_id": "n1", "port": "p1" } ]
+```
+
+```json title="A workflow declaring no output ports at all"
+[ ]
+```
+
+```json title="What is stored for that side" verdict="none"
+null
+```

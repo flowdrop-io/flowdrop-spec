@@ -1,0 +1,53 @@
+---
+rule: MAN-21
+rule_hash: 43587bcef404
+---
+
+## What it means
+
+A port's lane and its JSON Schema type are two different vocabularies, and
+they diverge exactly where a port carries a domain-specific meaning over an
+ordinary structural shape: a list of conversation messages is, structurally,
+just an array. Reading the schema's `type` and calling that the lane would
+answer `array` for a case the lane can name precisely.
+
+The lane is resolved once, when the contract is built, and pinned into the
+stored fragment — it is not re-derived on every read. A contract built
+before the lane existed has no pin to read, so it falls back to the lane the
+schema's `type` implies, which is never wider than the truth, and corrects
+itself the next time the contract is rebuilt. The schema published alongside
+an entry is stripped of the lane, the title, the description and the
+examples on the way out, because the entry states each of those itself; none
+of it changes what the launch check reads, which is still `type` and `enum`
+on the stored contract, never this projection.
+
+## Example
+
+A node produces two outputs: one declares a `messages` lane over a JSON
+Schema `array`, the other declares nothing over an `object`.
+
+```http title="Two outputs whose declared lane is not their JSON Schema type" verdict="201 stored"
+POST /api/flowdrop/workflows
+
+{"name": "Lane WF", "nodes": [ … ], "interface": {"outputs": [
+  {"id": "out_list", "bindings": [{"nodeId": "msg1", "portId": "messages"}]},
+  {"id": "out_one", "bindings": [{"nodeId": "msg1", "portId": "message"}]}
+]}}
+```
+
+```json title="What the published contract reports for those two ports"
+{ "outputs": [
+  {"id": "out_list", "dataType": "messages", "schema": {"type": "array"}},
+  {"id": "out_one", "dataType": "json", "schema": {"type": "object"}}
+] }
+```
+
+The node type's own fragment carries more than the pin keeps:
+
+```json title="A node type's own schema fragment for a bound port"
+{ "type": "array", "title": "Messages", "x-data-type": "messages" }
+```
+
+```json title="What the built contract stamps onto that fragment" verdict="pinned"
+{ "type": "array", "x-data-type": "messages" }
+```

@@ -1,0 +1,39 @@
+---
+rule: MAN-7
+rule_hash: 7667f6fade05
+---
+
+## What it means
+
+A default is published so a caller can know what happens without supplying
+the input, and that only works if the published value is exactly what the
+runtime would use. A scalar is always safe. A collection one level deep is
+safe too, as long as every member of it is itself null or a scalar — a flat
+list, or a flat map, both count. Anything deeper is dropped rather than
+half-published, because a caller reading a truncated nested default would be
+told the wrong thing with no way to notice.
+
+Dropping a default touches nothing else: every other key of that entry's
+contract fragment — its `type`, its `maxLength`, whatever else survived
+MAN-5's strip — is retained exactly as it was.
+
+## Example
+
+```json title="A scalar default" verdict="retained"
+{ "type": "string", "default": "abc" }
+```
+
+```json title="A one-level map whose members are scalar or null" verdict="retained"
+{ "default": { "a": 1, "b": null } }
+```
+
+```json title="A default nested one level too deep" verdict="dropped"
+{ "type": "array", "default": { "nested": { "too": "deep" } } }
+```
+
+The third default is gone from the published fragment, but its `type` key is
+not:
+
+```json title="What the third fragment publishes"
+{ "type": "array", "x-data-type": "array" }
+```

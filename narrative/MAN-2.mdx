@@ -1,0 +1,47 @@
+---
+rule: MAN-2
+rule_hash: 569f2efd7550
+---
+
+## What it means
+
+Three fields are the entry: `name` is what the caller calls the input, and
+`node_id` plus `port` are where it lands inside the workflow. Everything else
+an entry may carry — `title`, `description`, `examples`, `required` — is
+metadata for whoever calls the workflow, and it applies only to the input
+side; an entry that binds an output port carries none of it into the built
+contract.
+
+`required` is the field worth pausing on. It is not stored as a key on the
+property fragment itself; it is folded into the built schema's own top-level
+`required` list, the way JSON Schema expects required properties to be named
+(MAN-16). An entry can be required without that fact ever appearing next to
+its own `type` and `default`.
+
+## Example
+
+The workflow declares one input, bound to a port, with author-facing metadata
+attached.
+
+```json title="A manifest entry naming an input and describing it for callers"
+{
+  "name": "customer_email",
+  "node_id": "n1",
+  "port": "key",
+  "title": "Customer email",
+  "description": "Email to look up their support history.",
+  "examples": ["a@b.com", "c@d.com"]
+}
+```
+
+```json title="What that entry contributes to the published contract"
+{
+  "type": "string",
+  "title": "Customer email",
+  "description": "Email to look up their support history.",
+  "examples": ["a@b.com", "c@d.com"]
+}
+```
+
+`name`, `node_id` and `port` decided where this property comes from; `title`,
+`description` and `examples` only decorate it.

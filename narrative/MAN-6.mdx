@@ -1,0 +1,38 @@
+---
+rule: MAN-6
+rule_hash: 8ec9d610c37e
+---
+
+## What it means
+
+A port's own schema can carry a title or a description written by whoever
+built the node type — a general description of what the parameter is. The
+author writing a manifest entry can say something more specific to this
+workflow, and when they do, their words are what a caller sees, overlaid onto
+the fragment after MAN-5 has already reduced it. The overlay applies only to
+the input side.
+
+The exception is what makes it safe to overlay unconditionally: an empty
+value is dropped rather than overlaid, so an author field left blank does not
+erase the port's own words with nothing. Filling it in later is still
+possible precisely because leaving it blank did not already win.
+
+## Example
+
+The workflow declares one input, `name`, bound to a port whose node type
+has its own title for the same field.
+
+```http title="The author already wrote a title for this input" verdict="200 kept"
+GET /api/flowdrop/workflows/{workflow}/schema?annotated=1
+
+{"parameter_schema": {"properties": {"name": {"type": "string", "title": "Author Title"}}}}
+```
+
+```http title="The author left the same field blank" verdict="200 filled"
+GET /api/flowdrop/workflows/{workflow}/schema?annotated=1
+
+{"parameter_schema": {"properties": {"name": {"type": "string", "title": "Text value", "description": "A plain text field."}}}}
+```
+
+An authored title stands even when the bound port's own annotation disagrees;
+a blank one is filled from the port instead of publishing nothing.

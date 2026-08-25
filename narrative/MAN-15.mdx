@@ -1,0 +1,39 @@
+---
+rule: MAN-15
+rule_hash: c25c649d7bb5
+---
+
+## What it means
+
+A launch can be wrong in more than one way at once, and the three stages are
+ordered so a caller is never told about a problem fixing the first one would
+have made moot. A key that is not a declared input name is checked before
+whether a required input is missing, which is checked before the values
+themselves — and the check stops the moment a stage fails. A caller who both
+misspelled an input's name and left a required one out only hears about the
+misspelling: the missing-required message would be about a state the caller
+has not actually reached yet, since fixing the typo might supply it.
+
+Every message, at whichever stage it stops, ends the same way: it names the
+inputs the workflow accepts, or says it accepts none. And "required" has two
+sources, not one — a manifest entry can say so directly, or the input's name
+can simply appear in the published contract's top-level required list. Either
+is enough on its own, so a manifest written before that contract was last
+rebuilt is still enforced through the newer source.
+
+## Example
+
+The workflow declares one input, `message`, required.
+
+```json title="A misspelled key, sent alongside a missing required input" verdict="refused"
+{ "mesage": "typo" }
+```
+
+```json title="No unknown keys, but the required input never arrives" verdict="refused"
+{}
+```
+
+The first refusal reports only the unknown key and the inputs the workflow
+accepts; it says nothing about `message` being missing, even though it is.
+The second, sent once the typo is gone, is the first point at which the
+missing-required stage gets to speak.

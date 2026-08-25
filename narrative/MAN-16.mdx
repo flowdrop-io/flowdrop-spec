@@ -1,0 +1,49 @@
+---
+rule: MAN-16
+rule_hash: 68f7d1445afa
+---
+
+## What it means
+
+A published contract fragment says more than the boundary checks. Past the
+required list — enforced earlier, by the stage that checks presence — the
+value stage reads exactly two keys: `type` and `enum`. `minLength`,
+`maxLength`, `pattern`, `minimum`, nested `properties` and `items` are all
+published, all declared, and none of them is enforced here. A caller who
+violates every one of them at once still gets through this stage.
+
+A type meaning "any value" is not a stricter case of `type` — it waives the
+type check entirely, matching a collection, a scalar or null alike, while
+still honouring `enum` if one is published. Every structured type collapses
+to one check: is the value a collection at all. Nothing is coerced, and
+`enum` compares by identity, so a number and its string spelling are
+different values. An input with no contract fragment skips the value check
+outright, and violations across several inputs are aggregated into one
+refusal rather than answered one at a time.
+
+## Example
+
+The workflow declares three inputs against three fragments: `count` against
+`{"type": "integer"}`, `direction` against
+`{"type": "string", "enum": ["asc", "desc"]}`, and `variables` against no
+`type` at all.
+
+```json title="A string where the fragment declares an integer" verdict="refused"
+{ "count": "five" }
+```
+
+```json title="A value outside the fragment's enum" verdict="refused"
+{ "direction": "up" }
+```
+
+```json title="A structured value sent to a port with no declared type" verdict="accepted"
+{ "variables": { "live_state": "{\"a\":1}" } }
+```
+
+A fourth input, `code`, is published against
+`{"type": "string", "minLength": 8, "maxLength": 3, "pattern": "^\\d+$", "minimum": 5}`
+— a fragment no single value could satisfy. It still launches:
+
+```json title="A value violating every other declared constraint at once" verdict="accepted"
+{ "code": "abcdef" }
+```

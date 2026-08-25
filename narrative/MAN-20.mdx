@@ -1,0 +1,52 @@
+---
+rule: MAN-20
+rule_hash: 2b49027a809d
+---
+
+## What it means
+
+An `interface` entry can only ever name one binding. An entry naming two is
+refused outright, before anything else about it is even looked at — a shape
+failure, not a decision about whether the node or port it names exists. An
+entry naming none is not a failure at all: it is a client-side draft, quietly
+skipped, and never stored.
+
+That shape check happens before the workflow is validated, so it answers a
+different question than validation does. A binding whose node or port is
+made up entirely is not caught here — it is caught by the same check that
+would catch it on a directly-stored port list, and answered with a different
+status. The API's own refusals stop at the entry's shape; whether what it
+points to is real is somebody else's answer.
+
+## Example
+
+```http title="An entry naming the same binding twice" verdict="400 refused"
+POST /api/flowdrop/workflows
+
+{"name": "Over-bound", "nodes": [ … ], "interface": {"inputs": [
+  {"id": "numbers", "bindings": [
+    {"nodeId": "calc1", "portId": "values"},
+    {"nodeId": "calc1", "portId": "values"}
+  ]}
+]}}
+```
+
+```http title="An entry naming no binding, alongside one that does" verdict="201 stored"
+POST /api/flowdrop/workflows
+
+{"name": "Draft entry", "nodes": [ … ], "interface": {"inputs": [
+  {"id": "draft", "bindings": []},
+  {"id": "numbers", "bindings": [{"nodeId": "calc1", "portId": "values"}]}
+]}}
+```
+
+```http title="An entry whose binding names a node that does not exist" verdict="422 refused"
+PUT /api/flowdrop/workflows/{workflow}
+
+{"name": "Ghost", "interface": {"inputs": [
+  {"id": "numbers", "bindings": [{"nodeId": "ghost_node", "portId": "values"}]}
+]}}
+```
+
+The draft entry is not stored either, but silently: the response's
+`interface.inputs` names only `numbers`.

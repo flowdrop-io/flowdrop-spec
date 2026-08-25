@@ -1,0 +1,26 @@
+---
+rule: MAN-13
+rule_hash: 928c5b2e5277
+---
+
+## What it means
+
+Naming the offending key and the workflow in the refusal is the easy half of
+this rule. The half worth stating on its own is the second sentence: the
+value never reaches the resolved initial data, and that holds regardless of
+how the key was handled. An implementation is free to choose how loudly it
+objects to an unrecognised key — refuse the whole request outright, or merely
+log it and carry on — but "carry on" must never mean "and pass the value
+through anyway." A caller cannot smuggle an undeclared key past the check by
+relying on a tolerant mode to let the value slip in unremarked; tolerant only
+ever means the key is dropped more quietly, never that it is honoured.
+
+## Example
+
+```json title="A key that is not a declared input name" verdict="refused"
+{ "nmae": "typo" }
+```
+
+The refusal names both the offending key and the workflow it was refused by.
+Where an implementation instead only logs and continues, the resolved result
+for that same body is empty — the key contributes nothing either way.

@@ -1,0 +1,35 @@
+---
+rule: MAN-10
+rule_hash: 021ace947c74
+---
+
+## What it means
+
+The launch-input manifest names inputs; the graph names nodes. Nothing stops
+the two namespaces from colliding — an author can perfectly well have a
+declared input called `shadow` and, separately, a node whose id is also
+`shadow`. Resolution has to pick one meaning for a payload key sent under that
+name, and it is not the obvious "whichever happens to match the node" answer:
+the manifest is checked first, and if it has an entry for the key, that entry
+wins outright. The node-keyed reading (MAN-12) is only ever tried for a key
+the manifest does not declare.
+
+The consequence is what makes the rule worth stating: a value sent under the
+colliding name is delivered to wherever the *manifest entry* points, which
+may be a different node and port entirely from the one sharing its name.
+
+## Example
+
+The workflow declares one input, `shadow`, bound to node `target.1`'s
+`payload` port. A node in the graph happens to be named `shadow` too.
+
+```json title="A value sent under the declared name"
+{ "shadow": { "k": "v" } }
+```
+
+```json title="Where the launch delivers it"
+{ "target.1": { "payload": { "k": "v" } } }
+```
+
+The value lands on `target.1`, not on a node called `shadow` — the manifest
+entry decided the mapping before the node-keyed reading was ever tried.

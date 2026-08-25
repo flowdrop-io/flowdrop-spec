@@ -1,0 +1,32 @@
+---
+rule: MAN-12
+rule_hash: 7f89730a637c
+---
+
+## What it means
+
+The node-keyed shape — addressing a node identifier and port name directly —
+is how initial data is built once a value has already been resolved. It is a
+real, working shape: read it back and it comes out unchanged, because nothing
+about it needs the manifest to make sense. That is exactly why it has to be
+walled off: a shape that "just works" internally is also a shape a caller
+could send by hand, and if a launch door ever let it through, a caller who
+had learned a workflow's internal node ids could seed initial data the author
+never declared as an input at all. So every externally reachable launch door
+treats a node-keyed key as unknown — not as a second, quieter way in.
+
+## Example
+
+```json title="A node-keyed body arriving where declared input names are expected" verdict="refused"
+{ "chat_input.1": { "message": "injected" } }
+```
+
+```json title="The same shape read back where it belongs, unchanged"
+{ "other.1": { "port_a": 1 } }
+```
+
+The first is what a caller gets for reaching a launch door with a node id
+instead of a declared input name. The second is the identical shape, handled
+by the implementation's own resolution of already-trusted, node-keyed data — the same
+notation, admitted only on the side of the boundary that never sees an
+outside caller.

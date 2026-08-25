@@ -1,0 +1,28 @@
+---
+rule: CFG-10
+rule_hash: 71bf45f8793c
+---
+
+## What it means
+
+A resolved value is validated only when it is something. Null is not a value
+that happens to satisfy every constraint a schema names — it is exempted from
+the check altogether. A schema can demand an `enum`, a minimum length and a
+`format` all at once, and a resolved null still passes straight through:
+none of them run. Whether that null is acceptable in the first place is a
+different question: CFG-9 answers it, not this rule. A parameter this
+permissive can still fail the node for being required and missing, but never
+for a shape or format it never had.
+
+## Example
+
+```json title="A schema demanding an enum, a minimum length and a format"
+{ "type": "string", "enum": ["low", "high"], "minLength": 5, "format": "email" }
+```
+
+```json title="What resolving an explicit null against it returns" verdict="skipped"
+null
+```
+
+The enum, the length and the format all sit unused; only CFG-9's required
+check would still have a say over this null.

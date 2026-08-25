@@ -1,0 +1,39 @@
+---
+rule: CFG-18
+rule_hash: 010236aa6768
+---
+
+## What it means
+
+Carrying a default is not enough on its own for a parameter to publish a
+config default: it must also be configurable. A parameter that only accepts
+wired values can still carry a default for the runtime cascade to fall back
+on, but that default never appears in `configDefaults`, because that bag
+seeds an authoring surface for a parameter with no such surface at all. The
+two gates — configurable, and an effective default that is not null — are
+independent: failing either one, on its own, is enough to keep the entry out.
+
+## Example
+
+Two configurable parameters whose schema declares defaults of `schema_loses`
+and `schema_wins`: one overrides its schema default with a declared default of
+its own, the other relies on the schema's alone.
+
+```json title="Two configurable parameters, one overriding its schema default" verdict="declared"
+{ "entity_wins": { "configurable": true, "default": "entity_wins" }, "schema_only": { "configurable": true } }
+```
+
+```json title="What configDefaults publishes for both" verdict="published"
+{ "entity_wins": "entity_wins", "schema_only": "schema_wins" }
+```
+
+A parameter that is only connectable, never configurable, is left out even
+when it carries a default of its own:
+
+```json title="A connectable parameter with a default, but not configurable" verdict="declared"
+{ "wire_only": { "connectable": true, "default": "entity_default" } }
+```
+
+```json title="What configDefaults publishes" verdict="empty"
+[]
+```

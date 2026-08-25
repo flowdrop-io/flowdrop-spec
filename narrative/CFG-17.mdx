@@ -1,0 +1,35 @@
+---
+rule: CFG-17
+rule_hash: ed508cc229fe
+---
+
+## What it means
+
+Passing a value through the bundled `input` port and wiring it directly to a
+port are, for a hidden port, the same thing tried two ways — and both fail.
+The bundle's own filter only checks whether a key names a connectable
+parameter (CFG-16); it says nothing about exposure, so a hidden but
+connectable key survives the unpacking and lands in the runtime inputs under
+its own name. Priority 1 is then asked again, on that unpacked key, and this
+time the exposure gate is the one guarding it (CFG-4): a hidden port fails
+that gate regardless of how its value arrived. The parameter falls through to
+whatever priority 2 or later would have given it anyway, exactly as if the
+bundle had never carried the key at all.
+
+## Example
+
+A step's `hidden` parameter is connectable but not exposed by default, and
+also configurable, with a stored value of its own. A bundle delivered to the
+step's reserved `input` port carries a `hidden` entry:
+
+```json title="The value the bundle carries for hidden" verdict="unpacked"
+"must_be_dropped_at_regate"
+```
+
+```json title="What resolution assigns the hidden parameter" verdict="resolved"
+"config_wins_over_unified"
+```
+
+The bundled value is unpacked and then discarded at the same gate a direct
+wire would have hit; what the step actually receives is the value resolution
+falls through to instead.

@@ -1,0 +1,32 @@
+---
+rule: CFG-7
+rule_hash: 375a75d4eaad
+---
+
+## What it means
+
+An assumption a careless reader might carry over from ordinary code is that
+null means "nothing here" and so falls through to whatever comes next. This
+rule refuses that: presence is what counts, not the value behind it. A wire,
+the saved config, and the schema default are each checked the same way —
+does a key of the parameter's name exist at all — and an explicit null at a
+higher priority satisfies that check exactly as any other value would. A
+null delivered on a wire therefore beats the author's saved config outright,
+and a null saved in config beats the schema default, in both cases exactly
+as if a non-null value had arrived.
+
+## Example
+
+A node's output for the wired port is explicitly null:
+
+```json title="A node's output, explicitly null" verdict="produced"
+{"out": null}
+```
+
+```json title="What the wired input receives" verdict="delivered"
+{"data": null}
+```
+
+The key survives as a present, null entry rather than disappearing — which
+is what lets priority 1 claim it instead of falling through to the saved
+config.

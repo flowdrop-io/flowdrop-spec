@@ -1,0 +1,29 @@
+---
+rule: CFG-4
+rule_hash: fc661764ce12
+---
+
+## What it means
+
+Priority 1 does not just ask whether a value showed up on a wire; it asks
+whether the parameter was allowed to receive one. An internal parameter
+always qualifies; an ordinary one needs both gate flags open — connectable
+and exposed — before a wire or a launch value can reach it at all. Once the
+runtime carries a key of that name and the gate is open, that value wins even
+though the author's saved config also holds one for the same parameter: the
+config is never consulted once priority 1 succeeds. Presence, not truthiness,
+decides whether the key counts as supplied (CFG-7), so an explicit null on
+the wire wins here too. Where the test fails — no key, or the gate closed —
+resolution falls through to CFG-5.
+
+## Example
+
+A node's `value` parameter is connectable and exposed. The workflow's own
+saved config holds `from-config` for it, and a wire also delivers a value
+when the node runs:
+
+```json title="The value delivered on the wire" verdict="resolved"
+{"value": "from-runtime"}
+```
+
+The saved `from-config` value is never read: priority 1 already supplied one.

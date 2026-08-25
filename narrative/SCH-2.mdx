@@ -1,0 +1,30 @@
+---
+rule: SCH-2
+rule_hash: 468c12b65192
+---
+
+## What it means
+
+A parameter's plugin schema may itself carry `connectable`, `configurable` or
+`required` — but nothing reads them. The gate is decided once, from the node
+type's own parameter configuration, and a plugin's claim about itself buys the
+parameter nothing: undeclared there, it reaches neither derived schema and
+neither `required` list, whatever the plugin schema says.
+
+That silence is not the same as scrubbing. The same keys, once written on a
+property the node type *does* surface, are not stripped from what is served:
+they survive verbatim, inert decoration a consumer has no reason to read.
+
+## Example
+
+A property whose plugin schema already declares itself connectable and
+required, on a node type that only ever marks it configurable:
+
+```json title="A property declaring its own connectable and required flags" verdict="ignored"
+{ "surfaced": { "type": "string", "connectable": true, "configurable": true, "required": true } }
+```
+
+The property lands in the config schema only, and in neither `required` list
+— the node type's own `configurable` decides that, not the `connectable: true`
+or `required: true` sitting beside it in the declared schema. Both flags are
+carried through into the served entry anyway, present but unread.

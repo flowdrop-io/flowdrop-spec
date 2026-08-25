@@ -1,0 +1,34 @@
+---
+rule: SCH-41
+rule_hash: 60bc137a3e96
+---
+
+## What it means
+
+A lane a port may declare is decided by asking the served configuration —
+the shipped lanes, the shapes any component or the site has added, and the
+site's own overlay — never by asking the shipped set on its own. A site that
+adds a lane through its overlay, colours it and writes compatibility rules
+for it gets a lane a port can actually declare; a name that fits none of the
+three sources is refused outright, even where it is otherwise well formed,
+because such a lane could not be compatible with anything else on the canvas,
+not even with another port of its own kind.
+
+## Example
+
+A site declares one extra lane, `order`, in the served vocabulary.
+
+```json title="The lanes a site's overlay adds to the vocabulary" verdict="declared"
+["order"]
+```
+
+```json title="The lane assigned to a port declaring order" verdict="honoured"
+"order"
+```
+
+```json title="The lane assigned to a port declaring a lane the payload never serves" verdict="reverted"
+"json"
+```
+
+The undeclared name falls back to whatever the underlying schema type
+implies, the same outcome as if the port had declared nothing at all.

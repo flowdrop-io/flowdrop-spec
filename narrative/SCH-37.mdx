@@ -1,0 +1,26 @@
+---
+rule: SCH-37
+rule_hash: e97453c9f06e
+---
+
+## What it means
+
+Writing a control lane's own name into `type` does not declare that kind of
+port. `trigger` and `tool` are lanes, not JSON Schema words, so a property
+that spells one there is judged by the same derivation as any other
+unrecognised word: it falls to the data sink, `mixed`, not to the control
+lane the author meant. The lane still exists — it is simply reached through
+`x-data-type`, never through `type`.
+
+## Example
+
+```json title="The lane name trigger, written as a type word" verdict="sink"
+"trigger"
+```
+
+```json title="The lane name tool, written as a type word" verdict="sink"
+"tool"
+```
+
+Neither spelling produces the control port it names; both produce an
+ordinary, unconstrained data port.

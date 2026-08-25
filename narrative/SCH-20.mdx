@@ -1,0 +1,32 @@
+---
+rule: SCH-20
+rule_hash: 52b864bfa1d9
+---
+
+## What it means
+
+Nothing about a declared schema can change a node's visual type, and the
+`nodeType` selector is not injected the way the other reserved config
+properties are: SCH-21's reserved properties each back off when the schema
+already declares a property of that name, but this one does not. A node type
+whose own schema declares its own `nodeType` property loses it, silently,
+to the injected selector.
+
+## Example
+
+A node type declares two supported visual types, `default` and `gateway`,
+with `default` as its own.
+
+```json title="The enum of the injected nodeType property" verdict="written"
+["default", "gateway"]
+```
+
+Its `default` is `default`, and the same value is written as the node's own
+stored config under that same key, never under a separate `type` key.
+
+```json title="The title of the nodeType property on a node type whose processor declares its own" verdict="overwritten"
+"Visual Type"
+```
+
+The declared property's own title does not survive; the enum and default are
+the injected ones.

@@ -1,0 +1,42 @@
+---
+rule: SCH-46
+rule_hash: b5e8f9e1a6d4
+---
+
+## What it means
+
+A shape's schema travels once, on the lane entry itself, whichever lane
+carries it and however the shape was declared — a shape the site wrote and
+one shipped in code both reach the client by the same route. A lane with no
+shape omits the key entirely rather than serving an empty schema, so a
+reader can tell "this lane promises nothing" from "this lane promises an
+object with no properties" without inspecting the fields it does not have.
+The schema slot on an individual port stays free for something no lane-level
+copy could hold: a narrower schema observed from one run of one node, which
+is authoring information for that instance alone and must never be treated
+as something enforcement checks.
+
+## Example
+
+A site declares a shape for the lane `order`.
+
+```json title="The site's shape for the order lane" verdict="stored"
+{
+  "id": "order",
+  "label": "Customer Order",
+  "enabled": true,
+  "schema": { "type": "object", "properties": { "id": { "type": "string" }, "total": { "type": "number" } } }
+}
+```
+
+```json title="The properties served on the order lane entry" verdict="served"
+["id", "total"]
+```
+
+```json title="The properties served on the error lane entry, shipped in code" verdict="served"
+["message", "code", "node_id", "retryable"]
+```
+
+A shape the site declares and one shipped in code arrive on the served lane
+list by the identical path; neither is stamped onto the ports that declare
+the lane.

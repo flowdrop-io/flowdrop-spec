@@ -1,0 +1,43 @@
+---
+rule: SCH-10.a
+rule_hash: c7f55f575dc5
+---
+
+## What it means
+
+A site's stored lane configuration is read as a set of edits on top of the
+shipped vocabulary, never as the whole vocabulary. A lane the site never
+mentions is not missing from what gets served — it is carried over from the
+shipped defaults exactly as if the site had retyped it. The only exception is
+ordering: unmentioned shipped lanes are appended after the stored ones, so a
+site's own ordering choices still show first.
+
+This matters most for a lane that did not exist yet when the site saved its
+configuration. Because there is no negative form — a site cannot suppress a
+shipped lane or a shipped compatibility rule by leaving it out — a lane
+shipped later still reaches every site that customised its lanes earlier,
+with the compatibility rules it needs to be wireable at all.
+
+## Example
+
+A site recoloured `string` and added a lane of its own, before a `messages`
+lane existed in the shipped vocabulary:
+
+```json title="A site's stored lane configuration" verdict="stored"
+{
+  "version": "0.9.0",
+  "dataTypes": [
+    { "id": "string", "name": "Text", "description": "Recoloured by the site.", "color": "rebeccapurple", "category": "basic", "enabled": true },
+    { "id": "site_custom", "name": "Site Custom", "description": "A type only this site declares.", "color": "var(--fd-node-slate)", "category": "basic", "enabled": true }
+  ],
+  "compatibilityRules": [
+    { "from": "site_custom", "to": "string" }
+  ]
+}
+```
+
+Serving this recolours `string` and keeps `site_custom` and its rule, exactly
+as stored. It also still serves `messages` — a lane the stored value never
+mentions — with the one-way compatibility rules that make it wireable into
+`array` and `json` ports, because those come from the shipped defaults the
+overlay leaves untouched.

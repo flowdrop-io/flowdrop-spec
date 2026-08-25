@@ -1,0 +1,29 @@
+---
+rule: SCH-6
+rule_hash: 26157de25510
+---
+
+## What it means
+
+Each derived `required` list waives itself in favour of the other side, not
+in favour of the flag being true. A required parameter that is both
+connectable and configurable is required in **neither** list: the input side
+waives because the config form could supply it, and the config side waives
+because a wire could — each treats the other as covering it, so `required`
+ends up enforced nowhere. Turning off one of the two gates is what makes the
+requirement bite, on whichever side is left.
+
+## Example
+
+A required parameter `value` that the node type marks connectable only:
+
+```json title="The input schema's required list" verdict="required"
+["value"]
+```
+
+```json title="The config schema's required list" verdict="waived"
+[]
+```
+
+Mark the same parameter connectable and configurable, and both lists come
+back empty: each path waives the other.

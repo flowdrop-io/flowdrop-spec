@@ -1,0 +1,42 @@
+---
+rule: SCH-27
+rule_hash: 8db0039394ab
+---
+
+## What it means
+
+Only the literal value `null`, `false`, or `0` counts as "the default", not
+anything a caller might read as falsy. A default value of `false`, an empty
+string or an empty list is still a default the author set, and it is
+emitted; a display order of a negative number diverges from `0` just as much
+as a positive one does, and is emitted too. A client that treats "absent" as
+loosely as "falsy" reintroduces exactly the ambiguity the divergence rule
+was meant to remove.
+
+## Example
+
+A port with none of the three set at all serialises to nothing but the six
+core keys:
+
+```json title="A port with no default, own exposure, or explicit order" verdict="omitted"
+{
+  "id": "plain",
+  "name": "Plain",
+  "type": "input",
+  "dataType": "string",
+  "required": false,
+  "description": ""
+}
+```
+
+A port whose default is the literal value `false` still carries the key:
+
+```json title="The defaultValue emitted when the default is literally false" verdict="kept"
+false
+```
+
+And a negative display order is emitted the same as a positive one:
+
+```json title="The displayOrder emitted when the order is -5" verdict="kept"
+-5
+```

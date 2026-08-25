@@ -1,0 +1,39 @@
+---
+rule: SCH-31
+rule_hash: 1c82b5b494b9
+---
+
+## What it means
+
+The retired spelling is not a synonym that still works as a fallback: a
+schema that writes only the earlier name orders exactly as if it had written
+nothing at all, keeping declaration order rather than the order the retired
+key would have produced.
+
+## Example
+
+Two grouped properties, `first` weighted ahead of `second`:
+
+```json title="Two grouped properties, first weighted 20 and second weighted 10" verdict="declared"
+{
+  "first": { "type": "string", "x-group": "general", "x-config-order": 20 },
+  "second": { "type": "string", "x-group": "general", "x-config-order": 10 }
+}
+```
+
+```json title="What the generated layout orders them into" verdict="reordered"
+["#/properties/second", "#/properties/first"]
+```
+
+The same two weights, spelled with the retired key instead, do not reorder:
+
+```json title="The same weights spelled with the retired x-display-order" verdict="declared"
+{
+  "first": { "type": "string", "x-group": "general", "x-display-order": 20 },
+  "second": { "type": "string", "x-group": "general", "x-display-order": 10 }
+}
+```
+
+```json title="What the generated layout orders them into with the retired key" verdict="unchanged"
+["#/properties/first", "#/properties/second"]
+```

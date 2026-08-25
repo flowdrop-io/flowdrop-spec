@@ -1,0 +1,28 @@
+---
+rule: SCH-29
+rule_hash: 01544b7492f8
+---
+
+## What it means
+
+Enrichment at save time (SCH-25) is not enough on its own: a workflow that
+was correctly enriched when it was last saved is re-enriched again from
+scratch every time it runs, whatever it already carries. There is no
+"already correct, skip it" shortcut — stored metadata is read for the
+anchor alone, and everything else about the node type is fetched fresh at
+run time.
+
+## Example
+
+A node's stored metadata carries a description that no longer matches the
+node type it names.
+
+```json title="The description in the node's stored metadata" verdict="stale"
+"Stale description"
+```
+
+```json title="The description the compiled node carries into the run" verdict="resolved"
+"Fresh description"
+```
+
+The run uses the second value; the first never reaches execution.

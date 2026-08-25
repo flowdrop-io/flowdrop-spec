@@ -1,0 +1,23 @@
+---
+rule: SCH-32
+rule_hash: ce1d8b259841
+---
+
+## What it means
+
+The injected port ships hidden by default, so declaring re-entry legal on
+every eligible node type does not put a re-entry handle on every canvas —
+an author still has to expose it per instance before a wire can land there.
+Where a node type already declares its own `loop_back`, the injection does
+not run at all: the declared port is kept as-is, not merged with or replaced
+by the injected one.
+
+## Example
+
+```json title="exposedByDefault of the loop_back input injected on an ordinary node type" verdict="hidden"
+false
+```
+
+```json title="The name of the only loop_back input on a node type that declares its own" verdict="kept"
+"Custom Loop Back"
+```

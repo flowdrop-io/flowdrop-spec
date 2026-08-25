@@ -1,0 +1,29 @@
+---
+rule: SCH-11
+rule_hash: 1c25314aaf6c
+---
+
+## What it means
+
+Display order 100 belongs to the *injected* port, not to trigger inputs in
+general. A node type that already declares a `trigger` input keeps that port
+as its own — its own name, its own order — and no second one is added
+beside it. A start node type gets no trigger input at all, injected or
+otherwise: nothing precedes it that could fire one.
+
+## Example
+
+```json title="The displayOrder of the injected trigger input on an ordinary node type" verdict="injected"
+100
+```
+
+```json title="The trigger input ports of a start node type" verdict="none"
+[]
+```
+
+```json title="The name of the only trigger input on a node type that declares its own" verdict="kept"
+"Custom Trigger"
+```
+
+The declared port carries no `displayOrder` key at all — it keeps its own
+order rather than being moved to 100.

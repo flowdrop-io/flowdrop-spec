@@ -1,0 +1,33 @@
+---
+rule: SCH-33
+rule_hash: 66f50866cd71
+---
+
+## What it means
+
+A node type's declared parameter schema failing to load and a node type
+genuinely declaring no parameters produce the same shape — an empty or
+missing map — so the two must not be read as interchangeable. Only where
+stored configuration would actually be lost does the save refuse; the two
+failure shapes, a schema that raises an error and one that loads but without
+a usable map, are treated identically, both refusing the save rather than
+writing the accidentally empty result back.
+
+## Example
+
+A node type's stored parameters, edited again after its schema starts
+raising an error on load:
+
+```json title="The node type's stored parameters" verdict="preserved"
+{
+  "loop_back": { "configurable": false, "connectable": true, "required": false, "exposed_by_default": true },
+  "query": { "configurable": true, "connectable": true, "required": true, "exposed_by_default": true, "default": "cats" }
+}
+```
+
+The same stored parameters survive just as untouched when the schema loads
+without raising, but comes back with no usable properties map:
+
+```json title="The same stored parameters when the schema loads without a usable properties map" verdict="preserved"
+{ "loop_back": { "configurable": false, "connectable": true, "required": false, "exposed_by_default": true } }
+```

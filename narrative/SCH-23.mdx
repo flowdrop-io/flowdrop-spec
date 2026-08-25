@@ -1,0 +1,41 @@
+---
+rule: SCH-23
+rule_hash: e309fda0c3d6
+---
+
+## What it means
+
+A group name the site does not recognise does not get its own section — it
+falls into the same default bucket as an untagged property. When that is the
+only tagged property a schema has, the form has nothing grouped at all, and
+the whole ui schema comes back null rather than a group of one.
+
+The per-instance open state is not "this field has a value" — it is "this
+field differs from its own default." A field explicitly set to the value the
+schema already defaults it to does not open its group.
+
+## Example
+
+A config schema property is tagged with a group name the site does not
+register.
+
+```json title="A property tagged with an unregistered group"
+{ "a": { "type": "string", "x-group": "not-a-real-group" } }
+```
+
+```json title="The resulting form schema" verdict="flat"
+null
+```
+
+Separately, an executable node's `maxRetries` field defaults to 0.
+
+```json title="The Execution group when maxRetries is set to 0" verdict="collapsed"
+false
+```
+
+```json title="The Execution group when maxRetries is set to 3" verdict="opened"
+true
+```
+
+An empty string or a missing value behave the same as the default: neither
+opens its group.

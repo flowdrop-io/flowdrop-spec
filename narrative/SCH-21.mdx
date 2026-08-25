@@ -1,0 +1,26 @@
+---
+rule: SCH-21
+rule_hash: 1811ee42dd05
+---
+
+## What it means
+
+The skip is per property, not all-or-nothing. A node type that declares its
+own `instanceTitle` keeps that declaration untouched, but still gets
+`instanceDescription`, `maxRetries` and `ports` injected alongside it — the
+declaration does not opt the node out of the other three.
+
+## Example
+
+A node type declares its own `instanceTitle`, with a custom title and group,
+and its own `maxRetries`, with a custom title and default of 5.
+
+```json title="What the config schema carries after injection" verdict="kept"
+{
+  "instanceTitle": { "type": "string", "title": "Custom Title", "x-group": "execution" },
+  "maxRetries": { "type": "integer", "title": "Custom Retries", "default": 5 }
+}
+```
+
+Both declared properties come through unchanged, and `instanceDescription`
+and `ports` are injected beside them all the same.

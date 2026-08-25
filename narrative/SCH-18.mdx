@@ -1,0 +1,24 @@
+---
+rule: SCH-18
+rule_hash: c3a5c4187dab
+---
+
+## What it means
+
+The unified output port's description works the other way from an ordinary
+export: an output that nobody has marked hidden is exposed by default, so it
+enumerates unless a node type or instance actively hides it. The unified port
+does not repeat whatever exposure logic governs the ordinary port list — it
+simply reads the same exposed/hidden verdict for each key.
+
+## Example
+
+A node type's output includes `visible_out`, left unconfigured, and
+`hidden_out`, explicitly hidden.
+
+```json title="The unified output port's description" verdict="listed"
+"All outputs as JSON object. Available keys: visible_out"
+```
+
+`visible_out` enumerates because it fails open to exposed; `hidden_out` does
+not, because it was hidden explicitly.

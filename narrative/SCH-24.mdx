@@ -1,0 +1,37 @@
+---
+rule: SCH-24
+rule_hash: 4cfd29d900ed
+---
+
+## What it means
+
+A node type that cannot be built does not take the whole response down with
+it: the caller still gets an answer, and the one node whose type failed
+comes back exactly as it was stored, carrying none of the metadata a
+successful build would have added — not even an empty one. This holds only
+for failures the node type's own declaration or stored data is responsible
+for. A failure inside an implementation's own extension code that breaks the
+contract it was written against is a different case the specification does
+not describe, because describing conforming behaviour is not the same as
+guaranteeing something useful once the implementation itself is broken.
+
+## Example
+
+```json title="A stored node whose node type cannot be built" verdict="stored"
+{
+  "id": "n1",
+  "type": "legacyType",
+  "position": { "x": 1, "y": 2 },
+  "data": {
+    "metadata": { "node_type_id": "broken" },
+    "config": { "instanceTitle": "Kept" }
+  }
+}
+```
+
+```json title="The metadata field the response carries for that node" verdict="unchanged"
+{ "node_type_id": "broken" }
+```
+
+Nothing else about the request fails: the node keeps the metadata it already
+had, and the failure is recorded separately for an operator to find.

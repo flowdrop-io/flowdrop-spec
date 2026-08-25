@@ -1,0 +1,24 @@
+---
+rule: SCH-25
+rule_hash: 55f4cf72475c
+---
+
+## What it means
+
+The anchor is `data.metadata.node_type_id`, and only that field. A node
+whose top-level visual `type` happens to name a real, buildable node type is
+still returned untouched if that metadata anchor is missing — enrichment
+never falls back to any other field to work out which node type a node
+belongs to.
+
+## Example
+
+A node carries `anchor_probe` as its own visual type, and a node type by
+that name exists, but the node declares no metadata anchor at all.
+
+```json title="A node whose type names a real node type but carries no anchor" verdict="unchanged"
+{ "id": "n2", "type": "anchor_probe", "data": { "config": [] } }
+```
+
+Enrichment leaves it exactly as stored: no metadata block is added, and the
+visual `type` is not rewritten to the universal node constant either.

@@ -1,0 +1,31 @@
+---
+rule: SCH-42
+rule_hash: f3327c556bce
+---
+
+## What it means
+
+A shape is a schema with one job: giving a lane a name. It shares the lane's
+own id space rather than adding a second vocabulary a reader would have to
+line up against lanes by hand, and it never checks a value — nothing in the
+system validates a value against a shape's schema; a shape only labels the
+port that carries one. It is declared in one of two places, and the
+difference is ownership: a shape belonging to a component ships and updates
+with the ports that wear it, needs nothing installed alongside it, and may
+compute its own schema, so one declaration can mint a whole family of lanes;
+a shape belonging to the site is declared in the site's own configuration and
+travels with it instead.
+
+## Example
+
+```json title="The fields the error shape declares" verdict="declared"
+["message", "code", "node_id", "retryable"]
+```
+
+```json title="The fields a message-list entry must declare" verdict="required"
+["role"]
+```
+
+Both are declared in code, on the two lanes the implementation ships with an
+internal structure of their own; a lane that is already a bare JSON type
+carries no shape at all.

@@ -1,0 +1,35 @@
+---
+rule: SCH-19
+rule_hash: e98bab849e9d
+---
+
+## What it means
+
+Marking a parameter connectable does not put it in a unified port's
+description if that parameter is also `trigger` or hidden. The two gates are
+independent, and hidden wins: a node type can flag `trigger` and a hidden
+parameter connectable and the unified description still leaves them out,
+because a hidden port does not exist on the instance at all.
+
+## Example
+
+A processor declares five parameters — `trigger`, two marked hidden
+(`secret`, `ghost`), and two ordinary ones (`topic`, `mode`) — and the node
+type marks every one but `mode` connectable.
+
+```json title="The declared parameters, two marked hidden"
+{
+  "trigger": { "x-data-type": "trigger" },
+  "secret": { "type": "string", "format": "hidden" },
+  "ghost": { "type": "string", "hidden": true },
+  "topic": { "type": "string" },
+  "mode": { "type": "string" }
+}
+```
+
+```json title="The connectable keys enumerated for the unified input port" verdict="enumerated"
+["topic"]
+```
+
+`trigger`, `secret` and `ghost` were all marked connectable; none of them
+enumerate.

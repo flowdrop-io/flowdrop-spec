@@ -1,0 +1,33 @@
+---
+rule: SCH-35
+rule_hash: 07cc35525cc9
+---
+
+## What it means
+
+An undeclared or unrecognised property does not default to `string`. It lands
+on the sink lane, `mixed`, and a caller may then supply any JSON value there —
+an array or a `null` included. This matters because `string` is the more
+familiar default in most typing systems, and a reader carrying that
+assumption over would expect an unconstrained port to still refuse a
+structured value.
+
+`null` gets the same answer as an unrecognised word, even though it is one of
+JSON Schema's own seven type words: a property that only ever holds `null`
+constrains nothing worth colouring, so it resolves to the sink rather than to
+a lane of its own.
+
+## Example
+
+Two declared `type` words handed to the derivation — one nothing recognises,
+one JSON Schema's own `null`:
+
+```json title="A type word nothing declares" verdict="sink"
+"no_such_type"
+```
+
+```json title="The type word null" verdict="sink"
+"null"
+```
+
+Either way the lane derived is `mixed`, never `string`.

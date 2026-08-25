@@ -1,0 +1,49 @@
+---
+rule: SCH-44
+rule_hash: 08d9c4aaed6e
+---
+
+## What it means
+
+Where a site and a component both declare the same lane id, precedence
+resolves in one place rather than by load order: the site's own declaration
+wins over one declared in code, and either wins over an entry the
+implementation ships built in. The win is total, not merged field by field —
+a site that names a lane a component already declared replaces its schema
+and its compatibility rules in one move, carrying nothing forward from the
+earlier declaration, because a partial redefinition would leave a reader
+unable to tell which fields survived. Four lane ids are excluded from this
+entirely: naming one of them is not an error, it is simply ignored, because
+every generated compatibility rule already depends on those four staying
+exactly what they are.
+
+## Example
+
+A component already declares the lane `order_probe` with two required fields
+and a rule widening it into another lane; the site then declares its own
+shape for the same id.
+
+```json title="The site's declaration for the order_probe lane" verdict="stored"
+{
+  "id": "order_probe",
+  "label": "Purchase Order",
+  "description": "The site knows better what an order is.",
+  "color": "rebeccapurple",
+  "category": "complex",
+  "enabled": true,
+  "schema": { "type": "object", "properties": { "po_number": { "type": "string" } } },
+  "compatibility": []
+}
+```
+
+```json title="The properties order_probe declares afterwards" verdict="replaced"
+["po_number"]
+```
+
+```json title="The compatibility rules order_probe declares afterwards" verdict="replaced"
+[]
+```
+
+Neither the earlier declaration's two fields nor its widening rule survive:
+the site's shape did not restate them, and a whole replacement does not
+carry forward what it left unsaid.

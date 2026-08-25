@@ -1,0 +1,29 @@
+---
+rule: SCH-5
+rule_hash: e838b43d77e3
+---
+
+## What it means
+
+`dynamicInputs`, `dynamicOutputs` and `branches` behave like any other
+configurable parameter for one purpose only: entering the config schema when
+the node type opts them in. Their config-defaults entry does not follow the
+ordinary rule. An ordinary configurable parameter with no default anywhere is
+left out of config defaults entirely; one of these three is never left out and
+never recorded as null — with nothing to fall back on, the entry is still
+written, as an empty array.
+
+## Example
+
+A reserved parameter with no default declared on the plugin schema or the node
+type:
+
+```json title="A reserved parameter with no default anywhere" verdict="opted in"
+{ "branches": { "type": "array", "title": "Branches" } }
+```
+
+```json title="The config-defaults entry for branches" verdict="written"
+[]
+```
+
+An ordinary parameter in the same position would have no entry at all.

@@ -1,0 +1,27 @@
+---
+rule: SCH-17
+rule_hash: fb28321aeb49
+---
+
+## What it means
+
+The unified input port's description is not a list of every input the node
+declares — it lists only the keys reachable through it. A parameter can be
+declared and even shown in the config form without ever appearing there: what
+qualifies is the connectable gate flag alone, nothing else about how the
+parameter is otherwise exposed.
+
+## Example
+
+A node type declares two input parameters, `visible_in` and `hidden_in`, and
+marks only `visible_in` connectable.
+
+```json title="The unified input port's description" verdict="listed"
+"All inputs as JSON object. Available keys: visible_in"
+```
+
+```json title="The description when nothing is connectable" verdict="empty"
+"All inputs as JSON object. No connectable parameters available"
+```
+
+`hidden_in` never enumerates, whether or not it appears in the config form.

@@ -11,8 +11,12 @@ normative: >-
   again when the parameter is resolved, and an operator that reaches execution
   outside the set fails the node. A pattern that cannot be compiled fails the node
   when it runs. Where the comparison is case-insensitive it is performed
-  case-insensitively; the pattern itself is never rewritten, so a regular
-  expression keeps its case-sensitive character classes.
+  case-insensitively. For `regex` the pattern text is never rewritten: case
+  insensitivity is applied as the regular-expression engine's own case-insensitive
+  mode, so every escape the author wrote keeps the meaning they gave it and a
+  pattern written to match non-digits does not come to match digits. A character
+  class in the pattern folds along with the rest of the comparison, because that
+  is the case-insensitive comparison the author asked for.
 
 posture: normative-target
 level: core

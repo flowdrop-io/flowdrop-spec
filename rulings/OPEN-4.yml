@@ -1,0 +1,11 @@
+id: OPEN-4
+headline: Duplicate node ids are refused, never silently collapsed.
+question: >-
+  A workflow carrying the same node id twice was accepted, and the later node
+  silently replaced the earlier one.
+decision: >-
+  A workflow that names one node id twice is refused when it is saved. Last-wins
+  collapse discards a node the author wrote, without saying so, and leaves a stored
+  workflow that no longer matches what was submitted.
+affects:
+  - R2

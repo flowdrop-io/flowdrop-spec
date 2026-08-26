@@ -1,3 +1,4 @@
+import { allRulings, urlForRuling } from './rulings';
 import { allFamilies, allRules, FAMILY_LABEL, type LoadedRule } from './rules';
 import { clauses } from './clauses';
 import { SPEC_ORIGIN, SPEC_VERSION } from '@/app/layout.config';
@@ -96,7 +97,11 @@ export function ruleToMarkdown(rule: LoadedRule, { standalone = true } = {}): st
   }
 
   if (rule.rulings?.length) {
-    out.push(`${h}# Why`, '', `Recorded under ${rule.rulings.join(', ')}.`, '');
+    const cited = rule.rulings.map((id) => {
+      const url = urlForRuling(id);
+      return url ? `[${id}](${absolute(url)})` : id;
+    });
+    out.push(`${h}# Why`, '', `Recorded under ${cited.join(', ')}.`, '');
   }
 
   const norm = rule.references?.normative ?? [];
@@ -162,6 +167,21 @@ export function llmsTxt(): string {
     '',
   ];
 
+  const rulings = allRulings();
+  if (rulings.length) {
+    out.push(`## Rulings`, '');
+    out.push(
+      `A change to what implementations must do is recorded as a ruling: what was decided,`,
+      `and why. Rules reference the ruling behind them. A ruling is history and is never`,
+      `rewritten; where one turns out to be wrong, a later ruling supersedes it and says so.`,
+      '',
+    );
+    for (const r of rulings) {
+      out.push(`- [${r.id}: ${r.headline}](${absolute(r.url)})`);
+    }
+    out.push('');
+  }
+
   for (const family of allFamilies()) {
     out.push(`## ${family.name} — ${FAMILY_LABEL(family.name)} (Part ${family.part})`, '');
     for (const rule of family.rules) {
@@ -198,6 +218,28 @@ export function llmsFullTxt(): string {
   for (const family of allFamilies()) {
     out.push('---', '', `# ${family.name} — ${FAMILY_LABEL(family.name)} (Part ${family.part})`, '');
     for (const rule of family.rules) out.push(ruleToMarkdown(rule, { standalone: false }), '');
+  }
+
+  // The reasoning record travels with the rules. A reader given the corpus without
+  // it can see what is required and not one word of why.
+  const rulings = allRulings();
+  if (rulings.length) {
+    out.push('---', '', '# Rulings', '');
+    out.push(
+      'A change to what implementations must do is recorded as a ruling: what was decided,',
+      'and why. A ruling is history and is never rewritten; where one turns out to be wrong,',
+      'a later ruling supersedes it and says so.',
+      '',
+    );
+    for (const r of rulings) {
+      out.push(`## ${r.id} — ${r.headline}`, '');
+      if (r.decided) out.push(`*Decided ${r.decided}.*`, '');
+      if (r.supersededBy) out.push(`*Superseded by ${r.supersededBy}.*`, '');
+      if (r.question) out.push(`**What was open.** ${r.question.trim()}`, '');
+      out.push(r.decision.trim(), '');
+      if (r.supersedes) out.push(`Supersedes ${r.supersedes}.`, '');
+      out.push(`Rules affected: ${r.affects.join(', ')}.`, '');
+    }
   }
 
   return out.join('\n');

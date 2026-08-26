@@ -10,7 +10,9 @@
  *   4. Identifiers agree with REGISTRY.lock: none vanished, none renumbered,
  *      none added without being recorded, and none reserved yet used.
  *   5. `related` points at rules that exist.
- *   6. Narrative prose has not drifted from the rule text it explains.
+ *   6. Every cited ruling exists, and every ruling's `affects` list agrees with
+ *      the rules that cite it, in both directions.
+ *   7. Narrative prose has not drifted from the rule text it explains.
  */
 import { readFileSync, writeFileSync, readdirSync, existsSync } from 'node:fs';
 import { createHash } from 'node:crypto';
@@ -22,6 +24,7 @@ import addFormats from 'ajv-formats';
 
 const root = join(dirname(fileURLToPath(import.meta.url)), '..');
 const rulesDir = join(root, 'rules');
+const rulingsDir = join(root, 'rulings');
 const narrativeDir = join(root, 'narrative');
 const updateHashes = process.argv.includes('--update-hashes');
 
@@ -125,6 +128,111 @@ for (const [id, doc] of rules) {
   }
 }
 
+/* ── 3b. rulings ──────────────────────────────────────────────────────── */
+
+/*
+ * conventions.md and GOVERNANCE.md both promise that a ruling is carried in the
+ * specification itself and referenced from the rules it affects. Nothing checked
+ * that, and for a while it was false: 16 rulings were cited and none existed here,
+ * so every citation rendered as a bare marker and two contributors wrote `## Why`
+ * prose paraphrasing a ruling they could not read. These checks are what make the
+ * promise enforceable rather than aspirational.
+ */
+
+const rulings = new Map();
+if (!existsSync(rulingsDir)) {
+  fail('rulings/', 'directory is missing; rulings are carried in the specification itself');
+} else {
+  for (const file of readdirSync(rulingsDir).filter((f) => f.endsWith('.yml'))) {
+    let doc;
+    try {
+      doc = parseYaml(readFileSync(join(rulingsDir, file), 'utf8'));
+    } catch (err) {
+      fail(`rulings/${file}`, `does not parse: ${err.message}`);
+      continue;
+    }
+    if (!doc?.id) {
+      fail(`rulings/${file}`, 'has no id');
+      continue;
+    }
+    if (file !== `${doc.id}.yml`) fail(`rulings/${file}`, `filename should be ${doc.id}.yml`);
+    if (rulings.has(doc.id)) fail(`rulings/${file}`, `duplicate id ${doc.id}`);
+    rulings.set(doc.id, doc);
+  }
+
+  const validateRuling = ajv.compile(
+    JSON.parse(readFileSync(join(rulingsDir, 'schema.json'), 'utf8')),
+  );
+  for (const [id, doc] of rulings) {
+    if (!validateRuling(doc)) {
+      for (const e of validateRuling.errors) {
+        fail(`rulings/${id}.yml`, `${e.instancePath || '/'} ${e.message}`);
+      }
+    }
+  }
+
+  // The lockfile carries the same permanence guarantee as REGISTRY.lock. A
+  // reserved identifier is one another document already issued: blocked here, so
+  // the two corpora can never disagree about what OPEN-11 means.
+  const rlockPath = join(rulingsDir, 'RULINGS.lock');
+  const rlock = new Map();
+  for (const line of readFileSync(rlockPath, 'utf8').split('\n')) {
+    const t = line.trim();
+    if (!t || t.startsWith('#')) continue;
+    const [id, ...flags] = t.split(/\s+/);
+    rlock.set(id, { reserved: flags.includes('reserved') });
+  }
+  for (const [id, entry] of rlock) {
+    if (entry.reserved) {
+      if (rulings.has(id)) {
+        fail(`rulings/${id}.yml`, `${id} is reserved in RULINGS.lock and must not have a ruling file`);
+      }
+      continue;
+    }
+    if (!rulings.has(id)) {
+      fail('rulings/RULINGS.lock', `${id} is recorded as issued but has no ruling file. A ruling is history: supersede it, do not delete it.`);
+    }
+  }
+  for (const id of rulings.keys()) {
+    if (!rlock.has(id)) {
+      fail('rulings/RULINGS.lock', `${id} exists but is not recorded. Add "${id}" in the same commit.`);
+    }
+  }
+
+  // Both directions. A rule citing a ruling that does not exist is the original
+  // defect; a ruling claiming a rule that does not cite it is the same drift
+  // pointing the other way, and is just as misleading to a reader.
+  const citedBy = new Map();
+  for (const [id, doc] of rules) {
+    for (const ref of doc.rulings ?? []) {
+      if (!rulings.has(ref)) {
+        fail(`rules/${id}.yml`, `cites ruling ${ref}, which has no file in rulings/. A ruling is carried in the specification itself, not in an implementation's notes.`);
+        continue;
+      }
+      if (!citedBy.has(ref)) citedBy.set(ref, new Set());
+      citedBy.get(ref).add(id);
+    }
+  }
+  for (const [id, doc] of rulings) {
+    const actual = citedBy.get(id) ?? new Set();
+    for (const ref of doc.affects ?? []) {
+      if (!rules.has(ref)) fail(`rulings/${id}.yml`, `affects ${ref}, which is not a rule`);
+      else if (!actual.has(ref)) fail(`rulings/${id}.yml`, `affects ${ref}, but ${ref} does not cite ${id}`);
+    }
+    for (const ref of actual) {
+      if (!(doc.affects ?? []).includes(ref)) {
+        fail(`rulings/${id}.yml`, `${ref} cites ${id}, but ${id} does not list it in affects`);
+      }
+    }
+    if (doc.supersedes && !rulings.has(doc.supersedes)) {
+      fail(`rulings/${id}.yml`, `supersedes ${doc.supersedes}, which does not exist`);
+    }
+    if (doc.supersededBy && !rulings.has(doc.supersededBy)) {
+      fail(`rulings/${id}.yml`, `supersededBy ${doc.supersededBy}, which does not exist`);
+    }
+  }
+}
+
 /* ── 4. narrative drift ───────────────────────────────────────────────── */
 
 let rewritten = 0;
@@ -169,5 +277,5 @@ if (problems.length) {
 const reserved = [...lock.values()].filter((e) => e.reserved).length;
 console.log(
   `${rules.size} rule(s) validated, ${lock.size - reserved} identifier(s) issued, ` +
-    `${reserved} reserved. No problems.`,
+    `${reserved} reserved; ${rulings.size} ruling(s). No problems.`,
 );

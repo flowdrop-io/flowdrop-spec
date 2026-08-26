@@ -1,0 +1,13 @@
+id: OPEN-9
+headline: A run budget and a loop safety valve are a deliberate pair.
+question: >-
+  Two limits looked like duplicates of each other, one pausing the run and one
+  failing it, and were repeatedly proposed for unification.
+decision: >-
+  They are different mechanisms and stay distinct. A run budget bounds how much
+  work one resumable run may do and pauses when it is spent, so the run can be
+  continued. A loop safety valve catches a loop that will not terminate and fails,
+  because continuing it is precisely what must not happen. Unifying them would
+  either make a spent budget unrecoverable or make a runaway loop resumable.
+affects:
+  - ORC-10

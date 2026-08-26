@@ -1,0 +1,21 @@
+id: OPEN-19
+headline: Pinned accidents are transitional, not doctrine.
+question: >-
+  Some rules had recorded a behaviour that was an artefact of the host platform
+  rather than anything intended, and a recorded behaviour is indistinguishable from
+  an intended one once it is written down.
+decision: >-
+  Where a rule records a behaviour that nobody chose, the rule states the intended
+  behaviour, so that correcting the artefact is a planned change rather than a
+  break of contract. This is a ruling about how the specification is written and
+  not about any one behaviour: what each affected rule requires is in that rule's
+  own text. It carries no schedule. Which implementations have caught up, and when,
+  is each implementation's own business to publish and is recorded nowhere here.
+affects:
+  - STORE-2
+  - STORE-9
+  - STORE-15
+  - PIPE-9
+  - LANG-28
+  - ERR-6
+  - CMP-2

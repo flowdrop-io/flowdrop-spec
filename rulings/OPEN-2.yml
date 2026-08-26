@@ -1,0 +1,11 @@
+id: OPEN-2
+headline: Hidden means hidden.
+question: >-
+  A workflow could expose a port that the node instance had hidden, so a value the
+  author had deliberately withheld became reachable from outside.
+decision: >-
+  A workflow's exposure may only name ports the node instance itself exposes.
+  Hiding a port is a statement about what may leave the node, and an outer layer
+  that can re-expose it makes the inner statement meaningless.
+affects:
+  - R10

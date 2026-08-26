@@ -1,0 +1,51 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "A ruling",
+  "$comment": "Deliberately no $id. The rule schema publishes itself at an https identifier because implementations validate rule files against it; a ruling is authored only in this repository, so an https $id here would be a URL that does not resolve.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["id", "headline", "decision", "affects"],
+  "properties": {
+    "id": {
+      "type": "string",
+      "pattern": "^(OPEN|DF)-[0-9]+$",
+      "description": "Permanent identifier. Never renumbered, never reused."
+    },
+    "headline": {
+      "type": "string",
+      "minLength": 8,
+      "maxLength": 120,
+      "description": "The decision in one line, as it is cited in conversation."
+    },
+    "question": {
+      "type": "string",
+      "minLength": 20,
+      "description": "What was open before the ruling. Omitted where the headline is the whole of it."
+    },
+    "decision": {
+      "type": "string",
+      "minLength": 40,
+      "description": "What was decided and why. Implementation-independent, like a rule's normative text."
+    },
+    "decided": {
+      "type": "string",
+      "format": "date",
+      "description": "When. Omitted where the date was not recorded; never invented."
+    },
+    "affects": {
+      "type": "array",
+      "minItems": 1,
+      "items": { "type": "string" },
+      "description": "Every rule that cites this ruling. Kept in step with those rules' `rulings` lists by the validator, in both directions."
+    },
+    "supersedes": {
+      "type": "string",
+      "pattern": "^(OPEN|DF)-[0-9]+$",
+      "description": "A ruling is never rewritten. Where one turns out to be wrong, a later ruling supersedes it and says so."
+    },
+    "supersededBy": {
+      "type": "string",
+      "pattern": "^(OPEN|DF)-[0-9]+$"
+    }
+  }
+}

@@ -1,0 +1,39 @@
+# Every ruling identifier ever issued, one per line. Append-only. Identifiers are
+# never renumbered and never reused. A ruling is history: where one turns out to be
+# wrong a later ruling supersedes it and says so, and the superseded ruling stays
+# exactly as it was written.
+#
+# CI fails if an identifier here has no ruling file, if a ruling file carries an
+# identifier that is not here, or if a rule cites a ruling that does not exist.
+#
+# Format: <ID>
+
+OPEN-1
+OPEN-2
+OPEN-3
+OPEN-4
+OPEN-5
+OPEN-6
+OPEN-7
+OPEN-8
+OPEN-9
+OPEN-10
+OPEN-13
+OPEN-15
+OPEN-16
+OPEN-17
+OPEN-18
+OPEN-19
+
+# Reserved. These identifiers were issued in the corpus this document was
+# extracted from and must never be reused here for something else.
+#
+# OPEN-11, OPEN-12  reserved  questions still genuinely open; no ruling to carry
+# OPEN-14           reserved  a ruling (one NULL-delivery semantics for every
+#                             input builder) that no rule cites yet; import it
+#                             when CFG-7 and DATA-1 are made to cite it
+# OPEN-20           reserved  a ruling about which controllers earn a registry
+#                             row; implementation bookkeeping, not spec text
+#
+# `OPEN-7b`, also issued there, cannot be represented: the identifier pattern
+# admits no suffix. Whatever it is due, it needs a new number.

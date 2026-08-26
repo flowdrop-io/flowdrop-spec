@@ -1,0 +1,12 @@
+id: OPEN-17
+headline: An unrecognised edge type is a save-time error.
+question: >-
+  A declared edge type the implementation did not recognise fell through to the
+  default, so a typo silently became an ordering edge.
+decision: >-
+  A non-empty declared edge type that the implementation does not recognise is a
+  validation error at save. An absent or empty declaration keeps the documented
+  fallback, which is a different thing from a declaration that is present and
+  wrong. A declared enumeration is validated at the door it is declared at.
+affects:
+  - EDGE-5

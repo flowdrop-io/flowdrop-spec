@@ -1,0 +1,14 @@
+id: OPEN-13
+headline: "Refuse, dont no-op: an engine that cannot iterate refuses a loop."
+decided: "2026-08-18"
+question: >-
+  An engine with no iteration support accepted a workflow containing a loop and ran
+  it once, treating the loopback as absent.
+decision: >-
+  An engine that cannot iterate refuses, at launch, any workflow whose compiled
+  graph carries a loopback edge, rather than running it as though the loop were not
+  there. Running a loop once is not a degraded form of running it: it produces a
+  plausible result that is wrong, which is worse than a refusal. Every comparable
+  engine either executes a defined loop or rejects the definition.
+affects:
+  - ORC-7

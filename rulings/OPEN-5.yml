@@ -1,0 +1,11 @@
+id: OPEN-5
+headline: Duplicate and missing edge ids are refused at save.
+question: >-
+  Edge ids were minted on read where they were absent or collided, which made a
+  malformed stored workflow look well-formed to everything downstream.
+decision: >-
+  An edge with no id, or with an id another edge already carries, is refused when
+  the workflow is saved. Minting on read stays available as tolerance for workflows
+  stored before this rule, and is never a licence to store new ones.
+affects:
+  - R3

@@ -111,16 +111,22 @@ is no nginx.
 | File | Does |
 |---|---|
 | `lib/rules.ts` | Reads `../rules/*.yml`, `../rules/REGISTRY.lock` and `../narrative/*.mdx`. Owns slugs, family order, backlinks and the narrative staleness check. |
+| `lib/rulings.ts` | Reads `../rulings/*.yml`. Standalone on purpose: rules resolve ruling URLs, never the reverse, so there is no cycle. `affects` is checked against the citing rules by `scripts/validate-rules.mjs`, not here. |
 | `lib/source.ts` | Builds the programmatic `StaticSource`: one `type:'page'` per rule, plus `type:'meta'` files so the sidebar is grouped by family **in registry order**, not alphabetically. |
 | `lib/linkify.ts` | The ID matcher, written once. |
 | `lib/remark-autolink.ts` | Call site 1: narrative MDX, via remark. |
 | `components/prose.tsx` | Call site 2: the YAML normative/summary strings, which never pass through remark. |
+| `components/ruling-page.tsx` | A ruling's page. Plainer than a rule's: one immutable decision, nothing to fold, filter or version. |
 | `components/rule-page.tsx` | The page anatomy. `sections()` is the single decision about what exists, so the TOC and body cannot disagree, and an absent section is omitted rather than rendered empty. |
 | `components/facets.tsx` | The `/rules` filter view (family, profile, level, posture). |
 | `app/api/search/route.ts` | Prerendered GET route handler emitting the static search index. |
 
-Only identifiers that resolve to a real rule page become links. A ruling
-(`OPEN-19`, `DF-7`) has no page, so both call sites render it as a marker.
+Only identifiers that resolve to a real page become links, and rulings resolve
+too: `urlForId` tries rules, then families, then `rulings/`, so `OPEN-19` in a
+normative sentence links to the decision behind it. The marker branch survives for
+an identifier shaped like a ruling that no ruling carries, which the validator
+refuses in CI, so in practice it renders nothing. It used to be the normal case:
+16 rulings were cited and none existed here.
 
 ## What this site must never carry
 

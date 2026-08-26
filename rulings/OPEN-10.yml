@@ -1,0 +1,16 @@
+id: OPEN-10
+headline: Resume is not uniform replay of completed nodes.
+question: >-
+  Whether every engine should resume a snapshot by replaying already-completed
+  nodes as done. Verification showed it unachievable: a snapshot carries no
+  completion set, and an engine deliberately re-runs a node on each loop iteration,
+  so a blanket done-set breaks any loop.
+decision: >-
+  Two things are required of resume, and per-engine semantics are otherwise left
+  alone. A snapshot of a run that has reached a terminal outcome is not resumable.
+  An engine handed a snapshot it cannot consume refuses it and says so; it never
+  silently discards the snapshot and starts the run over, because a caller who
+  asked to resume and was given a fresh run has been told something untrue.
+affects:
+  - INT-14
+  - INT-15

@@ -2,6 +2,7 @@ import fs from 'node:fs';
 import path from 'node:path';
 import { createHash } from 'node:crypto';
 import YAML from 'yaml';
+import { urlForRuling } from './rulings';
 
 export type ReferenceEntry = {
   source: string;
@@ -194,7 +195,12 @@ export function urlForId(id: string): string | undefined {
   const d = data();
   const rule = d.byId.get(id);
   if (rule) return rule.url;
-  return d.families.find((f) => f.name === id)?.url;
+  const family = d.families.find((f) => f.name === id)?.url;
+  if (family) return family;
+  // Rulings resolve here too, so a citation in a normative sentence links to the
+  // decision instead of rendering as a bare marker. Rules resolve first: an
+  // identifier is never both.
+  return urlForRuling(id);
 }
 
 export const FAMILY_LABEL = (family: string) => family.replace(/^(GR|RT)-/, '');

@@ -1,0 +1,12 @@
+id: OPEN-6
+headline: An unknown node type is a save-time error.
+question: >-
+  A workflow naming a node type the installation did not have was stored, and the
+  missing type surfaced only when the run reached that node.
+decision: >-
+  A workflow that names a node type the implementation cannot resolve is refused
+  when it is saved. The operational caveat is import ordering: a workflow imported
+  alongside the node types it depends on must be able to see them, so an
+  implementation orders its own import rather than relaxing the rule.
+affects:
+  - R9

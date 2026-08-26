@@ -1,0 +1,11 @@
+id: OPEN-3
+headline: A broken expression is refused when the workflow is saved.
+question: >-
+  Expression syntax was checked only when the expression came to be evaluated, so a
+  mistyped expression was stored and surfaced as a run-time failure later.
+decision: >-
+  An expression that cannot be parsed is mis-transcribed intent, and is refused at
+  save rather than kept until it runs. The author is present at save and can fix
+  it; nobody is present when the run fails.
+affects:
+  - R11

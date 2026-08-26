@@ -35,6 +35,20 @@ jobs:
       # published; the image is built separately, on main only.
       - run: npm run build
         working-directory: site
+      - name: every ruling has a page
+        run: |
+          # The reasoning record is as much a part of the published document as the
+          # rules are. For a while it existed only in an implementation's notes and
+          # every citation rendered as a bare identifier; this is the check that
+          # stops that returning quietly.
+          rulings=$(ls rulings/*.yml | wc -l)
+          pages=$(find site/out/rulings -mindepth 1 -name index.html | wc -l)
+          echo "$rulings ruling(s), $pages page(s)"
+          # One more than the rulings: the /rulings index itself.
+          [ "$pages" -eq "$((rulings + 1))" ] || { echo "::error::$rulings rulings but $pages pages"; exit 1; }
+          grep -q '^## Rulings' site/out/llms.txt || { echo "::error::llms.txt does not index the rulings"; exit 1; }
+          grep -q '^# Rulings' site/out/llms-full.txt || { echo "::error::llms-full.txt omits the rulings"; exit 1; }
+
       - name: every rule has a page and a markdown twin
         run: |
           # Depth 3 is a rule page (rules/<family>/<rule>/index.html). Depth 2 is a

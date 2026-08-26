@@ -1,0 +1,14 @@
+id: OPEN-8
+headline: "One policy: an expression error fails the node."
+question: >-
+  Four expression-consuming node types disagreed on what an expression error did:
+  one swallowed it and substituted a default, others let it escape in different
+  shapes.
+decision: >-
+  An expression *error* fails the node and follows the ordinary error-edge-or-fail
+  path, in every node type that evaluates expressions. Scope is errors, not empty
+  results: an expression that evaluates cleanly and finds nothing is not a failure,
+  so a documented no-match default is untouched by this. Leniency for a genuine
+  error is only ever an explicit configuration choice, never a default.
+affects:
+  - LANG-29

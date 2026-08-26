@@ -1,0 +1,13 @@
+id: OPEN-7
+headline: Structural edge rules now; data-type compatibility later.
+question: >-
+  Whether edge validation should also check that the two ports' data types are
+  compatible, which is a much larger design question than the structural checks.
+decision: >-
+  The structural checks land now: an edge from a node to itself, and a second edge
+  duplicating one already present between the same two ports, are refused.
+  Data-type compatibility is deferred to a designed pass of its own, because a
+  half-specified compatibility matrix would refuse workflows that are correct.
+affects:
+  - R12
+  - R13

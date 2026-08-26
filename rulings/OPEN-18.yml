@@ -1,0 +1,15 @@
+id: OPEN-18
+headline: Typed refusal codes; message text is never contract.
+question: >-
+  Clients had to classify refusals by matching substrings of the human-readable
+  message, so rewording a message broke them.
+decision: >-
+  Every refusal carries a stable machine-readable code, and codes are never
+  renumbered or reused. Message text is for a person reading it and may be reworded
+  at any time. Classifying by message text is the textbook stringly-typed API
+  contract, and the convention everywhere else is a stable code. Existing
+  substrings stay load-bearing only until the clients that read them read the code
+  instead.
+affects:
+  - API-8
+  - INT-16

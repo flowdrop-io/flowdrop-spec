@@ -10,6 +10,8 @@ import { MACHINE_ALTERNATES, SPEC_VERSION } from '@/app/layout.config';
 import { Shell } from '@/components/shell';
 import { RailId, RailNav, RailTally } from '@/components/rail';
 import { RuleDoc, RuleRail, ruleToc } from '@/components/rule-page';
+import { RulingDoc, RulingRail, rulingToc } from '@/components/ruling-page';
+import { allRulings } from '@/lib/rulings';
 import { Facets, type FacetRule } from '@/components/facets';
 import { Prose } from '@/components/prose';
 
@@ -81,6 +83,54 @@ export default async function Page(props: { params: Promise<{ slug?: string[] }>
     return (
       <Shell rail={<RuleRail rule={rule} toc={toc} />}>
         <RuleDoc rule={rule} narrative={narrative} narrativeToc={narrativeToc} />
+      </Shell>
+    );
+  }
+
+  if (data.kind === 'ruling') {
+    const ruling = data.ruling;
+    const toc = rulingToc(ruling);
+    return (
+      <Shell rail={<RulingRail ruling={ruling} toc={toc} />}>
+        <RulingDoc ruling={ruling} />
+      </Shell>
+    );
+  }
+
+  if (data.kind === 'rulings-index') {
+    const rulings = allRulings();
+    const rail = (
+      <>
+        <RailId eyebrow="Rulings" id={String(rulings.length)} part="decisions on record" />
+        <RailTally
+          head="Record"
+          rows={[['Rulings', rulings.length], ['Rules affected', new Set(rulings.flatMap((r) => r.affects)).size]]}
+        />
+      </>
+    );
+    return (
+      <Shell rail={rail}>
+        <h1>Rulings</h1>
+        <p className="standfirst">
+          A change to what implementations must do is recorded as a ruling: what was decided, and
+          why. A ruling is history and is never rewritten; where one turns out to be wrong, a later
+          ruling supersedes it and says so.
+        </p>
+        <ul className="spec-list">
+          {rulings.map((r) => (
+            <li key={r.id}>
+              <Link href={r.url}>
+                <span className="spec-list-id">{r.id}</span>
+                <span className="spec-list-title">
+                  <Prose>{r.headline}</Prose>
+                </span>
+                <span className="spec-list-meta">
+                  {r.affects.length} {r.affects.length === 1 ? 'rule' : 'rules'}
+                </span>
+              </Link>
+            </li>
+          ))}
+        </ul>
       </Shell>
     );
   }

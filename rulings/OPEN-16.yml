@@ -1,0 +1,13 @@
+id: OPEN-16
+headline: A published `required` is enforced.
+question: >-
+  The launch snapshot advertised which inputs were required, and no launch door
+  read it, so every declared input was in practice optional.
+decision: >-
+  An input the published snapshot marks required is enforced at the launch
+  boundary, and the authoring surface can set the flag. A published contract that
+  the boundary ignores is worse than no contract: a caller builds against it and
+  the failure appears somewhere else entirely.
+affects:
+  - MAN-15
+  - MAN-16

@@ -1,0 +1,13 @@
+id: OPEN-1
+headline: An error output routes the same way in every engine.
+question: >-
+  Two engines routed an error output differently, and both behaviours had been
+  recorded as what happened rather than as what was intended.
+decision: >-
+  An error output routes identically whichever engine executes the workflow. A
+  workflow means the same thing no matter what runs it, and an error that takes an
+  error edge under one engine and fails the run under another makes one document
+  mean two things. Engine-specific error routing is therefore a defect in the
+  engine, not a property of the workflow.
+affects:
+  - ERR-13

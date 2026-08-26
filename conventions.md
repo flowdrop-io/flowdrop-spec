@@ -67,6 +67,18 @@ decided, and why. Rules affected by a ruling reference it. A ruling is history a
 is never rewritten; where it turns out to be wrong, a later ruling supersedes it
 and says so.
 
+Rulings are carried here, in this specification, and each one has a page of its
+own. A rule citing a ruling that is not written down states a requirement whose
+reasoning the reader cannot check, which is the situation this convention exists
+to prevent.
+
+A ruling identifier is permanent on the same terms as a rule identifier: never
+renumbered, never reused, still citable after the ruling is superseded. The two
+live in separate namespaces, so no identifier is ever both.
+
+A ruling settles what is required. It does not say who has implemented it, or
+when: that is each implementation's own to publish, and appears nowhere here.
+
 ## Profiles
 
 Not every rule binds every kind of implementation. A rule declares the profiles it
@@ -82,3 +94,21 @@ applies to:
   FlowDrop implementation.
 - **extended**: beyond core; commonly expected, not assumed.
 - **optional**: genuinely optional capability.
+
+## Posture
+
+A rule declares how it is meant to be read.
+
+- **normative-target**: the rule states what a conforming implementation must do.
+  This is what almost every rule is, and what a reader should assume where the
+  question does not arise. A target does not become less binding because no
+  implementation has met it yet.
+- **descriptive**: the rule records what implementations do rather than requiring
+  it. Nothing here is a requirement, and a reader must not treat it as one.
+- **deprecated**: the rule still holds, and something else is preferred. It is
+  kept so that it stays citable.
+- **withdrawn**: the rule no longer holds. The identifier is never reused, so the
+  rule is kept rather than deleted, and says what replaced it.
+
+Posture is about the rule's standing in this document, and never about any
+implementation's progress against it.

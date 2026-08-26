@@ -16,6 +16,8 @@
  *      when site/out is absent — the rule-corpus job has no built site.)
  *   4. nginx serves the versioned path and redirects the unversioned one.
  *   5. next.config.mjs, app/layout.config.tsx and nginx.conf agree on the base path.
+ *   6. No other schema in the repository declares an https `$id` it does not
+ *      publish. The same broken promise, made anywhere else, reads the same way.
  *
  * Run: node scripts/check-schema-published.mjs
  */
@@ -45,6 +47,16 @@ const declared = JSON.parse(source).$id;
 
 if (declared !== SCHEMA_ID) {
   fail('rules/schema.json', `$id is ${declared ?? 'missing'}, expected ${SCHEMA_ID}`);
+}
+
+/* ── 6: nobody else promises a URL ────────────────────────────────────── */
+
+for (const other of ['rulings/schema.json']) {
+  if (!existsSync(join(root, other))) continue;
+  const id = JSON.parse(read(other)).$id;
+  if (id && /^https?:/.test(id) && id !== SCHEMA_ID) {
+    fail(other, `declares $id ${id}, which nothing publishes. Either publish it byte for byte at that URL, as rules/schema.json is, or drop the $id.`);
+  }
 }
 
 /* ── 3: the served bytes ──────────────────────────────────────────────── */

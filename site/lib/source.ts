@@ -4,6 +4,7 @@ import { loader, type StaticSource, type InferPageType } from 'fumadocs-core/sou
 import { structure } from 'fumadocs-core/mdx-plugins';
 import type { StructuredData } from 'fumadocs-core/mdx-plugins';
 import { allFamilies, allRules, urlForId, slugify, type Family, type LoadedRule } from './rules';
+import { allRulings, type LoadedRuling } from './rulings';
 import { anchoredGlossary } from './glossary';
 
 const REPO = path.join(process.cwd(), '..');
@@ -14,7 +15,9 @@ export type PageKind =
   | { kind: 'doc'; body: string }
   | { kind: 'rules-index' }
   | { kind: 'family'; family: Family }
-  | { kind: 'rule'; rule: LoadedRule };
+  | { kind: 'rule'; rule: LoadedRule }
+  | { kind: 'rulings-index' }
+  | { kind: 'ruling'; ruling: LoadedRuling };
 
 type PageData = {
   title: string;
@@ -25,6 +28,11 @@ type PageData = {
 /** Search text for a rule: the binding sentence and its summary, nothing else. */
 function ruleIndex(rule: LoadedRule) {
   return structure([rule.normative, rule.summary].filter(Boolean).join('\n\n'));
+}
+
+/** Search text for a ruling: the decision and what it settled. */
+function rulingIndex(ruling: LoadedRuling) {
+  return structure([ruling.headline, ruling.question, ruling.decision].filter(Boolean).join('\n\n'));
 }
 
 /** Listing pages carry no prose of their own; they are found by title alone. */
@@ -59,7 +67,7 @@ function files() {
     data: {
       title: 'FlowDrop Workflow Specification',
       root: true,
-      pages: ['index', 'rules', 'conventions', 'glossary'],
+      pages: ['index', 'rules', 'rulings', 'conventions', 'glossary'],
     },
   });
 
@@ -159,6 +167,44 @@ function files() {
         } as PageData,
       });
     }
+  }
+
+  // Rulings sit beside the rules, not inside them: a ruling is not a requirement
+  // and must never read as one, and its identifier lives in its own namespace.
+  const rulings = allRulings();
+
+  out.push({
+    type: 'meta',
+    path: 'rulings/meta.json',
+    data: {
+      title: 'Rulings',
+      pages: ['index', ...rulings.map((r) => r.slug)],
+    },
+  });
+
+  out.push({
+    type: 'page',
+    path: 'rulings/index.mdx',
+    data: {
+      kind: 'rulings-index',
+      structuredData: EMPTY_INDEX,
+      title: 'Rulings',
+      description: `${rulings.length} rulings. What was decided about what implementations must do, and why.`,
+    } as PageData,
+  });
+
+  for (const ruling of rulings) {
+    out.push({
+      type: 'page',
+      path: `rulings/${ruling.slug}.mdx`,
+      data: {
+        kind: 'ruling',
+        ruling,
+        title: ruling.id,
+        description: ruling.headline,
+        structuredData: () => rulingIndex(ruling),
+      } as PageData,
+    });
   }
 
   return out;

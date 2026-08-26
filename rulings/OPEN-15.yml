@@ -1,0 +1,12 @@
+id: OPEN-15
+headline: An unmatched gateway outcome is loud.
+question: >-
+  A gateway that matched no branch emitted a branch name no port carried, which
+  silently gated off the whole subtree behind it.
+decision: >-
+  A gateway either declares a default branch port, or the node fails with an error
+  output when no branch matches. It never emits a branch name that no port carries.
+  A silently skipped subtree is the canonical gateway anti-pattern: the run reports
+  success having done none of the work.
+affects:
+  - BR-4

@@ -49,8 +49,12 @@ export async function generateMetadata(props: { params: Promise<{ slug?: string[
   };
 }
 
-/** Conventions and the glossary have markdown twins; index and family pages do not. */
+/**
+ * Conventions and the glossary have markdown twins; index and family pages do not.
+ * The front page's is the whole specification as one markdown document.
+ */
 function mdTwin(url: string): string | undefined {
+  if (url === '/') return '/llms-full.txt';
   return url === '/conventions' || url === '/glossary' ? `${url}.md` : undefined;
 }
 

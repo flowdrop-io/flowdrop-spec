@@ -70,3 +70,12 @@ export const MACHINE_ALTERNATES = {
   'text/plain': [{ url: '/llms.txt', title: 'llms.txt: every rule, one line each' }],
   'application/json': [{ url: '/rules.json', title: 'The rule corpus as data' }],
 };
+
+/**
+ * The canonical URL of a page: absolute, base path included, trailing slash
+ * (`trailingSlash: true` makes the slash form the only one that answers 200).
+ * `path` is a base-path-less site path as `page.url` produces it ('/' or
+ * '/rules/x'). It is the same string the sitemap lists.
+ */
+export const canonicalUrl = (path: string) =>
+  `${SPEC_ORIGIN}${path === '/' ? '' : path.replace(/\/$/, '')}/`;

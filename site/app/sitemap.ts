@@ -1,6 +1,7 @@
 import type { MetadataRoute } from 'next';
 import { allFamilies, allRules } from '@/lib/rules';
-import { SPEC_ORIGIN } from '@/app/layout.config';
+import { allRulings } from '@/lib/rulings';
+import { canonicalUrl } from '@/app/layout.config';
 
 /**
  * Every page a reader should be able to reach. The markdown twins are not listed:
@@ -13,7 +14,8 @@ export const dynamic = 'force-static';
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const at = (url: string, priority: number) => ({
-    url: `${SPEC_ORIGIN}${url}`,
+    // The page's canonical: trailing slash, the only form that answers 200.
+    url: canonicalUrl(url),
     changeFrequency: 'weekly' as const,
     priority,
   });
@@ -25,5 +27,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     at('/glossary', 0.7),
     ...allFamilies().map((f) => at(f.url, 0.6)),
     ...allRules().map((r) => at(r.url, 0.5)),
+    at('/rulings', 0.6),
+    ...allRulings().map((r) => at(r.url, 0.5)),
   ];
 }

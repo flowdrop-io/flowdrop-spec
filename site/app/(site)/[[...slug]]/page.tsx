@@ -6,7 +6,7 @@ import type { TOCItemType } from 'fumadocs-core/toc';
 import { source } from '@/lib/source';
 import { compiler } from '@/lib/mdx';
 import { allRules, allFamilies } from '@/lib/rules';
-import { MACHINE_ALTERNATES, SPEC_VERSION } from '@/app/layout.config';
+import { MACHINE_ALTERNATES, SPEC_VERSION, canonicalUrl, socialMetadata } from '@/app/layout.config';
 import { Shell } from '@/components/shell';
 import { RailId, RailNav, RailTally } from '@/components/rail';
 import { RuleDoc, RuleRail, ruleToc } from '@/components/rule-page';
@@ -33,10 +33,13 @@ export async function generateMetadata(props: { params: Promise<{ slug?: string[
   // A page's markdown twin is an alternate representation of that page, so it is
   // declared per page rather than site-wide. `page.url` is the page's own path.
   const markdown = d.kind === 'rule' ? `${page.url}.md` : mdTwin(page.url);
+  const title = d.kind === 'rule' ? `${d.title}: ${d.rule!.title}` : d.title;
   return {
-    title: d.kind === 'rule' ? `${d.title}: ${d.rule!.title}` : d.title,
+    title,
     description: d.description,
+    ...socialMetadata({ title, description: d.description, path: page.url }),
     alternates: {
+      canonical: canonicalUrl(page.url),
       types: {
         ...MACHINE_ALTERNATES,
         ...(markdown ? { 'text/markdown': [{ url: markdown, title: `${d.title} as markdown` }] } : {}),

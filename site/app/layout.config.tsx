@@ -79,3 +79,42 @@ export const MACHINE_ALTERNATES = {
  */
 export const canonicalUrl = (path: string) =>
   `${SPEC_ORIGIN}${path === '/' ? '' : path.replace(/\/$/, '')}/`;
+
+/** Site-wide title and description: the root layout's defaults and the social-card fallback. */
+export const SITE_TITLE = 'The FlowDrop Workflow Specification';
+export const SITE_TITLE_TEMPLATE = '%s | FlowDrop Workflow Specification';
+export const SITE_DESCRIPTION =
+  'The rules a FlowDrop workflow obeys (how a workflow is written, stored, validated and executed), stated independently of any one implementation.';
+
+/**
+ * Shared card image, created and served by the flowdrop.io website (1200x630).
+ * This site ships no raster assets of its own.
+ */
+export const SOCIAL_IMAGE = 'https://flowdrop.io/og-image.png';
+
+/**
+ * Open Graph and Twitter tags. Next replaces `openGraph` and `twitter` wholesale
+ * when a page declares its own, so every page spreads this rather than relying
+ * on the layout's copy. `title` is the page's own title; the site template is
+ * applied here because Next does not apply it to social titles.
+ */
+export function socialMetadata(page?: { title: string; description?: string; path: string }) {
+  const title = page && page.path !== '/' ? SITE_TITLE_TEMPLATE.replace('%s', page.title) : SITE_TITLE;
+  const description = page?.description ?? SITE_DESCRIPTION;
+  return {
+    openGraph: {
+      type: 'website' as const,
+      siteName: 'FlowDrop',
+      title,
+      description,
+      ...(page ? { url: canonicalUrl(page.path) } : {}),
+      images: [{ url: SOCIAL_IMAGE, width: 1200, height: 630 }],
+    },
+    twitter: {
+      card: 'summary_large_image' as const,
+      title,
+      description,
+      images: [SOCIAL_IMAGE],
+    },
+  };
+}

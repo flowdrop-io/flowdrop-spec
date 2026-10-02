@@ -1,5 +1,12 @@
 import type { Metadata } from 'next';
-import { MACHINE_ALTERNATES, SPEC_ORIGIN } from '@/app/layout.config';
+import {
+  MACHINE_ALTERNATES,
+  SPEC_ORIGIN,
+  SITE_TITLE,
+  SITE_TITLE_TEMPLATE,
+  SITE_DESCRIPTION,
+  socialMetadata,
+} from '@/app/layout.config';
 import { Spectral, IBM_Plex_Sans, IBM_Plex_Mono } from 'next/font/google';
 import { RootProvider } from 'fumadocs-ui/provider/next';
 import SpecSearchDialog from '@/components/search';
@@ -57,13 +64,14 @@ const UMAMI_WEBSITE_ID = 'd93c0515-ea1e-497d-94ec-669b72d1ba0a';
 
 export const metadata: Metadata = {
   title: {
-    default: 'The FlowDrop Workflow Specification',
-    template: '%s | FlowDrop Workflow Specification',
+    default: SITE_TITLE,
+    template: SITE_TITLE_TEMPLATE,
   },
-  description:
-    'The rules a FlowDrop workflow obeys (how a workflow is written, stored, validated and executed), stated independently of any one implementation.',
+  description: SITE_DESCRIPTION,
   metadataBase: new URL(SPEC_ORIGIN),
   alternates: { types: MACHINE_ALTERNATES },
+  // Defaults for pages that declare none (the 404); every real page overrides.
+  ...socialMetadata(),
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {

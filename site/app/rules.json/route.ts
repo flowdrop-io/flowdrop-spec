@@ -1,5 +1,6 @@
 import { allFamilies, allRules, reservedIds, FAMILY_LABEL, slugify } from '@/lib/rules';
 import { SPEC_ORIGIN, SPEC_VERSION } from '@/app/layout.config';
+import { ruleRecord } from '@/lib/corpus';
 
 /**
  * The corpus as data, for a reader that wants to compute over it rather than read
@@ -36,26 +37,7 @@ export function GET() {
       url: `${SPEC_ORIGIN}${f.url}`,
       rules: f.rules.map((r) => r.id),
     })),
-    rules: rules.map((r) => ({
-      id: r.id,
-      family: r.family,
-      part: r.part,
-      title: r.title,
-      summary: r.summary,
-      normative: r.normative,
-      posture: r.posture,
-      level: r.level,
-      profiles: r.profiles,
-      added: r.added,
-      changed: r.changed,
-      rulings: r.rulings,
-      related: r.related,
-      backlinks: r.backlinks,
-      references: r.references,
-      supersededBy: r.supersededBy,
-      url: `${SPEC_ORIGIN}${r.url}`,
-      markdown: `${SPEC_ORIGIN}${r.url}.md`,
-    })),
+    rules: rules.map(ruleRecord),
     reserved: reservedIds().map((r) => ({
       ...r,
       note: 'declined by this specification; in use in an implementation registry. Never issued here.',

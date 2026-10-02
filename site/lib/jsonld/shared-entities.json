@@ -1,0 +1,45 @@
+{
+  "$comment": "Shared JSON-LD entities for flowdrop.io. This file is copied BYTE-IDENTICAL into flowdrop-website, flowdrop-io.docs and flowdrop-spec; the website copy is the source of truth. Change all three together. Organization data is taken from Factorial's own JSON-LD on https://www.factorial.io/datenschutz (2026-10-02), and the @id is Factorial's own, so search engines merge this entity with the one factorial.io declares.",
+  "entities": [
+    {
+      "@type": "Organization",
+      "@id": "https://www.factorial.io/#organization",
+      "name": "Factorial GmbH",
+      "legalName": "Factorial GmbH",
+      "alternateName": ["Factorial", "Factorial.io"],
+      "url": "https://www.factorial.io",
+      "logo": "https://logo.factorial.io/wp/color.svg",
+      "email": "hello@factorial.io",
+      "address": {
+        "@type": "PostalAddress",
+        "streetAddress": "Langenfelder Straße 93",
+        "postalCode": "22769",
+        "addressLocality": "Hamburg",
+        "addressCountry": "DE"
+      },
+      "sameAs": [
+        "https://www.linkedin.com/company/factorial-io",
+        "https://github.com/factorial-io"
+      ]
+    },
+    {
+      "@type": "WebSite",
+      "@id": "https://flowdrop.io/#website",
+      "url": "https://flowdrop.io/",
+      "name": "FlowDrop",
+      "inLanguage": "en",
+      "publisher": { "@id": "https://www.factorial.io/#organization" }
+    }
+  ],
+  "knownIds": [
+    "https://www.factorial.io/#organization",
+    "https://flowdrop.io/#website",
+    "https://flowdrop.io/#software",
+    "https://flowdrop.io/#source",
+    "https://flowdrop.io/#hosted",
+    "https://flowdrop.io/blog#blog",
+    "https://flowdrop.io/spec/#spec",
+    "https://flowdrop.io/spec/#dataset",
+    "https://flowdrop.io/spec/glossary/#terms"
+  ]
+}

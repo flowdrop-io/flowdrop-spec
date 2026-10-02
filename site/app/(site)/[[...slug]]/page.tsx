@@ -14,6 +14,7 @@ import { RulingDoc, RulingRail, rulingToc } from '@/components/ruling-page';
 import { allRulings } from '@/lib/rulings';
 import { Facets, type FacetRule } from '@/components/facets';
 import { Prose } from '@/components/prose';
+import { JsonLd } from '@/components/json-ld';
 
 export function generateStaticParams() {
   return source.generateParams();
@@ -67,6 +68,15 @@ function tally<T>(items: T[], pick: (t: T) => string): [string, number][] {
 export default async function Page(props: { params: Promise<{ slug?: string[] }> }) {
   const page = source.getPage((await props.params).slug);
   if (!page) notFound();
+  return (
+    <>
+      <JsonLd page={page} />
+      {await renderPage(page)}
+    </>
+  );
+}
+
+async function renderPage(page: NonNullable<ReturnType<typeof source.getPage>>) {
   const data = page.data as any;
 
   if (data.kind === 'rule') {

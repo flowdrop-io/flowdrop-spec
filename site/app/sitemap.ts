@@ -1,5 +1,6 @@
 import type { MetadataRoute } from 'next';
 import { allFamilies, allRules } from '@/lib/rules';
+import { allRulings } from '@/lib/rulings';
 import { canonicalUrl } from '@/app/layout.config';
 
 /**
@@ -26,5 +27,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     at('/glossary', 0.7),
     ...allFamilies().map((f) => at(f.url, 0.6)),
     ...allRules().map((r) => at(r.url, 0.5)),
+    at('/rulings', 0.6),
+    ...allRulings().map((r) => at(r.url, 0.5)),
   ];
 }

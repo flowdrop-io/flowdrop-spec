@@ -13,7 +13,9 @@ export const dynamic = 'force-static';
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const at = (url: string, priority: number) => ({
-    url: `${SPEC_ORIGIN}${url}`,
+    // Trailing slash: the page's canonical and the only form that answers 200
+    // (`trailingSlash: true`); the slash-less form is a 301.
+    url: `${SPEC_ORIGIN}${url === '/' ? '' : url}/`,
     changeFrequency: 'weekly' as const,
     priority,
   });

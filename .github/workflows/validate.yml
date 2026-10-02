@@ -96,6 +96,12 @@ jobs:
             console.log(`${j.rules.length * 2 + 1} url(s) in rules.json carry https://flowdrop.io/spec`);
           '
 
+      # Structured data is read from the built pages, the way a crawler reads it:
+      # one JSON-LD block per page, every @id resolving, url == canonical ==
+      # sitemap loc, the shared flowdrop.io entities unchanged.
+      - name: structured data is present and consistent
+        run: npm run check:jsonld
+
       # The schema's $id is an https URL, so it has to resolve to these bytes.
       - name: the rule schema is published at its own identifier
         run: node scripts/check-schema-published.mjs

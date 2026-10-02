@@ -14,6 +14,7 @@ import { RulingDoc, RulingRail, rulingToc } from '@/components/ruling-page';
 import { allRulings } from '@/lib/rulings';
 import { Facets, type FacetRule } from '@/components/facets';
 import { Prose } from '@/components/prose';
+import { JsonLd } from '@/components/json-ld';
 
 export function generateStaticParams() {
   return source.generateParams();
@@ -48,8 +49,12 @@ export async function generateMetadata(props: { params: Promise<{ slug?: string[
   };
 }
 
-/** Conventions and the glossary have markdown twins; index and family pages do not. */
+/**
+ * Conventions and the glossary have markdown twins; index and family pages do not.
+ * The front page's is the whole specification as one markdown document.
+ */
 function mdTwin(url: string): string | undefined {
+  if (url === '/') return '/llms-full.txt';
   return url === '/conventions' || url === '/glossary' ? `${url}.md` : undefined;
 }
 
@@ -67,6 +72,15 @@ function tally<T>(items: T[], pick: (t: T) => string): [string, number][] {
 export default async function Page(props: { params: Promise<{ slug?: string[] }> }) {
   const page = source.getPage((await props.params).slug);
   if (!page) notFound();
+  return (
+    <>
+      <JsonLd page={page} />
+      {await renderPage(page)}
+    </>
+  );
+}
+
+async function renderPage(page: NonNullable<ReturnType<typeof source.getPage>>) {
   const data = page.data as any;
 
   if (data.kind === 'rule') {

@@ -22,6 +22,7 @@ import { SPEC_VERSION, withBase } from '@/app/layout.config';
 const PRODUCT_LINKS = [
   { href: 'https://flowdrop.io', label: 'FlowDrop' },
   { href: 'https://flowdrop.io/docs', label: 'Docs' },
+  { href: 'https://flowdrop.io/drupal', label: 'Drupal' },
   { href: 'https://flowdrop.io/showcase', label: 'Showcase' },
   { href: 'https://flowdrop.io/pricing', label: 'Pricing' },
   { href: 'https://flowdrop.io/blog', label: 'Blog' },

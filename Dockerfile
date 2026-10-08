@@ -33,18 +33,48 @@ COPY site ./site
 ENV NODE_ENV=production
 RUN cd site && npm run build
 
+# Pre-compress, so nginx's `brotli_static` / `gzip_static` sendfile a `.br` or
+# `.gz` sibling instead of compressing on every request — the ~2MB search index
+# most of all. Maximum levels, because this is paid once at build time. `-k`
+# keeps the original for clients that accept neither encoding. An allow-list of
+# text formats: already-compressed bytes only grow. `api/search` is named on its
+# own because it is prerendered JSON with no extension. Same list as the docs
+# image.
+RUN apk add --no-cache brotli && \
+    cd site/out && \
+    find . -type f -size +1k \
+        \( -name '*.html' -o -name '*.js' -o -name '*.mjs' -o -name '*.css' \
+        -o -name '*.json' -o -name '*.svg' -o -name '*.txt' -o -name '*.xml' \
+        -o -name '*.md' -o -name '*.map' -o -path './api/search' \) \
+        -exec gzip -9 -k {} + \
+        -exec brotli -q 11 -k {} + && \
+    echo "pre-compressed $(find . -name '*.gz' | wc -l) .gz, $(find . -name '*.br' | wc -l) .br"
+
 # --- Stage 2: serve ---
-FROM nginx:alpine AS server
+#
+# Alpine's own nginx, not `nginx:alpine`: nginx.org's image has no brotli module,
+# and Alpine's `nginx-mod-http-brotli` only loads into Alpine's nginx package.
+# Alpine's layout differs from nginx.org's: server blocks go in http.d/ (its
+# nginx.conf includes conf.d/ at the top level, outside `http`, where the
+# add_header lines of nginx-headers.conf would be a fatal error), and the logs
+# are files until they are pointed at the container's stdout/stderr.
+FROM alpine:3.22 AS server
+
+RUN apk add --no-cache nginx nginx-mod-http-brotli && \
+    ln -sf /dev/stdout /var/log/nginx/access.log && \
+    ln -sf /dev/stderr /var/log/nginx/error.log
 
 # Under `/spec`, not at the root. Next bakes basePath into the emitted markup and
 # asset URLs but still writes the export to `out/` with no `spec/` directory in it,
 # so the base path is created here — in the filesystem, where nginx's `try_files
 # $uri` keeps working — rather than by rewriting the request.
 COPY --from=builder /app/site/out /usr/share/nginx/html/spec
-COPY nginx.conf /etc/nginx/conf.d/default.conf
-COPY nginx-headers.conf /etc/nginx/conf.d/nginx-headers.conf
+COPY nginx.conf /etc/nginx/http.d/default.conf
+COPY nginx-headers.conf /etc/nginx/snippets/nginx-headers.conf
 
 EXPOSE 80
+
+STOPSIGNAL SIGQUIT
 
 HEALTHCHECK --interval=30s --timeout=3s --start-period=5s --retries=3 \
     CMD wget -qO- http://localhost/spec/ || exit 1

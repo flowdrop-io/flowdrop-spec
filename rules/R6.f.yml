@@ -5,10 +5,10 @@ part: I
 title: Numeric bounds apply to numbers only
 
 normative: >-
-  A config value below its schema's `minimum` or above its `maximum` is refused
-  with `R6_CONFIG_INVALID` at `node.{id}.config.{key}`. Bounds are evaluated
-  only for a value that is a JSON number; a string is never bounds-checked,
-  even when it spells a number.
+  A config value below its schema's `minimum` or above its `maximum` MUST be refused
+  with `R6_CONFIG_INVALID` at `node.{id}.config.{key}`. Bounds MUST be evaluated only
+  for a value that is a JSON number. A string MUST NOT be bounds-checked, even when it
+  spells a number.
 
 posture: normative-target
 level: core
@@ -17,6 +17,9 @@ profiles:
 
 added: "1.0"
 changed: "1.0"
+
+rulings:
+  - OPEN-25
 
 related:
   - R6.d

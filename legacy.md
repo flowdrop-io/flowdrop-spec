@@ -97,3 +97,17 @@ expression, and judged the node's other parameters as usual.
 Under the current rules the node type itself cannot be built, its failure is recorded
 for an operator, and its nodes' config is not judged until the schema is fixed. Fix
 the node type's schema, not the workflow.
+
+## Switch and enum matches decided by the host language's equality
+
+Rules: LANG-27, R6.e (ruling OPEN-29).
+
+Some implementations once matched a switch branch or an `enum` value with their own
+language's strict equality operator. Under it `1` and `1.0` could differ, and two
+objects with the same members could differ because the members arrived in another
+order.
+
+**If you meet it:** a workflow that fell through to its default branch on such a
+value, or a save refused because `1.0` was not in an `enum` listing `1`, comes from
+that reading. Under the current rules both match. No workflow needs changing; it
+takes the branch its author meant.

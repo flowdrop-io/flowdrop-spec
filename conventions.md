@@ -93,6 +93,15 @@ by a present `null` (CFG-9), and the parameter's schema decides whether that `nu
 is acceptable (CFG-10, R6.i). A rule that needs "a value, not `null`" says so with a
 type that does not admit `null`.
 
+**Equal values.** Where a rule compares two JSON values, they are equal as JSON
+Schema's `const` and `enum` compare them: they are of the same JSON type, and two
+strings are equal code point by code point, two numbers are equal by numeric value
+(`1` and `1.0` are equal), two arrays hold equal items in the same order, and two
+objects have the same member names with equal values, whatever their order. There is
+no conversion between types, so `"1"` is not equal to `1`, and `true` is not equal
+to `1`. A host language's own equality operator gives this answer only in some of
+these cases, so an implementation compares by this definition, not by its operator.
+
 ## Extensibility
 
 **Lists are open unless a rule says they are closed.** Where a rule lists the

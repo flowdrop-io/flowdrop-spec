@@ -1,16 +1,16 @@
 ---
 rule: LANG-27
-rule_hash: 228cf59a62eb
+rule_hash: 8ef4c96fb7e7
 ---
 
 ## What it means
 
 The parameter is named `expression`, but no expression engine ever sees it. A
 value that happens to look like a query — a JSONPath-shaped string, say — is
-still just a string, compared for exact equality against each branch's own
-value in the order the branches are declared. There is no coercion either: the
-comparison also requires the same type, so a value and a branch that would be
-equal after a type conversion still miss each other.
+still just a string, compared for equality against each branch's own
+value in the order the branches are declared. There is no conversion either:
+a value and a branch of different JSON types never match, even where a
+conversion would make them equal.
 
 Only the first branch to match becomes active, and its declared name is what
 the gateway reports. Nothing matching falls through to the configured default
@@ -50,3 +50,19 @@ allow:
 `"1"` and `1` are equal after conversion but not of the same type, so the
 comparison misses and the configured default branch, `Fallback`, is what
 activates.
+
+Equality is JSON Schema's, not the host language's. Two numbers with the same
+value are equal however they were written, and two objects are equal whatever
+order their members arrive in:
+
+```json title="A number and an object, against branches written differently"
+{
+  "expression": {"role": "admin", "level": 1.0},
+  "default_branch": "Fallback",
+  "branches": [{ "name": "Admin", "value": {"level": 1, "role": "admin"} }]
+}
+```
+
+```json title="The active branch" verdict="active"
+["Admin"]
+```

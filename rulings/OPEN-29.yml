@@ -1,0 +1,26 @@
+id: OPEN-29
+headline: Two JSON values are equal as JSON Schema's const compares them, in every rule.
+question: >-
+  A switch gateway matched a branch only where its value and the branch's were "of
+  the same type and equal", and an enum check compared "exactly, with no coercion".
+  Neither said what type or equal meant, so each implementation used its own
+  language's operator. Those disagree: one reads `1` and `1.0` as different types,
+  another compares objects by identity or by member order, another treats `true` as
+  equal to `1`. The same workflow could take a different branch on a different
+  implementation.
+decided: "2026-10-24"
+decision: >-
+  Equality is defined once, in the conventions, as JSON Schema's const and enum
+  equality: same JSON type, strings by code point, numbers by numeric value, arrays
+  item by item in order, objects member by member regardless of order, and no
+  conversion between types. Every rule that compares two JSON values uses it. A
+  switch gateway (LANG-27) matches a branch if and only if the values are equal by
+  that definition, and an enum check (R6.e) compares the same way. Nothing becomes
+  looser: a string never equals a number, and a boolean never equals a number. Only
+  the cases where a host operator saw a difference JSON does not have change: a whole
+  number written with a fraction, and an object whose members arrive in another
+  order, which no rule may depend on (OPEN-23).
+affects:
+  - conventions
+  - LANG-27
+  - R6.e

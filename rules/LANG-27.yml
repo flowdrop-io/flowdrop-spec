@@ -9,8 +9,9 @@ summary: >-
 
 normative: >-
   A switch gateway MUST NOT evaluate its `expression`. The value MUST be compared
-  unchanged against each branch's `value`, in declaration order, with no coercion. A
-  branch MUST NOT match unless the two are of the same type and equal. The first
+  unchanged against each branch's `value`, in declaration order. A branch MUST match
+  if and only if the two values are equal as the conventions define equal values,
+  which is JSON Schema's `const` equality, with no conversion between types. The first
   matching branch MUST be the sole active branch. The gateway MUST report that branch's
   name as active. Where no branch matches, the branch named by `default_branch` MUST be
   active. Where no branch matches and no usable default is named, the node MUST fail.
@@ -25,3 +26,4 @@ changed: "1.0"
 
 rulings:
   - OPEN-25
+  - OPEN-29

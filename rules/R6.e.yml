@@ -6,8 +6,9 @@ title: A config value must be one of its enumerated values
 
 normative: >-
   Where a config value's schema declares an `enum`, the value MUST be one of the listed
-  values. Comparison MUST be exact and apply no type coercion, so the number `1` does
-  not satisfy an `enum` listing the string `"1"`. A value outside the enumerated values
+  values. Values MUST be compared as JSON Schema's `enum` compares
+  them (the conventions' equal values), so the number `1` does not satisfy an `enum`
+  listing the string `"1"`, and `1.0` does satisfy one listing `1`. A value outside the enumerated values
   MUST be refused with `R6_CONFIG_INVALID` at `node.{id}.config.{key}`.
 
 posture: normative-target
@@ -20,6 +21,7 @@ changed: "1.0"
 
 rulings:
   - OPEN-25
+  - OPEN-29
 
 related:
   - R6.d

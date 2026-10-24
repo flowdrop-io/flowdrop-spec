@@ -90,9 +90,9 @@ function readNarrative(id: string): { body: string; hash?: string } | undefined 
   const raw = fs.readFileSync(file, 'utf8');
   const m = /^---\n([\s\S]*?)\n---\n?/.exec(raw);
   if (!m) return { body: raw };
-  const front = YAML.parse(m[1]) ?? {};
-  // String(): a hash of only decimal digits parses as a YAML number.
-  const hash = front.rule_hash == null ? undefined : String(front.rule_hash);
+  // Read the hash as text: YAML turns an all-digit hash into a number and one
+  // like 520e32882250 into Infinity, which String() cannot undo.
+  const hash = /^rule_hash:[ \t]*["']?([^"'\s]*)/m.exec(m[1])?.[1] || undefined;
   return { body: raw.slice(m[0].length), hash };
 }
 

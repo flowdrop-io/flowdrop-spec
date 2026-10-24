@@ -297,14 +297,16 @@ if (existsSync(narrativeDir)) {
       continue;
     }
     const expected = ruleHash(rule.normative);
-    // String(): a hash of only decimal digits parses as a YAML number.
-    if (String(front.rule_hash) === expected) continue;
+    // Read the hash as text: YAML turns an all-digit hash into a number and one
+    // like 520e32882250 into Infinity, which String() cannot undo.
+    const hash = m[1].match(/^rule_hash:[ \t]*["']?([^"'\s]*)/m)?.[1];
+    if (hash === expected) continue;
 
     if (updateHashes) {
       writeFileSync(path, raw.replace(/^(---\n[\s\S]*?rule_hash:\s*)\S+/m, `$1${expected}`));
       rewritten++;
     } else {
-      fail(`narrative/${file}`, `rule_hash is ${front.rule_hash ?? 'missing'}, expected ${expected}. ${id}'s normative text changed, so this prose may no longer match it. Re-read it, then run: npm run hashes`);
+      fail(`narrative/${file}`, `rule_hash is ${hash || 'missing'}, expected ${expected}. ${id}'s normative text changed, so this prose may no longer match it. Re-read it, then run: npm run hashes`);
     }
   }
 }

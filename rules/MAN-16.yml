@@ -12,8 +12,8 @@ normative: >-
   The per-value stage of the launch check MUST enforce `type` and `enum` from a
   contract fragment and no other key. The set is closed, so that a caller can tell
   from the contract which published keys can refuse a launch. Every other published
-  key (`minimum`, `maximum`, `minLength`, `maxLength`, `pattern`, and nested
-  `properties` or `items`) is declared in the contract and MUST NOT be enforced here.
+  key (`format`, `default`, `minimum`, `maximum`, `minLength`, `maxLength`, `pattern`,
+  and nested `properties` or `items`) is declared in the contract and MUST NOT be enforced here.
   A `type` that is not a single string MUST NOT be enforced here either. The top-level
   array of required names is the one other declared key that is enforced, and the
   earlier missing-input stage MUST enforce it. Values MUST NOT be coerced. For every

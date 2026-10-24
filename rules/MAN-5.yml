@@ -2,7 +2,7 @@ id: MAN-5
 family: GR-MAN
 part: I
 
-title: The published contract carries structure and nothing else
+title: The published contract carries structure and the pinned lane, nothing else
 summary: >-
   What a caller is told about an input is built from the bound port's own schema,
   reduced to the keys that describe the value's shape. Annotations are re-attached
@@ -16,7 +16,8 @@ normative: >-
   and nothing else. Every other key MUST be dropped, at every depth, recursing into
   each declared property and into an item schema. Annotations such as `title`,
   `description` and `examples`, and any extension key, therefore MUST NOT reach the
-  stored contract. Annotations MUST be re-attached only when the contract is read with
+  stored contract. The one exception is the lane that MAN-21 pins at the top of the
+  fragment: it is stored beside these keys and is not one of them. Annotations MUST be re-attached only when the contract is read with
   annotation requested.
 
 posture: normative-target

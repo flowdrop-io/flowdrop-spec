@@ -1,19 +1,20 @@
 ---
 rule: MAN-13
-rule_hash: 3adf19528fa3
+rule_hash: e3c8c3b3a5ed
 ---
 
 ## What it means
 
-Naming the offending key and the workflow in the refusal is the easy half of
-this rule. The half worth stating on its own is the second sentence: the
-value never reaches the resolved initial data, and that holds regardless of
-how the key was handled. An implementation is free to choose how loudly it
-objects to an unrecognised key — refuse the whole request outright, or merely
-log it and carry on — but "carry on" never means "and pass the value
-through anyway." A caller cannot smuggle an undeclared key past the check by
-relying on a tolerant mode to let the value slip in unremarked; tolerant only
-ever means the key is dropped more quietly, never that it is honoured.
+A caller who sends a key the workflow does not declare has made a mistake it
+cannot see: a typo in an input name looks exactly like a valid request. A
+launch that dropped the key quietly would run with the caller's intent
+missing. So every externally reachable launch endpoint refuses the request,
+and the refusal names both the key and the workflow, because the caller is
+often a machine and the message has to be enough on its own.
+
+The last sentence says what the refusal protects: an undeclared key never
+reaches the resolved initial data. The internal node-keyed shape (MAN-12) is
+not a launch key in this sense, and is refused for its own reason.
 
 ## Example
 
@@ -21,6 +22,4 @@ ever means the key is dropped more quietly, never that it is honoured.
 { "nmae": "typo" }
 ```
 
-The refusal names both the offending key and the workflow it was refused by.
-Where an implementation instead only logs and continues, the resolved result
-for that same body is empty — the key contributes nothing either way.
+The refusal names `nmae` and the workflow it was sent to, and no run starts.

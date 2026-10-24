@@ -1,6 +1,6 @@
 ---
 rule: MAN-5
-rule_hash: 8a25a2f7d8d7
+rule_hash: 1c9af0f442cf
 ---
 
 ## What it means
@@ -12,6 +12,10 @@ property and into an item schema, so an annotation or an extension key buried
 two levels inside an object's own properties is dropped exactly as one sitting
 at the top would be. A non-annotation key at that same depth — `maxLength`,
 `pattern` — survives, because the rule keeps a closed set of keys and drops every other key, not "annotations" as a category.
+
+The one key outside that set is the lane pin (MAN-21), written at the top of
+the fragment after the strip. It is why the example below keeps
+`x-data-type` while every other extension key is gone.
 
 Author-facing words are never baked into the stored snapshot, even when the
 caller asks nothing special: they are re-attached only when the contract is

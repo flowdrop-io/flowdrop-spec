@@ -8,9 +8,9 @@ summary: >-
   the run proceeds with the caller's intent missing and nothing said.
 
 normative: >-
-  A launch key that is not a declared input name MUST be refused. The refusal MUST
-  name the offending key and the workflow. The value MUST NOT be written into the
-  resolved initial data, whether the key was refused or merely reported.
+  Every externally reachable launch endpoint MUST refuse a launch key that is not a
+  declared input name. The refusal MUST name the offending key and the workflow. The
+  key's value MUST NOT reach the resolved initial data.
 
 posture: normative-target
 level: core

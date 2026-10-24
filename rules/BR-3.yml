@@ -2,13 +2,14 @@ id: BR-3
 family: RT-BR
 part: II
 
-title: An active-branch list is a list of names, trimmed and lower-cased
+title: An active-branch list is an array of names, trimmed and lower-cased
 
 normative: >-
-  A source's active-branch list is a list of strings. A bare string is one branch
-  name taken verbatim and is never split on commas or any other separator. Entries
-  that are not strings are dropped. Surviving entries are trimmed of surrounding
-  whitespace and lower-cased, which is the form BR-1 compares a port name against.
+  A source's active-branch list is an array of strings. A bare string MUST be read as
+  one branch name, taken verbatim, and MUST NOT be split on commas or any other
+  separator. An entry that is not a string MUST be dropped. Each surviving entry MUST
+  be trimmed of surrounding whitespace and lower-cased, which is the form BR-1
+  compares a port name against.
 
 posture: normative-target
 level: core
@@ -17,6 +18,9 @@ profiles:
 
 added: "1.0"
 changed: "1.0"
+
+rulings:
+  - OPEN-25
 
 related:
   - BR-1

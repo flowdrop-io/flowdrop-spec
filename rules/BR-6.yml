@@ -10,16 +10,15 @@ summary: >-
   source gated by either does not satisfy.
 
 normative: >-
-  A source that has been superseded does not satisfy an edge: where a newer
-  execution of the source node already exists, that source's branch decision must
-  not activate a trigger edge, an error edge, or a data edge leaving a named port
-  of a source that emitted an active-branch list; a source vouches only for its
-  own iteration. Independently, a completed source from a round behind the
-  consumer's, on a loop both are inside, does not satisfy a trigger, error or
-  ordinary data edge, named port or not; a source that shares no loop with the
-  consumer is never gated on this ground, so no loop deadlocks. An edge whose
-  source is gated by either test is unsatisfied, and a consumer therefore never
-  runs on a mixture of rounds.
+  A source that has been superseded MUST NOT satisfy an edge: where a newer execution
+  of the source node already exists, that source's branch decision MUST NOT activate a
+  trigger edge, an error edge, or a data edge leaving a named port of a source that
+  emitted an active-branch list; a source vouches only for its own iteration.
+  Independently, a completed source from a round behind the consumer's, on a loop both
+  are inside, MUST NOT satisfy a trigger, error or ordinary data edge, named port or
+  not. A source that shares no loop with the consumer MUST NOT be gated on this
+  ground, so no loop deadlocks. An edge whose source is gated by either test MUST be
+  unsatisfied, so a consumer never runs on a mixture of rounds.
 
 posture: normative-target
 level: core
@@ -28,6 +27,9 @@ profiles:
 
 added: "1.0"
 changed: "1.0"
+
+rulings:
+  - OPEN-25
 
 related:
   - BR-1

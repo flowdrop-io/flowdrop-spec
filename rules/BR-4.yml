@@ -11,15 +11,15 @@ summary: >-
 
 normative: >-
   A gateway's branch authority is its configured branches, each an entry pairing a
-  name with a value; an entry whose name is not a non-empty string is discarded
-  before any matching. Matching an outcome to a branch is type-aware and never a
-  loose cast: a boolean outcome matches only a branch whose configured value
+  name with a value. An entry whose name is not a non-empty string MUST be discarded
+  before any matching. Matching an outcome to a branch MUST be type-aware and never a
+  loose cast: a boolean outcome MUST match only a branch whose configured value
   denotes a boolean: a boolean, the integer `0` or `1`, or the strings `true`,
-  `false`, `1` or `0` without regard to case. Two strings compare without regard
-  to case, and anything else must be equal in both type and value. A gateway must
-  not emit a branch name that no port of the node carries: where no configured
-  branch matches the outcome, either the gateway declares a default branch port
-  that receives it, or the node fails with an error output that an error edge can
+  `false`, `1` or `0` without regard to case. Two strings MUST compare without regard
+  to case. Anything else MUST be equal in both type and value. A gateway MUST NOT emit
+  a branch name that no port of the node carries. Where no configured branch matches
+  the outcome, one of two things MUST happen: the gateway declares a default branch
+  port that receives it, or the node fails with an error output that an error edge can
   route (ERR-7).
 
 posture: normative-target
@@ -32,6 +32,7 @@ changed: "1.0"
 
 rulings:
   - OPEN-15
+  - OPEN-25
 
 related:
   - BR-2

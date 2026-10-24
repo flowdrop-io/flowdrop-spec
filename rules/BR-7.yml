@@ -9,14 +9,14 @@ summary: >-
   merely fail to fire, it terminates cleanly, visibly, and without failing the run.
 
 normative: >-
-  A node with at least one incoming trigger edge and no satisfied trigger is
-  skipped and must not be executed. The skip is announced with the machine-readable
-  reason `branch_not_active`, on the node-level skip event, on the real-time status
-  update, and on the run's snapshot; the node's identifier also appears among the
-  run's skipped nodes in the response metadata and is counted there. A node with no
-  incoming trigger edge always executes, whatever its data sources did. At the end
-  of a run, every node still unexecuted is collected as skipped the same way,
-  whether or not it had already been promoted to ready.
+  A node with at least one incoming trigger edge and no satisfied trigger MUST be
+  skipped. It MUST NOT be executed. The skip MUST be announced with the
+  machine-readable reason `branch_not_active`, on the node-level skip event, on the
+  real-time status update, and on the run's snapshot. The node's identifier MUST
+  appear among the run's skipped nodes in the response metadata. It MUST be counted
+  there. A node with no incoming trigger edge MUST execute, whatever its data sources
+  did. At the end of a run, every node still unexecuted MUST be collected as skipped
+  the same way, whether or not it had already been promoted to ready.
 
 posture: normative-target
 level: core
@@ -25,6 +25,9 @@ profiles:
 
 added: "1.0"
 changed: "1.0"
+
+rulings:
+  - OPEN-25
 
 related:
   - BR-1

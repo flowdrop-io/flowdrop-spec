@@ -1,6 +1,6 @@
 ---
 rule: BR-3
-rule_hash: 89a809d84f29
+rule_hash: 000300ba2f32
 ---
 
 ## What it means
@@ -8,8 +8,7 @@ rule_hash: 89a809d84f29
 A bare string is not a shorthand for several names — it is one name, taken
 exactly as written, commas included. Splitting it would corrupt the
 legitimate case: a branch genuinely named `a, b` is one port, and splitting
-its name on the comma produces two names that match no port at all. Only a
-list has several entries; a string never does.
+its name on the comma produces two names that match no port at all. Only an array has several entries; a string never does.
 
 ## Example
 
@@ -21,12 +20,12 @@ list has several entries; a string never does.
 ["a, b ,c"]
 ```
 
-A list entry that is not a string is dropped rather than turned into one:
+An array entry that is not a string is dropped rather than turned into one:
 
-```json title="A list with a name among non-strings" verdict="mixed list"
+```json title="An array with a name among non-strings" verdict="mixed array"
 ["keep", 5, null, ""]
 ```
 
-```json title="What the mixed list parses to" verdict="parsed"
+```json title="What the mixed array parses to" verdict="parsed"
 ["keep"]
 ```

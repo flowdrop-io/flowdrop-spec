@@ -1,6 +1,6 @@
 ---
 rule: BR-4
-rule_hash: b094bc45c0f0
+rule_hash: 8ef613e07e5c
 ---
 
 ## What it means
@@ -12,13 +12,11 @@ against what survives is deliberately not a loose cast — a boolean outcome
 matches only a branch whose configured value actually denotes a boolean (a real
 boolean, `0`/`1`, or the strings `true`/`false`/`1`/`0`), because treating any
 non-empty string as truthy would let a boolean match a branch configured with
-an unrelated string. Strings compare without regard to case; anything else must
+an unrelated string. Strings compare without regard to case; anything else has to
 agree in both type and value.
 
 Where nothing configured matches, the gateway is not free to fall back to
-whatever it would have said with no configuration at all: it must either
-declare a default branch that receives the outcome, or fail with a routable
-error. A name that answers to no port silently gates off everything downstream,
+whatever it would have said with no configuration at all: the outcome ends up on a default branch that receives it, or on a routable error. A name that answers to no port silently gates off everything downstream,
 with nothing said.
 
 ## Example

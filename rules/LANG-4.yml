@@ -5,7 +5,7 @@ part: I
 title: A context that is not a map reaches a transformation engine as `data`
 
 normative: >-
-  Where the evaluation context is not a map, a transformation engine receives it
+  Where the evaluation context is not a map, a transformation engine MUST receive it
   bound to the single variable `data`.
 
 posture: normative-target
@@ -15,6 +15,9 @@ profiles:
 
 added: "1.0"
 changed: "1.0"
+
+rulings:
+  - OPEN-25
 
 related:
   - LANG-1

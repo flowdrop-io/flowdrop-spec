@@ -5,10 +5,10 @@ part: I
 title: Expression-language validation is a syntax check only
 
 normative: >-
-  Validating an expression-language expression checks its syntax, with every
-  identifier the expression mentions treated as declared. A reference to a name
-  that will not exist when the workflow runs therefore validates successfully and
-  fails at run time.
+  Validating an expression-language expression MUST check its syntax, with every
+  identifier the expression mentions treated as declared. A reference to a name that
+  will not exist when the workflow runs therefore MUST validate successfully. It fails
+  at run time.
 
 posture: normative-target
 level: extended
@@ -17,6 +17,9 @@ profiles:
 
 added: "1.0"
 changed: "1.0"
+
+rulings:
+  - OPEN-25
 
 related:
   - LANG-6

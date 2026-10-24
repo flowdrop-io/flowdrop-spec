@@ -1,16 +1,16 @@
 ---
 rule: LANG-19
-rule_hash: 79de0de06208
+rule_hash: 8b9cc4228ef1
 ---
 
 ## What it means
 
 Extracting all matches never hands back the bare value it found — even where
-the path can only ever match one thing, the result is still a list, so
+the path can only ever match one thing, the result is still an array, so
 calling code does not need two shapes depending on what the path looked
 like. The sharper edge is the null case: a path that reads a stored null
-found something, so it comes back as a one-element list holding that null.
-Only a path that matched nothing at all gives the empty list.
+found something, so it comes back as a one-element array holding that null.
+Only a path that matched nothing at all gives the empty array.
 
 ## Example
 

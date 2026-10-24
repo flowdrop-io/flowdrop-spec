@@ -5,10 +5,10 @@ part: I
 title: Property-path validation accepts everything evaluation can resolve
 
 normative: >-
-  Validating a property path parses it with the same parser evaluation uses, after
-  the same dot-to-bracket normalization. Every path evaluation could resolve
-  therefore validates, and only a path that cannot be parsed at all (an unclosed
-  bracket, an empty segment) is rejected.
+  Validating a property path MUST parse it with the same parser evaluation uses, after
+  the same dot-to-bracket normalization. A path that can be parsed MUST validate
+  successfully, so every path evaluation could resolve validates. A path that cannot be
+  parsed at all (an unclosed bracket, an empty segment) MUST be rejected.
 
 posture: normative-target
 level: extended
@@ -17,6 +17,9 @@ profiles:
 
 added: "1.0"
 changed: "1.0"
+
+rulings:
+  - OPEN-25
 
 related:
   - LANG-17

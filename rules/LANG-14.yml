@@ -5,8 +5,9 @@ part: I
 title: A leading `$` decides JSONPath from property path
 
 normative: >-
-  A path is a JSONPath query if and only if the string, once trimmed of surrounding
-  whitespace, begins with `$`. Every other path is a property path.
+  A path MUST be treated as a JSONPath query if and only if the string, once trimmed of
+  surrounding whitespace, begins with `$`. Every other path MUST be treated as a
+  property path.
 
 posture: normative-target
 level: core
@@ -15,3 +16,6 @@ profiles:
 
 added: "1.0"
 changed: "1.0"
+
+rulings:
+  - OPEN-25

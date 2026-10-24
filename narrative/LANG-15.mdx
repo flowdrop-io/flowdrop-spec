@@ -1,16 +1,16 @@
 ---
 rule: LANG-15
-rule_hash: a1a3f1fb9d69
+rule_hash: 3c8e66252e61
 ---
 
 ## What it means
 
-Whether a result comes back as a bare value or as a list is decided by
+Whether a result comes back as a bare value or as an array is decided by
 reading the query's own syntax, not by counting how many things it happened
 to match today. A query with no wildcard, filter or slice in it is written
 to find one thing, so a single match is handed back directly. A query that
 carries one of those — even when, on a given record, it only ever matches
-one item — keeps its list shape regardless, because the query was written
+one item — keeps its array shape regardless, because the query was written
 to select many and the day it matches one is not a promise it always will.
 
 ## Example

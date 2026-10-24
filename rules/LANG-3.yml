@@ -5,10 +5,10 @@ part: I
 title: An empty expression is not an error
 
 normative: >-
-  An empty expression is valid: it passes validation, and it produces a defined
-  result rather than a failure. A mapper output whose expression is empty is null,
-  whatever the engine. An extractor whose path is empty returns its input
-  unchanged, reports success, and reports no match.
+  An empty expression MUST pass validation. It MUST produce a defined result rather than
+  a failure. A mapper output whose expression is empty MUST be null, whatever the
+  engine. An extractor whose path is empty MUST return its input unchanged. It MUST
+  report success. It MUST report no match.
 
 posture: normative-target
 level: core
@@ -18,3 +18,6 @@ profiles:
 
 added: "1.0"
 changed: "1.0"
+
+rulings:
+  - OPEN-25

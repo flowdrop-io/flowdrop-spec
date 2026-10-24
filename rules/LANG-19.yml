@@ -5,10 +5,10 @@ part: I
 title: Extracting all matches for a property path always yields a list
 
 normative: >-
-  Extracting all matches for a property path MUST yield a list. A single match MUST be
-  wrapped in a one-element list. A path that reads a stored `null` matches it, and MUST
-  yield a one-element list holding `null`. A path that matches nothing MUST yield the
-  empty list.
+  Extracting all matches for a property path MUST yield an array. A single match MUST be
+  wrapped in a one-element array. A path that reads a stored `null` matches it, and MUST
+  yield a one-element array holding `null`. A path that matches nothing MUST yield the
+  empty array.
 
 posture: normative-target
 level: extended

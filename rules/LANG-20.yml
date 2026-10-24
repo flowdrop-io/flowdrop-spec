@@ -9,11 +9,11 @@ summary: >-
   that cannot be walked, and one with nothing in it.
 
 normative: >-
-  Testing a path for existence reports whether that path can be read, and answers for
-  every path. A path that cannot be read reports absence, a property path applied to
-  a scalar among them, since a scalar has no property to read (LANG-8). The empty
-  path consumes no segments and therefore denotes the evaluation context itself,
-  which is always present, so the empty path reports presence.
+  Testing a path for existence MUST report whether that path can be read. It MUST answer
+  for every path. A path that cannot be read MUST report absence. A property path
+  applied to a scalar is such a path, since a scalar has no property to read (LANG-8).
+  The empty path consumes no segments and therefore denotes the evaluation context
+  itself, which is always present, so the empty path MUST report presence.
 
 posture: normative-target
 level: core
@@ -22,6 +22,9 @@ profiles:
 
 added: "1.0"
 changed: "1.0"
+
+rulings:
+  - OPEN-25
 
 related:
   - LANG-8

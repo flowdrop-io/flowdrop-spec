@@ -5,12 +5,12 @@ part: I
 title: Only a `$`-rooted JSONPath query unwraps a list to its first match
 
 normative: >-
-  An extractor reduces a list result to its first match only where its engine is
-  jsonpath, the path is `$`-rooted, and extract-all is off. A property-path engine
-  delivers a list result whole, even for a `$`-prefixed path, and a jsonpath engine
-  that falls back to property-path resolution never unwraps. The extractor's
-  reported JSONPath flag reports the `$` prefix alone and is independent of the
-  engine in force.
+  An extractor MUST reduce an array result to its first match where its engine is
+  jsonpath, the path is `$`-rooted, and extract-all is off. It MUST NOT reduce an array
+  result otherwise. A property-path engine MUST deliver an array result whole, even for
+  a `$`-prefixed path. A jsonpath engine that falls back to property-path resolution
+  MUST NOT unwrap. The extractor's reported JSONPath flag MUST report the `$` prefix
+  alone. It MUST NOT depend on the engine in force.
 
 posture: normative-target
 level: extended
@@ -19,6 +19,9 @@ profiles:
 
 added: "1.0"
 changed: "1.0"
+
+rulings:
+  - OPEN-25
 
 related:
   - LANG-14

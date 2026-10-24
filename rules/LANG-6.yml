@@ -5,9 +5,9 @@ part: I
 title: Expression-language evaluation fails loudly
 
 normative: >-
-  An expression-language expression that cannot be parsed, that cannot be
-  evaluated, or that references a name absent from the context fails: it raises an
-  error and yields no value.
+  An expression-language expression that cannot be parsed, that cannot be evaluated, or
+  that references a name absent from the context MUST fail by raising an error. It MUST
+  yield no value.
 
 posture: normative-target
 level: core
@@ -16,6 +16,9 @@ profiles:
 
 added: "1.0"
 changed: "1.0"
+
+rulings:
+  - OPEN-25
 
 related:
   - LANG-7

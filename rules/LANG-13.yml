@@ -5,8 +5,8 @@ part: I
 title: Twig validation is a compile check only
 
 normative: >-
-  Validating a Twig template compiles it. A template that compiles but fails only
-  while rendering validates successfully.
+  Validating a Twig template MUST compile it. A template that compiles but fails only
+  while rendering MUST validate successfully.
 
 posture: normative-target
 level: extended
@@ -15,6 +15,9 @@ profiles:
 
 added: "1.0"
 changed: "1.0"
+
+rulings:
+  - OPEN-25
 
 related:
   - LANG-7

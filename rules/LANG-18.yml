@@ -6,8 +6,8 @@ title: A trigger mapping value can be escaped as a literal
 
 normative: >-
   In a trigger mapping, a value prefixed `literal:` or wrapped in matching single or
-  double quotes is taken as the literal string it spells, and is not extracted from
-  the context. The escape applies to trigger mappings only.
+  double quotes MUST be taken as the literal string it spells. It MUST NOT be extracted
+  from the context. The escape MUST NOT apply outside trigger mappings.
 
 posture: normative-target
 level: extended
@@ -16,3 +16,6 @@ profiles:
 
 added: "1.0"
 changed: "1.0"
+
+rulings:
+  - OPEN-25

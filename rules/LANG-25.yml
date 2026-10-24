@@ -5,12 +5,12 @@ part: I
 title: Shaper sentinels resolve before any engine is consulted
 
 normative: >-
-  A shaper source is checked for sentinels before its engine is consulted. `_NOW_`
-  yields the current timestamp in ISO 8601 form; `_NULL_` yields null;
-  `_EMPTY_ARRAY_` yields the empty list; `_EMPTY_OBJECT_` yields the empty object;
-  and a source prefixed `_LITERAL:` yields the rest of the string verbatim. A
-  source that does reach the engine and fails there fails the node, and the failure
-  names the source expression and the engine.
+  A shaper source MUST be checked for sentinels before its engine is consulted. `_NOW_`
+  MUST yield the current timestamp in ISO 8601 form. `_NULL_` MUST yield null.
+  `_EMPTY_ARRAY_` MUST yield the empty array. `_EMPTY_OBJECT_` MUST yield the empty
+  object. A source prefixed `_LITERAL:` MUST yield the rest of the string verbatim. A
+  source that does reach the engine and fails there MUST fail the node. The failure MUST
+  name the source expression and the engine.
 
 posture: normative-target
 level: extended
@@ -19,6 +19,9 @@ profiles:
 
 added: "1.0"
 changed: "1.0"
+
+rulings:
+  - OPEN-25
 
 related:
   - LANG-29

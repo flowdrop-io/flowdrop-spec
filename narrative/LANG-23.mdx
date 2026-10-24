@@ -1,11 +1,11 @@
 ---
 rule: LANG-23
-rule_hash: ec3fcc072409
+rule_hash: 99673b2f73dd
 ---
 
 ## What it means
 
-Whether a list result gets reduced to its first match turns on which engine
+Whether an array result gets reduced to its first match turns on which engine
 ran, not on what the path string looks like. A `$`-rooted path evaluated by
 the property-path engine is still read as a property path — the leading `$`
 is not enough on its own to trigger the reduction. The flag that reports
@@ -15,7 +15,7 @@ property-path engine went on to deliver whole, unreduced.
 
 ## Example
 
-The evaluator returns the same two-element list either way; only the engine
+The evaluator returns the same two-element array either way; only the engine
 differs, against the same `$`-rooted path.
 
 ```json title="The data output under the property-path engine" verdict="whole"

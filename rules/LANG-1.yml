@@ -8,9 +8,9 @@ summary: >-
   what the surrounding data means to the expression they write.
 
 normative: >-
-  An extraction engine treats the evaluation context as data to be queried by a
-  path. A transformation engine treats the same context as a map of variables the
-  expression may reference by name.
+  An extraction engine MUST treat the evaluation context as data to be queried by a
+  path. A transformation engine MUST treat the same context as a map of variables the
+  expression can reference by name.
 
 posture: normative-target
 level: core
@@ -19,3 +19,6 @@ profiles:
 
 added: "1.0"
 changed: "1.0"
+
+rulings:
+  - OPEN-25

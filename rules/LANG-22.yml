@@ -5,10 +5,10 @@ part: I
 title: An extraction error fails the node and never takes the default
 
 normative: >-
-  When an extraction fails (a path the engine cannot evaluate, an engine failure),
-  the node fails and the failure routes to the error edge, naming the path and the
-  engine. The configured default is not substituted on an error; it applies only
-  where the expression evaluated cleanly and found nothing.
+  When an extraction fails (a path the engine cannot evaluate, an engine failure), the
+  node MUST fail. The failure MUST route to the error edge. The failure MUST name the
+  path and the engine. The configured default MUST NOT be substituted on an error. It
+  applies only where the expression evaluated cleanly and found nothing.
 
 posture: normative-target
 level: core
@@ -17,6 +17,9 @@ profiles:
 
 added: "1.0"
 changed: "1.0"
+
+rulings:
+  - OPEN-25
 
 related:
   - LANG-24

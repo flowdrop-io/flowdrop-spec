@@ -5,8 +5,9 @@ part: I
 title: A failed mapper expression fails the node and names the port
 
 normative: >-
-  When the expression for a mapper output fails, the node fails, the failure names
-  the output port whose expression failed, and no partial output map is produced.
+  When the expression for a mapper output fails, the node MUST fail. The failure MUST
+  name the output port whose expression failed. The node MUST NOT produce a partial
+  output map.
 
 posture: normative-target
 level: core
@@ -15,6 +16,9 @@ profiles:
 
 added: "1.0"
 changed: "1.0"
+
+rulings:
+  - OPEN-25
 
 related:
   - LANG-29

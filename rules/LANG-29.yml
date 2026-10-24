@@ -9,11 +9,11 @@ summary: >-
 
 normative: >-
   An expression error (a path the engine cannot evaluate, a failure raised by the
-  engine) fails the node, and the failure routes to the error edge. This holds
-  uniformly across every node that evaluates an author's expression. An expression
-  that evaluates cleanly and finds nothing is not an error, so an extractor's
-  default-on-no-match is unaffected. Leniency toward genuine errors is only ever an
-  explicit, opt-in node configuration, never the default.
+  engine) MUST fail the node. The failure MUST route to the error edge. This MUST hold
+  uniformly across every node that evaluates an author's expression. An expression that
+  evaluates cleanly and finds nothing is not an error, so an extractor's
+  default-on-no-match is unaffected. Leniency toward genuine errors MUST NOT occur
+  except through an explicit, opt-in node configuration.
 
 posture: normative-target
 level: core
@@ -25,6 +25,7 @@ changed: "1.0"
 
 rulings:
   - OPEN-8
+  - OPEN-25
 
 related:
   - LANG-21

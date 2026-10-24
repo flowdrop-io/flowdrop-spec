@@ -10,12 +10,12 @@ summary: >-
   looks at it cannot leak through a checkpoint, a job record, or a tool result.
 
 normative: >-
-  Exposure stripping (EXPO-11) runs before any other handling of a node's result:
+  Exposure stripping (EXPO-11) MUST run before any other handling of a node's result:
   before the unified `output` port is composed, before the result is checked for
   serializability, before it is wrapped for delivery, and before it is written to
   run records, checkpoints, real-time updates, or returned as a tool result. A
-  hidden output's value therefore never reaches any of them, and a value on a
-  hidden port that could not be serialized never fails the node.
+  hidden output's value therefore MUST NOT reach any of them. A value on a hidden
+  port that could not be serialized MUST NOT fail the node.
 
 posture: normative-target
 level: core
@@ -25,6 +25,9 @@ profiles:
 
 added: "1.0"
 changed: "1.0"
+
+rulings:
+  - OPEN-25
 
 related:
   - EXPO-11

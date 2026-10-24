@@ -5,7 +5,7 @@ part: I
 title: Control outputs are never stripped
 
 normative: >-
-  The reserved control outputs `active_branches` and `state_update` are never
+  The reserved control outputs `active_branches` and `state_update` MUST NOT be
   removed from a node's result by exposure stripping. They are the engine's own
   channel, not ports an author shows or hides, and branching and state merging
   depend on them arriving intact.
@@ -18,6 +18,9 @@ profiles:
 
 added: "1.0"
 changed: "1.0"
+
+rulings:
+  - OPEN-25
 
 related:
   - EXPO-11

@@ -10,10 +10,10 @@ summary: >-
 
 normative: >-
   Where an authoring surface presents a port's default-exposure decision, a value
-  already stored for that port decides it. Where none is stored, the processor's
-  suggestion (EXPO-6) is applied only to a port the node type declares — an input it
-  declares connectable, an output it declares exposed — and a port the node type does
-  not declare is presented as not exposed by default. Exposure values are never
+  already stored for that port MUST decide it. Where none is stored, the processor's
+  suggestion (EXPO-6) MUST be applied only to a port the node type declares — an input
+  it declares connectable, an output it declares exposed. A port the node type does
+  not declare MUST be presented as not exposed by default. Exposure values MUST NOT be
   recorded for a port the node type does not declare.
 
 posture: normative-target
@@ -24,6 +24,9 @@ profiles:
 
 added: "1.0"
 changed: "1.0"
+
+rulings:
+  - OPEN-25
 
 related:
   - EXPO-6

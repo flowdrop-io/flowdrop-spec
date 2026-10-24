@@ -6,8 +6,8 @@ title: Port display order is cosmetic
 
 normative: >-
   A port's declared display order is presentational metadata for whatever draws the
-  node. No execution, resolution, validation or exposure decision may depend on it,
-  and reordering ports must not change what a workflow does.
+  node. An execution, resolution, validation or exposure decision MUST NOT depend on it.
+  Reordering ports MUST NOT change what a workflow does.
 
 posture: normative-target
 level: extended
@@ -17,3 +17,6 @@ profiles:
 
 added: "1.0"
 changed: "1.0"
+
+rulings:
+  - OPEN-25

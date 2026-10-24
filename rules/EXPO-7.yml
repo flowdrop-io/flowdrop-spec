@@ -6,9 +6,9 @@ title: Published schemas carry the flag only where the default is hidden
 
 normative: >-
   Where a node type's stored default exposure for a port is false, the schema it
-  publishes carries `x-exposed-by-default: false`. Where it is anything else, the
-  key is absent from the published schema rather than present and true. A
-  processor's own value for the key is overwritten either way, so the published
+  publishes MUST carry `x-exposed-by-default: false`. Where it is anything else, the
+  key MUST be absent from the published schema rather than present and true. A
+  processor's own value for the key MUST be overwritten either way, so the published
   schema states the node type's decision and only where it diverges from the
   exposed default (CFG-2).
 
@@ -19,6 +19,9 @@ profiles:
 
 added: "1.0"
 changed: "1.0"
+
+rulings:
+  - OPEN-25
 
 related:
   - CFG-2

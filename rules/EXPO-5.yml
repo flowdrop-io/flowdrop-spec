@@ -10,9 +10,9 @@ summary: >-
   malformed or half-migrated value fails towards visible.
 
 normative: >-
-  A processor's `x-exposed-by-default` schema extension suppresses a port's default
-  exposure only when its value is exactly the boolean `false`. Any other value
-  (including null, zero, an empty string, or the string `"false"`) leaves the port
+  A processor's `x-exposed-by-default` schema extension MUST suppress a port's default
+  exposure when its value is exactly the boolean `false`. Any other value
+  (including null, zero, an empty string, or the string `"false"`) MUST leave the port
   exposed by default, as does the key's absence (CFG-2).
 
 posture: normative-target
@@ -22,6 +22,9 @@ profiles:
 
 added: "1.0"
 changed: "1.0"
+
+rulings:
+  - OPEN-25
 
 related:
   - CFG-2

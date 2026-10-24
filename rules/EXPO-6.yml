@@ -5,18 +5,18 @@ part: I
 title: A processor's exposure suggestion is authoring input only
 
 summary: >-
-  A processor may suggest that a port ship hidden. That suggestion is consumed once,
+  A processor can suggest that a port ship hidden. That suggestion is consumed once,
   when a node type's exposure values are first written, and never again, so a
   consumer reading a node type's published metadata is reading decisions, not
   suggestions.
 
 normative: >-
-  The `x-exposed-by-default` schema extension is consumed at authoring time only:
+  The `x-exposed-by-default` schema extension MUST be consumed at authoring time only:
   when seeding an author's exposure controls, and when a node type's stored exposure
-  values are first derived from a processor's schema. It must never be consulted
-  when a workflow runs, and no execution-time decision may depend on it. Published
-  node metadata reports exposure as it stands in the node type's stored
-  configuration (EXPO-7), never a processor's own suggestion; a processor declaring
+  values are first derived from a processor's schema. It MUST NOT be consulted
+  when a workflow runs. An execution-time decision MUST NOT depend on it. Published
+  node metadata MUST report exposure as it stands in the node type's stored
+  configuration (EXPO-7), and MUST NOT report a processor's own suggestion; a processor declaring
   the extension therefore cannot change what an already-configured node type
   publishes.
 
@@ -28,6 +28,9 @@ profiles:
 
 added: "1.0"
 changed: "1.0"
+
+rulings:
+  - OPEN-25
 
 related:
   - EXPO-5

@@ -1,6 +1,6 @@
 ---
 rule: EXPO-15
-rule_hash: 980f0fa3f527
+rule_hash: de2e7b16da04
 ---
 
 ## What it means
@@ -10,7 +10,7 @@ connectable, exposed, and not already fed by a wire. Missing any one pins
 it — the model cannot fill it, and it does not even appear in the schema
 offered to the model. The wire check is independent of the other two: a
 wired parameter is withheld because a wire's value is deterministic run
-state, and the model must not compete with it, whether or not that same
+state, and the model is not meant to compete with it, whether or not that same
 parameter would otherwise be exposed. A parameter the workflow hides is
 withheld the same way, whether the hiding comes from an explicit instance
 override or from the node type's own default exposure.

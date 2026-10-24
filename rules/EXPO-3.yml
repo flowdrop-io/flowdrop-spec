@@ -5,10 +5,10 @@ part: I
 title: Overrides are scoped by direction
 
 normative: >-
-  Exposure overrides are scoped by port direction: an output port's override is
-  read from the `outputs` map, and an input port's (that of every other direction)
-  from the `inputs` map. An input and an output of the same name are separate
-  ports, and an override on one never applies to the other.
+  Exposure overrides MUST be scoped by port direction: an output port's override
+  MUST be read from the `outputs` map, and an input port's (that of every other
+  direction) MUST be read from the `inputs` map. An input and an output of the same
+  name are separate ports. An override on one MUST NOT apply to the other.
 
 posture: normative-target
 level: core
@@ -17,6 +17,9 @@ profiles:
 
 added: "1.0"
 changed: "1.0"
+
+rulings:
+  - OPEN-25
 
 related:
   - EXPO-2

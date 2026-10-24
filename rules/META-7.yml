@@ -8,14 +8,14 @@ summary: >-
   holds no copy at all, which is worse than answering unconditionally.
 
 normative: >-
-  `If-None-Match` on a workflow schema read is compared for exact string equality
-  against the tag of the variant being requested. A match answers `304` carrying
-  the entity tag and the body `{}`, and does so before the schema itself is
-  assembled. A mismatch answers the full `200`. The wildcard `*`, a
-  comma-separated list of tags and weak comparison are not implemented: a caller
-  sending any of them receives a correct but unconditional `200`. Each variant
-  answers its own conditional request, so carrying the variant in the tag costs
-  no variant a `304`.
+  `If-None-Match` on a workflow schema read MUST be compared for exact string
+  equality against the tag of the variant being requested. A match MUST answer
+  `304` carrying the entity tag. The body of that `304` MUST be `{}`. A match is
+  answered before the schema itself is assembled. A mismatch MUST answer the full
+  `200`. The wildcard `*`, a comma-separated list of tags and weak comparison are
+  not supported: a request sending any of them MUST receive the full `200`. Each
+  variant MUST answer its own conditional request, so carrying the variant in the
+  tag costs no variant a `304`.
 
 posture: normative-target
 level: extended
@@ -25,6 +25,9 @@ profiles:
 
 added: "1.0"
 changed: "1.0"
+
+rulings:
+  - OPEN-25
 
 related:
   - META-6

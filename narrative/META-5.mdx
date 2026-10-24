@@ -1,6 +1,6 @@
 ---
 rule: META-5
-rule_hash: c094c116cf6e
+rule_hash: 31da7fa74972
 ---
 
 ## What it means
@@ -8,7 +8,7 @@ rule_hash: c094c116cf6e
 An unrecognised identifier is answered before the schema-version or
 entity-tag logic runs at all — there is no stored document to version or
 tag, so nothing downstream of the lookup is reached. The body carries only
-the one key, not the `{success, error}` envelope other doors on this API
+the one key, not the `{success, error}` envelope other endpoints on this API
 return: a caller that reads `success` to decide whether a response failed
 finds nothing there to read.
 

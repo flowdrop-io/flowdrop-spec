@@ -1,15 +1,15 @@
 ---
 rule: META-3
-rule_hash: be602e609ce1
+rule_hash: b8ce6cb0a566
 ---
 
 ## What it means
 
 A failed read does not forward whatever the underlying failure said: the
 caller gets one fixed message naming what failed, and the real detail goes
-only to the implementation's own error channel. This holds even on a door
+only to the implementation's own error channel. This holds even on an endpoint
 whose successful response is cacheable — a cacheable response path is not an
-exemption from the rule, so an error answer must not slip through it
+exemption from the rule, so an error answer does not slip through it
 unfiltered.
 
 ## Example

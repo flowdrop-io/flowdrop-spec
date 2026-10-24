@@ -1,11 +1,11 @@
 ---
 rule: META-7
-rule_hash: 64086cb5b0b3
+rule_hash: 18d51d1ad911
 ---
 
 ## What it means
 
-Only one comparison is implemented: the tag sent must equal, character for
+Only one comparison counts: a match needs the tag sent to equal, character for
 character, the tag of the variant actually being requested. The wildcard,
 a comma-separated list of tags and weak comparison are not read at all — a
 caller sending any of them falls through to the full response rather than
@@ -31,7 +31,7 @@ GET /api/flowdrop/workflows/{id}/schema?annotated=1
 If-None-Match: "1.2.3"
 ```
 
-```http title="A wildcard match, which this door does not read" verdict="200 unconditional"
+```http title="A wildcard match, which this endpoint does not read" verdict="200 unconditional"
 GET /api/flowdrop/workflows/{id}/schema
 If-None-Match: *
 ```

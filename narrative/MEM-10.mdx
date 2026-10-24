@@ -1,13 +1,13 @@
 ---
 rule: MEM-10
-rule_hash: e67b84f36342
+rule_hash: 0a5a7d364996
 ---
 
 ## What it means
 
 A healed placeholder exists so the conversation stays readable while a call's
 real answer is still missing. It is a guess standing in a real slot, and once
-the real result arrives the guess has to go — not sit alongside it, not get
+the real result arrives the guess goes — it does not stay alongside the result, nor get
 appended after it, but be overwritten in the exact position it held, so the
 result still reads immediately after the turn that declared the call.
 

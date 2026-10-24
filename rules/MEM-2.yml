@@ -8,9 +8,11 @@ summary: >-
   call would lose that call, so a partial overlap is kept.
 
 normative: >-
-  An `assistant`-role message is dropped as a duplicate only when every tool call
-  id it declares is already declared somewhere in the buffer. A turn declaring at
-  least one id not yet seen is appended.
+  An `assistant`-role message that declares at least one tool call id MUST be
+  dropped as a duplicate when every tool call id it declares is already declared
+  somewhere in the buffer. An `assistant`-role message that declares at least one
+  tool call id not yet seen MUST be appended. An `assistant`-role message that
+  declares no tool call id MUST NOT be dropped as a duplicate.
 
 posture: normative-target
 level: extended
@@ -20,6 +22,9 @@ profiles:
 
 added: "1.0"
 changed: "1.0"
+
+rulings:
+  - OPEN-25
 
 related:
   - MEM-1

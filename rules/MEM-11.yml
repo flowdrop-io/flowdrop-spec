@@ -9,11 +9,10 @@ summary: >-
   to the other.
 
 normative: >-
-  Where an assistant turn declares tool calls, a call's id is read under either
-  the normalized spelling or the provider-flat spelling, whichever is present.
-  Deduplication, dangling-call detection and id recording all read the id through
-  the same single definition, so the three cannot disagree about which calls a
-  turn declares.
+  Where an assistant turn declares tool calls, a call's id MUST be read under
+  either the normalized spelling or the provider-flat spelling, whichever is
+  present. Deduplication, dangling-call detection and id recording MUST agree on
+  which calls a turn declares.
 
 posture: normative-target
 level: extended
@@ -23,6 +22,9 @@ profiles:
 
 added: "1.0"
 changed: "1.0"
+
+rulings:
+  - OPEN-25
 
 related:
   - MEM-1

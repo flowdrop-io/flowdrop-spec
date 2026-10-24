@@ -5,16 +5,17 @@ part: I
 title: A real tool result replaces the placeholder that stood in for it
 summary: >-
   A healed message says a call was interrupted. If the result later arrives, the
-  buffer must show the answer, not the guess.
+  buffer shows the answer, not the guess.
 
 normative: >-
   When a tool result arrives for an id whose buffer entry is a synthetic healed
-  placeholder, the real result replaces the placeholder in place (at the same
-  position, so its adjacency to the declaring turn is preserved), and the healed
-  marking is removed with it. Only a placeholder is ever overwritten: after the
-  replacement the entry is an ordinary answered result, so a second real result
-  for the same id is deduplicated as usual, and an incoming message that is itself
-  marked healed never replaces anything.
+  placeholder, the real result MUST replace the placeholder in place (at the same
+  position, so its adjacency to the declaring turn is preserved). The healed
+  marking MUST be removed with the placeholder. An entry that is not a synthetic
+  healed placeholder MUST NOT be overwritten. After the replacement the entry is
+  an ordinary answered result, so a second real result for the same id MUST be
+  deduplicated as usual. An incoming message that is itself marked healed MUST NOT
+  replace anything.
 
 posture: normative-target
 level: extended
@@ -24,6 +25,9 @@ profiles:
 
 added: "1.0"
 changed: "1.0"
+
+rulings:
+  - OPEN-25
 
 related:
   - MEM-1

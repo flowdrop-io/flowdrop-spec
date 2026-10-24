@@ -1,6 +1,6 @@
 ---
 rule: MEM-11
-rule_hash: 323f23c02a06
+rule_hash: c544a6631725
 ---
 
 ## What it means
@@ -9,7 +9,7 @@ A tool call's id can arrive spelled two ways: the shape this buffer writes
 itself, and the flat shape a provider payload carries straight through. Both
 name the same call. The rule that bites is that every reader of that id —
 whether it is checking for a duplicate, looking for a call nobody answered, or
-recording what a turn declared — has to accept either spelling, because a
+recording what a turn declared — accepts either spelling, because a
 buffer built from raw provider turns and one built by appending through this
 node can end up sitting side by side in the same conversation.
 

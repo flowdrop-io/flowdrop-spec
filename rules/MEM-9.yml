@@ -10,14 +10,14 @@ summary: >-
   identity happens to be zero.
 
 normative: >-
-  Authorization to read a session does not authorize driving it. A principal that may
-  only view a session must not be able to send it a turn, stop it or reset it,
-  because the turn runs under the session owner's identity and reads and writes the
-  owner's memory (MEM-8). Every ownership test requires a real identity on both
-  sides. A principal carrying no identity never owns anything, and a session carrying
-  no owner is owned by nobody rather than by everybody, so an unidentified caller
-  never acquires ownership of a session, a transcript or a run snapshot by matching
-  one absent identity against another.
+  Authorization to read a session MUST NOT authorize driving it. A principal that
+  can only view a session MUST NOT be able to send it a turn, stop it or reset it,
+  because the turn runs under the session owner's identity and reads and writes
+  the owner's memory (MEM-8). Every ownership test MUST require a real identity on
+  both sides. A principal carrying no identity MUST NOT own anything. A session
+  carrying no owner MUST be owned by nobody rather than by everybody. An
+  unidentified caller MUST NOT acquire ownership of a session, a transcript or a
+  run snapshot by matching one absent identity against another.
 
 posture: normative-target
 level: core
@@ -27,6 +27,9 @@ profiles:
 
 added: "1.0"
 changed: "1.0"
+
+rulings:
+  - OPEN-25
 
 related:
   - MEM-6

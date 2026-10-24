@@ -8,22 +8,23 @@ summary: >-
   the one place that reconciles them, and it reports what it had to drop.
 
 normative: >-
-  A conversation-normalization node takes one message list and emits a normalized
-  message list plus the number of entries dropped, applying four rules in order.
-  (1) Each entry is coerced to the flat message shape a reasoner consumes; a
-  non-list entry or one without a role is dropped, and content that is not a
-  scalar is serialized to text rather than blanked, falling back to the empty
-  string if it cannot be serialized. (2) `system`-role messages move to the front,
-  with the system group and the remaining group each keeping their own relative
-  order; a system message is never dropped. (3) Tool pairing is repaired by the
-  same procedure a reasoner applies mid-loop: an unanswered call gets a synthetic
-  interrupted result adjacent to it, an orphan or duplicate result is dropped, and
-  a tool call id declared a second time is dropped from the later turn, so the
-  first declaration owns the pairing. (4) Any message still leading the list with
-  role `tool` is stripped, and because stripping it can leave a call unanswered,
-  rule (3) is applied again; repair is idempotent. The reported drop count comes
-  from the repair pass itself, never from a separate reimplementation of its
-  rules.
+  A conversation-normalization node MUST take one array of messages and MUST emit
+  a normalized array of messages plus the number of entries dropped, applying four
+  rules in order. (1) Each entry MUST be coerced to the flat message shape a
+  reasoner consumes. A non-list entry or one without a role MUST be dropped.
+  Content that is not a scalar MUST be serialized to text and MUST NOT be blanked,
+  falling back to the empty string if it cannot be serialized. (2) `system`-role
+  messages MUST move to the front, with the system group and the remaining group
+  each keeping their own relative order. A system message MUST NOT be dropped. (3)
+  Tool pairing MUST be repaired by the same procedure a reasoner applies mid-loop:
+  an unanswered call MUST get a synthetic interrupted result adjacent to it, an
+  orphan or duplicate result MUST be dropped, and a tool call id declared a second
+  time MUST be dropped from the later turn, so that the first declaration owns the
+  pairing. (4) Any message still leading the array with role `tool` MUST be
+  stripped, and rule (3) MUST then be applied again, because stripping it can
+  leave a call unanswered. Repair is idempotent. The reported drop count is the
+  count of entries the repair pass itself dropped, not a figure from a separate
+  reimplementation of its rules.
 
 posture: normative-target
 level: extended
@@ -33,6 +34,9 @@ profiles:
 
 added: "1.0"
 changed: "1.0"
+
+rulings:
+  - OPEN-25
 
 related:
   - MEM-3

@@ -4,17 +4,18 @@ part: I
 
 title: Appending a tool result twice appends it once
 summary: >-
-  An agent loop that retries a step, or an orchestrator that re-delivers a
-  result, must not double the conversation. The buffer decides by the tool
+  An agent loop that retries a step, or an orchestrator that re-delivers a result,
+  would double the conversation without a guard. The buffer decides by the tool
   call's id, so a repeat is a no-op rather than a second turn.
 
 normative: >-
-  Appending to a conversation buffer is idempotent by tool call id. A
+  Appending to a conversation buffer MUST be idempotent by tool call id. A
   `tool`-role message whose tool call id already appears anywhere in the buffer
-  (already stored, or added earlier in the same append) is dropped rather than
-  appended, and the reported message count reflects the deduplicated buffer. The
-  one exception is an id currently held by a synthetic healed placeholder, which
-  is replaced rather than deduplicated.
+  (already stored, or added earlier in the same append) MUST be dropped and MUST
+  NOT be appended. The reported message count MUST reflect the deduplicated
+  buffer. The one exception is an id currently held by a synthetic healed
+  placeholder: a `tool`-role message with that id MUST replace the placeholder and
+  MUST NOT be deduplicated.
 
 posture: normative-target
 level: extended
@@ -24,6 +25,9 @@ profiles:
 
 added: "1.0"
 changed: "1.0"
+
+rulings:
+  - OPEN-25
 
 related:
   - MEM-2

@@ -9,13 +9,13 @@ summary: >-
   prevents that, but losing a turn is worse than a rare interleave.
 
 normative: >-
-  The read-modify-write of a conversation buffer is serialized per storage scope
-  (scope, scope identifier and key together), so concurrent appends queue instead
-  of overwriting one another. The wait is bounded: an append that still cannot
-  take its turn proceeds unserialized and emits a warning rather than failing or
-  discarding the turn. Serialization taken is always released. Nothing more is
-  claimed: not storage-level atomicity, and no protection against a writer that
-  does not go through this path.
+  The read-modify-write of a conversation buffer MUST be serialized per storage
+  scope (scope, scope identifier and key together), so concurrent appends queue
+  instead of overwriting one another. The wait MUST be bounded. An append that
+  still cannot take its turn MUST proceed unserialized and MUST NOT fail or
+  discard the turn, and it emits a warning. Serialization taken MUST always be
+  released. Nothing more is claimed: not storage-level atomicity, and no
+  protection against a writer that does not go through this path.
 
 posture: normative-target
 level: extended
@@ -25,6 +25,9 @@ profiles:
 
 added: "1.0"
 changed: "1.0"
+
+rulings:
+  - OPEN-25
 
 related:
   - MEM-7

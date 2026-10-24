@@ -1,6 +1,6 @@
 ---
 rule: MEM-3
-rule_hash: fd43cad3feed
+rule_hash: 471f2a84e325
 ---
 
 ## What it means
@@ -9,7 +9,7 @@ A crashed or interrupted loop can leave a buffer with an assistant turn that
 declared a call and no result answering it. Healing does not wait for the
 buffer to end before closing that pair: the synthetic result is inserted
 directly after the turn that declared the call, wherever that is, because a
-result has to sit next to its call for the history to be sendable at all. A
+result sits next to its call in a history that is sendable. A
 conversation that carried on past the crash — more turns appended after the
 dangling call, before anyone appends a `user` message — still gets its
 synthetic result inserted mid-buffer, not tacked onto the end.

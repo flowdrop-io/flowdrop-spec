@@ -1,11 +1,11 @@
 ---
 rule: STORE-3
-rule_hash: 9a125d33f8bd
+rule_hash: b59ad75e93b2
 ---
 
 ## What it means
 
-A caller may name the id it wants a new workflow to have, rather than being
+A caller can name the id it wants a new workflow to have, rather than being
 handed one. That is a convenience with one sharp edge: an id is also how an
 existing workflow is addressed, so a create request naming an id already in
 use is ambiguous between "make this" and "replace that". The rule resolves

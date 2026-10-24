@@ -5,9 +5,9 @@ part: I
 title: A client-supplied id never overwrites an existing workflow
 
 normative: >-
-  A create request may supply the workflow's `id`. If a workflow with that id already
-  exists, the request is refused with 409 and the stored workflow is left exactly as
-  it was. An implementation must never silently turn a create into an update.
+  A create request MAY supply the workflow's `id`. If a workflow with that id already
+  exists, the request MUST be refused with 409. The stored workflow MUST be left exactly
+  as it was. An implementation MUST NOT silently turn a create into an update.
 
 posture: normative-target
 level: core
@@ -16,3 +16,6 @@ profiles:
 
 added: "1.0"
 changed: "1.0"
+
+rulings:
+  - OPEN-25

@@ -1,6 +1,6 @@
 ---
 rule: STORE-15
-rule_hash: 4f3f956526a4
+rule_hash: 007901460ab4
 ---
 
 ## What it means
@@ -9,8 +9,8 @@ A search term is text to find, never a pattern to interpret. That matters
 because the family of characters a pattern language treats specially —
 `%` and `_`, in the pattern syntax this rule explicitly rules out — are
 ordinary characters in a workflow name, and a caller who names a workflow
-`100% coverage` has to be able to find it by searching for the percent sign
-literally, not by learning to escape it first.
+`100% coverage` can find it by searching for the percent sign
+literally, without learning to escape it first.
 
 A term that matches nothing is not a refusal and not a not-found: it is an
 ordinary page, empty, with a pagination block that still reports correctly
@@ -39,5 +39,5 @@ GET /api/flowdrop/workflows?search=nothing+here
 ```
 
 A wildcard reading of `_nvoice` would match a name containing `Invoice`; a
-literal one, which is what this rule requires, matches nothing — the same
+literal one, which is what this rule calls for, matches nothing — the same
 empty, coherent answer as any other term nothing contains.

@@ -9,10 +9,10 @@ summary: >-
   not JSON at all is turned away before any workflow-level meaning is read out of it.
 
 normative: >-
-  A request body must be JSON whose top level is an object or an array. A body that
-  is empty, is not well-formed JSON, decodes to a scalar (`null` included), exceeds
-  8 MiB of octets, or nests 64 levels or deeper is refused with 400, and nothing is
-  stored. An implementation must accept a document nested 63 levels deep.
+  A request body MUST be JSON whose top level is an object or an array. A body that is
+  empty, is not well-formed JSON, decodes to a scalar (`null` included), exceeds 8 MiB of
+  octets, or nests 64 levels or deeper MUST be refused with 400. Nothing is stored when a
+  body is refused. An implementation MUST accept a document nested 63 levels deep.
 
 posture: normative-target
 level: core
@@ -21,6 +21,9 @@ profiles:
 
 added: "1.0"
 changed: "1.0"
+
+rulings:
+  - OPEN-25
 
 related:
   - API-1

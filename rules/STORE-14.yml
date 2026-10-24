@@ -9,15 +9,15 @@ summary: >-
   one shape, not four.
 
 normative: >-
-  Every surface that returns a workflow publishes the same keys in the same order:
-  `id`, `name`, `description`, `nodes`, `edges`, `metadata`, `created`, `changed`,
-  `uid`. `nodes` is enriched with each node's node-type metadata, and `metadata` is the
-  value as published on read. The spelling is uniformly lower-case, `created`, `changed`
-  and `uid` included. A tenth key, `interface`, is appended immediately after `metadata`
-  when the workflow declares at least one input or output port, and is omitted entirely
-  (never emitted as an empty object or an empty list) when it declares none. One
-  derivation serves every surface, including any surface that embeds a workflow outside
-  the API.
+  Every surface that returns a workflow MUST carry the keys `id`, `name`, `description`,
+  `nodes`, `edges`, `metadata`, `created`, `changed` and `uid`. `nodes` MUST be enriched
+  with each node's node-type metadata. `metadata` MUST be the value as published on read.
+  These keys MUST be spelled in lower case, `created`, `changed` and `uid` included.
+  `interface` MUST be present when the workflow declares at least one input or output
+  port. `interface` MUST be absent when the workflow declares none, never emitted as an
+  empty object or an empty array. A workflow MUST have the same values for these keys on
+  every surface that returns it, including any surface that embeds a workflow outside the
+  API.
 
 posture: normative-target
 level: core
@@ -27,6 +27,10 @@ profiles:
 
 added: "1.0"
 changed: "1.0"
+
+rulings:
+  - OPEN-23
+  - OPEN-25
 
 related:
   - STORE-4

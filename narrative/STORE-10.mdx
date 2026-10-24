@@ -1,6 +1,6 @@
 ---
 rule: STORE-10
-rule_hash: 5153b5306116
+rule_hash: 8b997f28140e
 ---
 
 ## What it means
@@ -12,16 +12,16 @@ compiling or executing can quietly repair all three, because a run has to
 proceed on the best available graph. Validation exists specifically to
 report those same conditions, so a repair that runs before validation sees
 them hides exactly what the caller needed to be told. The save, validate and
-mutate paths must see the workflow exactly as it was submitted or as it is
+mutate paths see the workflow exactly as it was submitted or as it is
 stored — dangling edge, duplicate id, missing id and all.
 
 Two of the normalisations have a direction worth naming, because the wrong
 one is the more intuitive-sounding choice. Config filling only fills the
 keys an author left absent: the value the author actually saved wins over
 whatever default the node type now declares, never the reverse — a stale
-node-type default is not allowed to override real input. And when a node or
+node-type default does not override real input. And when a node or
 edge id repeats, the last occurrence read wins, silently dropping every
-earlier copy under that id; a validator reading the same raw list, unrepaired,
+earlier copy under that id; a validator reading the same raw array, unrepaired,
 sees both copies and can report the collision the repair would have erased.
 
 ## Example
@@ -41,7 +41,7 @@ the default carries a second key the author never set.
 {"operation": "multiply", "precision": 2}
 ```
 
-A workflow whose node list carries the id `a` twice reads, on the read path,
+A workflow whose node array carries the id `a` twice reads, on the read path,
 as one node — the second occurrence's data, the first discarded without a
 trace:
 
@@ -50,5 +50,5 @@ trace:
 ```
 
 The read path resolves this to two nodes, `a` and `b`, with `a` labelled
-`"third"`. Validation, reading the same three-node list unrepaired, is where
+`"third"`. Validation, reading the same three-node array unrepaired, is where
 a duplicate id is reported at all.

@@ -2,17 +2,17 @@ id: STORE-2
 family: GR-STORE
 part: I
 
-title: A workflow must be named
+title: Every workflow carries a name
 summary: >-
   Every workflow carries a name, on creation and on every update. The name is what
   a person uses to find it again, so the system refuses to store one without it.
 
 normative: >-
-  A workflow's `name` is required when it is created and when it is updated, and
-  must be a non-empty string. An implementation must accept a name of at least 255
-  Unicode code points, and may accept longer. A request that omits the name, sends
-  an empty one, or exceeds the implementation's limit is refused with 400, and
-  nothing is stored.
+  A workflow's `name` MUST be present when it is created and when it is updated, and MUST
+  be a non-empty string. An implementation MUST accept a name of at least 255 Unicode code
+  points, and MAY accept longer. A request that omits the name, sends an empty one, or
+  exceeds the implementation's limit MUST be refused with 400. Nothing is stored when such
+  a request is refused.
 
 posture: normative-target
 level: core
@@ -24,6 +24,7 @@ changed: "1.0"
 
 rulings:
   - OPEN-19
+  - OPEN-25
 
 # related: restored as the sibling STORE-* rules are migrated. The validator
 # refuses a reference to a rule that does not exist, which is the point.

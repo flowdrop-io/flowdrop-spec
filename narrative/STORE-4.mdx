@@ -1,6 +1,6 @@
 ---
 rule: STORE-4
-rule_hash: 17e670dedb90
+rule_hash: 4810d2fea751
 ---
 
 ## What it means
@@ -10,20 +10,20 @@ stored, which is what lets a caller save one part of a workflow without
 holding the whole of it in hand. `interface` is the one key where "sent"
 does not mean "sent in full" — sending it at all rewrites both the inputs
 and the outputs it describes, even if only one of them is included. A side
-left out of a present `interface`, or sent as an empty list, is cleared, not
+left out of a present `interface`, or sent as an empty array, is cleared, not
 left alone. Absent and empty are the same signal there that they are not
 everywhere else in this rule: absent preserves, present (even partially or
 emptily) replaces.
 
 The `metadata` a caller reads back is not necessarily the `metadata` it
-would get by reading the stored document directly: an implementation may
-fold housekeeping fields such as a format marker or a schema version into
+would get by reading the stored document directly: an implementation is
+free to fold housekeeping fields such as a format marker or a schema version into
 what it publishes on read, without those fields having been part of what was
 stored.
 
 ## Example
 
-Three requests to the same door, none of them touching `interface` the same
+Three requests to the same endpoint, none of them touching `interface` the same
 way.
 
 ```http title="A create with no nodes, edges or metadata" verdict="201 stored"
@@ -44,9 +44,9 @@ PUT /api/flowdrop/workflows/{workflow}
 {"name": "Clear", "interface": []}
 ```
 
-The first leaves `nodes`, `edges` and `metadata` all as empty lists — nothing
+The first leaves `nodes` and `edges` as empty arrays and `metadata` empty — nothing
 was sent for them, so there is nothing to default from but empty. The second
 leaves the edges and metadata a prior request had set untouched, because
 this request never mentions them. The third is the one that reads like the
 second but is not: `interface` was sent, so both its sides are rewritten, and
-an empty list on either side clears it rather than leaving it as it was.
+an empty array on either side clears it rather than leaving it as it was.

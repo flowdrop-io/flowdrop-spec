@@ -6,8 +6,8 @@ title: A finished turn leaves the session completed, not idle
 
 normative: >-
   `idle` means a session was created and has never executed. A session whose turn has
-  finished is released as `completed`. The two are distinct states, and an
-  implementation must not use `idle` to mean that a turn has finished.
+  finished MUST be released as `completed`. The two are distinct states, and an
+  implementation MUST NOT use `idle` to mean that a turn has finished.
 
 posture: normative-target
 level: extended
@@ -17,6 +17,9 @@ profiles:
 
 added: "1.0"
 changed: "1.0"
+
+rulings:
+  - OPEN-25
 
 related:
   - STORE-11

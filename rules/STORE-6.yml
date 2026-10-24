@@ -10,16 +10,15 @@ summary: >-
   why a client reading back what it just wrote does not get it back.
 
 normative: >-
-  Storing a workflow discards the transient state an editor keeps on a node while it
-  is being edited: `selected`, `dragging`, `deletable`, and `nodeId` both on the node
-  and inside the node's `data`. It also reduces a node's `data.metadata` to the node
-  type the node anchors to; the rest of the metadata is not stored, because it is
-  restored from the node type on read (STORE-14). A node's `measured` and `position`,
-  and its `data.config`, `data.label` and `data.extensions`, survive the write
-  unchanged. A node whose node-type anchor does not resolve is exempt: it keeps its
-  metadata and its `type` verbatim, since nothing could restore them on read.
-  Discarding is idempotent, so storing an already-stored workflow drops nothing
-  further.
+  Storing a workflow MUST discard the transient state an editor keeps on a node while it
+  is being edited: `selected`, `dragging`, `deletable`, and `nodeId` both on the node and
+  inside the node's `data`. It MUST also reduce a node's `data.metadata` to the node type
+  the node anchors to. The rest of the metadata is not stored, because it is restored from
+  the node type on read (STORE-14). A node's `measured` and `position`, and its
+  `data.config`, `data.label` and `data.extensions`, MUST survive the write unchanged. A
+  node whose node-type anchor does not resolve is exempt: it MUST keep its metadata and
+  its `type` verbatim, since nothing could restore them on read. Discarding MUST be
+  idempotent, so storing an already-stored workflow drops nothing further.
 
 posture: normative-target
 level: core
@@ -29,6 +28,9 @@ profiles:
 
 added: "1.0"
 changed: "1.0"
+
+rulings:
+  - OPEN-25
 
 related:
   - STORE-14

@@ -5,10 +5,10 @@ part: I
 title: Status vocabularies are closed sets of strings
 
 normative: >-
-  Job, pipeline, session and message status are each a closed vocabulary. A status is a
-  string, and one spelling serves everywhere: what is persisted is what every JSON
-  payload carries and what every event carries. An implementation must not persist one
-  spelling and publish another.
+  Job, pipeline, session and message status MUST each take their value from a closed
+  vocabulary. A status MUST be a string, and one spelling MUST serve everywhere: what is
+  persisted is what every JSON payload carries and what every event carries. An
+  implementation MUST NOT persist one spelling and publish another.
 
 posture: normative-target
 level: extended
@@ -18,6 +18,9 @@ profiles:
 
 added: "1.0"
 changed: "1.0"
+
+rulings:
+  - OPEN-25
 
 related:
   - STORE-12

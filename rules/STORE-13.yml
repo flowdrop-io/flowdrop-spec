@@ -10,11 +10,11 @@ summary: >-
   who wrote it.
 
 normative: >-
-  A node type's identifier is `node_type_id` wherever it appears in a payload: job
-  metadata, node metadata, a serialised node execution result, a node-status broadcast,
-  a persisted session message. A node's visual type is `visual_type` in a per-node
-  snapshot payload. The bare key `node_type` must not be written anywhere. A node's own
-  identifier is `node_id` and is unaffected.
+  A node type's identifier MUST be `node_type_id` wherever it appears in a payload: job
+  metadata, node metadata, a serialised node execution result, a node-status broadcast, a
+  persisted session message. A node's visual type MUST be `visual_type` in a per-node
+  snapshot payload. The bare key `node_type` MUST NOT be written anywhere. A node's own
+  identifier MUST be `node_id`, and this rule does not affect it.
 
 posture: normative-target
 level: extended
@@ -24,6 +24,9 @@ profiles:
 
 added: "1.0"
 changed: "1.0"
+
+rulings:
+  - OPEN-25
 
 related:
   - STORE-7

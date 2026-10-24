@@ -10,10 +10,10 @@ summary: >-
   compares.
 
 normative: >-
-  A workflow's published contract version is three dot-separated non-negative
-  integers. A workflow whose contract has never been built carries `0.0.0`, the
-  version from which the first build's bump is taken (MAN-18). The version is never
-  empty and never absent, so a consumer always has a usable value, including one
+  A workflow's published contract version MUST be three dot-separated non-negative
+  integers. A workflow whose contract has never been built MUST carry `0.0.0`, the version
+  from which the first build's bump is taken (MAN-18). The version MUST always be present.
+  The version MUST NOT be empty, so a consumer always has a usable value, including one
   using it as a cache validator (META-6).
 
 posture: normative-target
@@ -24,6 +24,9 @@ profiles:
 
 added: "1.0"
 changed: "1.0"
+
+rulings:
+  - OPEN-25
 
 related:
   - MAN-18

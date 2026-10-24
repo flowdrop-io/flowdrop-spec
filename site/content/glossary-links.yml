@@ -19,8 +19,8 @@ turn:
   match: "(?<!its |their )turns?(?! (?:on|out|into|off|to|an?|the|it|them)\\b)"
 session:
   match: "sessions?(?![-'])"
-door:
-  match: "doors?"
+endpoint:
+  match: "endpoints?"
 interrupt:
   # Singular noun only: "an interrupt", "the interrupt's id". The plural form
   # is the verb in this corpus ("a node that interrupts").

@@ -5,8 +5,8 @@ part: II
 title: Trigger dependencies displace data dependencies for ordering
 normative: >-
   Where a node has both trigger dependencies and data dependencies, its execution
-  dependencies are its trigger dependencies alone. Data dependencies order a node only
-  when it has no trigger dependency.
+  dependencies MUST be its trigger dependencies alone. Data dependencies MUST NOT
+  order a node that has a trigger dependency.
 
 posture: normative-target
 level: core
@@ -15,6 +15,9 @@ profiles:
 
 added: "1.0"
 changed: "1.0"
+
+rulings:
+  - OPEN-25
 
 related:
   - CMP-8

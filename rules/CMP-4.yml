@@ -4,8 +4,8 @@ part: II
 
 title: An edge's type is derived, never declared
 normative: >-
-  The type of an edge is derived from the handles it connects. An edge does not
-  declare its own type, and a declared type on an edge is not authoritative.
+  The type of an edge MUST be derived from the handles it connects. An edge does not
+  declare its own type. A declared type on an edge MUST NOT be authoritative.
 
 posture: normative-target
 level: core
@@ -14,6 +14,9 @@ profiles:
 
 added: "1.0"
 changed: "1.0"
+
+rulings:
+  - OPEN-25
 
 related:
   - EDGE-5

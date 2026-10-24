@@ -4,13 +4,13 @@ part: II
 
 title: Execution order is a topological order, and no more than that
 summary: >-
-  Two nodes with no dependency between them may run in either relative order. An
-  author who needs one before the other must say so with an edge.
+  Two nodes with no dependency between them can run in either relative order. An
+  edge is how an author makes one come before the other.
 
 normative: >-
-  The execution order is a topological order of the execution dependencies: a node
-  never precedes a node it depends on. The relative order of nodes with no dependency
-  relation between them is not specified, and an author must not rely on it.
+  The execution order MUST be a topological order of the execution dependencies: a
+  node MUST NOT precede a node it depends on. The relative order of nodes with no
+  dependency relation between them is not specified. An author MUST NOT rely on it.
 
 posture: normative-target
 level: core
@@ -19,6 +19,9 @@ profiles:
 
 added: "1.0"
 changed: "1.0"
+
+rulings:
+  - OPEN-25
 
 related:
   - CMP-7

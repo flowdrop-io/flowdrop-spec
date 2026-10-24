@@ -8,10 +8,10 @@ summary: >-
   rejected before any graph work happens.
 
 normative: >-
-  Before any graph is built, compilation checks, in order: the workflow has an
+  Before any graph is built, compilation MUST check, in order: the workflow has an
   identifier; it has at least one node; and then, per node in definition order, that
-  the node has an identifier and that it has a type. The first failure refuses
-  compilation, and the failure names which precondition failed and, where the
+  the node has an identifier and that it has a type. The first failure MUST refuse
+  compilation. The failure MUST name which precondition failed and, where the
   failure is a node's, which node.
 
 posture: normative-target
@@ -21,6 +21,9 @@ profiles:
 
 added: "1.0"
 changed: "1.0"
+
+rulings:
+  - OPEN-25
 
 related:
   - CMP-1

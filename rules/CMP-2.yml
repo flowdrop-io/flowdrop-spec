@@ -9,10 +9,11 @@ summary: >-
   attacker-supplied metadata.
 
 normative: >-
-  Compilation re-enriches every node's metadata from the live node type definitions
-  before planning the run. This holds at every entry point into compilation: no
-  caller can compile a workflow whose stored node metadata is taken on trust. The
-  re-enriched workflow is normalized before it is compiled.
+  Compilation MUST re-enrich every node's metadata from the live node type
+  definitions before planning the run. This MUST hold at every entry point into
+  compilation, so that no caller can compile a workflow whose stored node metadata
+  is taken on trust. The re-enriched workflow MUST be normalized before it is
+  compiled.
 
 posture: normative-target
 level: core
@@ -24,6 +25,7 @@ changed: "1.0"
 
 rulings:
   - OPEN-19
+  - OPEN-25
 
 related:
   - SCH-29

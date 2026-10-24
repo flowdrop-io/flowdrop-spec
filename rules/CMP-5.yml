@@ -9,10 +9,11 @@ summary: >-
   would make loop extent ill-defined rather than merely permissive.
 
 normative: >-
-  Cycle detection ignores tool-availability, loopback and agent-result edges. A cycle
-  formed only from those edge types is legal. Any other cycle refuses compilation.
-  The graph that remains once the ignored edge types are removed is therefore acyclic,
-  and rules that depend on that acyclicity may assume it.
+  Cycle detection MUST ignore tool-availability, loopback and agent-result edges. A
+  cycle formed only from those edge types MUST NOT refuse compilation. Any other
+  cycle MUST refuse compilation. The graph that remains once the ignored edge types
+  are removed is therefore acyclic, and rules that depend on that acyclicity can
+  rely on it.
 
 posture: normative-target
 level: core
@@ -21,6 +22,9 @@ profiles:
 
 added: "1.0"
 changed: "1.0"
+
+rulings:
+  - OPEN-25
 
 related:
   - CMP-1

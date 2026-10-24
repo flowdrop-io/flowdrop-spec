@@ -8,14 +8,16 @@ summary: >-
   answers publicly for the check and privately for the request.
 
 normative: >-
-  Before a node makes a request to a URL derived from workflow input, the URL is
-  validated: only `http` and `https` are allowed, the host is resolved (over
-  both IPv4 and IPv6), and any address in a private or reserved range is refused.
-  A refusal is a node configuration error, which takes the error edge rather than
-  failing the run. The validated address is what the request must then be made
-  to: the connection is pinned to the address that was checked, honouring an
-  explicit port. Every node that dials a caller-supplied URL performs this check;
-  a second implementation of it is a second thing to forget to fix.
+  Before a node makes a request to a URL derived from workflow input, the URL
+  MUST be validated. Validation MUST allow only the `http` and `https` schemes.
+  Validation MUST resolve the host, over both IPv4 and IPv6. Validation MUST
+  refuse the URL if any resolved address is in a private or reserved range. A
+  refusal MUST be a node configuration error. A refusal MUST take the error edge
+  rather than failing the run. The request MUST be made to the validated
+  address, so the connection is pinned to the address that was checked. The
+  connection MUST honour an explicit port in the URL. Every node that dials a
+  caller-supplied URL MUST perform this check; a second implementation of it is
+  a second thing to forget to fix.
 
 posture: normative-target
 level: core
@@ -24,6 +26,9 @@ profiles:
 
 added: "1.0"
 changed: "1.0"
+
+rulings:
+  - OPEN-25
 
 related:
   - NET-2

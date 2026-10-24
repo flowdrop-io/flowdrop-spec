@@ -299,3 +299,6 @@ affects:
   - CRON-2
   - MD-1
   - MD-2
+  - NET-1
+  - NET-2
+  - NET-3

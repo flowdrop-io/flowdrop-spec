@@ -8,14 +8,15 @@ summary: >-
   answer, and it has to survive any number of skips in a row.
 
 normative: >-
-  A trigger keeps, per trigger, the time it last ran, the number of times it has
-  run, and a history. Recording an execution advances all three. Recording a skip
-  appends a history entry carrying the reason for the skip and leaves the last-run
-  time and the run count untouched. The history is newest-first and holds at most
-  the ten most recent entries from either writer, so an unattended trigger cannot
-  grow its record without bound. Stored state that is not in the shape expected is
-  read as absent (no last run, a count of zero, an empty history) rather than
-  failing the trigger.
+  A trigger MUST keep the time it last ran, the number of times it has run, and
+  a history. Recording an execution MUST advance all three. Recording a skip
+  MUST append a history entry carrying the reason for the skip. Recording a skip
+  MUST NOT change the last-run time or the run count. The history MUST be
+  ordered newest first. The history MUST hold at most the ten most recent
+  entries, whether recorded as an execution or as a skip, so an unattended
+  trigger cannot grow its record without bound. Stored state that is not in the
+  shape expected MUST be read as absent (no last run, a count of zero, an empty
+  history) rather than failing the trigger.
 
 posture: normative-target
 level: extended
@@ -24,3 +25,6 @@ profiles:
 
 added: "1.0"
 changed: "1.0"
+
+rulings:
+  - OPEN-25

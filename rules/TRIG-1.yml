@@ -10,20 +10,23 @@ summary: >-
   a queue.
 
 normative: >-
-  Overlap is decided against runs of the same workflow that have not reached a
-  terminal state: pending, running or paused. A terminal run, and a run of any
-  other workflow, are both ignored; with none active, every policy proceeds with
-  the caller's trigger data unchanged. With one active, Skip blocks the firing;
-  Buffer defers it and blocks; Cancel cancels every active run, announcing each
-  cancellation, and proceeds; Terminate first cancels every job those runs still
-  have outstanding, so no worker can pick one up after the run is gone, and then
-  does what Cancel does. The buffer holds at most one deferred firing per trigger:
-  a second firing while one is buffered is dropped, never stacked and never
-  overwritten. A buffered firing is released at the next firing once the run that
-  blocked it is terminal or gone, and on release its own payload replaces the
-  current firing's; a buffer whose blocking run can no longer be identified is
+  Overlap MUST be decided against runs of the same workflow that have not
+  reached a terminal state: pending, running or paused. A terminal run, and a
+  run of any other workflow, MUST be ignored. With none active, every policy
+  MUST proceed with the caller's trigger data unchanged. With one active, Skip
+  MUST block the firing. With one active, Buffer MUST defer the firing and block
+  it. With one active, Cancel MUST cancel every active run and announce each
+  cancellation. With one active, Cancel MUST then proceed. With one active,
+  Terminate MUST first cancel every job those runs still have outstanding, so no
+  worker can pick one up after the run is gone. With one active, Terminate MUST
+  then do what Cancel does. The buffer MUST hold at most one deferred firing per
+  trigger. A second firing that arrives while one is buffered MUST be dropped,
+  neither stacked nor overwriting the buffered one. A buffered firing MUST be
+  released at the next firing once the run that blocked it is terminal or gone.
+  On release, the buffered firing's own payload MUST replace the current
+  firing's. A buffer whose blocking run can no longer be identified MUST be
   released rather than left stranded. A policy an implementation does not
-  recognise must be treated as Skip, the only fail-safe direction, since every
+  recognise MUST be treated as Skip, the only fail-safe direction, since every
   alternative destroys a running workflow.
 
 posture: normative-target
@@ -36,3 +39,6 @@ changed: "1.0"
 
 # related: ORC-15 governs the announcement a Cancel emits; restored once that rule
 # is migrated. The validator refuses a reference to a rule that does not exist.
+
+rulings:
+  - OPEN-25

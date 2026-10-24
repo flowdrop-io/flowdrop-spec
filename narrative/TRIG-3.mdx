@@ -1,14 +1,14 @@
 ---
 rule: TRIG-3
-rule_hash: 25871b765c81
+rule_hash: 520e32882250
 ---
 
 ## What it means
 
 A skip is written for diagnosis, not treated as a run. It appends to the
 history like an execution does, but it leaves the last-run time and the run
-count exactly where they were — a schedule that decides against firing must
-not look, afterwards, like it fired. The distinction shows up in the
+count exactly where they were — a schedule that decides against firing cannot
+look, afterwards, like it fired. The distinction shows up in the
 history entry itself: an executed entry gets the sequence number it earned;
 a skipped one carries none at all.
 

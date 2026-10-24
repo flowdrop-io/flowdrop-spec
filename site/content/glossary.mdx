@@ -35,7 +35,8 @@ removed.
 - **unified I/O**: optional single `input`/`output` ports that bundle all of a
   node's input or output values into one JSON object.
 - **Dynamic ports**: extra ports an author adds to a single node instance,
-  beyond what the node type declares.
+  beyond what the node type declares. They can be wired, and a workflow
+  interface entry can bind one (DYN-6).
 - **event**: a trigger node's reserved input, where what happened outside the
   workflow enters the run (SCH-47). No wire may target it (R16).
 - **Reserved names**: port/parameter names the system injects or treats

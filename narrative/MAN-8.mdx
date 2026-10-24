@@ -1,6 +1,6 @@
 ---
 rule: MAN-8
-rule_hash: 3a7ca1cf2f3c
+rule_hash: 238a4bc1dddb
 ---
 
 ## What it means
@@ -10,8 +10,8 @@ the rest of its contract. An entry can be structurally malformed — its
 `name` missing or empty, or only half a binding, a `node_id` without a `port`
 or the other way round — in which case it never named anything to resolve in
 the first place. Or it can be well-formed but point
-nowhere real: a node that is not in the graph, or a port its node's own
-type never declared. Either way the entry is dropped and the build carries on with
+nowhere real: a node that is not in the graph, or a port its node neither
+declares nor defines as a dynamic port. Either way the entry is dropped and the build carries on with
 whatever else the manifest names.
 
 ## Example

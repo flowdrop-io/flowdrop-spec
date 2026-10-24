@@ -1,12 +1,12 @@
 ---
 rule: R4.d
-rule_hash: 7f521942ecd0
+rule_hash: 13419254cea5
 ---
 
 ## What it means
 
 The skip this rule allows is narrower than it sounds. Losing the ability to
-resolve a node's declared ports only silences this one check and R10; it does
+resolve a node's ports only silences this one check and R10; it does
 not silence R4.a's name-format check or R4.b's uniqueness check, both of which
 are decided from the entry's own fields and need nothing from the node. An
 entry can therefore fail on its name at the same time its port check is

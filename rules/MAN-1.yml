@@ -12,8 +12,8 @@ normative: >-
   The inputs a caller may supply when launching a workflow MUST be a manifest the
   author declared on the workflow. They MUST NOT be derived from port exposure. A
   declared entry MUST be built into the workflow's contract even when the instance
-  hides the port it names. A port that is exposed but not declared MUST NOT reach the
-  contract.
+  hides the port it names. A port that is exposed but that no manifest entry binds MUST NOT
+  reach the contract.
 
 posture: normative-target
 level: core
@@ -25,6 +25,7 @@ changed: "1.0"
 
 rulings:
   - OPEN-25
+  - OPEN-30
 
 related:
   - MAN-2

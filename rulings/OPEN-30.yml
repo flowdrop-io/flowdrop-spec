@@ -18,9 +18,13 @@ decision: >-
   any entry (OPEN-27). Where it does not, the contract is an empty fragment that
   accepts any value, and its lane is the port's `dataType`, read as `mixed` where
   absent (MAN-5, MAN-21). Delivery and collection follow the binding unchanged (MAN-11,
-  MAN-17).
+  MAN-17). Where a rule spoke of a port the node declares, it now also admits the
+  node's dynamic ports (MAN-1, MAN-8, R10).
 affects:
   - DYN-6
   - R4.d
   - MAN-5
   - MAN-21
+  - MAN-8
+  - R10
+  - MAN-1

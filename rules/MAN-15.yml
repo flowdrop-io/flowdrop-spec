@@ -9,13 +9,13 @@ summary: >-
   then what is wrong with what you sent.
 
 normative: >-
-  Launch inputs are checked in three stages (keys that are not declared inputs,
-  then required inputs that are absent, then the values themselves), and the check
-  stops at the first stage that fails, returning one message. Every message ends
-  by naming the inputs the workflow does accept, or by stating that it accepts
-  none. An input counts as required when its manifest entry says so, or when its
-  name appears in the published contract's top-level required list; either source
-  is sufficient, so a manifest written before the contract was last rebuilt is
+  Launch inputs MUST be checked in three stages (keys that are not declared inputs,
+  then required inputs that are absent, then the values themselves). The check MUST
+  stop at the first stage that fails, and return one message. Every message MUST end
+  by naming the inputs the workflow does accept, or by stating that it accepts none.
+  An input MUST count as required when its manifest entry says so, or when its name
+  appears in the published contract's top-level array of required names; either source
+  is sufficient. A manifest written before the contract was last rebuilt is therefore
   still enforced.
 
 posture: normative-target
@@ -28,6 +28,7 @@ changed: "1.0"
 
 rulings:
   - OPEN-16
+  - OPEN-25
 
 related:
   - MAN-2

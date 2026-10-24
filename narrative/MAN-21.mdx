@@ -1,13 +1,13 @@
 ---
 rule: MAN-21
-rule_hash: 43587bcef404
+rule_hash: ed865499af82
 ---
 
 ## What it means
 
 A port's lane and its JSON Schema type are two different vocabularies, and
 they diverge exactly where a port carries a domain-specific meaning over an
-ordinary structural shape: a list of conversation messages is, structurally,
+ordinary structural shape: an array of conversation messages is, structurally,
 just an array. Reading the schema's `type` and calling that the lane would
 answer `array` for a case the lane can name precisely.
 

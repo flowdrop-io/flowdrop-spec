@@ -1,6 +1,6 @@
 ---
 rule: MAN-5
-rule_hash: 2a9da8ad6d04
+rule_hash: 8a25a2f7d8d7
 ---
 
 ## What it means
@@ -11,8 +11,7 @@ it. The strip is not a top-level filter: it recurses into every declared
 property and into an item schema, so an annotation or an extension key buried
 two levels inside an object's own properties is dropped exactly as one sitting
 at the top would be. A non-annotation key at that same depth — `maxLength`,
-`pattern` — survives, because the rule drops a closed set of keys, not
-"annotations" as a category.
+`pattern` — survives, because the rule keeps a closed set of keys and drops every other key, not "annotations" as a category.
 
 Author-facing words are never baked into the stored snapshot, even when the
 caller asks nothing special: they are re-attached only when the contract is

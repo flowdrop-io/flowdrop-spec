@@ -9,11 +9,11 @@ summary: >-
   rest of the fragment survives the drop.
 
 normative: >-
-  A `default` survives into the published contract when it is null, a scalar, or a
+  A `default` MUST survive into the published contract when it is null, a scalar, or a
   collection one level deep whose every member is null or a scalar, an empty
   collection included. A default of any other shape, including one with a nested
-  value, is dropped and the drop is logged. Dropping a default never affects the
-  rest of the fragment: every other contract key of that entry is retained.
+  value, MUST be dropped, and the drop is logged. Every other contract key of that
+  entry MUST be retained when its default is dropped.
 
 posture: normative-target
 level: extended
@@ -22,6 +22,9 @@ profiles:
 
 added: "1.0"
 changed: "1.0"
+
+rulings:
+  - OPEN-25
 
 related:
   - MAN-5

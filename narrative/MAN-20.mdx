@@ -1,6 +1,6 @@
 ---
 rule: MAN-20
-rule_hash: 2b49027a809d
+rule_hash: 792b1a2c3e2f
 ---
 
 ## What it means
@@ -14,7 +14,7 @@ skipped, and never stored.
 That shape check happens before the workflow is validated, so it answers a
 different question than validation does. A binding whose node or port is
 made up entirely is not caught here — it is caught by the same check that
-would catch it on a directly-stored port list, and answered with a different
+would catch it on a directly-stored port array, and answered with a different
 status. The API's own refusals stop at the entry's shape; whether what it
 points to is real is somebody else's answer.
 

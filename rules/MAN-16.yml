@@ -9,20 +9,22 @@ summary: >-
   as a guarantee.
 
 normative: >-
-  The per-value stage of the launch check enforces exactly two things from a
-  contract fragment: `type` and `enum`. Every other published key (`minimum`,
-  `maximum`, `minLength`, `maxLength`, `pattern`, and nested `properties` or
-  `items`) is declared in the contract and not enforced here, as is a `type` that
-  is not a single string. The top-level required list is the one declared key that
-  is enforced, and it is enforced by the earlier missing-input stage. Values are
-  never coerced. Every structured type collapses to a single check that the value
-  is a collection. The types meaning "any value" waive the type check entirely,
-  matching every value including null and a collection, while still honouring
-  `enum`; they are declared no-constraint types, and a boundary that refused what
-  the runtime accepts would give a port's declared type two meanings. `enum`
-  compares by identity, so a number and its string spelling are different values.
-  Violations across several inputs are aggregated into one refusal, and an input
-  with no contract fragment skips the value check.
+  The per-value stage of the launch check MUST enforce `type` and `enum` from a
+  contract fragment and no other key. The set is closed, so that a caller can tell
+  from the contract which published keys can refuse a launch. Every other published
+  key (`minimum`, `maximum`, `minLength`, `maxLength`, `pattern`, and nested
+  `properties` or `items`) is declared in the contract and MUST NOT be enforced here.
+  A `type` that is not a single string MUST NOT be enforced here either. The top-level
+  array of required names is the one other declared key that is enforced, and the
+  earlier missing-input stage MUST enforce it. Values MUST NOT be coerced. For every
+  structured type, the check MUST be only that the value is a collection. A type
+  meaning "any value" MUST waive the type check entirely, and MUST match every value,
+  including null and a collection. `enum` MUST still be honoured for such a type. Such
+  types are declared no-constraint types, and a boundary that refused what the runtime
+  accepts would give a port's declared type two meanings. `enum` MUST compare by
+  identity, so a number and its string spelling are different values. Violations
+  across several inputs MUST be aggregated into one refusal. An input with no contract
+  fragment MUST skip the value check.
 
 posture: normative-target
 level: core
@@ -34,6 +36,8 @@ changed: "1.0"
 
 rulings:
   - OPEN-16
+  - OPEN-22
+  - OPEN-25
 
 related:
   - MAN-5

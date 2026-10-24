@@ -8,13 +8,13 @@ summary: >-
   author declaring anything and without the entry ever going stale.
 
 normative: >-
-  For each trigger node in a workflow, the workflow has one reserved input. Its name is
-  `event:` followed by the trigger node's identifier, and it binds that node's `event`
-  port (SCH-47). A reserved input MUST be derived from the workflow's trigger nodes
-  whenever it is needed. A reserved input MUST NOT be stored in the workflow's manifest,
-  and an authoring surface MUST NOT write one there. A value supplied under a reserved
-  input name is delivered as MAN-11 delivers a declared input. A reserved input is
-  never required at launch.
+  For each trigger node in a workflow, the workflow MUST have one reserved input. Its
+  name MUST be `event:` followed by the trigger node's identifier. It MUST bind that
+  node's `event` port (SCH-47). A reserved input MUST be derived from the workflow's
+  trigger nodes whenever it is needed. A reserved input MUST NOT be stored in the
+  workflow's manifest, and an authoring surface MUST NOT write one there. A value
+  supplied under a reserved input name MUST be delivered as MAN-11 delivers a declared
+  input. A reserved input MUST NOT be required at launch.
 
 posture: normative-target
 level: extended
@@ -28,6 +28,7 @@ changed: "1.0"
 
 rulings:
   - OPEN-21
+  - OPEN-25
 
 related:
   - MAN-1

@@ -1,6 +1,6 @@
 ---
 rule: MAN-15
-rule_hash: c25c649d7bb5
+rule_hash: 895a773605f7
 ---
 
 ## What it means
@@ -17,7 +17,7 @@ has not actually reached yet, since fixing the typo might supply it.
 Every message, at whichever stage it stops, ends the same way: it names the
 inputs the workflow accepts, or says it accepts none. And "required" has two
 sources, not one — a manifest entry can say so directly, or the input's name
-can simply appear in the published contract's top-level required list. Either
+can simply appear in the published contract's top-level required array. Either
 is enough on its own, so a manifest written before that contract was last
 rebuilt is still enforced through the newer source.
 

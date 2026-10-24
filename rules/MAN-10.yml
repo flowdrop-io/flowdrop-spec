@@ -9,8 +9,8 @@ summary: >-
 
 normative: >-
   Where a launch payload key matches both a declared input name and the internal
-  node-keyed pass-through shape, the declared name wins and the value is resolved
-  through the manifest.
+  node-keyed pass-through shape, the declared name MUST win. The value MUST then be
+  resolved through the manifest.
 
 posture: normative-target
 level: core
@@ -19,6 +19,9 @@ profiles:
 
 added: "1.0"
 changed: "1.0"
+
+rulings:
+  - OPEN-25
 
 related:
   - MAN-11

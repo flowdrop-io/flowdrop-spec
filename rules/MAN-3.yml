@@ -6,16 +6,16 @@ title: However the manifest was written, one validator refuses a bad entry
 summary: >-
   An authoring surface can offer only the ports it knows are valid; an API caller
   submits whatever it likes. Both land on the same stored shape, so the refusal
-  has to live in one place.
+  lives in one place.
 
 normative: >-
-  A manifest may be written by more than one door: an authoring surface that
-  offers the author a filtered choice of ports, or an API mapping a
-  caller-supplied contract. Both write the same stored shape and are refused by
-  the same workflow validation, so an entry naming an unknown node, or a port the
-  instance hides, is refused whichever door submitted it. Exposure is resolved the
-  same way in both cases: an instance-level port setting overrides the port's
-  declared default, and a port with neither is exposed.
+  A manifest MAY be written through more than one way in: an authoring surface that
+  offers the author a filtered choice of ports, or an API mapping a caller-supplied
+  contract. Both write the same stored shape, and the same workflow validation MUST
+  apply to both. An entry naming an unknown node, or a port the instance hides, MUST
+  be refused whichever way in submitted it. Exposure MUST be resolved the same way in
+  both cases: an instance-level port setting overrides the port's declared default,
+  and a port with neither is exposed.
 
 posture: normative-target
 level: extended
@@ -24,6 +24,9 @@ profiles:
 
 added: "1.0"
 changed: "1.0"
+
+rulings:
+  - OPEN-25
 
 related:
   - MAN-1

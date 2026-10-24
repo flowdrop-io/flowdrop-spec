@@ -9,9 +9,10 @@ summary: >-
 
 normative: >-
   A malformed manifest entry (one missing a `name`, a `node_id` or a `port`, or
-  carrying an empty one) is dropped with a warning while resolving launch inputs,
-  including where undeclared caller keys are refused. Strictness applies to what
-  the caller supplied, not to what the workflow stored.
+  carrying an empty one) MUST be dropped while resolving launch inputs, including
+  where undeclared caller keys are refused. A warning is logged for it. Strictness
+  MUST apply to what the caller supplied. It MUST NOT apply to what the workflow
+  stored.
 
 posture: normative-target
 level: extended
@@ -20,6 +21,9 @@ profiles:
 
 added: "1.0"
 changed: "1.0"
+
+rulings:
+  - OPEN-25
 
 related:
   - MAN-8

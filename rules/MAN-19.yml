@@ -8,8 +8,8 @@ summary: >-
   inline is a mistake worth catching before anything runs.
 
 normative: >-
-  A launch requesting a synchronous wait against a workflow declared asynchronous
-  is refused before any execution is created, so no run is started and nothing is
+  A launch requesting a synchronous wait against a workflow declared asynchronous MUST
+  be refused before any execution is created, so that no run is started and nothing is
   left behind.
 
 posture: normative-target
@@ -19,3 +19,6 @@ profiles:
 
 added: "1.0"
 changed: "1.0"
+
+rulings:
+  - OPEN-25

@@ -1,13 +1,13 @@
 ---
 rule: MAN-16
-rule_hash: 68f7d1445afa
+rule_hash: 35bdbc9f9026
 ---
 
 ## What it means
 
 A published contract fragment says more than the boundary checks. Past the
-required list — enforced earlier, by the stage that checks presence — the
-value stage reads exactly two keys: `type` and `enum`. `minLength`,
+required array — enforced earlier, by the stage that checks presence — the
+value stage reads `type` and `enum` and no other key. `minLength`,
 `maxLength`, `pattern`, `minimum`, nested `properties` and `items` are all
 published, all declared, and none of them is enforced here. A caller who
 violates every one of them at once still gets through this stage.

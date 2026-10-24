@@ -9,13 +9,13 @@ summary: >-
   means only a real firing, or a person testing one, can start that branch.
 
 normative: >-
-  A launch through the launch door that supplies a key naming a reserved input (MAN-26)
-  MUST be refused, on the same terms as MAN-13 refuses an undeclared key. A reserved
-  input MUST NOT appear in the published contract. A reserved input MUST NOT appear in
-  a model-facing tool schema built from the workflow. A reserved input MUST NOT appear
-  among the input ports of a node that runs the workflow as a sub-workflow. An
-  implementation MAY supply a reserved input when it starts a run because the trigger
-  node fired, or when a person simulates a firing from an authoring surface.
+  A launch through the launch endpoint that supplies a key naming a reserved input
+  (MAN-26) MUST be refused, on the same terms as MAN-13 refuses an undeclared key. A
+  reserved input MUST NOT appear in the published contract. A reserved input MUST NOT
+  appear in a model-facing tool schema built from the workflow. A reserved input MUST
+  NOT appear among the input ports of a node that runs the workflow as a sub-workflow.
+  An implementation MAY supply a reserved input when it starts a run because the
+  trigger node fired, or when a person simulates a firing from an authoring surface.
 
 posture: normative-target
 level: extended
@@ -28,6 +28,7 @@ changed: "1.0"
 
 rulings:
   - OPEN-21
+  - OPEN-25
 
 related:
   - MAN-13

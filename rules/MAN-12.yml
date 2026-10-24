@@ -9,9 +9,9 @@ summary: >-
   to nobody else.
 
 normative: >-
-  The node-keyed input shape, addressing a node identifier and port name directly,
-  is an internal contract. Every externally reachable launch door refuses it: a
-  caller supplies declared input names, and nothing else.
+  The node-keyed input shape, addressing a node identifier and port name directly, is
+  an internal contract. Every externally reachable launch endpoint MUST refuse it,
+  because a caller supplies declared input names and nothing else.
 
 posture: normative-target
 level: core
@@ -20,6 +20,9 @@ profiles:
 
 added: "1.0"
 changed: "1.0"
+
+rulings:
+  - OPEN-25
 
 related:
   - MAN-10

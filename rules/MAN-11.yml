@@ -7,7 +7,7 @@ summary: >-
   The manifest is a mapping, and this is the mapping it performs.
 
 normative: >-
-  A value supplied under a declared input name is delivered to the workflow's
+  A value supplied under a declared input name MUST be delivered to the workflow's
   initial data under the node identifier and port name that input's manifest entry
   binds.
 
@@ -18,6 +18,9 @@ profiles:
 
 added: "1.0"
 changed: "1.0"
+
+rulings:
+  - OPEN-25
 
 related:
   - MAN-10

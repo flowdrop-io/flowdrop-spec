@@ -1,14 +1,14 @@
 ---
 rule: MAN-18
-rule_hash: 08d95d9f9b36
+rule_hash: 5ef2681bc468
 ---
 
 ## What it means
 
-The trigger is the port list, not what changed underneath it. A bound port's
+The trigger is the port array, not what changed underneath it. A bound port's
 own schema can change entirely — a fragment's `type`, its `minLength`,
 anything a node type declares — and the published contract does not move,
-because nothing rebuilds it until the input or output port list itself
+because nothing rebuilds it until the input or output port array itself
 differs from the one already stored, or a rebuild is forced. A caller
 reading the published contract is reading what was last published, not a
 live reflection of the ports it names.
@@ -20,7 +20,7 @@ recorded, and nothing about the failed rebuild reaches the caller.
 
 ## Example
 
-```json title="An input port list identical to the one already published" verdict="skipped"
+```json title="An input port array identical to the one already published" verdict="skipped"
 [ { "name": "in", "node_id": "n1", "port": "p1" } ]
 ```
 

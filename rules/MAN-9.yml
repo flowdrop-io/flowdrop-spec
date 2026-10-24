@@ -8,11 +8,11 @@ summary: >-
   path, not per build, so an honest diamond still resolves.
 
 normative: >-
-  When a workflow is used as a node inside another workflow, the contract build
-  descends into it. Re-entering a workflow already on the current path is refused:
-  the entry resolves to an empty object schema and a warning is logged, rather
-  than recursing. Encountering the same workflow again as a sibling, not an
-  ancestor, is allowed and builds normally.
+  When a workflow is used as a node inside another workflow, the contract build MUST
+  descend into it. Re-entering a workflow already on the current path MUST be refused:
+  the entry MUST resolve to an empty object schema, rather than recursing, and a
+  warning is logged. Encountering the same workflow again as a sibling, not an
+  ancestor, MUST build normally.
 
 posture: normative-target
 level: extended
@@ -21,3 +21,6 @@ profiles:
 
 added: "1.0"
 changed: "1.0"
+
+rulings:
+  - OPEN-25

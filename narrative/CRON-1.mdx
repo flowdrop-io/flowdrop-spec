@@ -1,14 +1,13 @@
 ---
 rule: CRON-1
-rule_hash: da899f86b435
+rule_hash: 4cc37891f164
 ---
 
 ## What it means
 
 A cleared schedule expression is not special-cased on the way in — it is a
 stored value like any other, and the component that decides a trigger is due
-and the component that reports its next run must read that value the same
-way. Both must treat a blank expression as "not scheduled," never as a
+and the component that reports its next run read that value the same way. Both treat a blank expression as "not scheduled," never as a
 schedule that fires on every pass.
 
 The clause that a careful reader misses is the second one: "blank" means

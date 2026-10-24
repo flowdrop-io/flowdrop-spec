@@ -295,3 +295,5 @@ affects:
   - BR-5
   - BR-6
   - BR-7
+  - CRON-1
+  - CRON-2

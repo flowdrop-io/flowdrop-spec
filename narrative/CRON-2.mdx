@@ -1,6 +1,6 @@
 ---
 rule: CRON-2
-rule_hash: 8916f557d743
+rule_hash: b66afb9b1e40
 ---
 
 ## What it means
@@ -8,10 +8,10 @@ rule_hash: 8916f557d743
 A bare absent next run is not itself a diagnosis: reported alone, it is what
 a perfectly working schedule says between fires, so it cannot also be the
 answer for a schedule that will never fire at all. Any other reason for
-having no next run has to arrive as a named, stable code, not as the same
+having no next run arrives as a named, stable code, not as the same
 silence a healthy schedule produces.
 
-The same code has to come out whether the schedule was just read back from a
+The same code comes out whether the schedule was just read back from a
 saved record or reached through a live report — a caller cannot be left
 wondering whether the wording changed because the diagnosis changed or
 because the read path did.

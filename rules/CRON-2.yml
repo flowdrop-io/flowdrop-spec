@@ -9,16 +9,16 @@ summary: >-
   is the diagnostic being absent exactly when it is needed.
 
 normative: >-
-  An absent next run, reported on its own, means only that nothing is currently
-  due, the answer a perfectly healthy schedule gives between fires. Every other
-  reason a schedule yields no next run must be reported with a stable code:
-  `no_expression` where the expression is cleared, `invalid_expression` where it is
-  malformed, or well-formed but unsatisfiable. Severity must not be flattened: an
-  unusable timezone does not stop a trigger, since the implementation substitutes
-  UTC, so such a schedule still reports a real next run alongside the code
-  `invalid_timezone`; an expression problem, being the more consequential of the
-  two, takes its place. A broken stored schedule is not a broken request: the
-  report is answered with 200 and carries the diagnosis.
+  An absent next run, reported on its own, MUST mean only that nothing is currently
+  due, the answer a perfectly healthy schedule gives between fires. Every other reason
+  a schedule yields no next run MUST be reported with a stable code: `no_expression`
+  where the expression is cleared, `invalid_expression` where it is malformed, or
+  well-formed but unsatisfiable. Severity MUST NOT be flattened: an unusable timezone
+  does not stop a trigger, since UTC is used in its place, so such a schedule MUST
+  still report a real next run alongside the code `invalid_timezone`; an expression
+  problem, being the more consequential of the two, MUST take its place. A broken
+  stored schedule is not a broken request, so the report MUST be answered with 200. It
+  MUST carry the diagnosis.
 
 posture: normative-target
 level: extended
@@ -27,6 +27,9 @@ profiles:
 
 added: "1.0"
 changed: "1.0"
+
+rulings:
+  - OPEN-25
 
 related:
   - CRON-1

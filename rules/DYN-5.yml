@@ -6,8 +6,9 @@ title: A declared parameter wins a name collision with a dynamic port
 
 normative: >-
   Where a dynamic port's name is also the name of a parameter the node's processor
-  declares, the declared parameter wins and the dynamic port is ignored. An author
-  cannot shadow a declared parameter by adding a dynamic port of the same name.
+  declares, the declared parameter MUST win. The dynamic port MUST be ignored. An
+  author cannot shadow a declared parameter by adding a dynamic port of the same
+  name.
 
 posture: normative-target
 level: extended
@@ -16,3 +17,6 @@ profiles:
 
 added: "1.0"
 changed: "1.0"
+
+rulings:
+  - OPEN-25

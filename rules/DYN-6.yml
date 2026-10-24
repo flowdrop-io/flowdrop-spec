@@ -9,11 +9,12 @@ summary: >-
   reason nothing an outside caller can name.
 
 normative: >-
-  A dynamic port has no exposure: it is always wireable, its value is never
-  stripped from a node's output, and edge validation raises no exposure objection
-  against it. For the same reason a dynamic port is not addressable at the
-  workflow boundary: a launch-input manifest entry naming one is refused, because
-  the port is not declared by the node's processor.
+  A dynamic port has no exposure. A dynamic port MUST always be wireable. The value
+  of a dynamic port MUST NOT be stripped from a node's output. Edge validation MUST
+  NOT raise an exposure objection against a dynamic port. For the same reason a
+  dynamic port is not addressable at the workflow boundary: a launch-input manifest
+  entry naming one MUST be refused, because the port is not declared by the node's
+  processor.
 
 posture: normative-target
 level: extended
@@ -23,3 +24,6 @@ profiles:
 
 added: "1.0"
 changed: "1.0"
+
+rulings:
+  - OPEN-25

@@ -9,10 +9,10 @@ summary: >-
   ask for them, and the definitions start empty.
 
 normative: >-
-  A node type opts a node in to dynamic ports. The opt-in declares two reserved
-  parameters, one holding the node's dynamic input port definitions and one its
-  dynamic output port definitions, each a list whose default is empty. A node that
-  has not opted in has no dynamic ports.
+  A node type opts a node in to dynamic ports by declaring two reserved parameters:
+  one holding the node's dynamic input port definitions and one holding its dynamic
+  output port definitions. Each of the two MUST be an array. The default of each MUST
+  be the empty array. A node that has not opted in MUST NOT have dynamic ports.
 
 posture: normative-target
 level: extended
@@ -21,3 +21,6 @@ profiles:
 
 added: "1.0"
 changed: "1.0"
+
+rulings:
+  - OPEN-25

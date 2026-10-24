@@ -5,13 +5,13 @@ part: I
 title: Dynamic port definitions are configuration, never a wireable input port
 
 normative: >-
-  The reserved parameter holding a node's dynamic port definitions is never a
-  wireable input port. It appears in the node's configuration schema only where the
-  node type marks it configurable, taking its value from the node type's default,
-  else the parameter's schema default, else the empty list. Without that opt-in it
-  appears in neither the configuration schema nor the input schema, and the node's
-  dynamic port definitions resolve to empty: stored definitions do not survive an
-  opt-out.
+  The reserved parameter holding a node's dynamic port definitions MUST NOT be a
+  wireable input port. It MUST NOT appear in the node's configuration schema unless
+  the node type marks it configurable. Where it appears there, its value MUST come
+  from the node type's default, else the parameter's schema default, else the empty
+  array. Without that opt-in it MUST appear in neither the configuration schema nor
+  the input schema, and the node's dynamic port definitions MUST resolve to empty.
+  Stored definitions do not survive an opt-out.
 
 posture: normative-target
 level: extended
@@ -21,3 +21,6 @@ profiles:
 
 added: "1.0"
 changed: "1.0"
+
+rulings:
+  - OPEN-25

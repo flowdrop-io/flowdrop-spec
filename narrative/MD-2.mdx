@@ -1,12 +1,11 @@
 ---
 rule: MD-2
-rule_hash: bfef24aba647
+rule_hash: 48cab3fbc2d4
 ---
 
 ## What it means
 
-The encoding MD-1 requires runs once, over the whole input, so nothing
-downstream may run it again on a sequence the conversion itself already
+The encoding MD-1 requires runs once, over the whole input, so nothing downstream runs it again on a sequence the conversion itself already
 wrote — a `<` in the source becomes `&lt;` and stays `&lt;`, never
 `&amp;lt;`.
 

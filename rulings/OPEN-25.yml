@@ -297,3 +297,5 @@ affects:
   - BR-7
   - CRON-1
   - CRON-2
+  - MD-1
+  - MD-2

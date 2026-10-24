@@ -7,9 +7,10 @@ title: A tool-only node is excluded from the execution graph
 normative: >-
   A node is tool-only when it has at least one outgoing edge and every one of its
   outgoing edges is a tool edge. A node with no outgoing edges is not tool-only, and
-  neither is one with any non-tool outgoing edge. A tool-only node is excluded from the
-  compiled execution graph, with `tool_only` as the recorded reason, and generates no
-  job; it runs inline only, when a consumer invokes it as a tool.
+  neither is one with any non-tool outgoing edge. A tool-only node MUST be excluded from
+  the compiled execution graph. The reason recorded for the exclusion is `tool_only`. A
+  tool-only node MUST NOT generate a job. A tool-only node MUST NOT run except inline,
+  when a consumer invokes it as a tool.
 
 posture: normative-target
 level: extended
@@ -19,6 +20,9 @@ profiles:
 
 added: "1.0"
 changed: "1.0"
+
+rulings:
+  - OPEN-25
 
 related:
   - EDGE-5

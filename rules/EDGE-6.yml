@@ -6,9 +6,10 @@ title: An error edge routes a failure instead of raising it
 
 normative: >-
   An edge whose source handle ends with `-output-error` is an error edge. When a node
-  that has one fails, the failure is routed rather than raised: the node's job is
-  recorded as failed and marked as having been routed, the node yields an error payload
-  of `{message, code, node_id, retryable}`, and the run continues along the error edge.
+  that has one fails, the failure MUST be routed rather than raised. The node's job MUST
+  be recorded as failed and marked as having been routed. The node MUST yield an error
+  payload that carries `message`, `code`, `node_id` and `retryable`. The run MUST
+  continue along the error edge.
 
 posture: normative-target
 level: core
@@ -18,6 +19,10 @@ profiles:
 
 added: "1.0"
 changed: "1.0"
+
+rulings:
+  - OPEN-22
+  - OPEN-25
 
 related:
   - EDGE-1

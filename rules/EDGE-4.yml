@@ -5,9 +5,9 @@ part: I
 title: A loopback edge targets the port named loop_back
 
 normative: >-
-  An edge is a loopback edge when, and only when, its target handle ends with
-  `-input-loop_back`. The reserved port name is `loop_back`: a handle ending with
-  `-input-loopback` is an ordinary edge.
+  An edge MUST be a loopback edge when, and only when, its target handle ends with
+  `-input-loop_back`. The reserved port name is `loop_back`. A handle ending with
+  `-input-loopback` MUST be an ordinary edge.
 
 posture: normative-target
 level: core
@@ -16,6 +16,9 @@ profiles:
 
 added: "1.0"
 changed: "1.0"
+
+rulings:
+  - OPEN-25
 
 related:
   - EDGE-1

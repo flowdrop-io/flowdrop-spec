@@ -150,3 +150,15 @@ carrying `connectable: true` and no other gate flag, which is exactly what it me
 An implementation that still reads or writes `dynamicInputs` says so in its release
 notes, with the release that moves to `dynamicParameters` and how stored workflows
 migrate.
+
+## Conditions on edges
+
+Rules: EDGE-8.
+
+Some implementations once let an edge carry a condition, `data.condition`, and routed
+along the edge only when the condition held.
+
+**If you meet it:** a stored workflow whose edges carry `data.condition` is still
+accepted and keeps the condition on every save, but the condition gates nothing: the
+edge always routes, and a non-empty condition is reported as a warning. A workflow
+that relied on it routes with a gateway node instead.

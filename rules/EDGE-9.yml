@@ -11,10 +11,11 @@ summary: >-
 
 normative: >-
   An edge has two forms, each with its own key names. In transport, the form an editor
-  reads and writes, the keys are `source`, `target`, `sourceHandle` and `targetHandle`.
-  In the execution record they are `source_handle`, `target_handle`, `is_trigger`,
-  `is_loopback`, `is_tool`, `branch_name` and `edge_id`. Neither vocabulary may carry a
-  key belonging to the other.
+  reads and writes, the source, the target and their handles MUST be named `source`,
+  `target`, `sourceHandle` and `targetHandle`. In the execution record, the handles and
+  the edge's flags MUST be named `source_handle`, `target_handle`, `is_trigger`,
+  `is_loopback`, `is_tool`, `branch_name` and `edge_id`. An edge in one form MUST NOT
+  carry a key named in the other form's list.
 
 posture: normative-target
 level: extended
@@ -24,3 +25,7 @@ profiles:
 
 added: "1.0"
 changed: "1.0"
+
+rulings:
+  - OPEN-22
+  - OPEN-25

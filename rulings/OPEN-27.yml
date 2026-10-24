@@ -1,0 +1,37 @@
+id: OPEN-27
+headline: An interface entry may be unbound; its own declared schema is the contract.
+question: >-
+  An author can declare a workflow's interface before building what is behind it, so
+  that another workflow can already call it as a sub-workflow. The rules assumed every
+  manifest entry was bound to a node and a port: the contract was derived from the bound
+  port, an entry with no binding was a client-side draft and was dropped on save, and an
+  unbound entry was malformed at launch. An editor that offered "leave it unbound" lost
+  the entry without a word.
+decided: "2026-10-15"
+decision: >-
+  An interface entry carries a name, and may carry a binding, a node and a port
+  together. An entry with no binding is a real, stored part of the contract. An entry
+  may declare its own schema, and its lane through that schema's x-data-type; where it
+  does, the declared schema is the contract and a binding added later only says where
+  the value goes. A bound entry that declares no schema is built from its port, as
+  before. An unbound input is accepted, checked against its contract, still required
+  when marked so, and delivered to no node. An unbound output is absent from a run
+  result, as an output whose node produced nothing is (OPEN-26), not null. A bound entry
+  whose port's lane differs from its declared lane is a warning, not a refusal, because
+  the interface may have been declared before the wiring caught up. Only a half binding
+  (one of node and port) is malformed. The checks that need a node or a port (R4.c,
+  R4.d, R10) apply to bound entries only.
+affects:
+  - MAN-2
+  - MAN-3
+  - MAN-5
+  - MAN-8
+  - MAN-11
+  - MAN-14
+  - MAN-17
+  - MAN-20
+  - MAN-21
+  - R4.c
+  - R4.d
+  - R4.f
+  - R10

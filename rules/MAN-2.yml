@@ -2,17 +2,20 @@ id: MAN-2
 family: GR-MAN
 part: I
 
-title: A manifest entry names an input and binds it to a port
+title: A manifest entry names an input, declares its contract, and may bind it to a port
 summary: >-
   Three fields say what the input is called and where it goes; the rest is
   documentation for whoever calls the workflow.
 
 normative: >-
-  A manifest entry MUST carry a `name`, a `node_id` and a `port`. It MAY carry
-  `title`, `description`, `examples` and `required`. The optional metadata MUST apply
-  to the input side only. A `required` entry MUST be folded into the built contract's
-  top-level array of required names rather than surviving as a key on the property
-  fragment.
+  A manifest entry MUST carry a `name`. It MAY carry a binding, which is a `node_id` and
+  a `port` together: an entry carries both or neither. An entry that carries neither is
+  unbound. It is still a declared input or output, and its contract comes from its own
+  `schema`. An entry MAY carry `schema`, a JSON Schema fragment that declares its
+  contract and, in `x-data-type`, its lane (SCH-10). It MAY also carry `title`,
+  `description`, `examples` and `required`. These four MUST apply to the input side
+  only. A `required` entry MUST be folded into the built contract's top-level array of
+  required names rather than surviving as a key on the property fragment.
 
 posture: normative-target
 level: core
@@ -24,6 +27,7 @@ changed: "1.0"
 
 rulings:
   - OPEN-25
+  - OPEN-27
 
 related:
   - MAN-1

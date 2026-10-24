@@ -1,15 +1,17 @@
 ---
 rule: MAN-20
-rule_hash: 792b1a2c3e2f
+rule_hash: 11d74966bacb
 ---
 
 ## What it means
 
-An `interface` entry can only ever name one binding. An entry naming two is
+An `interface` entry names at most one binding. An entry naming two is
 refused outright, before anything else about it is even looked at — a shape
 failure, not a decision about whether the node or port it names exists. An
-entry naming none is not a failure at all: it is a client-side draft, quietly
-skipped, and never stored.
+entry naming none is not a failure either: it is an unbound entry, stored
+with the schema and data type it declares, and read back with an empty list
+of bindings. That is what lets an author publish the interface first and
+build the inside later.
 
 That shape check happens before the workflow is validated, so it answers a
 different question than validation does. A binding whose node or port is
@@ -31,11 +33,11 @@ POST /api/flowdrop/workflows
 ]}}
 ```
 
-```http title="An entry naming no binding, alongside one that does" verdict="201 stored"
+```http title="An unbound entry, alongside one that is bound" verdict="201 stored"
 POST /api/flowdrop/workflows
 
-{"name": "Draft entry", "nodes": [ … ], "interface": {"inputs": [
-  {"id": "draft", "bindings": []},
+{"name": "Interface first", "nodes": [ … ], "interface": {"inputs": [
+  {"id": "topic", "dataType": "string", "schema": {"type": "string"}, "bindings": []},
   {"id": "numbers", "bindings": [{"nodeId": "calc1", "portId": "values"}]}
 ]}}
 ```
@@ -48,5 +50,5 @@ PUT /api/flowdrop/workflows/{workflow}
 ]}}
 ```
 
-The draft entry is not stored either, but silently: the response's
-`interface.inputs` names only `numbers`.
+The unbound entry is stored: the response's `interface.inputs` names both
+`topic`, with `"bindings": []`, and `numbers`.

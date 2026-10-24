@@ -37,7 +37,10 @@ decision: >-
   flow id is refused while an absent one is minted (STORE-9). Path evaluation
   reports whether it matched, so a matched null is never taken for a miss (LANG-8,
   LANG-9, LANG-19). A snapshot of a run with no workflow leaves its version absent
-  (INT-6), and R6.i calls a null config value present rather than unset.
+  (INT-6), and R6.i calls a null config value present rather than unset. Author
+  metadata on a manifest entry overlays an empty value and lets null remove the
+  port's own (MAN-6), and an absent exposure name takes part in no uniqueness check
+  (R4.a).
 affects:
   - conventions
   - CFG-3
@@ -73,3 +76,5 @@ affects:
   - SCH-5
   - SCH-8
   - SCH-27
+  - MAN-6
+  - R4.a

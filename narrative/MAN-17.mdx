@@ -1,6 +1,6 @@
 ---
 rule: MAN-17
-rule_hash: ce56b6a74278
+rule_hash: ee52a0460f10
 ---
 
 ## What it means
@@ -12,8 +12,9 @@ from a node whose bound port never appears in what it produced at all — that
 case is dropped from the result, with a warning, because there is nothing to
 return.
 
-A malformed entry — one missing its name, its node id or its port — is
-skipped without a warning: it never named a real output in the first place,
+An unbound output is absent too, and without a warning: nothing is meant to
+produce it yet. A malformed entry — one missing its name, or carrying only
+half a binding — is skipped without a warning: it never named a real output in the first place,
 so there is nothing to warn about.
 
 ## Example
@@ -31,5 +32,5 @@ run.
 ```
 
 The `debug` port never appears in `llm.1`'s results at all, so `hidden` is
-dropped from the outputs, with a warning naming it. A malformed entry — an empty name, an empty node id, or an empty port — is
+dropped from the outputs, with a warning naming it. A malformed entry, such as one with an empty name, is
 skipped the same way, but without the warning the dropped case above gets.

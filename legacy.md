@@ -71,3 +71,16 @@ that reading. Under the current rules an unsupplied parameter is absent, and a `
 passes only a schema whose type admits it. A workflow that relied on the old reading
 gives such a parameter a type like `["string", "null"]`.
 
+
+## Interface entries with no binding
+
+Rules: MAN-2, MAN-8, MAN-14, MAN-20 (ruling OPEN-27).
+
+Some implementations once treated an interface entry with no binding as a client-side
+draft: the API skipped it on save, so it was never stored, and the contract was always
+derived from the bound port.
+
+**If you meet it:** a workflow whose saved interface lost an entry the editor showed as
+"unbound" was saved under that reading. Add the entry again; a conforming
+implementation stores it with its declared schema. A launch payload that names an
+unbound input is not an error: the value is checked and delivered to no node.

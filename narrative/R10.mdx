@@ -1,6 +1,6 @@
 ---
 rule: R10
-rule_hash: ae9013242d8d
+rule_hash: ec40858085e5
 ---
 
 ## What it means
@@ -12,7 +12,8 @@ reach: an instance that turns it back on legalises every exposure entry
 naming it, exactly as R7.c resolves the same chain for edges. The reverse
 also holds — an instance can hide a port the node type exposes by default —
 so neither the type's default nor the presence of an exposure entry, on its
-own, says whether the entry is refused.
+own, says whether the entry is refused. An unbound entry names no port, so
+there is nothing for this rule to judge.
 
 ## Example
 

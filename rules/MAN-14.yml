@@ -8,11 +8,11 @@ summary: >-
   else stored, so failing their launch over it helps nobody.
 
 normative: >-
-  A malformed manifest entry (one missing a `name`, a `node_id` or a `port`, or
-  carrying an empty one) MUST be dropped while resolving launch inputs, including
-  where undeclared caller keys are refused. A warning is logged for it. Strictness
-  MUST apply to what the caller supplied. It MUST NOT apply to what the workflow
-  stored.
+  A malformed manifest entry (MAN-8) MUST be dropped while resolving launch inputs,
+  including where undeclared caller keys are refused. A warning is logged for it. An
+  unbound entry is not malformed: its input is declared, and a caller MAY supply it
+  (MAN-11). Strictness MUST apply to what the caller supplied. It MUST NOT apply to what
+  the workflow stored.
 
 posture: normative-target
 level: extended
@@ -24,6 +24,7 @@ changed: "1.0"
 
 rulings:
   - OPEN-25
+  - OPEN-27
 
 related:
   - MAN-8

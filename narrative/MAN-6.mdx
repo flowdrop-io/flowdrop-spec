@@ -1,6 +1,6 @@
 ---
 rule: MAN-6
-rule_hash: 1726e7e007ab
+rule_hash: 04ace7cf71ed
 ---
 
 ## What it means
@@ -12,10 +12,12 @@ workflow, and when they do, their words are what a caller sees, overlaid onto
 the fragment after MAN-5 has already reduced it. The overlay applies only to
 the input side.
 
-The exception is what makes it safe to overlay unconditionally: an empty
-value is dropped rather than overlaid, so an author field left blank does not
-erase the port's own words with nothing. Filling it in later is still
-possible precisely because leaving it blank did not already win.
+What the author sends decides how far the overlay goes. A field the author
+did not send leaves the port's own words in place. A field sent with text,
+even an empty string, replaces them: the empty string is a choice, as it is
+everywhere in this specification. A field sent as `null` removes the port's
+words without putting any in their place. An editor that means "I did not
+touch this" leaves the field out.
 
 ## Example
 
@@ -28,11 +30,12 @@ GET /api/flowdrop/workflows/{workflow}/schema?annotated=1
 {"parameter_schema": {"properties": {"name": {"type": "string", "title": "Author Title"}}}}
 ```
 
-```http title="The author left the same field blank" verdict="200 filled"
+```http title="The author did not send the field" verdict="200 filled"
 GET /api/flowdrop/workflows/{workflow}/schema?annotated=1
 
 {"parameter_schema": {"properties": {"name": {"type": "string", "title": "Text value", "description": "A plain text field."}}}}
 ```
 
 An authored title stands even when the bound port's own annotation disagrees;
-a blank one is filled from the port instead of publishing nothing.
+a field the author never sent is filled from the port instead of publishing
+nothing.

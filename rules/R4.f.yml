@@ -1,0 +1,34 @@
+id: R4.f
+family: GR-VAL
+part: I
+
+title: A bound entry whose declared lane differs from its port's lane warns
+
+summary: >-
+  The entry's declared schema is the contract; the binding only says where the value
+  goes. When the two disagree the author is told, but the workflow still saves, because
+  the interface may have been declared before the wiring caught up.
+
+normative: >-
+  Where a workflow exposure entry is bound and declares a `schema`, and the lane its
+  schema derives (MAN-21) differs from the lane of the port it binds, validation MUST
+  yield a non-blocking warning `R4_LANE_MISMATCH` at `schema.{side}.{index}`, naming
+  both lanes. The workflow MUST stay valid, and the entry's declared schema MUST remain
+  its contract (MAN-5).
+
+posture: normative-target
+level: extended
+profiles:
+  - storage-api
+  - editor-client
+
+added: "1.0"
+changed: "1.0"
+
+rulings:
+  - OPEN-25
+  - OPEN-27
+
+related:
+  - R4.d
+  - MAN-21

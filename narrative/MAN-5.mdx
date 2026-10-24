@@ -1,12 +1,14 @@
 ---
 rule: MAN-5
-rule_hash: 1c9af0f442cf
+rule_hash: 6945de9a0ad4
 ---
 
 ## What it means
 
-A contract fragment is a reduction of the bound port's own schema down to a
-fixed set of structural keys — the shape of the value, never the words around
+A contract fragment is a reduction of a schema down to a fixed set of
+structural keys: the entry's own declared schema where it has one, otherwise
+the bound port's schema. An unbound entry that declares nothing accepts any
+value. The reduction keeps the shape of the value, never the words around
 it. The strip is not a top-level filter: it recurses into every declared
 property and into an item schema, so an annotation or an extension key buried
 two levels inside an object's own properties is dropped exactly as one sitting

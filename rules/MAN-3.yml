@@ -12,9 +12,9 @@ normative: >-
   A manifest MAY be written through more than one way in: an authoring surface that
   offers the author a filtered choice of ports, or an API mapping a caller-supplied
   contract. Both write the same stored shape, and the same workflow validation MUST
-  apply to both. An entry naming an unknown node, or a port the instance hides, MUST
-  be refused whichever way in submitted it. Exposure MUST be resolved the same way in
-  both cases: an instance-level port setting overrides the port's declared default,
+  apply to both. A bound entry naming an unknown node, or a port the instance hides,
+  MUST be refused whichever way in submitted it. Exposure MUST be resolved the same way
+  in both cases: an instance-level port setting overrides the port's declared default,
   and a port with neither is exposed.
 
 posture: normative-target
@@ -27,6 +27,7 @@ changed: "1.0"
 
 rulings:
   - OPEN-25
+  - OPEN-27
 
 related:
   - MAN-1

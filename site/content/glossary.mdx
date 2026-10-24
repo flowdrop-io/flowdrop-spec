@@ -114,7 +114,12 @@ removed.
 - **Launch-input manifest (`input_ports`)**: the workflow's public face. The
   author explicitly names which inner ports may be filled by an outside caller.
   Anything not declared does not exist at the launch boundary.
-- **Exposure entry**: one manifest row, `{name, node_id, port}`.
+- **Exposure entry**: one manifest row: a `name`, and optionally a binding
+  (`node_id` with `port`) and a declared `schema` (MAN-2).
+- **Unbound entry**: an exposure entry with no binding. It is a declared part
+  of the workflow's contract, built from its own schema; an input sent to it is
+  checked and delivered nowhere, and an output is absent from results
+  (OPEN-27).
 - **Reserved input**: an input a workflow has for each trigger node, named
   `event:<node id>` and bound to that node's `event` port. Derived from the
   trigger nodes, never stored in the manifest, and never offered to callers

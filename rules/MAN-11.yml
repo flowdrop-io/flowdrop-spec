@@ -2,14 +2,16 @@ id: MAN-11
 family: GR-MAN
 part: I
 
-title: A declared input delivers to the port its entry binds
+title: A declared input delivers to the port its entry binds, or nowhere
 summary: >-
   The manifest is a mapping, and this is the mapping it performs.
 
 normative: >-
   A value supplied under a declared input name MUST be delivered to the workflow's
   initial data under the node identifier and port name that input's manifest entry
-  binds.
+  binds. A value supplied for an unbound input MUST be checked as any declared input's
+  value is (MAN-15, MAN-16). It MUST then be delivered to no node, and its absence of a
+  binding MUST NOT be reported as a missing node.
 
 posture: normative-target
 level: core
@@ -21,6 +23,7 @@ changed: "1.0"
 
 rulings:
   - OPEN-25
+  - OPEN-27
 
 related:
   - MAN-10

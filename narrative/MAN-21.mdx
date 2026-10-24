@@ -1,6 +1,6 @@
 ---
 rule: MAN-21
-rule_hash: ed865499af82
+rule_hash: 5f1d6d9c88d1
 ---
 
 ## What it means
@@ -10,6 +10,11 @@ they diverge exactly where a port carries a domain-specific meaning over an
 ordinary structural shape: an array of conversation messages is, structurally,
 just an array. Reading the schema's `type` and calling that the lane would
 answer `array` for a case the lane can name precisely.
+
+Where an entry declares its own schema, the lane comes from that schema, and
+the port it binds only says where the value goes; R4.f warns when the two
+disagree. An unbound entry with no schema is on the sink lane and accepts
+anything.
 
 The lane is resolved once, when the contract is built, and pinned into the
 stored fragment — it is not re-derived on every read. A contract built

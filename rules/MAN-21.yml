@@ -8,13 +8,15 @@ summary: >-
   one with the other would make a contract entry contradict the port it is bound to.
 
 normative: >-
-  An interface entry MUST state its bound port's lane and its structural schema
-  separately: the lane is the port's declared or derived data-type lane, and the
-  schema is the JSON Schema fragment. The lane MUST NOT be the fragment's `type`. The
-  lane MUST be resolved once, when the contract is built, against the vocabulary the
+  An interface entry MUST state its lane and its structural schema separately: the lane
+  is a data-type lane, and the schema is the JSON Schema fragment. The lane MUST NOT be
+  the fragment's `type`. The lane MUST be the lane the entry's declared `schema` derives
+  (SCH-10) where the entry declares one, otherwise its bound port's declared or derived
+  lane. An unbound entry that declares no `schema` MUST be on the sink lane (SCH-35).
+  The lane MUST be resolved once, when the contract is built, against the vocabulary the
   implementation actually serves. The resolved lane MUST be pinned into the stored
-  fragment, so a reader sees the lane the workflow was published against rather than
-  one that could drift since. Reading the contract MUST only read that pin. A stored
+  fragment, so a reader sees the lane the workflow was published against rather than one
+  that could drift since. Reading the contract MUST only read that pin. A stored
   contract without a pin MUST fall back to the lane derivable from the fragment's
   `type`, which is never wider than the truth. Such a contract MUST correct itself on
   the workflow's next rebuild. The schema emitted alongside the lane MUST be the
@@ -33,6 +35,7 @@ changed: "1.0"
 
 rulings:
   - OPEN-25
+  - OPEN-27
 
 related:
   - MAN-5

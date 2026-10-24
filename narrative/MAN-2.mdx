@@ -1,12 +1,16 @@
 ---
 rule: MAN-2
-rule_hash: 74f222657fec
+rule_hash: aa41d9c14b52
 ---
 
 ## What it means
 
-Three fields are the entry: `name` is what the caller calls the input, and
-`node_id` plus `port` are where it lands inside the workflow. Everything else
+`name` is the entry: what the caller calls the input. `node_id` plus `port`,
+when present, are where it lands inside the workflow. They come as a pair or
+not at all. An entry with neither is unbound: the author has declared the
+input or output, and its contract, before building what is behind it. Its
+`schema` is then the whole contract, and another workflow can already call
+this one. Everything else
 an entry may carry — `title`, `description`, `examples`, `required` — is
 metadata for whoever calls the workflow, and it applies only to the input
 side; an entry that binds an output port carries none of it into the built
@@ -44,3 +48,10 @@ attached.
 
 `name`, `node_id` and `port` decided where this property comes from; `title`,
 `description` and `examples` only decorate it.
+
+An input declared before anything is built behind it carries its contract
+itself:
+
+```json title="An unbound entry with a declared schema" verdict="stored"
+{ "name": "topic", "schema": { "type": "string", "x-data-type": "string" }, "required": true }
+```

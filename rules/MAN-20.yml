@@ -12,19 +12,20 @@ normative: >-
   A workflow's API MUST accept an `interface` object. It MUST map the object onto the
   stored input and output manifests. An entry's client-side identifier MUST become the
   server-side input name; renaming either is a breaking change for callers. An entry
-  carries exactly one binding, whose node and port identifiers MUST become the entry's
+  carries at most one binding, whose node and port identifiers MUST become the entry's
   `node_id` and `port`. An entry carrying more than one binding MUST be refused with
-  400. The request MUST store nothing. An entry carrying no binding is a client-side
-  draft. It MUST be skipped, so it is not stored. It MUST NOT be an error. A declared
-  data type, a schema, a default value and free-form metadata on an entry MUST be
-  ignored on write. The type and schema are derived server-side from the bound port,
-  and the other two have no server representation. Input-side author metadata (the
-  entry's display name, description, examples and required flag) MUST round-trip as
-  author-written manifest metadata does. An output entry carries its name and binding,
-  and none of that metadata. The mapped manifests MUST be applied before the workflow
-  is validated. An entry naming a node or port that does not exist MUST be refused
-  with 422 by workflow validation. The API's own 400 refusals MUST cover the entry's
-  shape only.
+  400. The request MUST store nothing. An entry carrying no binding MUST be stored as an
+  unbound entry (MAN-2), and MUST NOT be an error. An entry's declared schema MUST be
+  stored as the entry's `schema`, and its declared data type as that schema's `x-data-
+  type`. A default value and free-form metadata on an entry MUST be ignored on write,
+  because they have no server representation. Input-side author metadata (the entry's
+  display name, description, examples and required flag) MUST round-trip as author-
+  written manifest metadata does. An output entry carries its name, its declared type
+  and schema, and its binding where it has one, and none of the input-side metadata. On
+  read, an unbound entry MUST be published with an empty list of bindings. The mapped
+  manifests MUST be applied before the workflow is validated. A bound entry naming a
+  node or port that does not exist MUST be refused with 422 by workflow validation. The
+  API's own 400 refusals MUST cover the entry's shape only.
 
 posture: normative-target
 level: extended
@@ -37,6 +38,7 @@ changed: "1.0"
 rulings:
   - OPEN-22
   - OPEN-25
+  - OPEN-27
 
 related:
   - MAN-2

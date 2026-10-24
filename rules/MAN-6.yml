@@ -10,9 +10,9 @@ summary: >-
 normative: >-
   Author-supplied metadata on a manifest entry MUST be overlaid onto the contract
   fragment after the fragment has been reduced. It MUST override any annotation the
-  bound port declares. The overlay MUST apply to the input side only. An empty value
-  MUST be dropped rather than overlaid, so blank author metadata does not erase the
-  port's own.
+  bound port declares. The overlay MUST apply to the input side only. An absent member
+  MUST leave the port's own annotation in place. A present member MUST be overlaid, an
+  empty one included. A member sent as `null` MUST remove the port's annotation.
 
 posture: normative-target
 level: extended
@@ -24,6 +24,7 @@ changed: "1.0"
 
 rulings:
   - OPEN-25
+  - OPEN-26
 
 related:
   - MAN-2

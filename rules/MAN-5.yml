@@ -9,16 +9,18 @@ summary: >-
   when the contract is read, not stored in it.
 
 normative: >-
-  Each contract fragment MUST be built from the schema of the port its entry binds,
-  and reduced to these keys and nothing else: `type`, `enum`, `format`, `default`,
-  `required`, `properties`, `items`, `minimum`, `maximum`, `minLength`, `maxLength`
-  and `pattern`. The set is closed, because the contract states the shape of a value
-  and nothing else. Every other key MUST be dropped, at every depth, recursing into
-  each declared property and into an item schema. Annotations such as `title`,
+  Each contract fragment MUST be built from the entry's declared `schema` where it
+  declares one, otherwise from the schema of the port its entry binds. An unbound entry
+  that declares no `schema` MUST be built as an empty fragment, which accepts any value.
+  The fragment MUST be reduced to these keys and nothing else: `type`, `enum`, `format`,
+  `default`, `required`, `properties`, `items`, `minimum`, `maximum`, `minLength`,
+  `maxLength` and `pattern`. The set is closed, because the contract states the shape of
+  a value and nothing else. Every other key MUST be dropped, at every depth, recursing
+  into each declared property and into an item schema. Annotations such as `title`,
   `description` and `examples`, and any extension key, therefore MUST NOT reach the
   stored contract. The one exception is the lane that MAN-21 pins at the top of the
-  fragment: it is stored beside these keys and is not one of them. Annotations MUST be re-attached only when the contract is read with
-  annotation requested.
+  fragment: it is stored beside these keys and is not one of them. Annotations MUST be
+  re-attached only when the contract is read with annotation requested.
 
 posture: normative-target
 level: core
@@ -31,6 +33,7 @@ changed: "1.0"
 rulings:
   - OPEN-22
   - OPEN-25
+  - OPEN-27
 
 related:
   - MAN-6

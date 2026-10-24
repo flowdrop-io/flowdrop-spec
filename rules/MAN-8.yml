@@ -8,11 +8,13 @@ summary: >-
   drops it and carries on.
 
 normative: >-
-  An entry that cannot be resolved (the node it names is missing, the node declares no
-  such port) MUST be skipped, and the remaining entries MUST still be built. A warning
-  is logged for it. An entry that is structurally malformed, missing or empty in
-  `name`, `node_id` or `port`, MUST likewise be skipped and MUST NOT contribute to the
-  contract.
+  A bound entry that cannot be resolved (the node it names is missing, or the node
+  declares no such port) MUST be skipped, and the remaining entries MUST still be built.
+  A warning is logged for it. An entry that is structurally malformed MUST likewise be
+  skipped, and MUST NOT contribute to the contract. An entry is malformed when its
+  `name` is absent or empty, when it carries only one of `node_id` and `port`, or when
+  either is the empty string. An unbound entry is not malformed, and MUST be built
+  (MAN-5).
 
 posture: normative-target
 level: extended
@@ -24,6 +26,7 @@ changed: "1.0"
 
 rulings:
   - OPEN-25
+  - OPEN-27
 
 related:
   - MAN-14

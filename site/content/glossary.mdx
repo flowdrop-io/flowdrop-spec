@@ -53,10 +53,9 @@ removed.
 - **Absent, null, empty**: the states of a member. Absent means not provided,
   `null` means provided with no value, and an empty `""`, `[]`, `{}`, `false` or
   `0` is a value like any other (Conventions, *Absent, null and empty*).
-- **Required**: has two senses, and the rule says which. *Present at a boundary*:
-  the member must be there, as in JSON Schema, and a `null` meets it where the
-  member's type admits `null` (launch inputs, MAN-15). *Non-null once resolved*:
-  a node parameter must resolve to something other than `null` (CFG-9).
+- **Required**: the member must be present, as in JSON Schema, for launch inputs
+  (MAN-15), saved config (R6.b) and node parameters (CFG-9) alike. A present `null`
+  meets it; whether that `null` is acceptable is for the member's type to say.
 - **Exposure**: whether a port is visible and usable on a node instance. **A
   hidden port effectively does not exist**: it cannot be wired, and a hidden
   output's value is stripped before anyone sees it. `exposed_by_default` on the

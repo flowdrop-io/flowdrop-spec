@@ -1,23 +1,24 @@
 ---
 rule: R6.i
-rule_hash: 6f7616780486
+rule_hash: 407410b5b3bd
 ---
 
 ## What it means
 
-Presence and value are judged separately. A required key set to `null` is
-still present, so it satisfies the requirement. It carries no value, so no
-other constraint on that key is ever evaluated — a `null` cannot
-fail a type, `enum`, bound or `pattern` check it would otherwise fail, because
-none of those checks run against it at all.
+Presence and value are judged separately, as JSON Schema judges them. A
+required key set to `null` is present, so it satisfies the requirement. Its
+value is then checked like any other: `null` is a type of its own, so it fails
+a key whose type does not admit it, and it fails an `enum` that does not list
+it. Bounds and `pattern` describe numbers and strings, and say nothing about a
+`null`.
 
 ## Example
 
-A required key's schema demands a string at least five characters long,
-matching a pattern, and the key's value is `null`:
+A required key whose schema is `{ "type": "string", "minLength": 5 }`:
 
-```json title="A required key set to null" verdict="accepted"
+```json title="A required key set to null" verdict="refused"
 {"url": null}
 ```
 
-None of the string's type, minimum length or pattern is evaluated against it.
+The requirement is met, but `type` refuses the value. With
+`{ "type": ["string", "null"], "minLength": 5 }` the same config is accepted.

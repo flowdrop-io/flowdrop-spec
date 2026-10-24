@@ -101,3 +101,14 @@ affects:
   - BR-1
   - BR-2
   - EDGE-5
+  - CFG-6
+  - CFG-13
+  - CFG-14
+  - CFG-15
+  - CFG-18
+  - CFG-21
+  - DYN-4
+  - EXPO-10
+  - SCH-5
+  - SCH-8
+  - SCH-27

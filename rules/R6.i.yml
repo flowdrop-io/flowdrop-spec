@@ -2,13 +2,14 @@ id: R6.i
 family: GR-VAL
 part: I
 
-title: A null config value is present and skips the schema checks
+title: A null config value is present, and its schema decides whether it is acceptable
 
 normative: >-
-  A config value of `null` is present, with no value. It MUST satisfy a required key. No
-  schema constraint MUST be evaluated against it, so a `null` MUST NOT fail type,
-  `enum`, bounds or `pattern`. This is the save-time side of the parameter exception
-  that CFG-10 states for a run.
+  A config value of `null` is present, with no value. It MUST satisfy a required key. It
+  MUST be validated against the key's schema as JSON Schema validates it: it MUST fail
+  `type` unless the type admits `null`, and MUST fail `enum` unless the enumeration
+  lists `null`. Constraints that apply only to strings, numbers, arrays or objects, such
+  as bounds and `pattern`, do not apply to a `null`.
 
 posture: normative-target
 level: core

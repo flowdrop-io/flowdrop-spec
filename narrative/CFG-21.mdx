@@ -1,14 +1,15 @@
 ---
 rule: CFG-21
-rule_hash: df571a4f7980
+rule_hash: 725a0928078e
 ---
 
 ## What it means
 
 "Missing" is narrow on purpose. The parameter got nothing from a wire or from the
 launch, nothing from the author's configuration, and has no default. A `null` that
-somebody did send is a value, so it is resolved and checked like any other, and a
-required `null` still fails the node (CFG-9).
+somebody did send, or that the node type records as its default, was chosen. It is
+resolved and checked like any other value, and the parameter's schema decides
+whether it is acceptable (CFG-10).
 
 The skip looks exactly like a BR-7 skip from outside: the same reason on the skip
 event, the real-time status and the snapshot, and the node counted among the run's

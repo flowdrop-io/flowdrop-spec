@@ -1,14 +1,14 @@
 ---
 rule: SCH-27
-rule_hash: 8db0039394ab
+rule_hash: c03a4fb900ec
 ---
 
 ## What it means
 
-Only the literal value `null`, `false`, or `0` counts as "the default", not
-anything a caller might read as falsy. A default value of `false`, an empty
-string or an empty list is still a default the author set, and it is
-emitted; a display order of a negative number diverges from `0` just as much
+Only three things are left out: a default the port does not have, an exposure
+of `true`, and a display order of `0`. Nothing a caller might read as falsy is
+left out on those grounds. A default value of `null`, `false`, an empty string
+or an empty list is still a default the author set, and it is emitted; a display order of a negative number diverges from `0` just as much
 as a positive one does, and is emitted too. A client that treats "absent" as
 loosely as "falsy" reintroduces exactly the ambiguity the divergence rule
 was meant to remove.

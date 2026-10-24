@@ -8,14 +8,14 @@ summary: >-
   schema-derived port on every node is built the same way.
 
 normative: >-
-  A schema-derived port takes its `id` from the property key; its `name` from the
-  property's `title`, or from the key where there is no title; its lane from the
-  type mapping; `required` from membership in the schema's `required` list; its
-  default value from the property's `default`, or null where there is none; its
-  exposed-by-default from the exposure defaults; and its display order from
-  `x-port-order`, or 0 where that is absent. This is the only schema-to-port
-  mapping. The unified input and output ports are not schema-derived: they always
-  carry the `json` lane and display order 0.
+  A schema-derived port MUST take its `id` from the property key; its `name` from the
+  property's `title`, or from the key where there is no title; its lane from the type
+  mapping; `required` from membership in the schema's `required` list; its default value
+  from the property's `default` where the property declares one, a `null` default
+  included, and no default where it declares none; its exposed-by-default from the
+  exposure defaults; and its display order from `x-port-order`, or 0 where that is
+  absent. This MUST be the only schema-to-port mapping. The unified input and output
+  ports are not schema-derived: they MUST carry the `json` lane and display order 0.
 
 posture: normative-target
 level: core
@@ -25,6 +25,10 @@ profiles:
 
 added: "1.0"
 changed: "1.0"
+
+rulings:
+  - OPEN-25
+  - OPEN-26
 
 related:
   - SCH-10

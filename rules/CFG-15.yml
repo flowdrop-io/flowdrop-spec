@@ -10,13 +10,13 @@ summary: >-
   is documentation and nothing more.
 
 normative: >-
-  After the declared parameters are resolved, each dynamic input name present in
-  the runtime inputs is copied into the resolved parameter set verbatim: no
-  exposure gate, no `required` check, and no validation. A dynamic input's declared
-  type is therefore descriptive only and is never enforced. A dynamic name that is
-  already a key in the resolved set is skipped, so a declared parameter always wins,
-  including one that resolved to null. An empty name is skipped. Dynamic
-  definitions are read from the node's resolved `dynamicInputs` value, falling back
+  After the declared parameters are resolved, each dynamic input name present in the
+  runtime inputs MUST be copied into the resolved parameter set verbatim: no exposure
+  gate, no `required` check, and no validation. A dynamic input's declared type is
+  therefore descriptive only, and MUST NOT be enforced. A dynamic name that names a
+  declared parameter MUST be skipped, so a declared parameter always wins, whether it
+  resolved to a value, to `null`, or to nothing. An empty name MUST be skipped. Dynamic
+  definitions MUST be read from the node's resolved `dynamicInputs` value, falling back
   to the raw configuration where none resolved.
 
 posture: normative-target
@@ -26,6 +26,10 @@ profiles:
 
 added: "1.0"
 changed: "1.0"
+
+rulings:
+  - OPEN-25
+  - OPEN-26
 
 related:
   - CFG-13

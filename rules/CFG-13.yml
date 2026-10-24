@@ -10,10 +10,10 @@ summary: >-
   by being typed into config.
 
 normative: >-
-  The resolved parameter set contains exactly the keys the processor's parameter
-  schema declares, plus the node's declared dynamic input names (CFG-15). A
-  configuration key matching no declared parameter is not resolved and never
-  reaches the processor.
+  The resolved parameter set MUST contain no key other than a parameter the processor's
+  parameter schema declares, or one of the node's declared dynamic input names (CFG-15).
+  A configuration key matching no declared parameter MUST NOT be resolved, and MUST NOT
+  reach the processor.
 
 posture: normative-target
 level: core
@@ -22,6 +22,10 @@ profiles:
 
 added: "1.0"
 changed: "1.0"
+
+rulings:
+  - OPEN-25
+  - OPEN-26
 
 related:
   - CFG-8

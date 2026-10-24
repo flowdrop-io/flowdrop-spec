@@ -10,11 +10,11 @@ summary: >-
   working node into a failing one.
 
 normative: >-
-  Where a port is connectable but hidden, priority 1 is skipped rather than failed:
-  a value delivered on a wire or by a caller is ignored and resolution continues to
-  the author's saved config where the parameter is configurable and a key is
-  present (CFG-5), and otherwise to the effective default (CFG-6). Such a parameter
-  never takes its value from the runtime inputs, and is never left null merely
+  Where a port is connectable but hidden, priority 1 MUST be skipped rather than failed:
+  a value delivered on a wire or by a caller MUST be ignored, and resolution MUST
+  continue to the author's saved config where the parameter is configurable and a key is
+  present (CFG-5), and otherwise to the effective default (CFG-6). Such a parameter MUST
+  NOT take its value from the runtime inputs, and MUST NOT be left unsupplied merely
   because its port is hidden. Internal parameters sit outside this gate and always
   accept a runtime value (CFG-8).
 
@@ -26,6 +26,10 @@ profiles:
 
 added: "1.0"
 changed: "1.0"
+
+rulings:
+  - OPEN-25
+  - OPEN-26
 
 related:
   - CFG-4

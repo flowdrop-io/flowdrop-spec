@@ -86,12 +86,12 @@ implementation MUST NOT otherwise drop a `null` or empty member, or fill an abse
 one, when it reads, stores or writes a payload.
 
 Where these states meet JSON Schema, they agree with it: *required* is met by a
-member that is present, and `null` is a value of its own type. A node parameter is
-the one exception:
-- a parameter that nothing supplies resolves to `null` (CFG-3, CFG-14, DYN-4);
-- for a parameter, *required* means non-null once resolved (CFG-9);
-- a `null` is not validated against the parameter's type, at save (R6.i) or at run
-  time (CFG-10).
+member that is present, and `null` is a value of its own type, which passes `type`
+only where the type admits it. There are no exceptions. A node parameter reads the
+states the same way: one that nothing supplies is absent (CFG-14), *required* is met
+by a present `null` (CFG-9), and the parameter's schema decides whether that `null`
+is acceptable (CFG-10, R6.i). A rule that needs "a value, not `null`" says so with a
+type that does not admit `null`.
 
 ## Extensibility
 

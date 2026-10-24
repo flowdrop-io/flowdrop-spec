@@ -2,12 +2,14 @@ id: CFG-14
 family: GR-CFG
 part: I
 
-title: Every declared parameter is present, null when unresolved
+title: A parameter is present exactly when a priority supplied it
 
 normative: >-
-  Every parameter the processor's schema declares is present in the resolved
-  parameter set. One that resolves to no value is present with the value null; it
-  is never absent.
+  A declared parameter MUST be present in the resolved parameter set when a priority
+  supplied it (CFG-4 to CFG-6), with the value that priority supplied, a `null`
+  included. A parameter that no priority supplied MUST be absent from the set. It MUST
+  NOT be present with the value `null`, so a `null` in the set always means that a
+  priority chose it.
 
 posture: normative-target
 level: core
@@ -16,6 +18,10 @@ profiles:
 
 added: "1.0"
 changed: "1.0"
+
+rulings:
+  - OPEN-25
+  - OPEN-26
 
 related:
   - CFG-13

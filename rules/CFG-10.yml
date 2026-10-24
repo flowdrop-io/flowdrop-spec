@@ -2,17 +2,17 @@ id: CFG-10
 family: GR-CFG
 part: I
 
-title: A resolved value is validated against the parameter schema
+title: A resolved value is validated against the parameter schema, null included
 
 normative: >-
-  A resolved value that is not `null` MUST be validated against the parameter's schema.
-  Any violation MUST fail the node execution with a validation error carrying the name
-  of the constraint that failed. `type` and `enum` MUST be checked first, and either one
-  failing MUST end the check there. A value that resolves to `null` MUST NOT be
-  validated, even where the schema's `type` does not admit `null`. Whether a `null` is
-  acceptable is decided by `required` alone (CFG-9). This is a named exception to JSON
-  Schema, which checks a `null` like any other value (Conventions, Absent, null and
-  empty).
+  A resolved value MUST be validated against the parameter's schema as JSON Schema
+  validates an instance, a `null` included. A `null` therefore MUST fail `type` unless
+  the type admits `null`, and MUST fail `enum` unless the enumeration lists `null`.
+  Constraints that apply only to strings, numbers, arrays or objects do not apply to a
+  `null`, as in JSON Schema. Any violation MUST fail the node execution with a
+  validation error carrying the name of the constraint that failed. `type` and `enum`
+  MUST be checked first, and either one failing MUST end the check there. A parameter
+  absent from the resolved parameter set has no value, and is not validated.
 
 posture: normative-target
 level: core

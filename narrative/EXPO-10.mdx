@@ -1,6 +1,6 @@
 ---
 rule: EXPO-10
-rule_hash: a1fcb62beab2
+rule_hash: c4a0597a2801
 ---
 
 ## What it means
@@ -15,8 +15,8 @@ The consequence that is easy to miss is the floor under that skip: it must
 never leave the parameter unset. Where the parameter is not even
 configurable, so there is nothing saved to fall back on, resolution continues
 all the way to the schema's own default rather than stopping short — a
-hidden port that resolved to null would turn hiding it into breaking the node
-it hides.
+hidden port that was left with nothing would turn hiding it into breaking the
+node it hides.
 
 Internal parameters sit outside this gate altogether. They are not authored
 ports a workflow shows or hides, so a runtime value reaches them whatever a

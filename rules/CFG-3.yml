@@ -9,8 +9,8 @@ normative: >-
   node type records one, a recorded `null` included. A node type records a default when
   its default member is present; an absent member records none. Where the node type
   records none, the effective default MUST be the processor's schema default, where the
-  schema declares one. Where neither records a default, the effective default MUST be
-  `null`.
+  schema declares one, a `null` default included. Where neither records a default, the
+  parameter has no effective default.
 
 posture: normative-target
 level: core

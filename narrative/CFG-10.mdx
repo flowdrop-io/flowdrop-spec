@@ -1,32 +1,33 @@
 ---
 rule: CFG-10
-rule_hash: ea8ca227513d
+rule_hash: 55c2b828e7a3
 ---
 
 ## What it means
 
-A resolved value is validated only when it is something. Null is not a value
-that happens to satisfy every constraint a schema names — it is exempted from
-the check altogether. A schema can demand an `enum`, a minimum length and a
-`format` all at once, and a resolved null still passes straight through:
-none of them run. Whether that null is acceptable in the first place is a
-different question: CFG-9 answers it, not this rule. A parameter this
-permissive can still fail the node for being required and missing, but never
-for a shape or format it never had.
+A resolved value is validated exactly as a JSON Schema validator would validate
+it, and a `null` is no exception. `null` is a type of its own: it passes
+`"type": "string"` no more than a number would, and it passes only a schema
+whose type admits it, such as `["string", "null"]`. A parameter that is meant
+to accept "nothing chosen" says so in its schema.
 
-This is one of the two places the specification parts from JSON Schema on
-purpose. JSON Schema would check a `null` against `"type": "string"` and
-refuse it; here the type is never consulted, and CFG-9 is the only gate.
+What a `null` is spared is only what JSON Schema spares it: a minimum length, a
+pattern or a `format` describe strings, so they have nothing to say about a
+`null`. `enum` is different: a `null` passes it only where the enumeration
+lists `null`.
+
+A parameter that nothing supplied at all is not validated here. It has no
+value, and CFG-9 has already decided whether that is allowed.
 
 ## Example
 
-```json title="A schema demanding an enum, a minimum length and a format"
-{ "type": "string", "enum": ["low", "high"], "minLength": 5, "format": "email" }
+```json title="A schema that admits null, with an enum that lists it"
+{ "type": ["string", "null"], "enum": ["low", "high", null], "minLength": 3 }
 ```
 
-```json title="What resolving an explicit null against it returns" verdict="skipped"
+```json title="What resolving an explicit null against it returns" verdict="valid"
 null
 ```
 
-The enum, the length and the format all sit unused; only CFG-9's required
-check would still have a say over this null.
+The same `null` against `{ "type": "string" }` fails the node with a `type`
+violation.

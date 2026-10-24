@@ -1,6 +1,6 @@
 ---
 rule: CFG-18
-rule_hash: 010236aa6768
+rule_hash: ce988df2c29e
 ---
 
 ## What it means
@@ -10,8 +10,8 @@ config default: it must also be configurable. A parameter that only accepts
 wired values can still carry a default for the runtime cascade to fall back
 on, but that default never appears in `configDefaults`, because that bag
 seeds an authoring surface for a parameter with no such surface at all. The
-two gates — configurable, and an effective default that is not null — are
-independent: failing either one, on its own, is enough to keep the entry out.
+two gates — configurable, and having an effective default at all, a `null`
+default included — are independent: failing either one, on its own, is enough to keep the entry out.
 
 ## Example
 

@@ -5,12 +5,12 @@ part: I
 title: Reserved config-only parameters always carry a default
 
 normative: >-
-  `dynamicInputs`, `dynamicOutputs` and `branches` are reserved config-only
-  parameters and are never input ports. Where a node type opts one in by marking it
-  `configurable`, it enters the config schema and always gets a config-defaults
-  entry: the node type's default, else the schema's default, else an empty array.
-  Such an entry is never omitted and never null, unlike an ordinary configurable
-  parameter, whose entry is omitted when its resolved default is null.
+  `dynamicInputs`, `dynamicOutputs` and `branches` are reserved config-only parameters,
+  and MUST NOT be input ports. Where a node type opts one in by marking it
+  `configurable`, it MUST enter the config schema and MUST get a config-defaults entry:
+  the node type's default, else the schema's default, else an empty array. Such an entry
+  MUST NOT be omitted and MUST NOT be `null`, unlike an ordinary configurable parameter,
+  whose entry is omitted when it has no effective default (CFG-18).
 
 posture: normative-target
 level: core
@@ -20,6 +20,10 @@ profiles:
 
 added: "1.0"
 changed: "1.0"
+
+rulings:
+  - OPEN-25
+  - OPEN-26
 
 related:
   - SCH-4

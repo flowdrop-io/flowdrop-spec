@@ -56,3 +56,18 @@ version check.
 fallback. A snapshot with an empty version is compared like any other. An
 implementation that still reads these the old way says so in its release notes,
 with the release that changes it and how to migrate.
+
+## A parameter's null read as missing
+
+Rules: CFG-3, CFG-9, CFG-10, CFG-14, DYN-4, R6.i (ruling OPEN-26).
+
+Some implementations once resolved a parameter that nothing supplied to `null`,
+failed a required parameter whose value was `null` as missing, and skipped schema
+validation for a `null` altogether, at save and at run time.
+
+**If you meet it:** a processor that receives every declared parameter, unsupplied
+ones as `null`, or a save that accepts `null` for a `"type": "string"` key, comes from
+that reading. Under the current rules an unsupplied parameter is absent, and a `null`
+passes only a schema whose type admits it. A workflow that relied on the old reading
+gives such a parameter a type like `["string", "null"]`.
+

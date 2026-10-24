@@ -21,9 +21,14 @@ decision: >-
   by another implementation. An output that produced no value is absent from a run
   result, and null appears there only when a node produced null, so a null never
   overrides the next node's config by accident. The definition agrees with JSON
-  Schema, which the contracts and port schemas are written in. A node parameter is
-  the one named exception: required means non-null once resolved (CFG-9), and a
-  resolved null is not validated against the parameter's type (CFG-10). CFG-3,
+  Schema, which the contracts and port schemas are written in, with no exceptions, so
+  an off-the-shelf validator in any language gives the specification's verdict. Node
+  parameters follow it too: a parameter nothing supplies is absent from the resolved
+  set rather than null (CFG-3, CFG-6, CFG-14, DYN-4), required is met by a present
+  null (CFG-9), and a null is validated against the parameter's schema like any other
+  value, at run time and at save (CFG-10, R6.i). A parameter that accepts "nothing
+  chosen" says so with a type that admits null. CFG-13, CFG-15, CFG-18, CFG-21,
+  EXPO-10, SCH-5, SCH-8 and SCH-27 follow from the same reading. CFG-3,
   LANG-24, EDGE-2, INT-8, MEM-16 and STORE-4 are rewritten to follow the definition,
   and R8.a, R8.b, R12 and R13 say "absent or empty" where they relied on EDGE-2
   turning an absent edge end into the empty string. The rules that read an empty
@@ -57,3 +62,14 @@ affects:
   - BR-1
   - BR-2
   - EDGE-5
+  - CFG-6
+  - CFG-13
+  - CFG-14
+  - CFG-15
+  - CFG-18
+  - CFG-21
+  - DYN-4
+  - EXPO-10
+  - SCH-5
+  - SCH-8
+  - SCH-27

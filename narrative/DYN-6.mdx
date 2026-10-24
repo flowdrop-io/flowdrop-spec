@@ -1,6 +1,6 @@
 ---
 rule: DYN-6
-rule_hash: 38f2e699db37
+rule_hash: 06909586f32f
 ---
 
 ## What it means
@@ -12,12 +12,13 @@ it is not treated as hidden. A dynamic port is always wireable, and a value
 produced under its name reaches the node's output exactly as produced,
 because there is no schema entry to strip it against.
 
-The same absence cuts the other way at the workflow's outside edge. A
-launch-input manifest entry only succeeds against a port the node's
-processor actually declares, and a dynamic port is never declared by the
-processor. Naming one in the manifest is refused for that reason — the
-freedom a dynamic port enjoys inside a run does not extend to being
-something an outside caller can build a launch on.
+A dynamic port is not declared by the processor, but it is defined on the
+node and stored with it, so it is known when the workflow is saved. A
+workflow's interface can therefore bind one: a value supplied for the
+interface input is delivered to it, and a value produced on it can be
+returned as an interface output. Where the entry declares no schema of its
+own, its contract accepts any value and sits on the port's lane (MAN-5,
+MAN-21).
 
 ## Example
 

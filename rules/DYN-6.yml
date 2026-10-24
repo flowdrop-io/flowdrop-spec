@@ -2,19 +2,18 @@ id: DYN-6
 family: GR-DYN
 part: I
 
-title: Dynamic ports carry no exposure state and are not addressable from outside
+title: Dynamic ports carry no exposure state, and a workflow interface can bind them
 summary: >-
   Exposure is a property of a port the processor declares. A dynamic port is not
-  declared, so there is nothing to hide and nothing to strip, and for the same
-  reason nothing an outside caller can name.
+  declared, so there is nothing to hide and nothing to strip. It is still a port the
+  node defines, so a workflow's interface can bind it like any other.
 
 normative: >-
   A dynamic port has no exposure. A dynamic port MUST always be wireable. The value
   of a dynamic port MUST NOT be stripped from a node's output. Edge validation MUST
-  NOT raise an exposure objection against a dynamic port. For the same reason a
-  dynamic port is not addressable at the workflow boundary: a launch-input manifest
-  entry naming one MUST be refused, because the port is not declared by the node's
-  processor.
+  NOT raise an exposure objection against a dynamic port. A workflow interface entry
+  MUST be able to bind a dynamic port, on the side it is defined for, as it binds a
+  declared one (R4.d); having no exposure, the port is never refused as hidden (R10).
 
 posture: normative-target
 level: extended
@@ -27,3 +26,4 @@ changed: "1.0"
 
 rulings:
   - OPEN-25
+  - OPEN-30

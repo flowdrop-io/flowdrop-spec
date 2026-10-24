@@ -111,3 +111,14 @@ order.
 value, or a save refused because `1.0` was not in an `enum` listing `1`, comes from
 that reading. Under the current rules both match. No workflow needs changing; it
 takes the branch its author meant.
+
+## Dynamic ports refused at the workflow interface
+
+Rules: DYN-6, R4.d (ruling OPEN-30).
+
+Some implementations once refused a workflow interface entry that bound a node's
+dynamic port, because the processor does not declare it.
+
+**If you meet it:** a save refused with `R4_PORT_MISSING` for an entry naming a
+dynamic port comes from that reading. Under the current rules the binding is valid
+wherever the node defines that dynamic port on the entry's side.

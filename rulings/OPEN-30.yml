@@ -1,0 +1,26 @@
+id: OPEN-30
+headline: A workflow interface entry can bind a node's dynamic port.
+question: >-
+  A launch-input manifest entry naming a dynamic port was refused, because the port
+  is not declared by the node's processor. That reason dates from when an interface
+  entry's contract was built from the bound port's schema, which a dynamic port does
+  not have. Since OPEN-27 an entry can declare its own schema, and a dynamic port is
+  defined on the node and stored with it, so it is known when the workflow is saved.
+  A workflow whose inputs feed a node that grows its ports per instance needed a
+  declared parameter in between.
+decided: "2026-10-24"
+decision: >-
+  A workflow interface entry can bind a dynamic port, on the side the port is defined
+  for, exactly as it binds a declared port. A declared port of the same name wins
+  (DYN-5). The binding is checked at save against the node's stored definitions
+  (R4.d). A dynamic port has no exposure, so the binding is never refused as hidden
+  (R10). Where the entry declares its own schema, that schema is the contract, as for
+  any entry (OPEN-27). Where it does not, the contract is an empty fragment that
+  accepts any value, and its lane is the port's `dataType`, read as `mixed` where
+  absent (MAN-5, MAN-21). Delivery and collection follow the binding unchanged (MAN-11,
+  MAN-17).
+affects:
+  - DYN-6
+  - R4.d
+  - MAN-5
+  - MAN-21

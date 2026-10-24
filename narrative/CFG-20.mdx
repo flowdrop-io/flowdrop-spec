@@ -1,0 +1,26 @@
+---
+rule: CFG-20
+rule_hash: 0c7386287e60
+---
+
+## What it means
+
+`when_missing` sits beside `required`, and only means something together with it.
+`required` says the node cannot run without a value. `when_missing` says what that
+absence means: `fail` (the node is broken, CFG-9) or `skip` (the node has nothing to
+do, CFG-21). A node type that never mentions the flag gets `fail`, so every node type
+that exists today behaves exactly as before.
+
+The flag belongs to the node type, like the gate flags, and not to the author's node
+configuration: whether "nothing arrived" is an error is a property of what the node
+does.
+
+## Example
+
+```json title="A trigger node type's event parameter" verdict="skip"
+{ "event": { "connectable": true, "required": true, "when_missing": "skip" } }
+```
+
+```json title="A required parameter that says nothing about when_missing" verdict="fail"
+{ "prompt": { "connectable": true, "required": true } }
+```

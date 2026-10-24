@@ -1,0 +1,38 @@
+---
+rule: SCH-47
+rule_hash: 6f98a9f421e0
+---
+
+## What it means
+
+A trigger node is a node that starts runs when something happens outside the
+workflow: a record is saved, a schedule comes due, a webhook arrives. Whatever an
+implementation does to notice the event, the event reaches the run in one place, the
+node's `event` input. The trigger node then turns it into its outputs like any other
+node.
+
+The port is reserved in both directions. Every trigger node type has it, and no other
+node type may use the name. So the presence of an `event` input is how a reader, or an
+editor, recognises a trigger node.
+
+Each flag has a job. Connectable and exposed let a value from outside reach the
+parameter (CFG-4). Required with `skip` means a trigger that did not fire leaves
+itself out of the run (CFG-21). Not configurable and no default mean nothing but the
+start of the run can fill it. No wire can fill it either (R16).
+
+## Example
+
+```json title="The event parameter of a trigger node type" verdict="conforming"
+{
+  "event": {
+    "connectable": true,
+    "configurable": false,
+    "required": true,
+    "when_missing": "skip"
+  }
+}
+```
+
+```json title="An instance setting that tries to hide the port" verdict="ignored"
+{ "ports": { "input": { "event": false } } }
+```

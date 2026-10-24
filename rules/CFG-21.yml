@@ -1,0 +1,36 @@
+id: CFG-21
+family: GR-CFG
+part: I
+
+title: A required parameter marked skip skips its node instead of failing it
+summary: >-
+  The exception to CFG-9. A node that was given nothing to work on is left out of the
+  run, the same way an untaken branch is, and the run is not failed by it.
+
+normative: >-
+  This rule applies where a parameter is required, its `when_missing` flag is `skip`
+  (CFG-20), neither the runtime inputs (CFG-4) nor the saved configuration (CFG-5)
+  supplied a value for it, and its effective default (CFG-3) is null. In that case the
+  node MUST NOT be executed. The node MUST be recorded as skipped, on the same
+  announcements and with the same reason as BR-7 records a skip. The node MUST NOT be
+  recorded as failed, and the skip MUST NOT fail the run. A key present with a null
+  value counts as supplied (CFG-7): such a parameter is not missing, and CFG-9 applies
+  to it.
+
+posture: normative-target
+level: extended
+profiles:
+  - runtime
+
+added: "1.0"
+changed: "1.0"
+
+rulings:
+  - OPEN-21
+
+related:
+  - CFG-9
+  - CFG-7
+  - CFG-20
+  - BR-7
+  - DATA-4

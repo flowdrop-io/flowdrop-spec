@@ -3,18 +3,26 @@ family: RT-ORC
 part: II
 
 title: Naming a firing trigger drops the other triggers
+summary: >-
+  Replaced by CFG-21: a trigger node that did not fire skips itself, so no execution strategy drops triggers by name.
+
 normative: >-
   Where a run's initial data names a trigger node, direct synchronous execution runs
   that trigger node and drops the workflow's other trigger nodes. Where it does not, the
   compiled order runs verbatim. Nodes that are not triggers are never filtered.
 
-posture: normative-target
+posture: withdrawn
 level: extended
 profiles:
   - runtime
 
 added: "1.0"
 changed: "1.0"
+
+supersededBy: CFG-21
+
+rulings:
+  - OPEN-21
 
 related:
   - ORC-7

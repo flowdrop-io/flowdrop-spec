@@ -1,0 +1,37 @@
+id: SCH-47
+family: GR-SCHEMA
+part: I
+
+title: A trigger node type has a reserved event input
+summary: >-
+  What happened outside the workflow enters a run on one known port. A reader can find
+  it without knowing anything about the trigger, and an editor can treat it the same
+  way on every trigger.
+
+normative: >-
+  A trigger node type declares one input port named `event`, whose schema is the schema
+  of the event the node type delivers. The `event` parameter MUST be connectable,
+  required and not configurable. It MUST have no default, and its `when_missing` flag
+  (CFG-20) MUST be `skip`. The `event` port MUST be exposed, and an instance-level
+  exposure setting MUST NOT hide it. A node type that is not a trigger node type MUST
+  NOT declare an input port named `event`.
+
+posture: normative-target
+level: extended
+profiles:
+  - storage-api
+  - editor-client
+
+added: "1.0"
+changed: "1.0"
+
+rulings:
+  - OPEN-21
+
+related:
+  - SCH-2
+  - SCH-16
+  - CFG-20
+  - CFG-21
+  - R16
+  - MAN-26

@@ -1,0 +1,39 @@
+---
+rule: CFG-21
+rule_hash: df571a4f7980
+---
+
+## What it means
+
+"Missing" is narrow on purpose. The parameter got nothing from a wire or from the
+launch, nothing from the author's configuration, and has no default. A `null` that
+somebody did send is a value, so it is resolved and checked like any other, and a
+required `null` still fails the node (CFG-9).
+
+The skip looks exactly like a BR-7 skip from outside: the same reason on the skip
+event, the real-time status and the snapshot, and the node counted among the run's
+skipped nodes. What follows needs no rule of its own. A node that reads from the
+skipped node never becomes ready (DATA-4), and BR-7's end-of-run sweep records it as
+skipped too. A node that does not depend on it runs as usual.
+
+BR-7's "a node with no incoming trigger edge always executes" is about trigger edges:
+such a node is never skipped for want of a trigger. It does not promise the node runs
+whatever else happens, and the sweep already covers a node that was ready but never
+executed.
+
+## Example
+
+A workflow with two trigger nodes, `on_insert` and `on_update`. A firing of the update
+trigger supplies only `event:on_update`:
+
+```json title="The initial data the firing delivers" verdict="delivered"
+{ "on_update": { "event": { "ref": "node/42", "changed_fields": ["body"] } } }
+```
+
+```json title="The skipped nodes in the run's response metadata" verdict="skipped"
+["on_insert", "notify_new_article"]
+```
+
+```json title="The run's status" verdict="completed"
+"completed"
+```

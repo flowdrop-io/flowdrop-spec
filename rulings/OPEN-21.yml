@@ -1,0 +1,32 @@
+id: OPEN-21
+headline: A trigger that did not fire skips itself; its event arrives on a reserved input.
+question: >-
+  A workflow can hold several trigger nodes, and only one of them fires for a given
+  run. The run therefore has to leave the others out, and the event has to reach the
+  trigger that fired. The rules described one implementation's way of doing both: the
+  run's initial data named the firing trigger and the event travelled as a flat bag,
+  and direct execution dropped every other trigger node by name. Other strategies were
+  left to do the same by their own means, and nothing said how an editor or a second
+  engine should recognise where an event enters.
+decided: "2026-10-10"
+decision: >-
+  A trigger node type declares a reserved `event` input. The input is required, and
+  when nothing arrives on it the node is skipped instead of failed. The skip uses the
+  general `when_missing` flag on parameters, so the mechanism is not specific to
+  triggers. Each trigger node gives the workflow a reserved input, `event:` followed by
+  its identifier, derived and never stored, and delivered through the ordinary launch
+  mapping. A trigger that fires supplies its own reserved input. Every other trigger
+  then has nothing to resolve and skips itself, and its branch follows by the existing
+  readiness rules. No strategy needs to know which trigger fired. Callers can neither
+  see nor supply reserved inputs, so starting a trigger's branch remains something only
+  a firing, or a person simulating one, can do. This replaces the flat initial data of
+  external invocation (OCX-1) and dropping triggers by name (ORC-8).
+affects:
+  - CFG-20
+  - CFG-21
+  - SCH-47
+  - R16
+  - MAN-26
+  - MAN-27
+  - ORC-8
+  - OCX-1

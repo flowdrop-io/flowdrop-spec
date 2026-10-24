@@ -1,0 +1,37 @@
+id: MAN-26
+family: GR-MAN
+part: I
+
+title: Each trigger node gives the workflow a reserved input
+summary: >-
+  A firing reaches a run through the same mapping a caller's input does, without the
+  author declaring anything and without the entry ever going stale.
+
+normative: >-
+  For each trigger node in a workflow, the workflow has one reserved input. Its name is
+  `event:` followed by the trigger node's identifier, and it binds that node's `event`
+  port (SCH-47). A reserved input MUST be derived from the workflow's trigger nodes
+  whenever it is needed. A reserved input MUST NOT be stored in the workflow's manifest,
+  and an authoring surface MUST NOT write one there. A value supplied under a reserved
+  input name is delivered as MAN-11 delivers a declared input. A reserved input is
+  never required at launch.
+
+posture: normative-target
+level: extended
+profiles:
+  - storage-api
+  - runtime
+  - editor-client
+
+added: "1.0"
+changed: "1.0"
+
+rulings:
+  - OPEN-21
+
+related:
+  - MAN-1
+  - MAN-11
+  - MAN-27
+  - SCH-47
+  - R4.a

@@ -4,9 +4,7 @@ part: II
 
 title: External invocation builds flat initial data
 summary: >-
-  The payload has to arrive where the trigger's advertised output schema says it
-  is. Keying it by node id put it somewhere only an expression naming that node
-  could reach.
+  Replaced by MAN-26: a firing delivers its event on the trigger node's reserved input, through the ordinary launch mapping.
 
 normative: >-
   The initial data for an externally invoked run is flat: the extracted trigger
@@ -16,13 +14,18 @@ normative: >-
   payload is reachable at `data.payload`, which is what the trigger's declared
   output schema advertises. The initial data must not be keyed by node id.
 
-posture: normative-target
+posture: withdrawn
 level: core
 profiles:
   - runtime
 
 added: "1.0"
 changed: "1.0"
+
+supersededBy: MAN-26
+
+rulings:
+  - OPEN-21
 
 related:
   - OCX-3

@@ -34,9 +34,11 @@ removed.
   node's input or output values into one JSON object.
 - **Dynamic ports**: extra ports an author adds to a single node instance,
   beyond what the node type declares.
+- **event**: a trigger node's reserved input, where what happened outside the
+  workflow enters the run (SCH-47). No wire may target it (R16).
 - **Reserved names**: port/parameter names the system injects or treats
-  specially (`trigger`, `error`, `tool`, `input`, `output`, `engine`, anything
-  `__`-prefixed). Authors cannot repurpose them.
+  specially (`trigger`, `error`, `tool`, `input`, `output`, `event`, `engine`,
+  anything `__`-prefixed). Authors cannot repurpose them.
 
 ## Configuration and exposure
 
@@ -44,6 +46,8 @@ removed.
   *only* user-owned configuration store.
 - **Gate flags**: per-parameter switches set on the node type: `connectable`
   (may receive a wire), `configurable` (appears in the config form), `required`.
+  Beside them, `when_missing` says what a required parameter with nothing to
+  resolve means: `fail` (the default) or `skip` (CFG-20, CFG-21).
 - **Exposure**: whether a port is visible and usable on a node instance. **A
   hidden port effectively does not exist**: it cannot be wired, and a hidden
   output's value is stripped before anyone sees it. `exposed_by_default` on the
@@ -90,6 +94,12 @@ removed.
   merged per field: `messages` append, `data` merges, everything else is
   replaced.
 - **initialData**: the input payload a run is launched with.
+- **Trigger node**: a node that starts runs when something happens outside the
+  workflow (a record is saved, a schedule comes due, a webhook arrives). Its node
+  type is a **trigger node type**, recognisable by its reserved `event` input.
+- **Firing**: one occurrence of an event a switched-on trigger node listens for,
+  starting a run. A firing supplies only its own trigger's event; the workflow's
+  other trigger nodes skip themselves (CFG-21).
 
 ## Launching from outside
 
@@ -97,6 +107,10 @@ removed.
   author explicitly names which inner ports may be filled by an outside caller.
   Anything not declared does not exist at the launch boundary.
 - **Exposure entry**: one manifest row, `{name, node_id, port}`.
+- **Reserved input**: an input a workflow has for each trigger node, named
+  `event:<node id>` and bound to that node's `event` port. Derived from the
+  trigger nodes, never stored in the manifest, and never offered to callers
+  (MAN-26, MAN-27).
 - **Schema snapshot**: a frozen copy of each declared input's schema, so callers
   validate against what the author *published*, not against live node-type code.
   (Not the same as the run-progress snapshot above.)

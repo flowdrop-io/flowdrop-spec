@@ -1,0 +1,27 @@
+---
+rule: R16
+rule_hash: 2ba94765f0af
+---
+
+## What it means
+
+The `event` port is exposed so that a value from outside can reach it, not so that it
+can be wired. An edge into it would win over the event (DATA-6) and quietly turn a
+trigger into an ordinary step. The validator refuses it, and an editor should not
+offer the connection in the first place.
+
+## Example
+
+```json title="An edge into a trigger node's event input" verdict="refused"
+{
+  "id": "e3",
+  "source": "n2",
+  "sourceHandle": "n2-output-result",
+  "target": "on_update",
+  "targetHandle": "on_update-input-event"
+}
+```
+
+```json title="The error" verdict="refused"
+{ "code": "R16_EDGE_EVENT_INPUT", "locator": "edge.2" }
+```

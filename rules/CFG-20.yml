@@ -1,0 +1,33 @@
+id: CFG-20
+family: GR-CFG
+part: I
+
+title: A parameter's when_missing flag is fail unless the node type says skip
+summary: >-
+  Most required parameters fail their node when nothing resolves. A few, such as a
+  trigger node's event, mean "this node has nothing to do" when nothing resolves. The
+  flag lets a node type say which, and keeps the default every existing node type has.
+
+normative: >-
+  A parameter's `when_missing` flag takes one of two values, `fail` or `skip`. The flag
+  is read from the node type's own parameter configuration, as the gate flags are
+  (SCH-2). Where the node type records no value, an implementation MUST treat the flag
+  as `fail`. The flag has no effect on a parameter that is not required.
+
+posture: normative-target
+level: extended
+profiles:
+  - storage-api
+  - runtime
+
+added: "1.0"
+changed: "1.0"
+
+rulings:
+  - OPEN-21
+
+related:
+  - SCH-2
+  - CFG-1
+  - CFG-9
+  - CFG-21

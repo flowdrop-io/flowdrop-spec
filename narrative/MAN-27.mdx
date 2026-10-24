@@ -1,0 +1,29 @@
+---
+rule: MAN-27
+rule_hash: 2f77fb420ca7
+---
+
+## What it means
+
+Reserved inputs exist so that firings use the ordinary launch mapping, not so that
+callers can start a trigger's branch. A caller, an agent or a parent workflow sees
+only the declared inputs. A launch that names a reserved input anyway is refused like
+any other key the workflow does not accept.
+
+A run started by a caller only ever has the caller's rights, but the nodes after a
+trigger can still use what the site has configured for them. Without this rule,
+anyone allowed to run the workflow could make up an event and set those nodes off.
+
+What may supply a reserved input is left to the implementation: the trigger itself
+when it fires, and a person testing a trigger from the editor. Both are ways of
+starting a run that callers do not have.
+
+## Example
+
+```json title="A launch through the launch door" verdict="refused"
+{ "inputs": { "event:on_update": { "ref": "node/42" } } }
+```
+
+```json title="The inputs the published contract offers" verdict="declared only"
+["article"]
+```

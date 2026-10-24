@@ -1,0 +1,35 @@
+---
+rule: MAN-26
+rule_hash: c9da78b41bcf
+---
+
+## What it means
+
+A firing has to put its event somewhere, and the manifest already says how a named
+input reaches a port (MAN-11). Reserved inputs reuse that mapping instead of adding a
+second route into a run.
+
+They are worked out from the trigger nodes, never stored. Add a trigger and its
+reserved input exists; delete it and the input is gone; copy it and the copy gets its
+own. Nothing can go stale, and nothing needs repairing.
+
+The name cannot clash with an author's input. `event:` contains a colon, which R4.a's
+alphabet does not allow, so no declared input can ever carry it. A reserved input is
+never required, because a run is started by at most one firing and the other triggers
+simply skip (CFG-21).
+
+## Example
+
+A workflow with trigger nodes `on_insert` and `on_update`, and one declared input,
+`article`:
+
+```json title="The workflow's reserved inputs" verdict="derived"
+[
+  { "name": "event:on_insert", "node_id": "on_insert", "port": "event" },
+  { "name": "event:on_update", "node_id": "on_update", "port": "event" }
+]
+```
+
+```json title="The workflow's stored manifest" verdict="unchanged"
+[{ "name": "article", "node_id": "run_triage", "port": "article" }]
+```

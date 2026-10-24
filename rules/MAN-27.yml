@@ -1,0 +1,36 @@
+id: MAN-27
+family: GR-MAN
+part: I
+
+title: Callers can neither see nor supply a reserved input
+summary: >-
+  A run that a caller starts has only the caller's rights, but the nodes after a
+  trigger may still act on the site's behalf. Keeping reserved inputs out of reach
+  means only a real firing, or a person testing one, can start that branch.
+
+normative: >-
+  A launch through the launch door that supplies a key naming a reserved input (MAN-26)
+  MUST be refused, on the same terms as MAN-13 refuses an undeclared key. A reserved
+  input MUST NOT appear in the published contract. A reserved input MUST NOT appear in
+  a model-facing tool schema built from the workflow. A reserved input MUST NOT appear
+  among the input ports of a node that runs the workflow as a sub-workflow. An
+  implementation MAY supply a reserved input when it starts a run because the trigger
+  node fired, or when a person simulates a firing from an authoring surface.
+
+posture: normative-target
+level: extended
+profiles:
+  - storage-api
+  - runtime
+
+added: "1.0"
+changed: "1.0"
+
+rulings:
+  - OPEN-21
+
+related:
+  - MAN-13
+  - MAN-26
+  - MAN-5
+  - DATA-11

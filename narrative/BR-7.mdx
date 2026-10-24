@@ -15,7 +15,10 @@ A skip is not a lesser kind of failure: the node simply never executes, the
 run is not failed by it, and the identifier is folded into the same count and
 list every time, whatever caused it. That is the opposite case from a node
 with no incoming trigger edge at all — such a node always executes, because
-readiness never depended on a trigger it does not have.
+readiness never depended on a trigger it does not have. "Always executes" is about
+trigger edges only: such a node can still go unexecuted because a data source
+never completed (DATA-4), or because a required parameter marked `skip` had
+nothing to resolve (CFG-21), and the end-of-run sweep records it as skipped.
 
 ## Example
 

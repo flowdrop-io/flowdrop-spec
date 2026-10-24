@@ -5,11 +5,14 @@ part: I
 title: A resolved value is validated against the parameter schema
 
 normative: >-
-  A resolved value that is not null is validated against the parameter's schema.
-  Any violation fails the node execution with a validation error carrying the name
-  of the constraint that failed. `type` and `enum` are checked first, and either
-  one failing ends the check there. A value that resolves to null is not validated
-  at all; whether a null is acceptable is decided by `required` alone (CFG-9).
+  A resolved value that is not `null` MUST be validated against the parameter's schema.
+  Any violation MUST fail the node execution with a validation error carrying the name
+  of the constraint that failed. `type` and `enum` MUST be checked first, and either one
+  failing MUST end the check there. A value that resolves to `null` MUST NOT be
+  validated, even where the schema's `type` does not admit `null`. Whether a `null` is
+  acceptable is decided by `required` alone (CFG-9). This is a named exception to JSON
+  Schema, which checks a `null` like any other value (Conventions, Absent, null and
+  empty).
 
 posture: normative-target
 level: core
@@ -18,6 +21,10 @@ profiles:
 
 added: "1.0"
 changed: "1.0"
+
+rulings:
+  - OPEN-25
+  - OPEN-26
 
 related:
   - CFG-9

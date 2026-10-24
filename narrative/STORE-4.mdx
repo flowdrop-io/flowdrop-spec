@@ -1,19 +1,21 @@
 ---
 rule: STORE-4
-rule_hash: 4810d2fea751
+rule_hash: 7e39c5c9a372
 ---
 
 ## What it means
 
 An update is partial by default: a key the request does not send is left as
 stored, which is what lets a caller save one part of a workflow without
-holding the whole of it in hand. `interface` is the one key where "sent"
-does not mean "sent in full" — sending it at all rewrites both the inputs
-and the outputs it describes, even if only one of them is included. A side
-left out of a present `interface`, or sent as an empty array, is cleared, not
-left alone. Absent and empty are the same signal there that they are not
-everywhere else in this rule: absent preserves, present (even partially or
-emptily) replaces.
+holding the whole of it in hand. A key sent as `null` is the way to clear
+it: the workflow then reads as though the key had never been sent on create.
+That is the same reading JSON Merge Patch gives a partial update.
+
+`interface` is replaced as a whole rather than merged: sending it at all
+rewrites both the inputs and the outputs it describes, even if only one of
+them is included. A side left out of a present `interface` is not "left as
+stored", because what is stored is being replaced; it is a side the new
+interface does not declare, so it has no ports.
 
 The `metadata` a caller reads back is not necessarily the `metadata` it
 would get by reading the stored document directly: an implementation is
@@ -23,8 +25,7 @@ stored.
 
 ## Example
 
-Three requests to the same endpoint, none of them touching `interface` the same
-way.
+Four requests to the same endpoint, each reading a different state of a key.
 
 ```http title="A create with no nodes, edges or metadata" verdict="201 stored"
 POST /api/flowdrop/workflows
@@ -44,9 +45,17 @@ PUT /api/flowdrop/workflows/{workflow}
 {"name": "Clear", "interface": []}
 ```
 
+```http title="An update sending metadata as null" verdict="200 cleared"
+PUT /api/flowdrop/workflows/{workflow}
+
+{"name": "Reset", "metadata": null}
+```
+
 The first leaves `nodes` and `edges` as empty arrays and `metadata` empty — nothing
 was sent for them, so there is nothing to default from but empty. The second
 leaves the edges and metadata a prior request had set untouched, because
 this request never mentions them. The third is the one that reads like the
 second but is not: `interface` was sent, so both its sides are rewritten, and
 an empty array on either side clears it rather than leaving it as it was.
+The fourth clears `metadata`: it reads back empty, as on a create that never
+sent it.

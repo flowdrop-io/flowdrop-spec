@@ -1,6 +1,6 @@
 ---
 rule: MEM-16
-rule_hash: 7cc9981c4aa3
+rule_hash: 1e702c1483b7
 ---
 
 ## What it means
@@ -13,8 +13,9 @@ to set a role, or sets one from a value the author never anticipated, still
 emits something a provider will accept. A pairing id only means something on
 a `tool` row: on any other role it is discarded rather than carried through,
 because attaching it there would claim a pairing that is not real. And a
-blank pairing id on a `tool` row is treated as no id at all, not as an empty
-one.
+blank pairing id on a `tool` row is kept, as the empty string: blank is a
+value, not a missing id. Whether it pairs with any call is for tool-pairing
+repair to settle, not this node.
 
 ## Example
 

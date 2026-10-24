@@ -8,19 +8,20 @@ summary: >-
   defaults are chosen so a malformed turn never reaches a provider.
 
 normative: >-
-  A text-to-message node turns a text value and a role into one message, emitted
-  both as a one-element message-typed list and as the same row on a plain
-  object-typed output. Content is coerced exactly as conversation normalization
-  coerces it: a scalar is cast, a non-scalar is serialized to text rather than
-  blanked, and unserializable content falls back to the empty string. Three rules
-  are closed. The role is one of `user`, `assistant`, `system` or `tool`; any
-  other value, an absent one included, resolves to `user`, so a role a provider
-  would reject never leaves the node. A tool call id is attached only on role
-  `tool`, trimmed, and omitted when blank; on any other role it names no pairing
-  and is discarded. Empty content emits an empty list and an empty object rather
-  than an empty turn, so an unwired producer cannot become a silent request on a
-  blank prompt, a `tool` row with no content included, because synthesizing an
-  answer for an unanswered call belongs to tool-pairing repair.
+  A text-to-message node MUST turn a text value and a role into one message. It MUST
+  emit the message both as a one-element message-typed list and as the same row on a
+  plain object-typed output. Content MUST be coerced as conversation normalization
+  coerces it: a scalar is cast, a non-scalar is serialized to text rather than blanked,
+  and unserializable content falls back to the empty string. Three rules are closed. The
+  role MUST resolve to one of `user`, `assistant`, `system` or `tool`; any other value,
+  and an absent role, MUST resolve to `user`, so a role a provider would reject never
+  leaves the node. A tool call id MUST be attached only on role `tool`, trimmed. An id
+  that is blank once trimmed is a value, and MUST be kept as the empty string; pairing
+  it with a call is left to tool-pairing repair. An absent id MUST stay absent. On any
+  other role a tool call id names no pairing, and MUST be discarded. Empty content MUST
+  emit an empty list and an empty object rather than an empty turn, a `tool` row with no
+  content included, so an unwired producer cannot become a silent request on a blank
+  prompt. Synthesizing an answer for an unanswered call belongs to tool-pairing repair.
 
 posture: normative-target
 level: extended
@@ -30,6 +31,10 @@ profiles:
 
 added: "1.0"
 changed: "1.0"
+
+rulings:
+  - OPEN-25
+  - OPEN-26
 
 related:
   - MEM-3

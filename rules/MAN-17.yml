@@ -10,10 +10,10 @@ summary: >-
 
 normative: >-
   Each declared output name MUST resolve to the result the bound node produced on the
-  bound port. Presence MUST be decided by whether the key exists. A null value counts
-  as produced, and MUST be returned. An output whose node produced nothing at all MUST
-  be dropped from the result, and a warning is logged. A malformed output entry MUST
-  be skipped.
+  bound port. Presence MUST be decided by whether the key exists. A null value counts as
+  produced, and MUST be returned. An output whose node produced nothing at all MUST be
+  absent from the result, and a warning is logged. A malformed output entry MUST be
+  skipped.
 
 posture: normative-target
 level: extended
@@ -25,6 +25,7 @@ changed: "1.0"
 
 rulings:
   - OPEN-25
+  - OPEN-26
 
 related:
   - MAN-8

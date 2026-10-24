@@ -10,14 +10,15 @@ summary: >-
 
 normative: >-
   On create, `nodes` and `edges` MUST default to an empty array when absent, and
-  `metadata` MUST default to empty. A
-  workflow that declares no `interface` declares no ports. On update, a key the request
-  omits MUST be left as stored; `name` is the exception, and MUST be present on update as
-  on create. An `interface` present on update MUST rewrite both port arrays from it even
-  when only one side is supplied, so a missing or empty `inputs` or `outputs` clears that
-  side. The `metadata` published on read MAY differ from the `metadata` as stored. An
-  implementation MAY fold envelope fields such as `format` and `schemaVersion` into it on
-  read.
+  `metadata` MUST default to empty. A workflow that declares no `interface` declares no
+  ports. On update, a key the request omits MUST be left as stored. A key the request
+  sends as `null` MUST be cleared: the workflow MUST then read as if that key had been
+  omitted on create. `name` is the exception to both, and MUST be present and non-null
+  on update as on create (STORE-2). An `interface` present on update MUST replace the
+  stored interface as a whole, so a side it omits, or sends as an empty array, MUST be
+  stored with no ports. The `metadata` published on read MAY differ from the `metadata`
+  as stored. An implementation MAY fold envelope fields such as `format` and
+  `schemaVersion` into it on read.
 
 posture: normative-target
 level: core
@@ -29,6 +30,16 @@ changed: "1.0"
 
 rulings:
   - OPEN-25
+  - OPEN-26
+
+references:
+  informative:
+    - source: RFC 7396
+      title: JSON Merge Patch
+      url: https://www.rfc-editor.org/rfc/rfc7396
+      note: >-
+        The same reading of a partial update: an absent member leaves the target
+        alone, and a null member removes it.
 
 related:
   - STORE-2

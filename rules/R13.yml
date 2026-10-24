@@ -10,15 +10,15 @@ summary: >-
   distinct edges, and both are kept.
 
 normative: >-
-  Two edges are duplicates when their `source`, `target` and both handle
-  strings are identical. A duplicate is refused with
-  `R13_EDGE_PARALLEL_DUPLICATE` at `edge.{index}`, and the error names the
-  position of the earlier edge it duplicates. The four values are compared
-  verbatim, with no parsing or normalisation of a handle into a port name, so
-  two edges between the same pair of nodes over different ports stay valid, and
-  two edges over the same logical port written differently (one with the
-  handle omitted, one with it spelled out) are both accepted. An edge with an
-  empty endpoint takes no part in the comparison.
+  Two edges are duplicates when their `source`, `target` and both handles are identical.
+  A duplicate MUST be refused with `R13_EDGE_PARALLEL_DUPLICATE` at `edge.{index}`, and
+  the error MUST name the position of the earlier edge it duplicates. The four values
+  MUST be compared verbatim, with no parsing or normalisation of a handle into a port
+  name. Two edges between the same pair of nodes over different ports therefore stay
+  valid. Two edges over the same logical port written differently, one with the handle
+  absent and one with it spelled out, are both accepted. An absent handle and an empty
+  one are different values. An edge whose source or target is absent or empty MUST take
+  no part in the comparison.
 
 posture: normative-target
 level: core
@@ -30,6 +30,8 @@ changed: "1.0"
 
 rulings:
   - OPEN-7
+  - OPEN-25
+  - OPEN-26
 
 related:
   - R12

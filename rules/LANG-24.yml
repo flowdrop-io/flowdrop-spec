@@ -2,16 +2,18 @@ id: LANG-24
 family: GR-LANG
 part: I
 
-title: A null extraction is a miss, not a failure
+title: An extraction that matches nothing is a miss; a matched null is delivered
 summary: >-
-  Extraction engines cannot tell a stored null from no match at all, so the
-  extractor treats both the same way, and only null, never a falsy value.
+  A path that matches nothing and a path that matches a null give different answers, and
+  the extractor keeps them apart, as JSONPath does. Only a miss falls back to the
+  default.
 
 normative: >-
-  An extraction that evaluates cleanly and yields null is a miss: the configured
-  default is delivered, the extractor reports success as false (meaning no
-  non-null match was found), and the node succeeds. Only null is a miss; false,
-  zero and the empty string are delivered as found.
+  An extraction that evaluates cleanly and matches nothing is a miss. On a miss, the
+  configured default MUST be delivered, the extractor MUST report success as `false`,
+  and the node MUST succeed. An extraction that matches a `null` MUST deliver `null` and
+  report success as `true`. A matched `false`, `0`, `""`, `[]` or `{}` MUST be delivered
+  as found, and success reported as `true`.
 
 posture: normative-target
 level: core
@@ -20,6 +22,19 @@ profiles:
 
 added: "1.0"
 changed: "1.0"
+
+rulings:
+  - OPEN-25
+  - OPEN-26
+
+references:
+  informative:
+    - source: RFC 9535
+      title: "JSONPath: Query Expressions for JSON"
+      url: https://www.rfc-editor.org/rfc/rfc9535
+      note: >-
+        Tells a query that selects no node apart from one that selects a node whose
+        value is null. This rule keeps the same distinction for every engine.
 
 related:
   - LANG-8

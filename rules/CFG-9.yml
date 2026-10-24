@@ -5,10 +5,12 @@ part: I
 title: A required parameter that resolves to null fails the node
 
 normative: >-
-  Where a parameter is required and the resolution chain (CFG-4 to CFG-6) yields
-  null, the node execution fails with a missing-parameter error naming the
-  parameter. The check runs after the whole chain has been walked and before the
-  resolved value would be validated (CFG-10).
+  Where a parameter is required and the resolution chain (CFG-4 to CFG-6) yields `null`,
+  the node execution MUST fail with a missing-parameter error naming the parameter. For
+  a parameter, required means non-null once resolved, not present: a `null` supplied at
+  any priority fails the check. This is the named exception to required meaning present
+  (Conventions, Absent, null and empty). The check MUST run after the whole chain has
+  been walked, and before the resolved value would be validated (CFG-10).
 
 posture: normative-target
 level: core
@@ -17,6 +19,10 @@ profiles:
 
 added: "1.0"
 changed: "1.0"
+
+rulings:
+  - OPEN-25
+  - OPEN-26
 
 related:
   - CFG-6

@@ -1,6 +1,6 @@
 ---
 rule: R13
-rule_hash: 2ec7af35ae52
+rule_hash: 6cd21131126a
 ---
 
 ## What it means
@@ -9,8 +9,9 @@ The comparison reads the four fields as they are written, not as they
 resolve. Nothing expands an omitted handle to whatever port it defaults to,
 so two edges over what is otherwise the same logical connection — one
 spelling both handles out, the other leaving them unset — compare unequal
-and are both accepted. Only a document that repeats all four values
-verbatim is a duplicate.
+and are both accepted. An absent handle and an empty one compare unequal for
+the same reason. Only a document that repeats all four values verbatim is a
+duplicate.
 
 ## Example
 

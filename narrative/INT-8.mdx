@@ -1,6 +1,6 @@
 ---
 rule: INT-8
-rule_hash: dc275ffce98f
+rule_hash: 60a667a01fb8
 ---
 
 ## What it means
@@ -13,11 +13,12 @@ node the snapshot has simply not reached yet is only a warning: that is the
 ordinary shape of a mid-run snapshot, and a warning must never flip the
 result invalid, or every resumable snapshot would be refused.
 
-The version check has an exception worth naming: an empty snapshot version
-skips the comparison entirely rather than counting as a mismatch. A snapshot
-built with no known version has nothing to compare, and treating "unknown"
-as "different" would refuse every such snapshot regardless of the
-definition it is checked against.
+The version check has an exception worth naming: a snapshot that carries no
+workflow version at all skips the comparison rather than counting as a
+mismatch. A snapshot built with no known version has nothing to compare, and
+treating "unknown" as "different" would refuse every such snapshot regardless
+of the definition it is checked against. An empty version is not "unknown":
+it is a version, the empty string, and is compared like any other.
 
 ## Example
 

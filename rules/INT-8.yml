@@ -10,14 +10,15 @@ summary: >-
   merely worth saying.
 
 normative: >-
-  Validating a snapshot against a workflow definition yields a result carrying
-  named codes. Errors, each of which makes the result invalid: a version mismatch,
-  raised only when the snapshot's workflow version is non-empty (an empty version
-  skips the check and is not an error); one unknown-node error per snapshot node
-  absent from the definition; and one dependency-not-met error per completed node
-  whose dependency has no recorded state or is neither completed nor skipped.
-  Warnings, which never make the result invalid: one per definition node missing
-  from the snapshot, and one per completed injected node that has dependencies.
+  Validating a snapshot against a workflow definition MUST yield a result carrying named
+  codes. Each of the following errors MUST make the result invalid: a version mismatch;
+  one unknown-node error per snapshot node absent from the definition; and one
+  dependency-not-met error per completed node whose dependency has no recorded state or
+  is neither completed nor skipped. The version check MUST be skipped when the
+  snapshot's workflow version is absent. An empty version is a value, and MUST be
+  compared like any other. The following warnings MUST NOT make the result invalid: one
+  per definition node missing from the snapshot, and one per completed injected node
+  that has dependencies.
 
 posture: normative-target
 level: extended
@@ -26,6 +27,10 @@ profiles:
 
 added: "1.0"
 changed: "1.0"
+
+rulings:
+  - OPEN-25
+  - OPEN-26
 
 related:
   - INT-7

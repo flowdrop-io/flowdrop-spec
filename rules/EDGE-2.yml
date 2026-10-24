@@ -5,11 +5,13 @@ part: I
 title: No edge key is structurally required
 
 normative: >-
-  An edge is accepted structurally whatever keys it carries: an absent key takes its
-  empty default: the empty string for an endpoint or a handle, the empty list for a
-  collection. An edge left without endpoints is not a parse failure; it is refused by
-  validation as an edge missing an endpoint, so an author is told what is wrong with
-  the wire rather than that the document could not be read.
+  An edge MUST be accepted structurally whatever members it carries. An absent source,
+  target or handle MUST stay absent: an implementation MUST NOT fill it with the empty
+  string or `null` when it reads, stores or returns the edge. An absent collection MUST
+  default to the empty array. An edge without a source or a target MUST NOT be refused
+  as a parse failure. Validation MUST refuse it as an edge missing its source or target,
+  so an author is told what is wrong with the wire rather than that the document could
+  not be read.
 
 posture: normative-target
 level: extended
@@ -18,3 +20,7 @@ profiles:
 
 added: "1.0"
 changed: "1.0"
+
+rulings:
+  - OPEN-25
+  - OPEN-26

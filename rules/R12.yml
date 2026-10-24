@@ -5,13 +5,13 @@ part: I
 title: A node may not be wired to itself
 
 normative: >-
-  An edge whose non-empty `source` equals its `target` is refused with
-  `R12_EDGE_SELF` at `edge.{index}`. This holds whatever ports the two ends
-  name, so wiring a node's own output into its own input is still refused, and
-  it holds whether or not the named node exists; a self-edge on a node that
-  was deleted also earns R8's two dangling-endpoint errors. An edge with an
-  empty `source` is never reported as a self-edge, even when its `target` is
-  empty too; R5.c and R8 own that case.
+  An edge whose `source` is present, non-empty and equal to its `target` MUST be refused
+  with `R12_EDGE_SELF` at `edge.{index}`. This MUST hold whatever ports the two ends
+  name, so wiring a node's own output into its own input is still refused. It MUST hold
+  whether or not the named node exists; a self-edge on a node that was deleted also
+  earns R8's two errors for a source and a target that name no node. An edge whose
+  `source` is absent or empty MUST NOT be reported as a self-edge, even when its
+  `target` is absent or empty too; R5.c and R8 own that case.
 
 posture: normative-target
 level: core
@@ -23,6 +23,8 @@ changed: "1.0"
 
 rulings:
   - OPEN-7
+  - OPEN-25
+  - OPEN-26
 
 related:
   - R8.a

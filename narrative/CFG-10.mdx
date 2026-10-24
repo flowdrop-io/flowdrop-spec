@@ -1,6 +1,6 @@
 ---
 rule: CFG-10
-rule_hash: 71bf45f8793c
+rule_hash: ea8ca227513d
 ---
 
 ## What it means
@@ -13,6 +13,10 @@ none of them run. Whether that null is acceptable in the first place is a
 different question: CFG-9 answers it, not this rule. A parameter this
 permissive can still fail the node for being required and missing, but never
 for a shape or format it never had.
+
+This is one of the two places the specification parts from JSON Schema on
+purpose. JSON Schema would check a `null` against `"type": "string"` and
+refuse it; here the type is never consulted, and CFG-9 is the only gate.
 
 ## Example
 

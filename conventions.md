@@ -69,9 +69,27 @@ rule lists the members of an object, it states which members are present, never
 the order they appear in. A consumer MUST NOT depend on member order. The order of
 an array's elements is significant only where the rule says what it means.
 
-**Absent and null.** A member that is absent and a member whose value is `null` are
-different things. Where the difference could matter, a rule says which one it
-means. A rule that says neither is a defect to report.
+**Absent, null and empty.** A member of an object is in one of four states. The
+definitions bind every payload in this specification: requests, responses, stored
+workflows and run results.
+
+| State | JSON | Meaning |
+|---|---|---|
+| Not provided | the member is absent | A fallback a rule gives for it applies: a lower priority, a default. |
+| Provided, no value | `null` | A choice. It takes the place of any fallback. In a partial update it clears the stored value. |
+| Provided, empty | `""`, `[]`, `{}`, `false`, `0` | A value, like any other. |
+| Provided, with content | anything else | A value. |
+
+No rule reads an empty value as absent or as `null`. A member moves from one state
+to another only where a rule says so, as when a default fills an absent member. An
+implementation MUST NOT otherwise drop a `null` or empty member, or fill an absent
+one, when it reads, stores or writes a payload.
+
+Where these states meet JSON Schema, they agree with it: *required* is met by a
+member that is present, and `null` is a value of its own type. A node parameter is
+the one exception. For a parameter, *required* means non-null once resolved
+(CFG-9), and a resolved `null` is not validated against the parameter's type
+(CFG-10).
 
 ## Extensibility
 

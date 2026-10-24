@@ -1,6 +1,6 @@
 ---
 rule: R8.a
-rule_hash: f5cc0fba9774
+rule_hash: 46440aaecfc0
 ---
 
 ## What it means
@@ -10,9 +10,9 @@ sits in the workflow's edge list, never from the edge's own `id`. An edge
 named `e1` that happens to be first in the list is reported at `edge.0`
 regardless of what its `id` says.
 
-An empty `source` counts as missing on the same footing as one naming a node
-the workflow does not have — there is no separate "malformed edge" outcome
-for it.
+An absent `source` and an empty one name no node, on the same footing as one
+naming a node the workflow does not have — there is no separate "malformed
+edge" outcome for either.
 
 ## Example
 

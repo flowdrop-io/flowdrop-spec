@@ -82,3 +82,14 @@ affects:
   - MAN-21
   - MAN-26
   - MAN-27
+  - CFG-3
+  - CFG-9
+  - CFG-10
+  - LANG-24
+  - EDGE-2
+  - INT-8
+  - MEM-16
+  - R8.a
+  - R8.b
+  - R12
+  - R13

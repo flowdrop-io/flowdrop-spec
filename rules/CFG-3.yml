@@ -5,10 +5,12 @@ part: I
 title: A parameter's effective default comes from the node type, then the schema
 
 normative: >-
-  A parameter's effective default is the node type's recorded default where that
-  default is non-null, otherwise the processor's schema default, otherwise null. A
-  node-type default recorded as null is not distinguished from one that was never
-  recorded, so it does not suppress the schema default.
+  A parameter's effective default MUST be the node type's recorded default where the
+  node type records one, a recorded `null` included. A node type records a default when
+  its default member is present; an absent member records none. Where the node type
+  records none, the effective default MUST be the processor's schema default, where the
+  schema declares one. Where neither records a default, the effective default MUST be
+  `null`.
 
 posture: normative-target
 level: core
@@ -17,6 +19,10 @@ profiles:
 
 added: "1.0"
 changed: "1.0"
+
+rulings:
+  - OPEN-25
+  - OPEN-26
 
 related:
   - CFG-6

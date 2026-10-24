@@ -147,3 +147,13 @@ anyway, through a ruling. The implementation adopts it in its next major release
 with a migration path for stored workflows and for callers. How to read the old
 form goes in the informative legacy appendix, [`legacy.md`](legacy.md), never in
 the rule.
+
+**DR-21. JSON Schema says it where it can.** Workflow contracts, port schemas and
+payload shapes are JSON Schema (2020-12). Where JSON Schema can express a
+requirement, a rule takes JSON Schema's meaning for it (`required`, `type`, `null`,
+`default`, `enum` and the rest), so that an off-the-shelf validator, in any
+language, gives the same verdict as the specification. A rule that departs from
+JSON Schema names the departure and its reason, and the departure is listed in
+[Absent, null and empty](conventions.md#payloads). Every departure is a check each
+implementation has to write by hand, so the first remedy is to change the rule, not
+to keep the departure.

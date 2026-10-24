@@ -91,7 +91,9 @@ function readNarrative(id: string): { body: string; hash?: string } | undefined 
   const m = /^---\n([\s\S]*?)\n---\n?/.exec(raw);
   if (!m) return { body: raw };
   const front = YAML.parse(m[1]) ?? {};
-  return { body: raw.slice(m[0].length), hash: front.rule_hash };
+  // String(): a hash of only decimal digits parses as a YAML number.
+  const hash = front.rule_hash == null ? undefined : String(front.rule_hash);
+  return { body: raw.slice(m[0].length), hash };
 }
 
 let cache: { rules: LoadedRule[]; byId: Map<string, LoadedRule>; families: Family[] } | undefined;

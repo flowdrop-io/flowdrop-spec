@@ -258,7 +258,8 @@ if (existsSync(narrativeDir)) {
       continue;
     }
     const expected = ruleHash(rule.normative);
-    if (front.rule_hash === expected) continue;
+    // String(): a hash of only decimal digits parses as a YAML number.
+    if (String(front.rule_hash) === expected) continue;
 
     if (updateHashes) {
       writeFileSync(path, raw.replace(/^(---\n[\s\S]*?rule_hash:\s*)\S+/m, `$1${expected}`));

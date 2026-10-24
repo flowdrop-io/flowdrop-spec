@@ -1,6 +1,6 @@
 ---
 rule: R6.j
-rule_hash: aebbc6904ca6
+rule_hash: 0cdc45cb1b0a
 ---
 
 ## What it means
@@ -11,6 +11,11 @@ required-key check, not type or `enum` or bounds or `pattern`, and not even
 the unknown-key warning a stray key would otherwise draw. The node is silent
 on all of it, favourably or not: a key nobody declared draws no warning
 either, for want of anything to compare it against.
+
+The same holds when the node type resolves but cannot be built because one of
+its declared schemas is not valid JSON Schema (SCH-24), for example a `type`
+that names no JSON Schema type. The defect is recorded for an operator; the
+workflow's author is not charged with it.
 
 That silence does not reach the config's own shape. A node whose type does
 not resolve still has its `config` checked for being an object at all

@@ -1,33 +1,31 @@
 ---
 rule: R6.d
-rule_hash: 946d5537c661
+rule_hash: e72fec3ccb0e
 ---
 
 ## What it means
 
-The type check only bites when the schema names a type the implementation
-recognises. A schema that leaves `type` out, or spells a name nothing checks
-for, imposes no constraint at all — the value passes whatever it is, which
-runs against the instinct that an unrecognised or missing declaration would
-be treated as stricter, not looser.
+The type check follows JSON Schema. A schema that leaves `type` out imposes no
+type constraint, so any value passes it. A schema whose `type` names something
+JSON Schema does not know, such as `"uuid"`, is not a valid schema at all. That
+is a defect in the node type, not in the workflow: the node type cannot be built
+(SCH-24), and its config is not judged against a schema it does not have (R6.j).
+The author is never charged with an error they cannot fix.
 
 R6.d shares its code and locator with R6.e through R6.h, and all five run in
-one fixed order — type first — stopping at the first violation. A value that
-breaks two of them at once is charged with exactly one error, for the
-constraint checked earliest.
+one fixed order, type first, stopping at the first violation. A value that
+breaks two of them at once is charged with one error, for the constraint
+checked earliest. Stopping early changes which error the author reads, never
+whether the value is refused.
 
 ## Example
 
-One key's schema names a type the checker has never heard of; another
-declares no `type` at all:
-
-```json title="The two keys' declared schemas"
-{"weird": {"type": "uuid"}, "untyped": {}}
+```json title="A key's declared schema with no type" verdict="stored"
+{"untyped": {}}
 ```
 
-```json title="The config values assigned to them" verdict="accepted"
-{"weird": 42, "untyped": ["anything"]}
+```json title="The config value assigned to it" verdict="accepted"
+{"untyped": ["anything"]}
 ```
 
-Neither value is held to any type: an unrecognised type word and an absent
-one both impose no constraint.
+A schema with no `type` holds the value to no type, as JSON Schema does.

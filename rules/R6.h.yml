@@ -2,17 +2,17 @@ id: R6.h
 family: GR-VAL
 part: I
 
-title: A pattern mismatch is refused, a broken pattern is not
+title: A value that does not match its pattern is refused
 
 summary: >-
-  A pattern the implementation cannot compile is a defect in the node type, not
-  in the workflow, and the author who cannot fix it is not blocked by it.
+  A string that does not match its pattern is refused. A pattern that is not a valid
+  regular expression is a defect in the node type, not in the workflow (SCH-24).
 
 normative: >-
   A string config value that does not match its schema's `pattern` MUST be refused with
-  `R6_CONFIG_INVALID` at `node.{id}.config.{key}`. Where the pattern itself is not a
-  valid expression, the value MUST NOT be refused on account of it, and no error is
-  charged to the author.
+  `R6_CONFIG_INVALID` at `node.{id}.config.{key}`. A `pattern` that is not a valid
+  regular expression makes the schema invalid; that is the node type's failure
+  (SCH-24), and R6.j applies.
 
 posture: normative-target
 level: core
@@ -24,6 +24,9 @@ changed: "1.0"
 
 rulings:
   - OPEN-25
+  - OPEN-28
 
 related:
+  - SCH-24
+  - R6.j
   - R6.d

@@ -1,22 +1,18 @@
 ---
 rule: R6.h
-rule_hash: 8bae03797ea6
+rule_hash: fd545d0b1863
 ---
 
 ## What it means
 
-A pattern that does not compile is treated the opposite way from a value
-that does not match one: a mismatch refuses the value, but a pattern the
-implementation cannot even evaluate refuses nothing. The schema is at fault
-there, not the value offered against it, so the author is not the one who
-pays for it.
+A string that does not match its schema's `pattern` is refused. A pattern that
+is not a valid regular expression is a different case: the schema is invalid,
+and that is the node type's defect, not the author's. The node type cannot be
+built (SCH-24), and R6 does not judge the node's config at all (R6.j), so the
+author is not blocked by a mistake they cannot fix.
 
 ## Example
 
 ```json title="The value assigned to a key requiring an https prefix" verdict="refused"
 "ftp://example.com"
-```
-
-```json title="The value assigned to a key whose own pattern cannot compile" verdict="accepted"
-"anything at all"
 ```

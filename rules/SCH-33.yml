@@ -9,7 +9,8 @@ summary: >-
   as permanent configuration loss.
 
 normative: >-
-  A declared parameter schema that fails to load, or that loads without a usable
+  A declared parameter schema that fails to load, that is not a valid schema (SCH-24),
+  or that loads without a usable
   `properties` map, MUST NOT be read as a node type declaring nothing; a node type
   with no parameters declares an empty map, and an absent map loses stored rows
   exactly as a failure does. Where a node type has stored parameter configuration that
@@ -32,6 +33,7 @@ changed: "1.0"
 
 rulings:
   - OPEN-25
+  - OPEN-28
 
 related:
   - SCH-32

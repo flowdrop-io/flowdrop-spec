@@ -10,7 +10,10 @@ summary: >-
 
 normative: >-
   Where a node type cannot be built from its own declaration or stored data, the
-  failure MUST be contained. The request being served MUST still succeed. The node
+  failure MUST be contained. A node type whose input or output schema (SCH-1) is not a
+  valid JSON Schema 2020-12 schema cannot be built: a schema that fails the 2020-12
+  meta-schema, such as one whose `type` names no JSON Schema type, or that declares a
+  `pattern` which is not a valid regular expression, is such a case. The request being served MUST still succeed. The node
   MUST be returned unenriched (SCH-25). The failure is recorded where an operator can
   find it. This governs failures attributable to the node type. Behaviour when an
   implementation's own extension code violates the contract it was written against is
@@ -28,6 +31,7 @@ changed: "1.0"
 
 rulings:
   - OPEN-25
+  - OPEN-28
 
 related:
   - SCH-25

@@ -5,11 +5,13 @@ part: I
 title: No node type, no schema-driven config verdict
 
 normative: >-
-  When a node's node type does not resolve there is no derived config schema to judge
-  its `config` against, so the schema-driven checks of R6 (required keys, type, `enum`,
+  When a node's node type does not resolve, or resolves but cannot be built because a
+  declared schema is not valid (SCH-24), there is no derived config schema to judge its
+  `config` against, so the schema-driven checks of R6 (required keys, type, `enum`,
   bounds, `pattern`, and the unknown-key warning) MUST NOT be applied to that node, and
-  MUST NOT produce an error or warning for it. The unresolvable node type is reported by
-  R9.
+  MUST NOT produce an error or warning for it. An unresolvable node type is reported by
+  R9. A node type that cannot be built is recorded for an operator (SCH-24) and is not
+  charged to the workflow's author.
 
 posture: normative-target
 level: extended
@@ -21,6 +23,7 @@ changed: "1.0"
 
 rulings:
   - OPEN-25
+  - OPEN-28
 
 related:
   - R9

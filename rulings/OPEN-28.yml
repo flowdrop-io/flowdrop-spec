@@ -1,0 +1,29 @@
+id: OPEN-28
+headline: An invalid parameter schema is the node type's failure, and config checks follow JSON Schema.
+question: >-
+  The config checks departed from JSON Schema in two places. A schema whose `type`
+  named something JSON Schema does not know imposed no type constraint, and a
+  `pattern` that was not a valid regular expression refused nothing, so a value was
+  accepted unchecked. JSON Schema reads both as an invalid schema, not as a schema
+  that accepts everything. Neither departure was listed in the conventions.
+decided: "2026-10-24"
+decision: >-
+  A node type's declared schemas are JSON Schema 2020-12, and a schema that is not
+  valid JSON Schema is a defect in the node type, never in the workflow. A schema that
+  fails the 2020-12 meta-schema, such as one whose `type` names no JSON Schema type, or
+  that declares a `pattern` which is not a valid regular expression, makes its node
+  type one that cannot be built (SCH-24). The failure is contained and recorded for an
+  operator; stored parameters are never rewritten because of it (SCH-33); and the
+  node's config is not judged against a schema that does not exist (R6.j), so the
+  author is not charged with an error they cannot fix. With that, the config checks
+  follow JSON Schema with no exceptions: a schema with no `type` accepts any type
+  (R6.d), and a string that does not match a valid pattern is refused (R6.h). R6's
+  fixed evaluation order and stop at the first violation decide which error is
+  reported, never whether a value is refused, so they are a reporting choice and not a
+  departure.
+affects:
+  - SCH-24
+  - SCH-33
+  - R6.d
+  - R6.h
+  - R6.j

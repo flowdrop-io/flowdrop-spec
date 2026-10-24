@@ -84,3 +84,16 @@ derived from the bound port.
 "unbound" was saved under that reading. Add the entry again; a conforming
 implementation stores it with its declared schema. A launch payload that names an
 unbound input is not an error: the value is checked and delivered to no node.
+
+## A broken parameter schema read as no constraint
+
+Rules: R6.d, R6.h, R6.j, SCH-24 (ruling OPEN-28).
+
+Some implementations once accepted any config value for a parameter whose schema
+named a `type` JSON Schema does not know, or whose `pattern` was not a valid regular
+expression, and judged the node's other parameters as usual.
+
+**If you meet it:** a save that accepted such a value says nothing about the value.
+Under the current rules the node type itself cannot be built, its failure is recorded
+for an operator, and its nodes' config is not judged until the schema is fixed. Fix
+the node type's schema, not the workflow.

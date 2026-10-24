@@ -5,11 +5,11 @@ part: II
 title: A tool edge binds a tool, it does not deliver data
 
 normative: >-
-  An edge on the reserved `tool_availability` port makes the source's tools
-  available to its target as tool bindings. It is not a data delivery and fills no
-  input port. Where a node forwards the tools it received rather than providing its
-  own, the forwarding must not form a cycle, and a workflow in which it does is
-  refused.
+  An edge on the reserved `tool_availability` port MUST make the source's tools
+  available to its target as tool bindings. It is not a data delivery, so it MUST
+  NOT fill any input port. Where a node forwards the tools it received rather than
+  providing its own, the forwarding MUST NOT form a cycle. A workflow in which it
+  does MUST be refused.
 
 posture: normative-target
 level: extended
@@ -18,6 +18,9 @@ profiles:
 
 added: "1.0"
 changed: "1.0"
+
+rulings:
+  - OPEN-25
 
 related:
   - DATA-5

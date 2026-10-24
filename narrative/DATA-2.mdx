@@ -1,11 +1,11 @@
 ---
 rule: DATA-2
-rule_hash: c1ed41a2880d
+rule_hash: fcd56f8f3100
 ---
 
 ## What it means
 
-A port fed by several edges never accumulates a list; it resolves to exactly
+A port fed by several edges never accumulates an array; it resolves to exactly
 one value, and the resolution has a strict order of preference. A source that
 completed later wins over one that completed earlier. Only when neither
 source recorded a completion order at all does the tie-break fall to the

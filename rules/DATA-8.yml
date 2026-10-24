@@ -5,7 +5,7 @@ part: II
 title: Unexposed outputs are stripped where they are produced
 
 normative: >-
-  A node's unexposed outputs are removed at the point the node produces them,
+  A node's unexposed outputs MUST be removed at the point the node produces them,
   before anything else observes the result: before the unified output port is
   composed, before the result is checked for serializability, before it is recorded
   against the node's execution, before it is written to a checkpoint, before it is
@@ -19,6 +19,9 @@ profiles:
 
 added: "1.0"
 changed: "1.0"
+
+rulings:
+  - OPEN-25
 
 related:
   - DATA-9

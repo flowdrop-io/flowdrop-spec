@@ -5,9 +5,9 @@ part: II
 title: The unified output port carries exposed outputs only
 
 normative: >-
-  The unified `output` port composes a node's exposed outputs and nothing else.
-  Keys prefixed with `_` and the reserved `trigger` key are excluded from it. An
-  output key the node type does not configure counts as exposed and is kept.
+  The unified `output` port MUST compose a node's exposed outputs and nothing else.
+  Keys prefixed with `_` and the reserved `trigger` key MUST be excluded from it. An
+  output key the node type does not configure counts as exposed and MUST be kept.
 
 posture: normative-target
 level: extended
@@ -16,6 +16,9 @@ profiles:
 
 added: "1.0"
 changed: "1.0"
+
+rulings:
+  - OPEN-25
 
 related:
   - DATA-8

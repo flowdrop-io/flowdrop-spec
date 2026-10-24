@@ -5,8 +5,8 @@ part: II
 title: A trigger edge carries no data
 
 normative: >-
-  A trigger edge conveys only that its source completed. It delivers no value, and
-  no input port on its target is ever filled by one.
+  A trigger edge conveys only that its source completed. It MUST NOT deliver a
+  value, and it MUST NOT fill any input port on its target.
 
 posture: normative-target
 level: core
@@ -15,3 +15,6 @@ profiles:
 
 added: "1.0"
 changed: "1.0"
+
+rulings:
+  - OPEN-25

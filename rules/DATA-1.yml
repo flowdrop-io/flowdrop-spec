@@ -5,15 +5,15 @@ part: II
 title: An edge delivers one named output port to one named input port
 
 normative: >-
-  An edge delivers a value from a named output port on its source node to a named
-  input port on its target node. Both port names are taken from the edge's
-  endpoint handles; an endpoint that names no port delivers nothing, and neither
-  warns nor fails the run. Delivery turns on the presence of the port's key in the
-  source node's output, not on the value being non-null: a source that emits an
-  explicit `null` delivers `null`, and that delivered `null` outranks the target's
-  configuration and its schema default. A source that omits the key delivers
-  nothing at all, and the target port falls through to its configuration and then
-  to its schema default.
+  An edge MUST deliver a value from a named output port on its source node to a
+  named input port on its target node. Both port names MUST be taken from the edge's
+  handles. An edge with a handle that names no port MUST deliver nothing, and MUST
+  NOT warn or fail the run. Delivery MUST be decided by the presence of the port's
+  key in the source node's output, not by the value being non-null. A source that
+  emits an explicit `null` MUST deliver `null`, and that delivered `null` MUST
+  outrank the target's configuration and its schema default. A source that omits the
+  key MUST deliver nothing at all, and the target port MUST fall through to its
+  configuration and then to its schema default.
 
 posture: normative-target
 level: core
@@ -22,6 +22,9 @@ profiles:
 
 added: "1.0"
 changed: "1.0"
+
+rulings:
+  - OPEN-25
 
 related:
   - DATA-6

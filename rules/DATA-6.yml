@@ -5,10 +5,10 @@ part: II
 title: Initial data fills a node's ports only where no edge did
 
 normative: >-
-  Initial data supplied with a run, keyed by node identifier, fills that node's
-  input ports underneath anything an edge delivered: an edge-delivered value wins,
-  including an edge-delivered `null`. An entry keyed for another node, or one that
-  is not a map of port names to values, is ignored.
+  Initial data supplied with a run, keyed by node identifier, MUST fill that node's
+  input ports underneath anything an edge delivered. An edge-delivered value MUST
+  win over initial data, including an edge-delivered `null`. An entry keyed for
+  another node, or one that is not a map of port names to values, MUST be ignored.
 
 posture: normative-target
 level: core
@@ -17,6 +17,9 @@ profiles:
 
 added: "1.0"
 changed: "1.0"
+
+rulings:
+  - OPEN-25
 
 related:
   - DATA-1

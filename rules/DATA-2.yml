@@ -9,12 +9,13 @@ summary: >-
   still one port, and what a node reads there is one value.
 
 normative: >-
-  A port fed by several edges receives exactly one value, never a list of them.
-  The value is the one produced by the most recent execution among the sources: a
-  source carrying a later execution order wins; a source carrying an execution
-  order wins over one carrying none; and where neither carries one, the source node
-  identifier decides, lexicographically. A collision between sources on one port is
-  reported as a warning and never fails the run.
+  A port fed by several edges MUST receive exactly one value, and MUST NOT receive
+  an array of the values. The value MUST be the one produced by the most recent
+  execution among the sources. A source carrying a later execution order MUST win. A
+  source carrying an execution order MUST win over one carrying none. Where neither
+  carries one, the source node identifier MUST decide, lexicographically. A
+  collision between sources on one port MUST be reported as a warning, and MUST NOT
+  fail the run.
 
 posture: normative-target
 level: core
@@ -23,6 +24,9 @@ profiles:
 
 added: "1.0"
 changed: "1.0"
+
+rulings:
+  - OPEN-25
 
 related:
   - SG-8

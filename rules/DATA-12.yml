@@ -5,11 +5,12 @@ part: II
 title: Tools reach only a node that declares itself a tool consumer
 
 normative: >-
-  Tools are handed to a node only where the node type declares that it consumes
-  them. Wiring tools to a node type that neither consumes nor forwards them is a
-  validation error; a node type that forwards them is accepted and passes them on.
-  Should such a workflow run regardless, the node receives no tools. A node
-  re-entered on a later round of a loop receives its tools on every round.
+  Tools MUST NOT be handed to a node unless its node type declares that it consumes
+  them. Wiring tools to a node type that neither consumes nor forwards them MUST be
+  a validation error. Wiring tools to a node type that forwards them MUST be
+  accepted, and the node MUST pass them on. If such a workflow runs regardless, the
+  node MUST receive no tools. A node re-entered on a later round of a loop MUST
+  receive its tools on every round.
 
 posture: normative-target
 level: extended
@@ -18,6 +19,9 @@ profiles:
 
 added: "1.0"
 changed: "1.0"
+
+rulings:
+  - OPEN-25
 
 related:
   - DATA-10

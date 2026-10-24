@@ -10,16 +10,17 @@ summary: >-
   carried through.
 
 normative: >-
-  An edge is a tool edge when its declared `data.edgeType` is `tool_availability`, or,
-  where there is no declaration, when its target handle ends with `-input-tool`. A
-  recognised declaration decides in both directions: a declared `tool_availability`
+  An edge MUST be a tool edge when its declared `data.edgeType` is `tool_availability`,
+  or, where the declaration is absent, when its target handle ends with `-input-tool`. A
+  recognised declaration MUST decide in both directions: a declared `tool_availability`
   makes an edge with an ordinary handle a tool edge, and any other recognised
-  declaration makes an edge with a `-input-tool` handle not one. A declaration that is
-  absent, empty, or not a string falls back to the handle. A declared type that is not
-  recognised is refused at save with a validation error: an implementation must not
-  carry an unrecognised type through as a kind of its own, where it matches nothing and
-  so is neither classified nor excluded, and a mistyped kind silently becomes an
-  ordinary ordering edge.
+  declaration makes an edge with a `-input-tool` handle not one. Only an absent
+  declaration falls back to the handle. A declaration that is present but not a
+  recognised type, the empty string, `null` and any value that is not a string included,
+  MUST be refused at save with a validation error. An implementation MUST NOT carry an
+  unrecognised type through as a kind of its own, where it matches nothing and so is
+  neither classified nor excluded, and a mistyped kind silently becomes an ordinary
+  ordering edge.
 
 posture: normative-target
 level: core
@@ -31,6 +32,8 @@ changed: "1.0"
 
 rulings:
   - OPEN-17
+  - OPEN-25
+  - OPEN-26
 
 related:
   - EDGE-7

@@ -2,14 +2,15 @@ id: LANG-8
 family: GR-LANG
 part: I
 
-title: A property path that cannot be read yields null
+title: A property path that cannot be read is a miss, not a null
 summary: >-
-  Property paths trade diagnosis for calm: nothing raises, and a reader cannot tell
-  a missing value from a stored one.
+  Property paths never raise. A path that cannot be read is a miss, and a reader can
+  tell it apart from a path that reads a stored null, as LANG-24 needs.
 
 normative: >-
-  Property-path evaluation never raises. A path that cannot be read yields null,
-  which is indistinguishable from a path that reads a stored null.
+  Property-path evaluation MUST NOT raise. A path that cannot be read MUST be a miss: it
+  yields no value, and the evaluation MUST report that nothing matched. A path that
+  reads a stored `null` MUST yield `null` and report a match.
 
 posture: normative-target
 level: core
@@ -18,3 +19,7 @@ profiles:
 
 added: "1.0"
 changed: "1.0"
+
+rulings:
+  - OPEN-25
+  - OPEN-26

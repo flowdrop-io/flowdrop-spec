@@ -26,7 +26,13 @@ decision: >-
   resolved null is not validated against the parameter's type (CFG-10). CFG-3,
   LANG-24, EDGE-2, INT-8, MEM-16 and STORE-4 are rewritten to follow the definition,
   and R8.a, R8.b, R12 and R13 say "absent or empty" where they relied on EDGE-2
-  turning an absent edge end into the empty string.
+  turning an absent edge end into the empty string. The rules that read an empty
+  value as absent stop doing so: an empty active-branch list is a branch decision
+  (BR-1, BR-2), an empty edge type is an unrecognised one (EDGE-5), and an empty
+  flow id is refused while an absent one is minted (STORE-9). Path evaluation
+  reports whether it matched, so a matched null is never taken for a miss (LANG-8,
+  LANG-9, LANG-19). A snapshot of a run with no workflow leaves its version absent
+  (INT-6), and R6.i calls a null config value present rather than unset.
 affects:
   - conventions
   - CFG-3
@@ -42,3 +48,12 @@ affects:
   - R8.b
   - R12
   - R13
+  - STORE-9
+  - INT-6
+  - LANG-8
+  - LANG-9
+  - LANG-19
+  - R6.i
+  - BR-1
+  - BR-2
+  - EDGE-5

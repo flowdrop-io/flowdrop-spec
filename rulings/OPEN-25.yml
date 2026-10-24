@@ -93,3 +93,11 @@ affects:
   - R8.b
   - R12
   - R13
+  - INT-6
+  - LANG-8
+  - LANG-9
+  - LANG-19
+  - R6.i
+  - BR-1
+  - BR-2
+  - EDGE-5

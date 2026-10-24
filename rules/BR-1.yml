@@ -10,12 +10,13 @@ summary: >-
   stop an edge, so that everything else keeps flowing.
 
 normative: >-
-  An edge is subject to branch gating only when all three of these hold: it leaves
-  a named source port, the source emitted a non-empty active-branch list, and that
-  port is a branch port rather than a value port (BR-2). Where they hold, the edge
-  is followed if and only if the port's name appears in the source's active-branch
-  list, both sides compared after trimming surrounding whitespace and lower-casing.
-  In every other case the edge is followed.
+  An edge MUST be subject to branch gating only when all three of these hold: it leaves
+  a named source port, the source's output carries an active-branch member, and that
+  port is a branch port rather than a value port (BR-2). Where they hold, the edge MUST
+  be followed if and only if the port's name appears in the active-branch list, both
+  sides compared after trimming surrounding whitespace and lower-casing. An empty list
+  names no branch, so no branch edge leaving that source is followed. In every other
+  case the edge MUST be followed.
 
 posture: normative-target
 level: core
@@ -24,6 +25,10 @@ profiles:
 
 added: "1.0"
 changed: "1.0"
+
+rulings:
+  - OPEN-25
+  - OPEN-26
 
 related:
   - BR-2

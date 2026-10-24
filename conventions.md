@@ -87,9 +87,11 @@ one, when it reads, stores or writes a payload.
 
 Where these states meet JSON Schema, they agree with it: *required* is met by a
 member that is present, and `null` is a value of its own type. A node parameter is
-the one exception. For a parameter, *required* means non-null once resolved
-(CFG-9), and a resolved `null` is not validated against the parameter's type
-(CFG-10).
+the one exception:
+- a parameter that nothing supplies resolves to `null` (CFG-3, CFG-14, DYN-4);
+- for a parameter, *required* means non-null once resolved (CFG-9);
+- a `null` is not validated against the parameter's type, at save (R6.i) or at run
+  time (CFG-10).
 
 ## Extensibility
 

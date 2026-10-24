@@ -40,3 +40,19 @@ it was retired. A run's progress is read from the pipeline and snapshot surfaces
 (RT-PIPE, RT-SNAP), and a missing status endpoint is not a defect. The key
 `node_type` in such a payload is that surface's own spelling; every current payload
 says `node_type_id` (STORE-13).
+
+## Empty values read as absent
+
+Rules: BR-1, BR-2, EDGE-5, STORE-9, INT-6 (ruling OPEN-26).
+
+Some implementations once treated an empty value as if the member had not been
+sent: an empty active-branch list followed every edge, an empty `data.edgeType`
+fell back to the handle, an empty flow id in a bundle had a new one minted, and a
+snapshot of a run with no workflow carried an empty version that skipped the
+version check.
+
+**If you meet it:** a stored workflow with `"edgeType": ""`, or a bundle with
+`"id": ""`, is refused by a conforming implementation. Remove the member to get the
+fallback. A snapshot with an empty version is compared like any other. An
+implementation that still reads these the old way says so in its release notes,
+with the release that changes it and how to migrate.

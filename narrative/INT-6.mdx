@@ -1,6 +1,6 @@
 ---
 rule: INT-6
-rule_hash: e094fab922f7
+rule_hash: 1232932f6c66
 ---
 
 ## What it means
@@ -40,8 +40,10 @@ Four jobs mid-pause, and what the snapshot records for each.
 ```
 
 A run with no workflow behind it still gets a snapshot, with a placeholder
-identity rather than a missing one:
+identity and no version at all. Leaving the version out, rather than writing an
+empty one, is what lets INT-8 skip the version check for it: an empty version
+would be compared.
 
 ```json title="A run with no workflow to snapshot" verdict="unknown"
-{ "workflowId": "unknown", "workflowVersion": "" }
+{ "workflowId": "unknown" }
 ```

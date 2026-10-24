@@ -2,12 +2,13 @@ id: R6.i
 family: GR-VAL
 part: I
 
-title: A null config value means unset
+title: A null config value is present and skips the schema checks
 
 normative: >-
-  A config value of `null` means the key is unset. It satisfies a required key,
-  and no schema constraint is evaluated against it, so a `null` never fails
-  type, `enum`, bounds or `pattern`.
+  A config value of `null` is present, with no value. It MUST satisfy a required key. No
+  schema constraint MUST be evaluated against it, so a `null` MUST NOT fail type,
+  `enum`, bounds or `pattern`. This is the save-time side of the parameter exception
+  that CFG-10 states for a run.
 
 posture: normative-target
 level: core
@@ -16,6 +17,10 @@ profiles:
 
 added: "1.0"
 changed: "1.0"
+
+rulings:
+  - OPEN-25
+  - OPEN-26
 
 related:
   - R6.b

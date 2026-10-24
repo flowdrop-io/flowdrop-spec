@@ -1,13 +1,13 @@
 ---
 rule: R6.i
-rule_hash: 3efb5f44e061
+rule_hash: 6f7616780486
 ---
 
 ## What it means
 
 Presence and value are judged separately. A required key set to `null` is
-still present, so it satisfies the requirement, and once it is treated as
-unset no other constraint on that key is ever evaluated — a `null` cannot
+still present, so it satisfies the requirement. It carries no value, so no
+other constraint on that key is ever evaluated — a `null` cannot
 fail a type, `enum`, bound or `pattern` check it would otherwise fail, because
 none of those checks run against it at all.
 

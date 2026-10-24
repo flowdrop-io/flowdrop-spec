@@ -1,6 +1,6 @@
 ---
 rule: LANG-19
-rule_hash: f06e57078503
+rule_hash: 79de0de06208
 ---
 
 ## What it means
@@ -8,10 +8,9 @@ rule_hash: f06e57078503
 Extracting all matches never hands back the bare value it found — even where
 the path can only ever match one thing, the result is still a list, so
 calling code does not need two shapes depending on what the path looked
-like. The sharper edge is the null case: a path that reads a stored null does
-not come back as a one-element list holding that null. Nothing was "found"
-there as far as extracting all matches is concerned, so it collapses to the
-same empty list as a path that matched nothing at all.
+like. The sharper edge is the null case: a path that reads a stored null
+found something, so it comes back as a one-element list holding that null.
+Only a path that matched nothing at all gives the empty list.
 
 ## Example
 
@@ -22,10 +21,10 @@ value:
 ["Test Store"]
 ```
 
-```json title="A context whose path reads a stored null" verdict="collapsed"
+```json title="A context whose path reads a stored null" verdict="matched"
 {"key": null}
 ```
 
-```json title="What extracting all matches returns for it" verdict="empty"
-[]
+```json title="What extracting all matches returns for it" verdict="wrapped"
+[null]
 ```

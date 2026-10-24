@@ -10,14 +10,15 @@ summary: >-
   answer before the active-branch list is ever consulted.
 
 normative: >-
-  Three cases return "follow the edge" before membership of the active-branch list
-  is tested, checked in this order: the source port is unnamed; the source emitted
-  no active-branch list, or an empty one; and the port is a value port rather than
-  a branch port. A port is a branch port when the source declares it among its
-  configured branches, matched without regard to case; a port the source does not
-  so declare is a value port and is never gated. A source that declares no branches
-  at all therefore gates nothing, whatever it emitted: with no port declared a branch
-  port, every edge leaving it is followed.
+  Three cases MUST return "follow the edge" before membership of the active-branch list
+  is tested, checked in this order: the source port is unnamed; the source's output has
+  no active-branch member; and the port is a value port rather than a branch port. An
+  active-branch member that is present, an empty list included, is a branch decision and
+  MUST be tested. A port is a branch port when the source declares it among its
+  configured branches, matched without regard to case. A port the source does not so
+  declare is a value port, and MUST NOT be gated. A source that declares no branches at
+  all therefore gates nothing, whatever it emitted: with no port declared a branch port,
+  every edge leaving it is followed.
 
 posture: normative-target
 level: core
@@ -26,6 +27,10 @@ profiles:
 
 added: "1.0"
 changed: "1.0"
+
+rulings:
+  - OPEN-25
+  - OPEN-26
 
 related:
   - BR-1

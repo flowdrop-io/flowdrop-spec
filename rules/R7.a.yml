@@ -5,8 +5,8 @@ part: I
 title: An edge may not target a hidden input port
 
 normative: >-
-  An edge whose target port is declared by the target node's node type but is not
-  exposed on that node MUST be refused with `R7_EDGE_TARGET_NOT_EXPOSED` at
+  An edge whose target port is a port of the target node (DYN-8) but is not exposed
+  on that node MUST be refused with `R7_EDGE_TARGET_NOT_EXPOSED` at
   `edge.{index}`, where `{index}` is the edge's position in the workflow's `edges`
   array.
 
@@ -20,6 +20,7 @@ changed: "1.0"
 
 rulings:
   - OPEN-25
+  - OPEN-31
 
 related:
   - R7.b

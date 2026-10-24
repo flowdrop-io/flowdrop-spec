@@ -1,6 +1,6 @@
 ---
 rule: R7.a
-rule_hash: def724c0fc87
+rule_hash: 0e5d3da0dd56
 ---
 
 ## What it means
@@ -11,8 +11,8 @@ default that this instance never touched. R7.a does not distinguish between
 them — either way, an edge into it is refused the same way. R7.c is what
 decides which of the two is in force for a given instance.
 
-The check only fires for a port the target node's type actually declares; a
-dynamic or author-defined port is out of its scope entirely (R7.d).
+The check fires for every port the target node has, dynamic ports included
+(DYN-8). An edge to a port the node does not have at all is R7.d's case.
 
 ## Example
 

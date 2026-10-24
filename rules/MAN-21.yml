@@ -12,7 +12,7 @@ normative: >-
   is a data-type lane, and the schema is the JSON Schema fragment. The lane MUST NOT be
   the fragment's `type`. The lane MUST be the lane the entry's declared `schema` derives
   (SCH-10) where the entry declares one, otherwise its bound port's declared or derived
-  lane. A dynamic port's lane is its `dataType`, read as `mixed` where absent (DYN-2). An unbound entry that declares no `schema` MUST be on the sink lane (SCH-35).
+  lane. An unbound entry that declares no `schema` MUST be on the sink lane (SCH-35).
   The lane MUST be resolved once, when the contract is built, against the vocabulary the
   implementation actually serves. The resolved lane MUST be pinned into the stored
   fragment, so a reader sees the lane the workflow was published against rather than one
@@ -37,6 +37,7 @@ rulings:
   - OPEN-25
   - OPEN-27
   - OPEN-30
+  - OPEN-31
 
 related:
   - MAN-5

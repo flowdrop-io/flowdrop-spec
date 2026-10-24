@@ -11,7 +11,8 @@ summary: >-
 normative: >-
   A port's effective exposure on a node MUST be the instance's own
   `config.ports[].exposed` value where the instance sets one, and otherwise the port's
-  `exposedByDefault` in the node type's metadata. Exposing a port on the instance
+  default exposure: `exposedByDefault` in the node type's metadata for a declared port,
+  exposed for a dynamic one (DYN-8). Exposing a port on the instance
   therefore makes an edge to or from it legal that would otherwise be refused.
 
 posture: normative-target
@@ -25,6 +26,7 @@ changed: "1.0"
 
 rulings:
   - OPEN-25
+  - OPEN-31
 
 related:
   - R7.a

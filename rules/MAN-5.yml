@@ -11,8 +11,7 @@ summary: >-
 normative: >-
   Each contract fragment MUST be built from the entry's declared `schema` where it
   declares one, otherwise from the schema of the port its entry binds. An unbound entry
-  that declares no `schema`, and an entry bound to a dynamic port (DYN-6) that declares
-  no `schema`, MUST be built as an empty fragment, which accepts any value.
+  that declares no `schema` MUST be built as an empty fragment, which accepts any value.
   The fragment MUST be reduced to these keys and nothing else: `type`, `enum`, `format`,
   `default`, `required`, `properties`, `items`, `minimum`, `maximum`, `minLength`,
   `maxLength` and `pattern`. The set is closed, because the contract states the shape of
@@ -36,6 +35,7 @@ rulings:
   - OPEN-25
   - OPEN-27
   - OPEN-30
+  - OPEN-31
 
 related:
   - MAN-6

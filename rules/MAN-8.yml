@@ -9,7 +9,7 @@ summary: >-
 
 normative: >-
   A bound entry that cannot be resolved (the node it names is missing, or the node
-  has no such port, declared or dynamic) MUST be skipped, and the remaining entries MUST still be built.
+  has no such port among its effective schemas, DYN-8) MUST be skipped, and the remaining entries MUST still be built.
   A warning is logged for it. An entry that is structurally malformed MUST likewise be
   skipped, and MUST NOT contribute to the contract. An entry is malformed when its
   `name` is absent or empty, when it carries only one of `node_id` and `port`, or when
@@ -28,6 +28,7 @@ rulings:
   - OPEN-25
   - OPEN-27
   - OPEN-30
+  - OPEN-31
 
 related:
   - MAN-14

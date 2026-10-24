@@ -5,7 +5,8 @@ part: I
 title: Enrichment anchors on the node type and changes nothing else
 
 normative: >-
-  A node MUST be enriched from the node type it records, and from nothing else.
+  A node MUST be enriched from the node type it records and from its own stored
+  dynamic port definitions (DYN-8), and from nothing else.
   Enrichment MUST replace the node's metadata. Enrichment MUST set the node's type to
   the universal node constant. Enrichment MUST leave the node's config, id, label and
   position untouched, so running it twice changes nothing. Where the node records no
@@ -23,6 +24,7 @@ changed: "1.0"
 
 rulings:
   - OPEN-25
+  - OPEN-31
 
 related:
   - SCH-29

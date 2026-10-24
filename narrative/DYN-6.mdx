@@ -1,38 +1,25 @@
 ---
 rule: DYN-6
-rule_hash: 06909586f32f
+rule_hash: e7fc51563319
 ---
 
 ## What it means
 
-A dynamic port carries none of the machinery an ordinary port carries: no
-default exposure, no per-instance override, nothing edge validation can weigh
-a wire against. The missing machinery does not fall on the cautious side —
-it is not treated as hidden. A dynamic port is always wireable, and a value
-produced under its name reaches the node's output exactly as produced,
-because there is no schema entry to strip it against.
-
-A dynamic port is not declared by the processor, but it is defined on the
-node and stored with it, so it is known when the workflow is saved. A
-workflow's interface can therefore bind one: a value supplied for the
-interface input is delivered to it, and a value produced on it can be
-returned as an interface output. Where the entry declares no schema of its
-own, its contract accepts any value and sits on the port's lane (MAN-5,
-MAN-21).
+A dynamic port starts life as configuration on one node, but once DYN-8 lays it
+over the node's schema there is nothing left to tell it apart. It is exposed by
+default, an author can hide it like any other port, an edge into a hidden one
+is refused, a hidden dynamic output is stripped from the node's result, and a
+workflow's interface can bind it. Rules that judge ports do not mention dynamic
+ports, because they do not need to.
 
 ## Example
 
-A node type hides one of its declared outputs. Alongside it, the node also
-produces a value under a name the type never declared at all:
+A node defines a dynamic output `summary`, and the instance hides it:
 
-```json title="A node's output before exposure is applied" verdict="produced"
-{"result": "ok", "dynamic_field": "kept", "ssn": "secret"}
+```json title="The node's raw result" verdict="produced"
+{"result": "ok", "summary": "draft"}
 ```
 
-```json title="What reaches the caller" verdict="kept"
-{"result": "ok", "dynamic_field": "kept"}
+```json title="What the result delivers" verdict="stripped"
+{"result": "ok"}
 ```
-
-`ssn`, a declared output the node type does not expose, is the one key
-removed. `dynamic_field`, declared nowhere, has no schema entry to be removed
-against, so it passes through untouched.

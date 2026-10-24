@@ -2,22 +2,20 @@ id: CFG-15
 family: GR-CFG
 part: I
 
-title: A dynamic input is forwarded verbatim
+title: A dynamic input is resolved like a declared parameter
 
 summary: >-
-  Dynamic ports are the author's own additions to one node instance. They are
-  carried through untouched, which is also why the type an author declares on one
-  is documentation and nothing more.
+  Dynamic ports are the author's own additions to one node instance. Once overlaid
+  they are parameters like any other, so the type an author picks is checked.
 
 normative: >-
-  After the declared parameters are resolved, each dynamic input name present in the
-  runtime inputs MUST be copied into the resolved parameter set verbatim: no exposure
-  gate, no `required` check, and no validation. A dynamic input's declared type is
-  therefore descriptive only, and MUST NOT be enforced. A dynamic name that names a
-  declared parameter MUST be skipped, so a declared parameter always wins, whether it
-  resolved to a value, to `null`, or to nothing. An empty name MUST be skipped. Dynamic
-  definitions MUST be read from the node's resolved `dynamicInputs` value, falling back
-  to the raw configuration where none resolved.
+  A dynamic input MUST be resolved as the connectable parameter DYN-8 makes it: its
+  value comes from the runtime inputs, it passes the exposure gate as any parameter
+  does, and it MUST be validated against its overlaid schema (CFG-10). A dynamic name
+  that names a declared parameter MUST be skipped, so a declared parameter always wins
+  (DYN-5), whether it resolved to a value, to `null`, or to nothing. An empty name MUST
+  be skipped. Dynamic definitions MUST be read from the node's resolved `dynamicInputs`
+  value, falling back to the raw configuration where none resolved.
 
 posture: normative-target
 level: extended
@@ -30,6 +28,7 @@ changed: "1.0"
 rulings:
   - OPEN-25
   - OPEN-26
+  - OPEN-31
 
 related:
   - CFG-13

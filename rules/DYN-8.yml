@@ -1,0 +1,43 @@
+id: DYN-8
+family: GR-DYN
+part: I
+
+title: A node's ports are its effective schemas, with dynamic ports overlaid
+summary: >-
+  A dynamic port definition is configuration that adds one property to the node's
+  input or output schema. Once it is overlaid, the port is a port like any other, and
+  no rule needs to say anything special about it.
+
+normative: >-
+  A node's ports MUST be read from its effective schemas: the node type's input and
+  output schemas, overlaid with the node's own dynamic port definitions on the matching
+  side. Each definition MUST add one property named after it. The property MUST carry
+  the definition's lane in `x-data-type`, and the JSON Schema `type` that lane stands
+  for: `string`, `number`, `boolean` and `array` for the lanes of those names, `object`
+  for `json`, and no `type` for `mixed`. Where the lane is a shape, the property MUST
+  carry the shape's own top-level `type` where the shape declares one, and nothing more
+  of the shape (SCH-42). A property the node type declares MUST win over a definition
+  of the same name (DYN-5). An overlaid input MUST be connectable, MUST NOT be
+  configurable and MUST NOT be required. An overlaid input or output MUST be exposed by
+  default. The overlay MUST be computed from the node's stored definitions wherever a
+  node's ports are read: at save, when the node is enriched, when a contract is built
+  and when the node runs. It MUST NOT be computed from a value delivered at run time
+  (DYN-7). Every rule that reads a node's ports reads them from its effective schemas.
+
+posture: normative-target
+level: extended
+profiles:
+  - storage-api
+  - editor-client
+
+added: "1.0"
+changed: "1.0"
+
+rulings:
+  - OPEN-31
+
+related:
+  - DYN-1
+  - DYN-5
+  - DYN-6
+  - DYN-7

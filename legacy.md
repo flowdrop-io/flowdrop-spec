@@ -122,3 +122,18 @@ dynamic port, because the processor does not declare it.
 **If you meet it:** a save refused with `R4_PORT_MISSING` for an entry naming a
 dynamic port comes from that reading. Under the current rules the binding is valid
 wherever the node defines that dynamic port on the entry's side.
+
+## Dynamic ports as a second kind of port
+
+Rules: DYN-6, DYN-8, CFG-15, EXPO-11, R7.d (ruling OPEN-31).
+
+Some implementations once treated a node's dynamic ports apart from its declared
+ones: always wireable, never hidden or stripped, and with a type that was never
+checked. Edges could also reach a port that no node type declared at all.
+
+**If you meet it:** a dynamic output that should have been hidden but reached the
+next node, a value of the wrong type accepted on a dynamic input, or a stored edge to
+a port that does not exist, comes from that reading. Under the current rules a
+dynamic port is an ordinary port, its type is checked, and an edge to a port the node
+does not have is refused with `R7_EDGE_PORT_MISSING`. A workflow that relied on
+the old reading gives the dynamic port the lane `mixed`, or removes the stray edge.

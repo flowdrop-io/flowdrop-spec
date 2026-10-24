@@ -2,21 +2,20 @@ id: EXPO-11
 family: GR-EXPO
 part: I
 
-title: Output stripping covers declared output ports only
+title: Output stripping covers every output port the node has
 
 summary: >-
   Hiding an output means its value never leaves the node. The pass that enforces
-  this works from the processor's declared output schema, so keys that are not
-  declared ports (dynamic outputs, reserved control ports) are outside its reach
-  by construction.
+  this works from the node's effective output schema, dynamic outputs included;
+  reserved control ports are not in that schema and are outside its reach.
 
 normative: >-
-  When a node execution produces a result, every key naming a declared output port
-  that resolves as hidden is removed from that result before it is delivered
-  anywhere. A key the processor's output schema does not declare (a dynamic
-  output, a reserved control port) is not a port and passes through untouched. A
-  hidden declared output must be stripped whatever else the result contains,
-  including where the processor declares no output ports at all.
+  When a node execution produces a result, every key naming an output port of the
+  node's effective output schema (DYN-8), dynamic outputs included, that resolves as
+  hidden MUST be removed from that result before it is delivered anywhere. A key the
+  effective output schema does not declare, such as a reserved control port, MUST pass
+  through untouched. A hidden output MUST be stripped whatever else the result contains,
+  even where the processor declares no output ports at all.
 
 posture: normative-target
 level: core
@@ -26,6 +25,9 @@ profiles:
 
 added: "1.0"
 changed: "1.0"
+
+rulings:
+  - OPEN-31
 
 related:
   - EXPO-12

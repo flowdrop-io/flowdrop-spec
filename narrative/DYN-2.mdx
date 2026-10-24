@@ -12,9 +12,9 @@ control lane as a dynamic port's `dataType`: a dynamic port is a value port by
 definition, so a lane that exists only to route control has no place there.
 
 That constraint is on what an authoring surface produces. A definition that
-arrives another way with any other `dataType` is not refused, and nothing
-downstream checks a dynamic port's declared type against the value it actually
-carries.
+arrives another way with any other `dataType` is not refused. The lane decides
+the type a value on the port is checked against once the port is overlaid
+(DYN-8).
 
 ## Example
 

@@ -1,0 +1,44 @@
+id: OPEN-31
+headline: A node's ports are its effective schemas, with dynamic ports overlaid as ordinary ports.
+question: >-
+  Dynamic ports were a second kind of port. They had no exposure, were never stripped,
+  carried a type that was never checked, and needed their own clause in every rule that
+  judged ports: edges, exposure, stripping, interface binding, contracts (OPEN-30 added
+  four more). Separately, an edge could reach any port a node type did not declare,
+  so a workflow could store edges to ports that did not exist.
+decided: "2026-10-25"
+supersedes: OPEN-30
+decision: >-
+  A dynamic port definition is configuration that adds one property to the node's input
+  or output schema. A node's effective schemas are its node type's schemas with those
+  properties overlaid, a declared property winning over a definition of the same name,
+  and every rule that reads a node's ports reads the effective schemas (DYN-8). The
+  overlay is computed from the stored definitions wherever ports are read, never from a
+  value delivered at run time (DYN-7). An overlaid port is an ordinary port: exposed by
+  default and hideable (R7.c), judged by R7, stripped when hidden (EXPO-11), bindable by
+  a workflow interface entry (R4.d, R10), and enriched with the node (SCH-25). Its
+  property is strict from the start: it carries the JSON Schema type its lane stands
+  for, so a value on a dynamic input is validated like any parameter's (CFG-15), because
+  relaxing a check later breaks nobody while tightening one breaks every workflow that
+  relied on it. An edge to a port the node does not have is refused (R7.d), so a stored
+  workflow carries no edge to a port that does not exist. This supersedes OPEN-30,
+  whose binding of dynamic ports now follows from the overlay without a rule of its own.
+affects:
+  - DYN-6
+  - DYN-8
+  - CFG-13
+  - CFG-15
+  - CFG-16
+  - EXPO-11
+  - R7.a
+  - R7.b
+  - R7.c
+  - R7.d
+  - R10
+  - R4.d
+  - MAN-5
+  - MAN-8
+  - MAN-21
+  - SCH-25
+  - RT-GATE-9
+  - MEM-4

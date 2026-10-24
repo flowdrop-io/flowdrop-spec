@@ -14,8 +14,8 @@ normative: >-
   parameter is resolved. Where that value is not an object, it MUST NOT be decomposed:
   the runtime inputs MUST be left unchanged. The raw `input` key MUST survive, so that a
   declared parameter literally named `input` receives the value as it stands. Otherwise,
-  only keys that name a connectable parameter, an internal parameter, or a declared
-  dynamic input MUST be kept, and the rest MUST be discarded. A value wired individually
+  only keys that name a connectable parameter of the effective parameter schema
+  (DYN-8), dynamic inputs included, or an internal parameter, MUST be kept, and the rest MUST be discarded. A value wired individually
   to a port MUST overwrite the same key taken from the bundle.
 
 posture: normative-target
@@ -28,6 +28,7 @@ changed: "1.0"
 
 rulings:
   - OPEN-25
+  - OPEN-31
 
 related:
   - CFG-4

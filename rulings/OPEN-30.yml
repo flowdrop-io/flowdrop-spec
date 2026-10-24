@@ -9,6 +9,7 @@ question: >-
   A workflow whose inputs feed a node that grows its ports per instance needed a
   declared parameter in between.
 decided: "2026-10-24"
+supersededBy: OPEN-31
 decision: >-
   A workflow interface entry can bind a dynamic port, on the side the port is defined
   for, exactly as it binds a declared port. A declared port of the same name wins

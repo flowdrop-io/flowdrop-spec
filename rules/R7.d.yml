@@ -2,12 +2,15 @@ id: R7.d
 family: GR-VAL
 part: I
 
-title: A port the node type does not declare is outside exposure checking
+title: An edge to a port the node does not have is refused
 
 normative: >-
-  A port that appears on an edge but is not declared in the node type's metadata (a
-  dynamic or author-defined port) is out of scope for R7, and an edge over it MUST NOT
-  be refused for being unexposed.
+  An edge whose source port is not an output port of its source node, or whose target
+  port is not an input port of its target node, MUST be refused with
+  `R7_EDGE_PORT_MISSING` at `edge.{index}`, once for each such end. A node's ports are
+  those of its effective schemas (DYN-8) together with the reserved ports its node type
+  carries. Where an end cannot be judged (R7.e/f), this check MUST be skipped for that
+  end.
 
 posture: normative-target
 level: extended
@@ -19,6 +22,7 @@ changed: "1.0"
 
 rulings:
   - OPEN-25
+  - OPEN-31
 
 related:
   - R7.a

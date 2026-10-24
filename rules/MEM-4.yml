@@ -9,8 +9,8 @@ summary: >-
 
 normative: >-
   A message-assembly node takes any number of dynamically declared message-typed
-  inputs and flattens them into one message-typed output. The declared order of
-  the inputs is the order of the messages. A connected list contributes each of
+  inputs and flattens them into one message-typed output. The order of the
+  node's dynamic input definitions is the order of the messages. A connected list contributes each of
   its items in order; a connected single message contributes one item; an input
   that is unwired or carries no value contributes nothing; no placeholder is
   emitted for it.
@@ -23,6 +23,9 @@ profiles:
 
 added: "1.0"
 changed: "1.0"
+
+rulings:
+  - OPEN-31
 
 related:
   - MEM-16

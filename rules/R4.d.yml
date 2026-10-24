@@ -2,13 +2,12 @@ id: R4.d
 family: GR-VAL
 part: I
 
-title: A bound exposure entry names a port the node has, declared or dynamic
+title: A bound exposure entry names a port the node has
 
 normative: >-
-  A bound workflow exposure entry's `port` MUST be declared by the named node, as an
-  input parameter for an entry on the input side and as an output for one on the
-  output side, or be one of the node's dynamic ports on that side (DYN-1). A declared
-  port of the same name wins (DYN-5). An entry naming any other port MUST be refused at
+  A bound workflow exposure entry's `port` MUST be a port of the named node's
+  effective schemas (DYN-8): an input for an entry on the input side, an output for
+  one on the output side. An entry naming any other port MUST be refused at
   `schema.{side}.{index}`.
   Where the node's executor cannot be resolved the port cannot be checked, so this check
   and R10 MUST be skipped for that entry rather than guessed at. The skip is narrower
@@ -27,6 +26,7 @@ rulings:
   - OPEN-25
   - OPEN-27
   - OPEN-30
+  - OPEN-31
 
 related:
   - R4.a

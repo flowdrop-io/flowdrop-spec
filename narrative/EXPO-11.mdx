@@ -1,37 +1,29 @@
 ---
 rule: EXPO-11
-rule_hash: 29965c3ee8a1
+rule_hash: 2578ac2ea980
 ---
 
 ## What it means
 
-Stripping only reaches keys the processor's output schema names as ports.
-Anything else in a node's result — a dynamic output an author added beyond
-the declared set, a reserved control port — passes straight through, not
-because it is judged safe but because the pass that removes hidden values has
-no way to recognise it as a port at all.
+Stripping reaches every key the node's effective output schema names as a
+port: the outputs its processor declares and the dynamic outputs the instance
+adds (DYN-8). A reserved control port is not in that schema, so it passes
+straight through.
 
-That reach limit does not shrink the obligation at the edge: a hidden
-declared output must still be stripped even where the processor's schema
-declares no output ports at all. An empty declared set is not licence to
-leave a node type's own hidden-port marking unenforced — it is the one case
-where enforcing it matters most, because nothing else in the pass would
-otherwise catch it.
+The obligation holds even where the processor's own schema declares no output
+ports at all. An empty declared set is not licence to leave a hidden port
+unenforced; a hidden dynamic output on such a node is stripped all the same.
 
 ## Example
 
-A node's result carries three keys: one declared output the node type keeps
-visible, one declared output the node type hides, and one key the
-processor's output schema never names at all.
+A node's result carries three keys: a declared output the node keeps visible,
+a declared output the node type hides, and a dynamic output this instance
+hides.
 
 ```json title="A node's raw result" verdict="produced"
-{"result": "ok", "dynamic_field": "kept", "ssn": "secret"}
+{"result": "ok", "summary": "draft", "ssn": "secret"}
 ```
 
-```json title="What the result delivers, with ssn a hidden declared output" verdict="stripped"
-{"result": "ok", "dynamic_field": "kept"}
+```json title="What the result delivers" verdict="stripped"
+{"result": "ok"}
 ```
-
-`dynamic_field` is not a name the output schema declares, so it is outside
-stripping's reach in either direction — kept because it was never examined,
-not because it was judged harmless.

@@ -10,8 +10,9 @@ summary: >-
   by being typed into config.
 
 normative: >-
-  The resolved parameter set MUST contain no key other than a parameter the processor's
-  parameter schema declares, or one of the node's declared dynamic input names (CFG-15).
+  The resolved parameter set MUST contain no key other than a parameter of the node's
+  effective parameter schema (DYN-8): one the processor's parameter schema declares, or
+  one of the node's dynamic inputs.
   A configuration key matching no declared parameter MUST NOT be resolved, and MUST NOT
   reach the processor.
 
@@ -26,6 +27,7 @@ changed: "1.0"
 rulings:
   - OPEN-25
   - OPEN-26
+  - OPEN-31
 
 related:
   - CFG-8

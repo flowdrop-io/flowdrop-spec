@@ -1,6 +1,6 @@
 ---
 rule: API-5
-rule_hash: 068a8aa12d57
+rule_hash: 41f0940f4e62
 ---
 
 ## What it means
@@ -8,7 +8,10 @@ rule_hash: 068a8aa12d57
 A result and a refusal are the two envelopes every endpoint already answers in.
 A paginated result is a third, and it is a shape of its own, not the result
 envelope with a block appended by whichever endpoint happens to return one: the
-same four keys on every paginated endpoint.
+same four keys on every paginated endpoint, and only those four. Lists in this
+specification are open unless a rule closes them; this one is closed, because a
+key that one endpoint adds turns the shared block into that endpoint's own, and
+a client could no longer read every paginated answer the same way.
 
 `has_more` is arithmetic the endpoint itself can do — whether the offset and
 limit it just reported would still leave rows unseen — not a second query

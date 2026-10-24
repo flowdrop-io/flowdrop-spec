@@ -9,12 +9,12 @@ summary: >-
   consumers.
 
 normative: >-
-  The `execution_data.context` a run publishes is a filtered projection of the
-  execution context, not the stored context forwarded verbatim, and the filter is
-  a single point through which everything published passes. Engine-internal
-  analysis artefacts (a graph-analysis snapshot such as a loop membership map is
-  the case in point) are removed whole rather than by selected sub-keys, so
-  their internal shape is not published and may change without notice.
+  The `execution_data.context` a run publishes MUST be a filtered projection of
+  the execution context, not the stored context forwarded verbatim. The filter is a
+  single point through which everything published passes. Engine-internal analysis
+  artefacts (a graph-analysis snapshot such as a loop membership map is the case in
+  point) MUST be removed whole rather than by selected sub-keys, so their internal
+  shape is not published and can change without notice.
 
 posture: normative-target
 level: extended
@@ -23,3 +23,6 @@ profiles:
 
 added: "1.0"
 changed: "1.0"
+
+rulings:
+  - OPEN-25

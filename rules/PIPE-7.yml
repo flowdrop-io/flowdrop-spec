@@ -4,24 +4,26 @@ part: II
 
 title: One job entry shape, published identically by every surface
 summary: >-
-  Three surfaces publish a job. They publish one key set in one order, because
-  two copies of a formatter had already drifted apart once.
+  Three surfaces publish a job, and they publish it with one key set, so a
+  consumer reads a job the same way wherever it finds it.
 
 normative: >-
-  Every surface that publishes a job entry emits exactly the keys `id`, `label`,
+  Every surface that publishes a job entry (the single-job read, a run's job list
+  and the jobs inside a run's full document) MUST carry the keys `id`, `label`,
   `status`, `priority`, `node_id`, `pipeline_id`, `created_at`, `started`,
-  `completed`, `execution_time_us`, `retry_count`, `max_retries`,
-  `error_message`, `input_data`, `output_data`, `metadata`, `timestamp`, in that
-  order: the single-job read, a run's job list and the jobs inside a run's full
-  document. `pipeline_id` is a string or null; a stored value that is neither an
-  integer nor a string is discarded rather than published under a key documented
-  as a string, and the discard is reported, because only something outside the
-  implementation writes a non-scalar there. `execution_time_us` prefers the
-  precise duration recorded for the job and otherwise derives it from the start
-  and completion stamps at second granularity, and is null for a job that never
-  completed; the same value must be published for a job by `node_statuses` and by
-  the job entry, computed once, so the two payloads read side by side can never
-  disagree numerically.
+  `completed`, `execution_time_us`, `retry_count`, `max_retries`, `error_message`,
+  `input_data`, `output_data`, `metadata` and `timestamp`, and nothing else,
+  because the job entry is closed: every surface publishes it alike, and a key one
+  surface adds would make the entry that surface's own. `pipeline_id` MUST be a
+  string or null. A stored value that is neither an integer nor a string MUST be
+  discarded rather than published under a key documented as a string. The discard
+  is reported, because only something outside the implementation writes a
+  non-scalar there. `execution_time_us` MUST prefer the precise duration recorded
+  for the job. Otherwise `execution_time_us` MUST be derived from the start and
+  completion stamps at second granularity. `execution_time_us` MUST be null for a
+  job that never completed. The same value MUST be published for a job by
+  `node_statuses` and by the job entry. The value is computed once, so the two
+  payloads read side by side can never disagree numerically.
 
 posture: normative-target
 level: extended
@@ -30,6 +32,11 @@ profiles:
 
 added: "1.0"
 changed: "1.0"
+
+rulings:
+  - OPEN-22
+  - OPEN-23
+  - OPEN-25
 
 related:
   - PIPE-4

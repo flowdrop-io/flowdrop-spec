@@ -9,17 +9,18 @@ summary: >-
   to every caller, including one served by a process that has just started.
 
 normative: >-
-  A run's status is published by two reads: the full pipeline document and a
-  lightweight status document. Both answer the standard `{success: true, data}`
-  envelope, publish the persisted lifecycle value verbatim as `data.status`, and
-  answer `404` with `{success: false, error}` for a run that does not exist and
-  `403` for one the caller may not view. The full document adds `node_statuses`,
-  `jobs`, `job_status_summary` and `execution_data` alongside `id`, `name`,
-  `description`, `createdAt`, `lastExecuted`, `executionCount` and `timestamp`;
-  the lightweight document carries `id`, `status`, `createdAt`, `lastExecuted`,
-  `pendingInterrupt` and `pausedReason` and must not carry the jobs payload. Both
-  read persisted state only, so a status written outside the request path is what
-  the next poll returns.
+  A run's status MUST be published by two reads: the full pipeline document and a
+  lightweight status document. Both MUST answer the standard `{success: true, data}`
+  envelope. Both MUST publish the persisted lifecycle value verbatim as
+  `data.status`. Both MUST answer `404` with `{success: false, error}` for a run
+  that does not exist. Both MUST answer `403` for a run the caller may not view. The
+  full document MUST carry `node_statuses`, `jobs`, `job_status_summary` and
+  `execution_data` alongside `id`, `name`, `description`, `createdAt`,
+  `lastExecuted`, `executionCount` and `timestamp`. The lightweight document MUST
+  carry `id`, `status`, `createdAt`, `lastExecuted`, `pendingInterrupt` and
+  `pausedReason`. The lightweight document MUST NOT carry the jobs payload. Both
+  MUST read persisted state only, so a status written outside the request path is
+  what the next poll returns.
 
 posture: normative-target
 level: core
@@ -28,3 +29,6 @@ profiles:
 
 added: "1.0"
 changed: "1.0"
+
+rulings:
+  - OPEN-25

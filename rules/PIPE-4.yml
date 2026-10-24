@@ -4,23 +4,24 @@ part: II
 
 title: Node statuses are keyed by workflow node id and collapse every iteration
 summary: >-
-  This is what an editor looks a badge up by, so the key has to be the id the
+  This is what an editor looks a badge up by, so the key is the id the
   canvas holds. A node that ran many times still has one entry, with the
   per-iteration picture inside it.
 
 normative: >-
-  `node_statuses` is keyed by the workflow node id (the id the stored workflow
-  gives the node), never by a job identifier, a node-type identifier or an
-  iteration-suffixed variant. Iterations of a node produced by a loop carry the
-  plain node id, so every iteration collapses onto one entry. Only nodes that
-  produced work get a key; a node excluded from execution has no entry and reads
-  as idle. Within a collapsed entry, `status` is the status of the newest job in
-  the group, with the later job in run order winning a tie; `last_executed`,
-  `execution_time` and `execution_time_us` come from the most recent job that
-  actually started, and are null when none did; `error` comes from that started
-  job, otherwise from the newest; `executions` counts only jobs that started; and
-  `status_counts` counts every job in the group. A job entry's `node_id` carries
-  the same ids.
+  `node_statuses` MUST be keyed by the workflow node id (the id the stored workflow
+  gives the node). It MUST NOT be keyed by a job identifier, a node-type identifier
+  or an iteration-suffixed variant. Iterations of a node produced by a loop MUST
+  carry the plain node id, so every iteration collapses onto one entry.
+  `node_statuses` MUST have a key only for nodes that produced work; a node
+  excluded from execution MUST have no entry and reads as idle. Within a collapsed
+  entry, `status` MUST be the status of the newest job in the group, with the later
+  job in run order winning a tie. Within a collapsed entry, `last_executed`,
+  `execution_time` and `execution_time_us` MUST come from the most recent job that
+  actually started. They MUST be null when no job started. `error` MUST come from
+  that started job, otherwise from the newest. `executions` MUST count only jobs
+  that started. `status_counts` MUST count every job in the group. A job entry's
+  `node_id` MUST carry the same ids.
 
 posture: normative-target
 level: core
@@ -29,6 +30,9 @@ profiles:
 
 added: "1.0"
 changed: "1.0"
+
+rulings:
+  - OPEN-25
 
 related:
   - PIPE-3

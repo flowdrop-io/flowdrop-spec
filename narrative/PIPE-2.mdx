@@ -1,13 +1,13 @@
 ---
 rule: PIPE-2
-rule_hash: 8df6614115a8
+rule_hash: a187b9d7f92a
 ---
 
 ## What it means
 
 A run with no jobs yet, and a run whose jobs could not be read at all, both
 report the identical set of counters a run that ran normally would report —
-the same keys, in the same order, only every one of them zero instead of
+the same keys, only every one of them zero instead of
 populated. That parity is what lets a caller treat "we do not know yet" and
 "there is genuinely nothing" the same way it treats "there were zero of
 every status," rather than having to branch on which of several build paths

@@ -1,6 +1,6 @@
 ---
 rule: SNAP-1
-rule_hash: 5464a06a54d8
+rule_hash: 8842e2452d3e
 ---
 
 ## What it means
@@ -12,7 +12,7 @@ published snapshot document itself, the same value sits under the
 camelCase spelling. A consumer that reads one and assumes the other is
 just a stylistic inconsistency will read the wrong key at the wrong level.
 
-The save door is the one asymmetry worth naming directly: it accepts a
+The save endpoint is the one asymmetry worth naming directly: it accepts a
 body in either spelling, but what it hands back — like every read — is
 always camelCase. Leniency runs one way only.
 

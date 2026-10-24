@@ -1,12 +1,12 @@
 ---
 rule: PIPE-7
-rule_hash: 65377bc5405f
+rule_hash: 52cc65db6e64
 ---
 
 ## What it means
 
-Three surfaces publish a job, and all three answer through the one key set,
-in the one order — not a per-surface copy that happens to agree today.
+Three surfaces publish a job, and all three answer through the one key set
+— not a per-surface copy that happens to agree today.
 `execution_time_us` is the clause worth pausing on: it is not always the
 figure recorded on the job. Where none was recorded it is derived from the
 start and completion stamps, at second granularity, and that derived figure
@@ -32,7 +32,7 @@ apart:
 10000000
 ```
 
-A job whose stored `pipeline_id` is a list rather than a scalar, read in the
+A job whose stored `pipeline_id` is an array rather than a scalar, read in the
 context of a run the caller named:
 
 ```json title="The stored pipeline_id" verdict="discarded"

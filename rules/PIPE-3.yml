@@ -8,13 +8,13 @@ summary: >-
   consumer that reads one as if it were the other draws the wrong conclusion.
 
 normative: >-
-  In `job_status_summary` and the job API's `status_summary`, `total` counts every
-  job, but a bucket is incremented only for a persisted value that is a defined
-  job status. The buckets may therefore sum to less than `total`, and a value
-  outside the vocabulary must never appear as a key there. Each read reports the
+  In `job_status_summary` and the job API's `status_summary`, `total` MUST count
+  every job. A bucket MUST be incremented only for a persisted value that is a
+  defined job status. The buckets can therefore sum to less than `total`. A value
+  outside the vocabulary MUST NOT appear as a key there. Each read reports the
   distinct unrecognised values once. The per-node `node_statuses[*].status_counts`
-  is deliberately not guarded: it counts persisted values as they are, so a value
-  outside the vocabulary does appear both as a key there and as
+  is not guarded: it MUST count persisted values as they are. A value outside the
+  vocabulary MUST therefore appear both as a key there and as
   `node_statuses[*].status`.
 
 posture: normative-target
@@ -24,6 +24,9 @@ profiles:
 
 added: "1.0"
 changed: "1.0"
+
+rulings:
+  - OPEN-25
 
 related:
   - PIPE-2

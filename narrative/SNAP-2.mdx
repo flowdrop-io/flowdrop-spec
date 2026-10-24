@@ -1,6 +1,6 @@
 ---
 rule: SNAP-2
-rule_hash: 80c8f999ab38
+rule_hash: cbdb5a6bc22f
 ---
 
 ## What it means
@@ -8,14 +8,14 @@ rule_hash: 80c8f999ab38
 Reading and deleting a snapshot both load the record first and ask it whether
 this caller may view or delete it — the two questions are answered in a fixed
 order. An id nobody stored gets `404` no matter who is asking, before the
-door even considers whether the asker would have been let in. Only once a
+endpoint even considers whether the asker would have been let in. Only once a
 record is found does its own access answer take over, and a record that
-exists but is not the caller's own comes back `403`, not `404` — the door
+exists but is not the caller's own comes back `403`, not `404` — the endpoint
 does not pretend a snapshot it can name does not exist.
 
 A denial carries nothing about the record it denied: not the workflow that
 produced it, not any other trace, only the fixed refusal message. Distinguish
-this from the list door, which never reaches a per-record denial at all — it
+this from the list endpoint, which never reaches a per-record denial at all — it
 narrows its query by ownership up front, so a snapshot belonging to someone
 else is simply absent from the page rather than a `403` entry on it.
 

@@ -11,9 +11,10 @@ summary: >-
 normative: >-
   A node's ports MUST be read from its effective schemas: the node type's input and
   output schemas, overlaid with the node's own dynamic port definitions on the matching
-  side. Each definition MUST add one property named after it. The property MUST carry
-  the definition's lane in `x-data-type`, and the JSON Schema `type` that lane stands
-  for: `string`, `number`, `boolean` and `array` for the lanes of those names, `object`
+  side. Each definition MUST add one property named after it. Where the definition
+  carries a `schema` (DYN-2), the property MUST be that schema. Otherwise the property
+  MUST carry the definition's lane in `x-data-type`, and the JSON Schema `type` that
+  lane stands for: `string`, `number`, `boolean` and `array` for the lanes of those names, `object`
   for `json`, and no `type` for `mixed`. Where the lane is a shape, the property MUST
   carry the shape's own top-level `type` where the shape declares one, and nothing more
   of the shape (SCH-42). A property the node type declares MUST win over a definition

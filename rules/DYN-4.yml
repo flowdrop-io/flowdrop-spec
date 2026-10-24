@@ -5,9 +5,11 @@ part: I
 title: An unconnected dynamic input is absent from the resolved inputs
 
 normative: >-
-  A dynamic input port with nothing wired into it MUST be absent from the node's
-  resolved inputs. A `null` delivered on its wire MUST be present with the value `null`.
-  Nothing arriving on the wire is not the same as a `null` arriving.
+  A dynamic input port with nothing wired into it MUST fall back as any parameter does
+  (CFG-6): it MUST take the `default` its schema declares, where it declares one, and
+  otherwise MUST be absent from the node's resolved inputs. A `null` delivered on its
+  wire MUST be present with the value `null`. Nothing arriving on the wire is not the
+  same as a `null` arriving.
 
 posture: normative-target
 level: extended
@@ -20,3 +22,4 @@ changed: "1.0"
 rulings:
   - OPEN-25
   - OPEN-26
+  - OPEN-31

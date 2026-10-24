@@ -1,9 +1,12 @@
 ---
 rule: DYN-4
-rule_hash: 0ed4b58baf94
+rule_hash: 0b45f27c7a8b
 ---
 
 ## What it means
+
+A dynamic input falls back like any parameter: where its schema declares a
+`default`, an unwired input takes it. Without one, as below, it is absent.
 
 A dynamic input with nothing wired to it is left out of a node's resolved
 inputs. A processor reading its inputs tells "nothing arrived" from "a `null`

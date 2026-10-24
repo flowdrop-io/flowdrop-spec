@@ -1,29 +1,33 @@
 ---
 rule: DYN-2
-rule_hash: 9c8538c893ec
+rule_hash: 3b8bb23d8f60
 ---
 
 ## What it means
 
-A dynamic port definition carries a `name` and a `label`, and can carry a
-`dataType`. Leaving `dataType` out is not the same as refusing the
-definition: it is read as `mixed` instead. An authoring surface never records a
-control lane as a dynamic port's `dataType`: a dynamic port is a value port by
-definition, so a lane that exists only to route control has no place there.
+A dynamic port definition has a `name` and a `label`, and says what the port
+carries in one of two ways. A `dataType` names a lane, and the port gets the
+JSON Schema type that lane stands for (DYN-8). A `schema` describes the port
+fully, with anything a node type's own port schemas can say, and then it is
+the port: its lane comes from it the way any property's does. With neither,
+the port is `mixed` and accepts any value.
 
-That constraint is on what an authoring surface produces. A definition that
-arrives another way with any other `dataType` is not refused. The lane decides
-the type a value on the port is checked against once the port is overlaid
-(DYN-8).
+Because a `schema` can say everything a node type can, an author can describe
+a node's ports without any processor declaring them, wire a workflow against
+them, and later switch the node to a processor that declares the same ports.
+
+An authoring surface never records a control lane for a dynamic port: a
+dynamic port is a value port by definition.
 
 ## Example
 
-A definition with a `dataType` of its own choosing still resolves:
-
-```json title="A definition with dataType object" verdict="accepted"
-[{ "name": "alpha", "label": "Alpha", "dataType": "object" }]
+```json title="Two definitions, one by lane and one by schema" verdict="accepted"
+[
+  { "name": "topic", "label": "Topic", "dataType": "string" },
+  { "name": "limit", "label": "Limit",
+    "schema": { "type": "integer", "minimum": 1, "maximum": 50, "default": 10 } }
+]
 ```
 
-```json title="What resolving it still returns" verdict="unaffected"
-{ "alpha": "a value" }
-```
+`topic` accepts any string. `limit` accepts an integer from 1 to 50, is on the
+`number` lane, and takes 10 when nothing is wired to it (DYN-4).

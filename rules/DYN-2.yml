@@ -5,10 +5,14 @@ part: I
 title: A dynamic port declares a name, a label and a data type
 
 normative: >-
-  Every dynamic port definition MUST carry a `name` and a `label`, and can carry a
-  `dataType`. A definition with no `dataType` MUST be read as `mixed`. An authoring
-  surface MUST NOT produce a definition whose `dataType` is a control lane, because a
-  dynamic port carries a value by definition.
+  Every dynamic port definition MUST carry a `name` and a `label`. It can carry a
+  `schema`, a JSON Schema 2020-12 fragment of the same kind a node type's declared
+  parameter and output schemas hold, and it can carry a `dataType`. Where `schema` is
+  present it is the port's schema, its lane derives from it as any property's does
+  (SCH-10), and `dataType` MUST be ignored. Where `schema` is absent, `dataType` is the
+  port's lane, and a definition with neither MUST be read as `mixed`. An authoring
+  surface MUST NOT produce a definition whose lane is a control lane, because a dynamic
+  port carries a value by definition.
 
 posture: normative-target
 level: extended
@@ -22,3 +26,4 @@ changed: "1.0"
 rulings:
   - OPEN-22
   - OPEN-25
+  - OPEN-31

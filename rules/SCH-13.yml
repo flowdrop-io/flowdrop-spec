@@ -5,8 +5,8 @@ part: I
 title: A tool-exposed node gets a tool output
 
 normative: >-
-  A reserved `tool` output port is injected on a node type if and only if that node
-  type is exposed as a tool, and carries display order 110.
+  A reserved `tool` output port MUST be injected on a node type if and only if that
+  node type is exposed as a tool. The injected port MUST carry display order 110.
 
 posture: normative-target
 level: extended
@@ -16,6 +16,9 @@ profiles:
 
 added: "1.0"
 changed: "1.0"
+
+rulings:
+  - OPEN-25
 
 related:
   - SCH-16

@@ -5,8 +5,8 @@ part: I
 title: The catalog an editor reads
 
 normative: >-
-  The node catalog served to an editor lists enabled node types only, sorted by
-  category and then by name.
+  The node catalog served to an editor MUST list enabled node types only. It MUST be
+  sorted by category and then by name.
 
 posture: normative-target
 level: core
@@ -16,3 +16,6 @@ profiles:
 
 added: "1.0"
 changed: "1.0"
+
+rulings:
+  - OPEN-25

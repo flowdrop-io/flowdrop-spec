@@ -5,9 +5,9 @@ part: I
 title: One parameter schema splits into two derived schemas
 
 normative: >-
-  A parameter belongs to the derived input schema if and only if it is
-  `connectable`, and to the derived config schema if and only if it is
-  `configurable`. Both, one, or neither is legal.
+  A parameter MUST belong to the derived input schema if and only if it is
+  `connectable`. A parameter MUST belong to the derived config schema if and only if
+  it is `configurable`. Both, one, or neither is legal.
 
 posture: normative-target
 level: core
@@ -17,6 +17,9 @@ profiles:
 
 added: "1.0"
 changed: "1.0"
+
+rulings:
+  - OPEN-25
 
 related:
   - SCH-2

@@ -5,11 +5,11 @@ part: I
 title: Visual type is the node type's, and is offered where there is a choice
 
 normative: >-
-  A node's visual type comes from its node type, never from a declared schema.
-  Where the node type supports more than one visual type, a reserved `nodeType`
-  string property is written into the config schema (its `enum` the supported
-  types, its `default` the node type's own visual type), and the same value is
-  stored as that key's config default. This write is unconditional: it overwrites a
+  A node's visual type MUST come from its node type, never from a declared schema.
+  Where the node type supports more than one visual type, a reserved `nodeType` string
+  property MUST be written into the config schema (its `enum` the supported types, its
+  `default` the node type's own visual type), and the same value MUST be stored as
+  that key's config default. This write MUST be unconditional: it overwrites a
   declared property of the same name.
 
 posture: normative-target
@@ -20,6 +20,9 @@ profiles:
 
 added: "1.0"
 changed: "1.0"
+
+rulings:
+  - OPEN-25
 
 related:
   - SCH-21

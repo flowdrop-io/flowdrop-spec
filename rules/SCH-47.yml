@@ -9,12 +9,12 @@ summary: >-
   way on every trigger.
 
 normative: >-
-  A trigger node type declares one input port named `event`, whose schema is the schema
-  of the event the node type delivers. The `event` parameter MUST be connectable,
-  required and not configurable. It MUST have no default, and its `when_missing` flag
-  (CFG-20) MUST be `skip`. The `event` port MUST be exposed, and an instance-level
-  exposure setting MUST NOT hide it. A node type that is not a trigger node type MUST
-  NOT declare an input port named `event`.
+  A trigger node type MUST declare one input port named `event`. The schema of that
+  port MUST be the schema of the event the node type delivers. The `event` parameter
+  MUST be connectable, required and not configurable. It MUST have no default, and its
+  `when_missing` flag (CFG-20) MUST be `skip`. The `event` port MUST be exposed, and
+  an instance-level exposure setting MUST NOT hide it. A node type that is not a
+  trigger node type MUST NOT declare an input port named `event`.
 
 posture: normative-target
 level: extended
@@ -27,6 +27,7 @@ changed: "1.0"
 
 rulings:
   - OPEN-21
+  - OPEN-25
 
 related:
   - SCH-2

@@ -9,18 +9,18 @@ summary: >-
   actually needs it.
 
 normative: >-
-  A shape's JSON Schema is served on the lane entry, once. It is absent rather than
-  empty where the lane has no shape, so a client can tell "promises nothing" from
-  "promises an object with no properties". It is not stamped onto each port
-  declaring the lane: a per-port copy repeats on every node type wearing the lane,
-  and it would go stale when a site edited a shape, because the lane payload's
-  invalidation tracks shape edits while a per-node-type payload does not. The
-  per-port schema slot stays free for the one refinement that needs it: a narrower
-  schema observed on a run, which is per-instance information and could never live
-  in a payload cached per node type. Such an observed schema is authoring
-  information only: it is a sample, not a contract, and must never become what
-  enforcement checks. A stored overlay entry for the same lane id replaces the
-  composed entry whole, its schema included.
+  A shape's JSON Schema MUST be served on the lane entry, once. It MUST be absent
+  rather than empty where the lane has no shape, so a client can tell "promises
+  nothing" from "promises an object with no properties". It MUST NOT be stamped onto
+  each port declaring the lane: a per-port copy repeats on every node type wearing the
+  lane, and it would go stale when a site edited a shape, because the lane payload's
+  invalidation tracks shape edits while a per-node-type payload does not. The per-port
+  schema slot stays free for the one refinement that needs it: a narrower schema
+  observed on a run, which is per-instance information and could never live in a
+  payload cached per node type. Such an observed schema is authoring information only:
+  it is a sample, not a contract, and MUST NOT become what enforcement checks. A
+  stored overlay entry for the same lane id MUST replace the composed entry whole, its
+  schema included.
 
 posture: normative-target
 level: extended
@@ -30,6 +30,9 @@ profiles:
 
 added: "1.0"
 changed: "1.0"
+
+rulings:
+  - OPEN-25
 
 related:
   - SCH-10.a

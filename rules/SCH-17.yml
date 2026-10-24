@@ -5,9 +5,9 @@ part: I
 title: The unified input port
 
 normative: >-
-  A unified `input` port is prepended to a node's ports where its node type exposes
-  one. It carries the `json` lane, and its description enumerates the node's
-  connectable parameter keys only.
+  A unified `input` port MUST be prepended to a node's ports where its node type
+  exposes one. It MUST carry the `json` lane. Its description MUST enumerate the
+  node's connectable parameter keys only.
 
 posture: normative-target
 level: extended
@@ -17,6 +17,9 @@ profiles:
 
 added: "1.0"
 changed: "1.0"
+
+rulings:
+  - OPEN-25
 
 related:
   - SCH-8

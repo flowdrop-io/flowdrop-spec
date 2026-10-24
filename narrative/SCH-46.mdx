@@ -1,6 +1,6 @@
 ---
 rule: SCH-46
-rule_hash: b5e8f9e1a6d4
+rule_hash: aa27a733b543
 ---
 
 ## What it means
@@ -13,8 +13,7 @@ reader can tell "this lane promises nothing" from "this lane promises an
 object with no properties" without inspecting the fields it does not have.
 The schema slot on an individual port stays free for something no lane-level
 copy could hold: a narrower schema observed from one run of one node, which
-is authoring information for that instance alone and must never be treated
-as something enforcement checks.
+is authoring information for that instance alone and is never treated as something enforcement checks.
 
 ## Example
 

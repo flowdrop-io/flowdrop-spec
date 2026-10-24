@@ -1,6 +1,6 @@
 ---
 rule: SCH-42
-rule_hash: f3327c556bce
+rule_hash: 1f8958563a7f
 ---
 
 ## What it means
@@ -11,8 +11,7 @@ line up against lanes by hand, and it never checks a value — nothing in the
 system validates a value against a shape's schema; a shape only labels the
 port that carries one. It is declared in one of two places, and the
 difference is ownership: a shape belonging to a component ships and updates
-with the ports that wear it, needs nothing installed alongside it, and may
-compute its own schema, so one declaration can mint a whole family of lanes;
+with the ports that wear it, needs nothing installed alongside it, and can compute its own schema, so one declaration can mint a whole family of lanes;
 a shape belonging to the site is declared in the site's own configuration and
 travels with it instead.
 
@@ -22,7 +21,7 @@ travels with it instead.
 ["message", "code", "node_id", "retryable"]
 ```
 
-```json title="The fields a message-list entry must declare" verdict="required"
+```json title="The fields a message-list entry requires" verdict="required"
 ["role"]
 ```
 

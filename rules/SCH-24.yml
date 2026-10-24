@@ -10,12 +10,12 @@ summary: >-
 
 normative: >-
   Where a node type cannot be built from its own declaration or stored data, the
-  failure is contained: the request being served still succeeds, the node is returned
-  unenriched (SCH-25), and the failure is recorded where an operator can find it. This
-  governs failures attributable to the node type. Behaviour when an implementation's
-  own extension code violates the contract it was written against is outside this
-  specification, which describes conforming implementations and not malfunctioning
-  ones.
+  failure MUST be contained. The request being served MUST still succeed. The node
+  MUST be returned unenriched (SCH-25). The failure is recorded where an operator can
+  find it. This governs failures attributable to the node type. Behaviour when an
+  implementation's own extension code violates the contract it was written against is
+  outside this specification, which describes conforming implementations and not
+  malfunctioning ones.
 
 posture: normative-target
 level: core
@@ -25,6 +25,9 @@ profiles:
 
 added: "1.0"
 changed: "1.0"
+
+rulings:
+  - OPEN-25
 
 related:
   - SCH-25

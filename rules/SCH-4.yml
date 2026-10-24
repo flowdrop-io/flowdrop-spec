@@ -5,14 +5,14 @@ part: I
 title: A hidden parameter is dropped from everything
 
 normative: >-
-  A parameter marked hidden is dropped from both derived schemas and from the
+  A parameter marked hidden MUST be dropped from both derived schemas and from the
   config defaults, overriding whatever the node type says about `connectable` and
-  `configurable`. Hiding does not suppress a reserved config-only parameter: one a
-  node type has opted into still reaches the config schema. Two spellings are
-  honoured: `format: hidden`, which is the one to write, and a bare
-  `hidden: true`, which is deprecated. The deprecated spelling must not be dropped
-  without a release that first warns on it, because dropping it silently un-hides
-  the parameter, and a visible parameter becomes connectable and configurable.
+  `configurable`. Hiding MUST NOT suppress a reserved config-only parameter: one a
+  node type has opted into MUST still reach the config schema. Two spellings are
+  honoured: `format: hidden`, which is the one to write, and a bare `hidden: true`,
+  which is deprecated. The deprecated spelling MUST NOT be dropped without a release
+  that first warns on it, because dropping it silently un-hides the parameter, and a
+  visible parameter becomes connectable and configurable.
 
 posture: normative-target
 level: core
@@ -22,6 +22,9 @@ profiles:
 
 added: "1.0"
 changed: "1.0"
+
+rulings:
+  - OPEN-25
 
 related:
   - SCH-5

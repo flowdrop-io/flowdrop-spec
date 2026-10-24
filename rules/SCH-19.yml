@@ -5,7 +5,7 @@ part: I
 title: A unified port's description skips trigger and hidden keys
 
 normative: >-
-  Both unified-port key enumerations skip the `trigger` port and every hidden
+  Both unified-port key enumerations MUST skip the `trigger` port and every hidden
   parameter. A hidden port does not exist on the instance, so it never appears in a
   unified port's description.
 
@@ -17,6 +17,9 @@ profiles:
 
 added: "1.0"
 changed: "1.0"
+
+rulings:
+  - OPEN-25
 
 related:
   - SCH-4

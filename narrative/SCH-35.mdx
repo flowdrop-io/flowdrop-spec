@@ -1,12 +1,12 @@
 ---
 rule: SCH-35
-rule_hash: 07cc35525cc9
+rule_hash: 941d7588bb86
 ---
 
 ## What it means
 
 An undeclared or unrecognised property does not default to `string`. It lands
-on the sink lane, `mixed`, and a caller may then supply any JSON value there —
+on the sink lane, `mixed`, and a caller can then supply any JSON value there —
 an array or a `null` included. This matters because `string` is the more
 familiar default in most typing systems, and a reader carrying that
 assumption over would expect an unconstrained port to still refuse a

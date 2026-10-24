@@ -5,9 +5,9 @@ part: I
 title: An output is exposed unless the node type says otherwise
 
 normative: >-
-  A declared output survives into a node's metadata unless the node type marks that
-  output not exposed. Where the node type says nothing about it, the output is
-  exposed: the default is fail-open.
+  A declared output MUST survive into a node's metadata unless the node type marks
+  that output not exposed. Where the node type says nothing about it, the output MUST
+  be exposed: the default is fail-open.
 
 posture: normative-target
 level: core
@@ -17,3 +17,6 @@ profiles:
 
 added: "1.0"
 changed: "1.0"
+
+rulings:
+  - OPEN-25

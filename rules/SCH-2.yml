@@ -9,14 +9,14 @@ summary: >-
   reaches neither derived schema.
 
 normative: >-
-  The `connectable`, `configurable` and `required` gate flags for a parameter are
-  read from the node type's own parameter configuration only, each defaulting to
-  false where the node type declares no entry for that parameter. A parameter the
-  node type does not declare therefore appears in neither derived schema and in
-  neither `required` list. Same-named keys written in the declared schema are not
-  read by the gate, and are not stripped either: they survive verbatim into the
-  served schemas. A property-level `required: true` is read on exactly one path:
-  where a node is exposed as a model-facing tool, it is lifted into the enclosing
+  The `connectable`, `configurable` and `required` gate flags for a parameter MUST be
+  read from the node type's own parameter configuration only, each defaulting to false
+  where the node type declares no entry for that parameter. A parameter the node type
+  does not declare therefore MUST appear in neither derived schema and in neither
+  `required` array. Same-named keys written in the declared schema MUST NOT be read by
+  the gate. They MUST NOT be stripped either: they survive verbatim into the served
+  schemas. A property-level `required: true` MUST be read on exactly one path: where a
+  node is exposed as a model-facing tool, it MUST be lifted into the enclosing
   object's `required` array before the schema is handed to the model.
 
 posture: normative-target
@@ -27,6 +27,9 @@ profiles:
 
 added: "1.0"
 changed: "1.0"
+
+rulings:
+  - OPEN-25
 
 related:
   - SCH-3

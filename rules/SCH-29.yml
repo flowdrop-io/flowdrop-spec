@@ -5,9 +5,9 @@ part: I
 title: Stored metadata is never authoritative at run time
 
 normative: >-
-  Before a workflow runs, every node is re-enriched from its live node type and the
-  workflow is normalized from the result. Metadata stored with the workflow is
-  never authoritative at run time.
+  Before a workflow runs, every node MUST be re-enriched from its live node type. The
+  workflow MUST then be normalized from the result. Metadata stored with the workflow
+  MUST NOT be treated as authoritative at run time.
 
 posture: normative-target
 level: core
@@ -17,6 +17,9 @@ profiles:
 
 added: "1.0"
 changed: "1.0"
+
+rulings:
+  - OPEN-25
 
 related:
   - SCH-25

@@ -5,10 +5,10 @@ part: I
 title: The reserved config properties every node carries
 
 normative: >-
-  `instanceTitle` and `instanceDescription` are injected into every node's config
-  schema; `maxRetries` and `ports` into an executable node's config schema only.
-  Each injection is skipped where the node type already declares a property of that
-  name.
+  `instanceTitle` and `instanceDescription` MUST be injected into every node's config
+  schema. `maxRetries` and `ports` MUST be injected into an executable node's config
+  schema, and MUST NOT be injected into any other node's. Each injection MUST be
+  skipped where the node type already declares a property of that name.
 
 posture: normative-target
 level: extended
@@ -18,6 +18,9 @@ profiles:
 
 added: "1.0"
 changed: "1.0"
+
+rulings:
+  - OPEN-25
 
 related:
   - SCH-20

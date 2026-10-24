@@ -1,6 +1,6 @@
 ---
 rule: SCH-47
-rule_hash: 6f98a9f421e0
+rule_hash: 27d4022b6ec9
 ---
 
 ## What it means
@@ -11,8 +11,7 @@ implementation does to notice the event, the event reaches the run in one place,
 node's `event` input. The trigger node then turns it into its outputs like any other
 node.
 
-The port is reserved in both directions. Every trigger node type has it, and no other
-node type may use the name. So the presence of an `event` input is how a reader, or an
+The port is reserved in both directions. Every trigger node type has it, and no other node type has it. So the presence of an `event` input is how a reader, or an
 editor, recognises a trigger node.
 
 Each flag has a job. Connectable and exposed let a value from outside reach the

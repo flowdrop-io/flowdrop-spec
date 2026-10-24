@@ -5,12 +5,12 @@ part: I
 title: Config field order applies inside a ui schema only
 
 normative: >-
-  `x-config-order` orders config fields ascending; a property whose value is absent
-  or not numeric counts as 0, and ties keep declaration order. It takes effect
-  inside a generated ui schema only: where no property carries a registered group
-  there is no ui schema, no layout, and `x-config-order` has no effect on the flat
-  form. The earlier spelling `x-display-order` carries no meaning; a schema that
-  still writes only it orders at 0, like any untagged property.
+  `x-config-order` MUST order config fields ascending. A property whose value is
+  absent or not numeric MUST count as 0, and ties MUST keep declaration order.
+  `x-config-order` MUST take effect inside a generated ui schema only: where no
+  property carries a registered group there is no ui schema, no layout, and
+  `x-config-order` has no effect on the flat form. `x-display-order` MUST carry no
+  meaning: a schema that writes only it orders at 0, like any untagged property.
 
 posture: normative-target
 level: extended
@@ -20,6 +20,9 @@ profiles:
 
 added: "1.0"
 changed: "1.0"
+
+rulings:
+  - OPEN-25
 
 related:
   - SCH-23

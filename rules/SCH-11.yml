@@ -5,9 +5,9 @@ part: I
 title: Every node but a start node gets a trigger input
 
 normative: >-
-  A reserved `trigger` input port is injected on every node type except a start
-  node type, unless the node type already declares one, and carries display order
-  100.
+  A reserved `trigger` input port MUST be injected on every node type except a start
+  node type, unless the node type already declares one. The injected port MUST carry
+  display order 100.
 
 posture: normative-target
 level: core
@@ -17,6 +17,9 @@ profiles:
 
 added: "1.0"
 changed: "1.0"
+
+rulings:
+  - OPEN-25
 
 related:
   - SCH-16

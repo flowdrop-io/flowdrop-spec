@@ -2,12 +2,12 @@ id: SCH-6
 family: GR-SCHEMA
 part: I
 
-title: Which required list a required parameter lands in
+title: Which required array a required parameter lands in
 
 normative: >-
-  A required parameter is emitted into the input schema's `required` list if and
-  only if it is not `configurable`, and into the config schema's `required` list if
-  and only if it is not `connectable`.
+  A required parameter MUST be emitted into the input schema's `required` array if and
+  only if it is not `configurable`. A required parameter MUST be emitted into the
+  config schema's `required` array if and only if it is not `connectable`.
 
 posture: normative-target
 level: core
@@ -17,6 +17,9 @@ profiles:
 
 added: "1.0"
 changed: "1.0"
+
+rulings:
+  - OPEN-25
 
 related:
   - SCH-2

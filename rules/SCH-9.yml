@@ -5,9 +5,9 @@ part: I
 title: A union type resolves to its first non-null member
 
 normative: >-
-  Where a property's type is an array of types, its lane is derived from the first
-  member that is not `null`. An array that is empty, or that holds only `null`,
-  resolves to the sink. Every member must itself be a JSON Schema type.
+  Where a property's type is an array of types, its lane MUST be derived from the
+  first member that is not `null`. An array that is empty, or that holds only `null`,
+  MUST resolve to the sink. Every member MUST itself be a JSON Schema type.
 
 posture: normative-target
 level: core
@@ -17,6 +17,9 @@ profiles:
 
 added: "1.0"
 changed: "1.0"
+
+rulings:
+  - OPEN-25
 
 related:
   - SCH-34

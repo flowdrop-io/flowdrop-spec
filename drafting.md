@@ -130,3 +130,20 @@ find out, the rule is incomplete.
 agent, decide from this rule alone whether an observed behaviour is correct, and so
 whether to file a bug and against whom? If two readings are defensible, the rule is
 ambiguous.
+
+## Who a rule is written for
+
+**DR-20. Every language, not one codebase.** FlowDrop is implemented in several
+languages, and more will follow: PHP, JavaScript and Rust today, Python, Go or any
+other tomorrow. A rule states the behaviour that is right for all of them, and
+makes no compromise for the sake of an existing implementation:
+- the effort of a refactor is not a reason to keep a weaker, looser or more
+  complicated rule;
+- neither is what an implementation does today (DR-7), nor a habit of the
+  language it is written in (DR-10).
+
+Where the right rule breaks what an implementation does now, the rule changes
+anyway, through a ruling. The implementation adopts it in its next major release,
+with a migration path for stored workflows and for callers. How to read the old
+form goes in the informative legacy appendix, [`legacy.md`](legacy.md), never in
+the rule.

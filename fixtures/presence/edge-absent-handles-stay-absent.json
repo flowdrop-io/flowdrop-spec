@@ -1,0 +1,22 @@
+{
+  "$schema": "../schema.json",
+  "title": "An edge with no handles reads back with no handles",
+  "rules": [
+    "EDGE-2",
+    "EDGE-9"
+  ],
+  "operation": "read-edge",
+  "note": "Not the empty string, not null.",
+  "given": {
+    "edge": {
+      "source": "n1",
+      "target": "n2"
+    }
+  },
+  "expect": {
+    "edge": {
+      "source": "n1",
+      "target": "n2"
+    }
+  }
+}

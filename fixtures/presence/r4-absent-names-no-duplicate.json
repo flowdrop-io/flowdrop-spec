@@ -1,0 +1,28 @@
+{
+  "$schema": "../schema.json",
+  "title": "Two absent names are two format errors and no duplicate",
+  "rules": [
+    "R4.a",
+    "R4.b"
+  ],
+  "operation": "validate-exposure",
+  "note": "An absent name takes part in no uniqueness comparison. Both entries are unbound, so no node or port check runs.",
+  "given": {
+    "inputs": [
+      {},
+      {}
+    ]
+  },
+  "expect": {
+    "errors": [
+      {
+        "code": "R4_NAME_FORMAT",
+        "at": "schema.input.0"
+      },
+      {
+        "code": "R4_NAME_FORMAT",
+        "at": "schema.input.1"
+      }
+    ]
+  }
+}

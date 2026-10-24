@@ -1,0 +1,31 @@
+{
+  "$schema": "../schema.json",
+  "title": "An optional null is validated too",
+  "rules": [
+    "CFG-10"
+  ],
+  "operation": "resolve-parameters",
+  "note": "Optional means the parameter may be absent, not that a null skips its type.",
+  "given": {
+    "parameters": {
+      "x": {
+        "schema": {
+          "type": "string"
+        },
+        "connectable": true,
+        "exposed": true,
+        "configurable": true
+      }
+    },
+    "config": {
+      "x": null
+    }
+  },
+  "expect": {
+    "failed": {
+      "parameter": "x",
+      "error": "validation",
+      "constraint": "type"
+    }
+  }
+}

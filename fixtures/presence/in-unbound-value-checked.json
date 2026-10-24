@@ -1,0 +1,30 @@
+{
+  "$schema": "../schema.json",
+  "title": "A value for an unbound input is checked against its schema",
+  "rules": [
+    "MAN-11",
+    "MAN-16"
+  ],
+  "operation": "resolve-launch-inputs",
+  "given": {
+    "inputs": [
+      {
+        "name": "topic",
+        "schema": {
+          "type": "string"
+        }
+      }
+    ],
+    "supplied": {
+      "topic": 5
+    }
+  },
+  "expect": {
+    "refused": {
+      "stage": "value",
+      "inputs": [
+        "topic"
+      ]
+    }
+  }
+}

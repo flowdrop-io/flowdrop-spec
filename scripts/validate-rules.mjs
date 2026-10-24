@@ -13,7 +13,9 @@
  *   6. Every cited ruling exists, and every ruling's `affects` list agrees with
  *      the rules that cite it, in both directions. `conventions` in `affects`
  *      names conventions.md and is exempt.
- *   7. Narrative prose has not drifted from the rule text it explains.
+ *   7. Every fixture case satisfies fixtures/schema.json and names rules that
+ *      exist and are not withdrawn.
+ *   8. Narrative prose has not drifted from the rule text it explains.
  */
 import { readFileSync, writeFileSync, readdirSync, existsSync } from 'node:fs';
 import { createHash } from 'node:crypto';
@@ -238,6 +240,43 @@ if (!existsSync(rulingsDir)) {
   }
 }
 
+/* ── 3c. fixtures ─────────────────────────────────────────────────────── */
+
+/*
+ * A fixture names the rules that decide its outcome, and each rule page lists
+ * the fixtures that name it. A case citing a rule that does not exist, or one
+ * that was withdrawn, would test a requirement the specification does not make.
+ */
+
+const fixturesDir = join(root, 'fixtures');
+let fixtureCount = 0;
+if (existsSync(fixturesDir)) {
+  const validateFixture = ajv.compile(JSON.parse(readFileSync(join(fixturesDir, 'schema.json'), 'utf8')));
+  const suites = readdirSync(fixturesDir, { withFileTypes: true }).filter((d) => d.isDirectory());
+  for (const suite of suites) {
+    for (const file of readdirSync(join(fixturesDir, suite.name)).filter((f) => f.endsWith('.json'))) {
+      const where = `fixtures/${suite.name}/${file}`;
+      fixtureCount++;
+      if (!/^[a-z0-9]+(-[a-z0-9]+)*\.json$/.test(file)) fail(where, 'filename should be kebab-case');
+      let doc;
+      try {
+        doc = JSON.parse(readFileSync(join(fixturesDir, suite.name, file), 'utf8'));
+      } catch (err) {
+        fail(where, `does not parse: ${err.message}`);
+        continue;
+      }
+      if (!validateFixture(doc)) {
+        for (const e of validateFixture.errors) fail(where, `${e.instancePath || '/'} ${e.message}`);
+      }
+      for (const ref of doc.rules ?? []) {
+        const rule = rules.get(ref);
+        if (!rule) fail(where, `names rule ${ref}, which does not exist`);
+        else if (rule.posture === 'withdrawn') fail(where, `names rule ${ref}, which is withdrawn`);
+      }
+    }
+  }
+}
+
 /* ── 4. narrative drift ───────────────────────────────────────────────── */
 
 let rewritten = 0;
@@ -283,5 +322,5 @@ if (problems.length) {
 const reserved = [...lock.values()].filter((e) => e.reserved).length;
 console.log(
   `${rules.size} rule(s) validated, ${lock.size - reserved} identifier(s) issued, ` +
-    `${reserved} reserved; ${rulings.size} ruling(s). No problems.`,
+    `${reserved} reserved; ${rulings.size} ruling(s); ${fixtureCount} fixture(s). No problems.`,
 );

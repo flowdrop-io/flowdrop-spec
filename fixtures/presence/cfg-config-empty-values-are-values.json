@@ -1,0 +1,79 @@
+{
+  "$schema": "../schema.json",
+  "title": "Empty values in the saved config are values, not gaps",
+  "rules": [
+    "CFG-5",
+    "CFG-14"
+  ],
+  "operation": "resolve-parameters",
+  "note": "No rule reads an empty value as absent (conventions.md, \"Absent, null and empty\").",
+  "given": {
+    "parameters": {
+      "text": {
+        "schema": {
+          "type": "string",
+          "default": "d"
+        },
+        "connectable": true,
+        "exposed": true,
+        "configurable": true
+      },
+      "flag": {
+        "schema": {
+          "type": "boolean",
+          "default": true
+        },
+        "connectable": true,
+        "exposed": true,
+        "configurable": true
+      },
+      "count": {
+        "schema": {
+          "type": "integer",
+          "default": 5
+        },
+        "connectable": true,
+        "exposed": true,
+        "configurable": true
+      },
+      "list": {
+        "schema": {
+          "type": "array",
+          "default": [
+            "d"
+          ]
+        },
+        "connectable": true,
+        "exposed": true,
+        "configurable": true
+      },
+      "map": {
+        "schema": {
+          "type": "object",
+          "default": {
+            "d": 1
+          }
+        },
+        "connectable": true,
+        "exposed": true,
+        "configurable": true
+      }
+    },
+    "config": {
+      "text": "",
+      "flag": false,
+      "count": 0,
+      "list": [],
+      "map": {}
+    }
+  },
+  "expect": {
+    "resolved": {
+      "text": "",
+      "flag": false,
+      "count": 0,
+      "list": [],
+      "map": {}
+    }
+  }
+}

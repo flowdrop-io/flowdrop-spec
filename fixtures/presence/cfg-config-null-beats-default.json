@@ -1,0 +1,35 @@
+{
+  "$schema": "../schema.json",
+  "title": "A null in the saved config beats the default",
+  "rules": [
+    "CFG-5",
+    "CFG-7",
+    "CFG-14"
+  ],
+  "operation": "resolve-parameters",
+  "given": {
+    "parameters": {
+      "x": {
+        "schema": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "default": "schema"
+        },
+        "default": "node type",
+        "connectable": true,
+        "exposed": true,
+        "configurable": true
+      }
+    },
+    "config": {
+      "x": null
+    }
+  },
+  "expect": {
+    "resolved": {
+      "x": null
+    }
+  }
+}

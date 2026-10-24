@@ -1,0 +1,37 @@
+{
+  "$schema": "../schema.json",
+  "title": "A null fails an enumeration that does not list it",
+  "rules": [
+    "CFG-10"
+  ],
+  "operation": "resolve-parameters",
+  "given": {
+    "parameters": {
+      "x": {
+        "schema": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "enum": [
+            "a",
+            "b"
+          ]
+        },
+        "connectable": true,
+        "exposed": true,
+        "configurable": true
+      }
+    },
+    "config": {
+      "x": null
+    }
+  },
+  "expect": {
+    "failed": {
+      "parameter": "x",
+      "error": "validation",
+      "constraint": "enum"
+    }
+  }
+}

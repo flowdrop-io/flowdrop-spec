@@ -1,0 +1,27 @@
+{
+  "$schema": "../schema.json",
+  "title": "An empty value supplied for a bound input is delivered as sent",
+  "rules": [
+    "MAN-11"
+  ],
+  "operation": "resolve-launch-inputs",
+  "given": {
+    "inputs": [
+      {
+        "name": "topic",
+        "node_id": "n1",
+        "port": "text"
+      }
+    ],
+    "supplied": {
+      "topic": ""
+    }
+  },
+  "expect": {
+    "initialData": {
+      "n1": {
+        "text": ""
+      }
+    }
+  }
+}

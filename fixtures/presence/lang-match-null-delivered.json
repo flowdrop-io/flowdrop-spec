@@ -1,0 +1,20 @@
+{
+  "$schema": "../schema.json",
+  "title": "A query that matches null delivers null and reports a match",
+  "rules": [
+    "LANG-24",
+    "LANG-9"
+  ],
+  "operation": "extract",
+  "given": {
+    "data": {
+      "a": null
+    },
+    "path": "$.a",
+    "default": "fallback"
+  },
+  "expect": {
+    "value": null,
+    "success": true
+  }
+}

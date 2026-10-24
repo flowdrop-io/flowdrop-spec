@@ -1,0 +1,33 @@
+{
+  "$schema": "../schema.json",
+  "title": "A null meets required, and passes where the type admits null",
+  "rules": [
+    "CFG-9",
+    "CFG-10"
+  ],
+  "operation": "resolve-parameters",
+  "given": {
+    "parameters": {
+      "x": {
+        "schema": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "required": true,
+        "connectable": true,
+        "exposed": true,
+        "configurable": true
+      }
+    },
+    "config": {
+      "x": null
+    }
+  },
+  "expect": {
+    "resolved": {
+      "x": null
+    }
+  }
+}

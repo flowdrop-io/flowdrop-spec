@@ -1,0 +1,335 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "A fixture case",
+  "$comment": "Deliberately no $id, as for a ruling: a case is authored only in this repository. fixtures/README.md defines each operation, what its given carries and what its outcome is.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["title", "rules", "operation", "given", "expect"],
+  "properties": {
+    "$schema": { "type": "string" },
+    "title": {
+      "type": "string",
+      "minLength": 8,
+      "maxLength": 90,
+      "description": "What the case shows, in one line, as a rule's title is written."
+    },
+    "rules": {
+      "type": "array",
+      "minItems": 1,
+      "uniqueItems": true,
+      "items": { "type": "string", "pattern": "^[A-Z][A-Z0-9]*([-.][A-Za-z0-9]+)*(/[a-z])?$" },
+      "description": "The rules whose text decides the expected outcome. The validator checks that each exists and is not withdrawn."
+    },
+    "operation": {
+      "enum": [
+        "resolve-parameters",
+        "collect-outputs",
+        "resolve-launch-inputs",
+        "extract",
+        "update-workflow",
+        "read-edge",
+        "validate-snapshot",
+        "text-to-message",
+        "gate-edge",
+        "overlay-metadata",
+        "validate-exposure"
+      ]
+    },
+    "note": {
+      "type": "string",
+      "description": "Why the outcome is what it is, where the title does not already say it."
+    },
+    "given": { "type": "object" },
+    "expect": { "type": "object", "minProperties": 1 }
+  },
+  "allOf": [
+    {
+      "if": { "properties": { "operation": { "const": "resolve-parameters" } } },
+      "then": {
+        "properties": {
+          "given": {
+            "required": ["parameters"],
+            "additionalProperties": false,
+            "properties": {
+              "parameters": {
+                "type": "object",
+                "additionalProperties": {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "properties": {
+                    "schema": { "type": "object" },
+                    "default": true,
+                    "connectable": { "type": "boolean" },
+                    "configurable": { "type": "boolean" },
+                    "required": { "type": "boolean" },
+                    "exposed": { "type": "boolean" },
+                    "when_missing": { "enum": ["fail", "skip"] }
+                  }
+                }
+              },
+              "dynamicInputs": { "type": "array", "items": { "type": "string" } },
+              "config": { "type": "object" },
+              "inputs": { "type": "object" }
+            }
+          },
+          "expect": {
+            "oneOf": [
+              {
+                "required": ["resolved"],
+                "additionalProperties": false,
+                "properties": { "resolved": { "type": "object" } }
+              },
+              {
+                "required": ["failed"],
+                "additionalProperties": false,
+                "properties": {
+                  "failed": {
+                    "type": "object",
+                    "additionalProperties": false,
+                    "required": ["parameter", "error"],
+                    "properties": {
+                      "parameter": { "type": "string" },
+                      "error": { "enum": ["missing-parameter", "validation"] },
+                      "constraint": { "type": "string" }
+                    }
+                  }
+                }
+              },
+              {
+                "required": ["skipped"],
+                "additionalProperties": false,
+                "properties": { "skipped": { "const": true } }
+              }
+            ]
+          }
+        }
+      }
+    },
+    {
+      "if": { "properties": { "operation": { "const": "collect-outputs" } } },
+      "then": {
+        "properties": {
+          "given": {
+            "required": ["outputs", "produced"],
+            "additionalProperties": false,
+            "properties": {
+              "outputs": { "type": "array", "items": { "$ref": "#/$defs/entry" } },
+              "produced": { "type": "object", "additionalProperties": { "type": "object" } }
+            }
+          },
+          "expect": {
+            "required": ["result"],
+            "additionalProperties": false,
+            "properties": { "result": { "type": "object" } }
+          }
+        }
+      }
+    },
+    {
+      "if": { "properties": { "operation": { "const": "resolve-launch-inputs" } } },
+      "then": {
+        "properties": {
+          "given": {
+            "required": ["inputs", "supplied"],
+            "additionalProperties": false,
+            "properties": {
+              "inputs": { "type": "array", "items": { "$ref": "#/$defs/entry" } },
+              "supplied": { "type": "object" }
+            }
+          },
+          "expect": {
+            "oneOf": [
+              {
+                "required": ["initialData"],
+                "additionalProperties": false,
+                "properties": { "initialData": { "type": "object", "additionalProperties": { "type": "object" } } }
+              },
+              {
+                "required": ["refused"],
+                "additionalProperties": false,
+                "properties": {
+                  "refused": {
+                    "type": "object",
+                    "additionalProperties": false,
+                    "required": ["stage", "inputs"],
+                    "properties": {
+                      "stage": { "enum": ["undeclared", "missing", "value"] },
+                      "inputs": { "type": "array", "items": { "type": "string" }, "minItems": 1 }
+                    }
+                  }
+                }
+              }
+            ]
+          }
+        }
+      }
+    },
+    {
+      "if": { "properties": { "operation": { "const": "extract" } } },
+      "then": {
+        "properties": {
+          "given": {
+            "required": ["data", "path"],
+            "additionalProperties": false,
+            "properties": {
+              "data": true,
+              "path": { "type": "string" },
+              "default": true
+            }
+          },
+          "expect": {
+            "required": ["success"],
+            "additionalProperties": false,
+            "properties": { "value": true, "success": { "type": "boolean" } }
+          }
+        }
+      }
+    },
+    {
+      "if": { "properties": { "operation": { "const": "update-workflow" } } },
+      "then": {
+        "properties": {
+          "given": {
+            "required": ["stored", "request"],
+            "additionalProperties": false,
+            "properties": { "stored": { "type": "object" }, "request": { "type": "object" } }
+          },
+          "expect": {
+            "required": ["workflow"],
+            "additionalProperties": false,
+            "properties": { "workflow": { "type": "object" } }
+          }
+        }
+      }
+    },
+    {
+      "if": { "properties": { "operation": { "const": "read-edge" } } },
+      "then": {
+        "properties": {
+          "given": {
+            "required": ["edge"],
+            "additionalProperties": false,
+            "properties": { "edge": { "type": "object" } }
+          },
+          "expect": {
+            "required": ["edge"],
+            "additionalProperties": false,
+            "properties": { "edge": { "type": "object" } }
+          }
+        }
+      }
+    },
+    {
+      "if": { "properties": { "operation": { "const": "validate-snapshot" } } },
+      "then": {
+        "properties": {
+          "given": {
+            "required": ["definitionVersion", "snapshot"],
+            "additionalProperties": false,
+            "properties": {
+              "definitionVersion": { "type": "string" },
+              "snapshot": { "type": "object" }
+            }
+          },
+          "expect": {
+            "required": ["valid", "versionMismatch"],
+            "additionalProperties": false,
+            "properties": { "valid": { "type": "boolean" }, "versionMismatch": { "type": "boolean" } }
+          }
+        }
+      }
+    },
+    {
+      "if": { "properties": { "operation": { "const": "text-to-message" } } },
+      "then": {
+        "properties": {
+          "given": { "required": ["text"], "additionalProperties": false, "properties": { "text": true, "role": true, "tool_call_id": true } },
+          "expect": {
+            "required": ["message"],
+            "additionalProperties": false,
+            "properties": { "message": { "type": "object" } }
+          }
+        }
+      }
+    },
+    {
+      "if": { "properties": { "operation": { "const": "gate-edge" } } },
+      "then": {
+        "properties": {
+          "given": {
+            "required": ["branches", "output", "port"],
+            "additionalProperties": false,
+            "properties": {
+              "branches": { "type": "array", "items": { "type": "string" } },
+              "output": { "type": "object" },
+              "port": { "type": "string" }
+            }
+          },
+          "expect": {
+            "required": ["follow"],
+            "additionalProperties": false,
+            "properties": { "follow": { "type": "boolean" } }
+          }
+        }
+      }
+    },
+    {
+      "if": { "properties": { "operation": { "const": "overlay-metadata" } } },
+      "then": {
+        "properties": {
+          "given": {
+            "required": ["port", "entry"],
+            "additionalProperties": false,
+            "properties": { "port": { "type": "object" }, "entry": { "type": "object" } }
+          },
+          "expect": {
+            "required": ["annotations"],
+            "additionalProperties": false,
+            "properties": { "annotations": { "type": "object" } }
+          }
+        }
+      }
+    },
+    {
+      "if": { "properties": { "operation": { "const": "validate-exposure" } } },
+      "then": {
+        "properties": {
+          "given": {
+            "required": ["inputs"],
+            "additionalProperties": false,
+            "properties": { "inputs": { "type": "array", "items": { "type": "object" } } }
+          },
+          "expect": {
+            "required": ["errors"],
+            "additionalProperties": false,
+            "properties": {
+              "errors": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "required": ["code", "at"],
+                  "properties": { "code": { "type": "string" }, "at": { "type": "string" } }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  ],
+  "$defs": {
+    "entry": {
+      "type": "object",
+      "description": "A manifest entry (MAN-2).",
+      "required": ["name"],
+      "properties": {
+        "name": { "type": "string" },
+        "node_id": { "type": "string" },
+        "port": { "type": "string" },
+        "schema": { "type": "object" },
+        "required": { "type": "boolean" }
+      }
+    }
+  }
+}

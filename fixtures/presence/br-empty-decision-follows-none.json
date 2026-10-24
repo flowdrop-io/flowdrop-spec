@@ -1,0 +1,22 @@
+{
+  "$schema": "../schema.json",
+  "title": "An empty active-branch list is a decision that follows no branch",
+  "rules": [
+    "BR-1",
+    "BR-2"
+  ],
+  "operation": "gate-edge",
+  "given": {
+    "branches": [
+      "yes",
+      "no"
+    ],
+    "output": {
+      "active_branches": []
+    },
+    "port": "yes"
+  },
+  "expect": {
+    "follow": false
+  }
+}

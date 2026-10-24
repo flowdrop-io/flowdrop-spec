@@ -1,0 +1,27 @@
+{
+  "$schema": "../schema.json",
+  "title": "A parameter nothing supplies is absent, not null",
+  "rules": [
+    "CFG-6",
+    "CFG-14"
+  ],
+  "operation": "resolve-parameters",
+  "given": {
+    "parameters": {
+      "x": {
+        "schema": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "connectable": true,
+        "exposed": true,
+        "configurable": true
+      }
+    }
+  },
+  "expect": {
+    "resolved": {}
+  }
+}

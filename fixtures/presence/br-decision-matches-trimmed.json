@@ -1,0 +1,24 @@
+{
+  "$schema": "../schema.json",
+  "title": "A named branch is matched after trimming and lower-casing",
+  "rules": [
+    "BR-1",
+    "BR-3"
+  ],
+  "operation": "gate-edge",
+  "given": {
+    "branches": [
+      "yes",
+      "no"
+    ],
+    "output": {
+      "active_branches": [
+        " Yes "
+      ]
+    },
+    "port": "yes"
+  },
+  "expect": {
+    "follow": true
+  }
+}

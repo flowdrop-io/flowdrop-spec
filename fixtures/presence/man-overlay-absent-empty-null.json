@@ -1,0 +1,27 @@
+{
+  "$schema": "../schema.json",
+  "title": "Author metadata: absent keeps, empty overlays, null removes",
+  "rules": [
+    "MAN-6"
+  ],
+  "operation": "overlay-metadata",
+  "given": {
+    "port": {
+      "title": "Port title",
+      "description": "Port words",
+      "examples": [
+        "port"
+      ]
+    },
+    "entry": {
+      "description": "",
+      "examples": null
+    }
+  },
+  "expect": {
+    "annotations": {
+      "title": "Port title",
+      "description": ""
+    }
+  }
+}

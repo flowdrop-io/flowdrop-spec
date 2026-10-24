@@ -1,0 +1,40 @@
+{
+  "$schema": "../schema.json",
+  "title": "An update keeps what it omits and clears what it sends as null",
+  "rules": [
+    "STORE-4"
+  ],
+  "operation": "update-workflow",
+  "note": "`edges` sent as null reads as if omitted on create, where it defaults to the empty array.",
+  "given": {
+    "stored": {
+      "name": "Flow",
+      "nodes": [
+        {
+          "id": "n1"
+        }
+      ],
+      "edges": [
+        {
+          "source": "n1",
+          "target": "n1"
+        }
+      ]
+    },
+    "request": {
+      "name": "Flow",
+      "edges": null
+    }
+  },
+  "expect": {
+    "workflow": {
+      "name": "Flow",
+      "nodes": [
+        {
+          "id": "n1"
+        }
+      ],
+      "edges": []
+    }
+  }
+}

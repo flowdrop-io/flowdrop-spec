@@ -1,0 +1,32 @@
+{
+  "$schema": "../schema.json",
+  "title": "A null default is supplied, so a skip parameter does not skip",
+  "rules": [
+    "CFG-21",
+    "CFG-3"
+  ],
+  "operation": "resolve-parameters",
+  "given": {
+    "parameters": {
+      "x": {
+        "schema": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "default": null,
+        "required": true,
+        "when_missing": "skip",
+        "connectable": true,
+        "exposed": true,
+        "configurable": true
+      }
+    }
+  },
+  "expect": {
+    "resolved": {
+      "x": null
+    }
+  }
+}

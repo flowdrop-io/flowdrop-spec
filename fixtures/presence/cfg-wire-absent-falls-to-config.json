@@ -1,0 +1,34 @@
+{
+  "$schema": "../schema.json",
+  "title": "A parameter absent from the wire falls through to the saved value",
+  "rules": [
+    "CFG-4",
+    "CFG-5",
+    "CFG-14"
+  ],
+  "operation": "resolve-parameters",
+  "note": "`y` is not a declared parameter, so it is not resolved either (CFG-13).",
+  "given": {
+    "parameters": {
+      "x": {
+        "schema": {
+          "type": "string"
+        },
+        "connectable": true,
+        "exposed": true,
+        "configurable": true
+      }
+    },
+    "config": {
+      "x": "saved"
+    },
+    "inputs": {
+      "y": "other"
+    }
+  },
+  "expect": {
+    "resolved": {
+      "x": "saved"
+    }
+  }
+}

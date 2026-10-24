@@ -1,0 +1,30 @@
+{
+  "$schema": "../schema.json",
+  "title": "An update sending an empty list stores the empty list",
+  "rules": [
+    "STORE-4"
+  ],
+  "operation": "update-workflow",
+  "given": {
+    "stored": {
+      "name": "Flow",
+      "nodes": [
+        {
+          "id": "n1"
+        }
+      ],
+      "edges": []
+    },
+    "request": {
+      "name": "Flow",
+      "nodes": []
+    }
+  },
+  "expect": {
+    "workflow": {
+      "name": "Flow",
+      "nodes": [],
+      "edges": []
+    }
+  }
+}

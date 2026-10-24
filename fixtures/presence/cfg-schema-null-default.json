@@ -1,0 +1,31 @@
+{
+  "$schema": "../schema.json",
+  "title": "A null schema default is a default",
+  "rules": [
+    "CFG-3",
+    "CFG-6",
+    "CFG-14"
+  ],
+  "operation": "resolve-parameters",
+  "given": {
+    "parameters": {
+      "x": {
+        "schema": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "default": null
+        },
+        "connectable": true,
+        "exposed": true,
+        "configurable": true
+      }
+    }
+  },
+  "expect": {
+    "resolved": {
+      "x": null
+    }
+  }
+}

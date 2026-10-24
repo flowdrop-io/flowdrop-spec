@@ -1,0 +1,16 @@
+{
+  "$schema": "../schema.json",
+  "title": "A snapshot with no workflow version skips the version check",
+  "rules": [
+    "INT-8"
+  ],
+  "operation": "validate-snapshot",
+  "given": {
+    "definitionVersion": "3f2a9c0e1b7d4a65",
+    "snapshot": {}
+  },
+  "expect": {
+    "valid": true,
+    "versionMismatch": false
+  }
+}

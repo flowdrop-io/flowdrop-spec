@@ -28,6 +28,7 @@ standing against these rules in its own documentation.
 | `rules/REGISTRY.lock` | Every rule identifier ever issued **or blocked**. Append-only. |
 | `narrative/*.mdx` | Optional prose for a rule: what it means, examples, why. |
 | `conventions.md` | Vocabulary and references shared by every rule. |
+| `fixtures/<suite>/*.json` | Test cases an implementation can run, each naming the rules that decide it. Informative. See [`fixtures/README.md`](fixtures/README.md). |
 | `scripts/` | Validation run in CI. |
 | `site/` | The published site. Generates one page per rule from `rules/`; nothing it renders is committed. |
 

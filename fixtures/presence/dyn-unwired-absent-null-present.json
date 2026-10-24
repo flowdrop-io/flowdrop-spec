@@ -1,0 +1,24 @@
+{
+  "$schema": "../schema.json",
+  "title": "An unwired dynamic input is absent; a null on its wire is present",
+  "rules": [
+    "DYN-4",
+    "CFG-13"
+  ],
+  "operation": "resolve-parameters",
+  "given": {
+    "parameters": {},
+    "dynamicInputs": [
+      "a",
+      "b"
+    ],
+    "inputs": {
+      "b": null
+    }
+  },
+  "expect": {
+    "resolved": {
+      "b": null
+    }
+  }
+}

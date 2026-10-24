@@ -981,6 +981,36 @@ span.rulechip {
   border-radius: 2px;
   color: var(--ink-3);
 }
+.fixlist {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+.fixlist li + li {
+  margin-top: 0.4rem;
+}
+.fixlist summary {
+  cursor: pointer;
+}
+.fixop {
+  font-family: var(--mono);
+  font-size: 0.75rem;
+  color: var(--ink-3);
+  margin-left: 0.4rem;
+}
+.fixnote,
+.fixsrc {
+  font-size: 0.85rem;
+  color: var(--ink-2);
+}
+.fixsrc {
+  font-family: var(--mono);
+  font-size: 0.75rem;
+}
+.fixjson {
+  font-size: 0.78rem;
+  overflow-x: auto;
+}
 .chipgroup + .chipgroup {
   margin-top: 1.3rem;
 }

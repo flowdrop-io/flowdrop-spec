@@ -1,0 +1,17 @@
+{
+  "$schema": "../schema.json",
+  "title": "An absent role resolves to user",
+  "rules": [
+    "MEM-16"
+  ],
+  "operation": "text-to-message",
+  "given": {
+    "text": "hi"
+  },
+  "expect": {
+    "message": {
+      "role": "user",
+      "content": "hi"
+    }
+  }
+}

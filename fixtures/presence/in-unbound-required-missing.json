@@ -1,0 +1,29 @@
+{
+  "$schema": "../schema.json",
+  "title": "An unbound required input is still required",
+  "rules": [
+    "MAN-11",
+    "MAN-15"
+  ],
+  "operation": "resolve-launch-inputs",
+  "given": {
+    "inputs": [
+      {
+        "name": "topic",
+        "schema": {
+          "type": "string"
+        },
+        "required": true
+      }
+    ],
+    "supplied": {}
+  },
+  "expect": {
+    "refused": {
+      "stage": "missing",
+      "inputs": [
+        "topic"
+      ]
+    }
+  }
+}

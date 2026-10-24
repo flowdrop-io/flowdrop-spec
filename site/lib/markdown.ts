@@ -1,3 +1,4 @@
+import { fixturesFor } from './fixtures';
 import { allRulings, urlForRuling } from './rulings';
 import { allFamilies, allRules, FAMILY_LABEL, type LoadedRule } from './rules';
 import { clauses } from './clauses';
@@ -118,6 +119,13 @@ export function ruleToMarkdown(rule: LoadedRule, { standalone = true } = {}): st
       for (const r of info) out.push(`- ${r.source}, ${r.title}${r.url ? ` (${r.url})` : ''} — ${r.note}`);
       out.push('');
     }
+  }
+
+  const fixtures = fixturesFor(rule.id);
+  if (fixtures.length) {
+    out.push(`${h}# Fixtures`, '', 'Test cases whose outcome this rule decides (fixtures/README.md defines each operation):', '');
+    for (const f of fixtures) out.push(`- ${f.title} (\`${f.operation}\`): ${f.file}`);
+    out.push('');
   }
 
   if (rule.related?.length || rule.backlinks.length) {

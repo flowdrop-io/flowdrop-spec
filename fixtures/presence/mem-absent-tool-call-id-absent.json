@@ -1,0 +1,18 @@
+{
+  "$schema": "../schema.json",
+  "title": "An absent tool call id stays absent",
+  "rules": [
+    "MEM-16"
+  ],
+  "operation": "text-to-message",
+  "given": {
+    "text": "42",
+    "role": "tool"
+  },
+  "expect": {
+    "message": {
+      "role": "tool",
+      "content": "42"
+    }
+  }
+}

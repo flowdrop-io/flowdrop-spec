@@ -1,0 +1,26 @@
+{
+  "$schema": "../schema.json",
+  "title": "A required skip parameter nothing supplies skips its node",
+  "rules": [
+    "CFG-21",
+    "CFG-20"
+  ],
+  "operation": "resolve-parameters",
+  "given": {
+    "parameters": {
+      "x": {
+        "schema": {
+          "type": "string"
+        },
+        "required": true,
+        "when_missing": "skip",
+        "connectable": true,
+        "exposed": true,
+        "configurable": true
+      }
+    }
+  },
+  "expect": {
+    "skipped": true
+  }
+}

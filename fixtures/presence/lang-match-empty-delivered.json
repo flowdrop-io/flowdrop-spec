@@ -1,0 +1,19 @@
+{
+  "$schema": "../schema.json",
+  "title": "A matched false, 0 or empty string is delivered as found",
+  "rules": [
+    "LANG-24"
+  ],
+  "operation": "extract",
+  "given": {
+    "data": {
+      "a": false
+    },
+    "path": "$.a",
+    "default": "fallback"
+  },
+  "expect": {
+    "value": false,
+    "success": true
+  }
+}

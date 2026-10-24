@@ -1,0 +1,28 @@
+{
+  "$schema": "../schema.json",
+  "title": "With no recorded default, the schema default applies",
+  "rules": [
+    "CFG-3",
+    "CFG-6",
+    "CFG-14"
+  ],
+  "operation": "resolve-parameters",
+  "given": {
+    "parameters": {
+      "x": {
+        "schema": {
+          "type": "string",
+          "default": "schema"
+        },
+        "connectable": true,
+        "exposed": true,
+        "configurable": true
+      }
+    }
+  },
+  "expect": {
+    "resolved": {
+      "x": "schema"
+    }
+  }
+}

@@ -1,0 +1,27 @@
+{
+  "$schema": "../schema.json",
+  "title": "An output whose node produced null returns null",
+  "rules": [
+    "MAN-17"
+  ],
+  "operation": "collect-outputs",
+  "given": {
+    "outputs": [
+      {
+        "name": "answer",
+        "node_id": "n1",
+        "port": "text"
+      }
+    ],
+    "produced": {
+      "n1": {
+        "text": null
+      }
+    }
+  },
+  "expect": {
+    "result": {
+      "answer": null
+    }
+  }
+}

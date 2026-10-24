@@ -1,0 +1,35 @@
+{
+  "$schema": "../schema.json",
+  "title": "A null on a hidden port's wire is ignored, not delivered",
+  "rules": [
+    "EXPO-10",
+    "CFG-5"
+  ],
+  "operation": "resolve-parameters",
+  "given": {
+    "parameters": {
+      "x": {
+        "schema": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "connectable": true,
+        "exposed": false,
+        "configurable": true
+      }
+    },
+    "config": {
+      "x": "saved"
+    },
+    "inputs": {
+      "x": null
+    }
+  },
+  "expect": {
+    "resolved": {
+      "x": "saved"
+    }
+  }
+}

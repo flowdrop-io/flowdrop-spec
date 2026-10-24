@@ -1,0 +1,34 @@
+{
+  "$schema": "../schema.json",
+  "title": "An output whose node produced an empty value returns it",
+  "rules": [
+    "MAN-17"
+  ],
+  "operation": "collect-outputs",
+  "given": {
+    "outputs": [
+      {
+        "name": "answer",
+        "node_id": "n1",
+        "port": "text"
+      },
+      {
+        "name": "items",
+        "node_id": "n1",
+        "port": "list"
+      }
+    ],
+    "produced": {
+      "n1": {
+        "text": "",
+        "list": []
+      }
+    }
+  },
+  "expect": {
+    "result": {
+      "answer": "",
+      "items": []
+    }
+  }
+}

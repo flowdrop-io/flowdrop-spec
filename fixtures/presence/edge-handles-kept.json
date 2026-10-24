@@ -1,0 +1,25 @@
+{
+  "$schema": "../schema.json",
+  "title": "An edge's handles read back as sent",
+  "rules": [
+    "EDGE-2",
+    "EDGE-9"
+  ],
+  "operation": "read-edge",
+  "given": {
+    "edge": {
+      "source": "n1",
+      "target": "n2",
+      "sourceHandle": "n1-output-text",
+      "targetHandle": "n2-input-prompt"
+    }
+  },
+  "expect": {
+    "edge": {
+      "source": "n1",
+      "target": "n2",
+      "sourceHandle": "n1-output-text",
+      "targetHandle": "n2-input-prompt"
+    }
+  }
+}

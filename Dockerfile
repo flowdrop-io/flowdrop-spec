@@ -25,6 +25,8 @@ RUN cd site && npm ci
 # The corpus the site is generated from.
 COPY rules ./rules
 COPY narrative ./narrative
+COPY rulings ./rulings
+COPY fixtures ./fixtures
 COPY conventions.md ./conventions.md
 
 # The site itself.

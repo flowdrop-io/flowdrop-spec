@@ -1,0 +1,28 @@
+{
+  "$schema": "../schema.json",
+  "title": "A required parameter nothing supplies fails the node",
+  "rules": [
+    "CFG-9",
+    "CFG-14"
+  ],
+  "operation": "resolve-parameters",
+  "given": {
+    "parameters": {
+      "x": {
+        "schema": {
+          "type": "string"
+        },
+        "required": true,
+        "connectable": true,
+        "exposed": true,
+        "configurable": true
+      }
+    }
+  },
+  "expect": {
+    "failed": {
+      "parameter": "x",
+      "error": "missing-parameter"
+    }
+  }
+}

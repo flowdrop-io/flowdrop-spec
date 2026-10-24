@@ -1,0 +1,32 @@
+{
+  "$schema": "../schema.json",
+  "title": "An empty string on the wire is a value, and beats the saved one",
+  "rules": [
+    "CFG-4",
+    "CFG-14"
+  ],
+  "operation": "resolve-parameters",
+  "given": {
+    "parameters": {
+      "x": {
+        "schema": {
+          "type": "string"
+        },
+        "connectable": true,
+        "exposed": true,
+        "configurable": true
+      }
+    },
+    "config": {
+      "x": "saved"
+    },
+    "inputs": {
+      "x": ""
+    }
+  },
+  "expect": {
+    "resolved": {
+      "x": ""
+    }
+  }
+}

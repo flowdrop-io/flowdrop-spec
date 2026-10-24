@@ -1,0 +1,20 @@
+{
+  "$schema": "../schema.json",
+  "title": "A blank tool call id is trimmed and kept as the empty string",
+  "rules": [
+    "MEM-16"
+  ],
+  "operation": "text-to-message",
+  "given": {
+    "text": "42",
+    "role": "tool",
+    "tool_call_id": "   "
+  },
+  "expect": {
+    "message": {
+      "role": "tool",
+      "content": "42",
+      "tool_call_id": ""
+    }
+  }
+}

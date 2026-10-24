@@ -1,0 +1,36 @@
+{
+  "$schema": "../schema.json",
+  "title": "Two empty names are two format errors and one duplicate",
+  "rules": [
+    "R4.a",
+    "R4.b"
+  ],
+  "operation": "validate-exposure",
+  "note": "The empty string is a name like any other, so two of them repeat.",
+  "given": {
+    "inputs": [
+      {
+        "name": ""
+      },
+      {
+        "name": ""
+      }
+    ]
+  },
+  "expect": {
+    "errors": [
+      {
+        "code": "R4_NAME_FORMAT",
+        "at": "schema.input.0"
+      },
+      {
+        "code": "R4_NAME_FORMAT",
+        "at": "schema.input.1"
+      },
+      {
+        "code": "R4_NAME_DUPLICATE",
+        "at": "schema.input.1"
+      }
+    ]
+  }
+}

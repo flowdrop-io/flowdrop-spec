@@ -1,0 +1,20 @@
+{
+  "$schema": "../schema.json",
+  "title": "A query that matches nothing delivers the default and reports a miss",
+  "rules": [
+    "LANG-24",
+    "LANG-9"
+  ],
+  "operation": "extract",
+  "given": {
+    "data": {
+      "a": 1
+    },
+    "path": "$.b",
+    "default": "fallback"
+  },
+  "expect": {
+    "value": "fallback",
+    "success": false
+  }
+}

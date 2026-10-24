@@ -10,6 +10,9 @@ import { slugify } from '@/lib/rules';
 import { clauses } from '@/lib/clauses';
 import { termLinker } from '@/lib/linkify';
 import { GLOSSARY_URL, termMatchers } from '@/lib/glossary';
+import { fixturesFor, type LoadedFixture } from '@/lib/fixtures';
+
+const FIXTURES_REPO = 'https://github.com/flowdrop-io/flowdrop-spec/blob/main';
 
 /**
  * The page anatomy is a menu, not a checklist: every section but the normative
@@ -29,6 +32,7 @@ export function sections(rule: LoadedRule) {
     narrative: Boolean(rule.narrative?.trim()),
     why: Boolean(rule.rulings?.length),
     references: refs.length > 0,
+    fixtures: fixturesFor(rule.id).length > 0,
     related: Boolean(rule.related?.length) || rule.backlinks.length > 0,
   };
 }
@@ -51,6 +55,7 @@ export function ruleToc(rule: LoadedRule, narrativeToc: TOCItemType[] = []): TOC
   if (s.narrative) toc.push(...narrativeToc);
   if (s.why && !narrativeOwnsWhy(rule, narrativeToc)) toc.push({ title: 'Why', url: '#why', depth: 2 });
   if (s.references) toc.push({ title: 'References', url: '#references', depth: 2 });
+  if (s.fixtures) toc.push({ title: 'Fixtures', url: '#fixtures', depth: 2 });
   if (s.related) toc.push({ title: 'Related rules', url: '#related', depth: 2 });
   return toc;
 }
@@ -108,6 +113,35 @@ function Reference({ entry }: { entry: ReferenceEntry }) {
       <span className="refnote">
         <Prose>{entry.note}</Prose>
       </span>
+    </li>
+  );
+}
+
+/**
+ * One test case, folded: the title says what it shows, and opening it gives the
+ * input and the outcome an implementation's run is compared with.
+ */
+function FixtureCase({ fixture }: { fixture: LoadedFixture }) {
+  return (
+    <li>
+      <details>
+        <summary>
+          <Prose>{fixture.title}</Prose> <span className="fixop">{fixture.operation}</span>
+        </summary>
+        {fixture.note && (
+          <p className="fixnote">
+            <Prose>{fixture.note}</Prose>
+          </p>
+        )}
+        <pre className="fixjson">
+          <code>{JSON.stringify({ given: fixture.given, expect: fixture.expect }, null, 2)}</code>
+        </pre>
+        <p className="fixsrc">
+          <a href={`${FIXTURES_REPO}/${fixture.file}`} rel="noreferrer noopener" target="_blank">
+            {fixture.file}
+          </a>
+        </p>
+      </details>
     </li>
   );
 }
@@ -230,6 +264,25 @@ export function RuleDoc({
               </ul>
             </div>
           )}
+        </section>
+      )}
+
+      {s.fixtures && (
+        <section id="fixtures">
+          <h2>Fixtures</h2>
+          <p>
+            Test cases whose outcome this rule decides. A case compares absent, <code>null</code> and
+            empty members exactly; the{' '}
+            <a href={`${FIXTURES_REPO}/fixtures/README.md`} rel="noreferrer noopener" target="_blank">
+              fixtures README
+            </a>{' '}
+            defines each operation. Where a case and the rule disagree, the rule is right.
+          </p>
+          <ul className="fixlist">
+            {fixturesFor(rule.id).map((f) => (
+              <FixtureCase key={f.id} fixture={f} />
+            ))}
+          </ul>
         </section>
       )}
 

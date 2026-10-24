@@ -1,0 +1,33 @@
+{
+  "$schema": "../schema.json",
+  "title": "A null meets required at launch, then fails a string type",
+  "rules": [
+    "MAN-15",
+    "MAN-16"
+  ],
+  "operation": "resolve-launch-inputs",
+  "given": {
+    "inputs": [
+      {
+        "name": "topic",
+        "node_id": "n1",
+        "port": "text",
+        "schema": {
+          "type": "string"
+        },
+        "required": true
+      }
+    ],
+    "supplied": {
+      "topic": null
+    }
+  },
+  "expect": {
+    "refused": {
+      "stage": "value",
+      "inputs": [
+        "topic"
+      ]
+    }
+  }
+}

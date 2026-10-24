@@ -1,0 +1,29 @@
+{
+  "$schema": "../schema.json",
+  "title": "The node type's recorded default wins over the schema default",
+  "rules": [
+    "CFG-3",
+    "CFG-6",
+    "CFG-14"
+  ],
+  "operation": "resolve-parameters",
+  "given": {
+    "parameters": {
+      "x": {
+        "schema": {
+          "type": "string",
+          "default": "schema"
+        },
+        "default": "node type",
+        "connectable": true,
+        "exposed": true,
+        "configurable": true
+      }
+    }
+  },
+  "expect": {
+    "resolved": {
+      "x": "node type"
+    }
+  }
+}

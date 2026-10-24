@@ -1,0 +1,27 @@
+{
+  "$schema": "../schema.json",
+  "title": "A value for an unbound input is accepted and delivered nowhere",
+  "rules": [
+    "MAN-11",
+    "MAN-14",
+    "MAN-2"
+  ],
+  "operation": "resolve-launch-inputs",
+  "given": {
+    "inputs": [
+      {
+        "name": "topic",
+        "schema": {
+          "type": "string",
+          "x-data-type": "string"
+        }
+      }
+    ],
+    "supplied": {
+      "topic": "x"
+    }
+  },
+  "expect": {
+    "initialData": {}
+  }
+}

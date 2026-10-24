@@ -1,0 +1,35 @@
+{
+  "$schema": "../schema.json",
+  "title": "An unbound output is absent, never null",
+  "rules": [
+    "MAN-17",
+    "MAN-2"
+  ],
+  "operation": "collect-outputs",
+  "given": {
+    "outputs": [
+      {
+        "name": "summary",
+        "schema": {
+          "type": "string",
+          "x-data-type": "string"
+        }
+      },
+      {
+        "name": "answer",
+        "node_id": "n1",
+        "port": "text"
+      }
+    ],
+    "produced": {
+      "n1": {
+        "text": "hello"
+      }
+    }
+  },
+  "expect": {
+    "result": {
+      "answer": "hello"
+    }
+  }
+}

@@ -1,0 +1,22 @@
+{
+  "$schema": "../schema.json",
+  "title": "A source that emits no active-branch member gates nothing",
+  "rules": [
+    "BR-1",
+    "BR-2"
+  ],
+  "operation": "gate-edge",
+  "given": {
+    "branches": [
+      "yes",
+      "no"
+    ],
+    "output": {
+      "value": 1
+    },
+    "port": "yes"
+  },
+  "expect": {
+    "follow": true
+  }
+}

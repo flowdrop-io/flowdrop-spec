@@ -1,0 +1,36 @@
+{
+  "$schema": "../schema.json",
+  "title": "A null on the wire beats the author's saved value",
+  "rules": [
+    "CFG-4",
+    "CFG-7",
+    "CFG-14"
+  ],
+  "operation": "resolve-parameters",
+  "given": {
+    "parameters": {
+      "x": {
+        "schema": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "connectable": true,
+        "exposed": true,
+        "configurable": true
+      }
+    },
+    "config": {
+      "x": "saved"
+    },
+    "inputs": {
+      "x": null
+    }
+  },
+  "expect": {
+    "resolved": {
+      "x": null
+    }
+  }
+}

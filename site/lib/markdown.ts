@@ -238,7 +238,7 @@ export function llmsFullTxt(): string {
       if (r.question) out.push(`**What was open.** ${r.question.trim()}`, '');
       out.push(r.decision.trim(), '');
       if (r.supersedes) out.push(`Supersedes ${r.supersedes}.`, '');
-      out.push(`Rules affected: ${r.affects.join(', ')}.`, '');
+      out.push(`Affects: ${r.affects.join(', ')}.`, '');
     }
   }
 

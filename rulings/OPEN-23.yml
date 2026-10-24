@@ -1,0 +1,15 @@
+id: OPEN-23
+headline: No rule requires the order of an object's members.
+question: >-
+  Several rules listed an object's members "in that order", or required two surfaces
+  to publish the same keys in the same order. JSON gives an object's members no order
+  (RFC 8259), and implementations in many languages cannot control or preserve it
+  without effort that buys a consumer nothing.
+decided: "2026-10-24"
+decision: >-
+  A rule states which members an object has, never the order they appear in, and a
+  consumer must not depend on member order. Where a rule needs two payloads to agree,
+  it requires the same members, not the same sequence. The order of an array's
+  elements stays significant where a rule says what it means.
+affects:
+  - conventions

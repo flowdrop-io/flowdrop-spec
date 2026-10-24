@@ -3,6 +3,8 @@ family: GR-API
 part: I
 
 title: Node configuration could be checked ahead of save
+summary: >-
+  Withdrawn: save-time validation is the only verdict on a node's configuration (R6, R11). See the legacy appendix.
 
 normative: >-
   A node's configuration could be checked ahead of save, by submitting the configuration
@@ -11,10 +13,13 @@ normative: >-
   save-time validation is the one surface that issues a verdict on a node's
   configuration.
 
-posture: deprecated
+posture: withdrawn
 level: optional
 profiles:
   - storage-api
 
 added: "1.0"
 changed: "1.0"
+
+rulings:
+  - OPEN-24

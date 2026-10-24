@@ -36,7 +36,7 @@
       "type": "array",
       "minItems": 1,
       "items": { "type": "string" },
-      "description": "Every rule that cites this ruling. Kept in step with those rules' `rulings` lists by the validator, in both directions."
+      "description": "Every rule that cites this ruling, plus `conventions` where the ruling changes conventions.md. The rule entries are kept in step with those rules' `rulings` lists by the validator, in both directions; `conventions` cites nothing back, so it is exempt."
     },
     "supersedes": {
       "type": "string",

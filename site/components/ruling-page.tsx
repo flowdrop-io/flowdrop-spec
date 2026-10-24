@@ -67,13 +67,22 @@ export function RulingDoc({ ruling }: { ruling: LoadedRuling }) {
       <section id="affects">
         <h2>Rules affected</h2>
         <ul className="spec-list">
-          {ruling.affects.map((id) => (
-            <li key={id}>
-              <Link href={urlForId(id) ?? '/rules'}>
-                <span className="spec-list-id">{id}</span>
-              </Link>
-            </li>
-          ))}
+          {ruling.affects.map((id) =>
+            // `conventions` names conventions.md, which a ruling may change too.
+            id === 'conventions' ? (
+              <li key={id}>
+                <Link href="/conventions">
+                  <span className="spec-list-title">Conventions</span>
+                </Link>
+              </li>
+            ) : (
+              <li key={id}>
+                <Link href={urlForId(id) ?? '/rules'}>
+                  <span className="spec-list-id">{id}</span>
+                </Link>
+              </li>
+            ),
+          )}
         </ul>
       </section>
     </>

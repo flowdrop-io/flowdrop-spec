@@ -1,0 +1,16 @@
+id: OPEN-25
+headline: Requirement words follow BCP 14 and are written in capitals.
+question: >-
+  The conventions used lowercase "must", "should" and "may", binding only inside a
+  normative sentence. A reader could not tell a requirement from ordinary English
+  without knowing which sentence was normative, and plain statements such as
+  "answers 201" left open whether they were requirements at all.
+decided: "2026-10-24"
+decision: >-
+  The key words MUST, MUST NOT, SHOULD, SHOULD NOT and MAY are interpreted as in BCP
+  14 (RFC 2119, RFC 8174), and only when written in capitals. Every binding sentence
+  of a rule carries one. The rules are re-cased in one sweep. The sweep changes
+  wording, not requirements: where a re-cased sentence would require something the
+  old one did not, the change is made by a ruling of its own.
+affects:
+  - conventions

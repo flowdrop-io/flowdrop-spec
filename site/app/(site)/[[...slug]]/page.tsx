@@ -63,6 +63,18 @@ function railItems(toc: TOCItemType[]): TOCItemType[] {
   return toc.filter((i) => (i.depth ?? 2) <= 3);
 }
 
+/** A ruling's `affects` may name `conventions` beside rule ids; count the rules only. */
+function ruleIds(affects: string[]): string[] {
+  return affects.filter((id) => id !== 'conventions');
+}
+
+function affectsLabel(affects: string[]): string {
+  const n = ruleIds(affects).length;
+  const rules = n === 0 ? '' : `${n} ${n === 1 ? 'rule' : 'rules'}`;
+  if (!affects.includes('conventions')) return rules;
+  return rules ? `conventions, ${rules}` : 'conventions';
+}
+
 function tally<T>(items: T[], pick: (t: T) => string): [string, number][] {
   const m = new Map<string, number>();
   for (const i of items) m.set(pick(i), (m.get(pick(i)) ?? 0) + 1);
@@ -121,7 +133,7 @@ async function renderPage(page: NonNullable<ReturnType<typeof source.getPage>>) 
         <RailId eyebrow="Rulings" id={String(rulings.length)} part="decisions on record" />
         <RailTally
           head="Record"
-          rows={[['Rulings', rulings.length], ['Rules affected', new Set(rulings.flatMap((r) => r.affects)).size]]}
+          rows={[['Rulings', rulings.length], ['Rules affected', new Set(rulings.flatMap((r) => ruleIds(r.affects))).size]]}
         />
       </>
     );
@@ -142,7 +154,7 @@ async function renderPage(page: NonNullable<ReturnType<typeof source.getPage>>) 
                   <Prose>{r.headline}</Prose>
                 </span>
                 <span className="spec-list-meta">
-                  {r.affects.length} {r.affects.length === 1 ? 'rule' : 'rules'}
+                  {affectsLabel(r.affects)}
                 </span>
               </Link>
             </li>

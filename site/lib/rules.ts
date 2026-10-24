@@ -18,7 +18,7 @@ export type Rule = {
   title: string;
   summary?: string;
   normative: string;
-  posture: 'normative-target' | 'descriptive' | 'deprecated' | 'withdrawn';
+  posture: 'normative-target' | 'descriptive' | 'withdrawn';
   level: 'core' | 'extended' | 'optional';
   profiles: ('runtime' | 'storage-api' | 'editor-client')[];
   added: string;

@@ -3,6 +3,8 @@ family: RT-ST
 part: II
 
 title: An update naming an unknown run registered it rather than dropping it
+summary: >-
+  Withdrawn with the polled status surface. See the legacy appendix.
 
 normative: >-
   Retired with the polled status surface. An update naming an execution or a
@@ -10,10 +12,13 @@ normative: >-
   discarding the update, so a run started outside the reporting request could
   still be reported.
 
-posture: deprecated
+posture: withdrawn
 level: extended
 profiles:
   - runtime
 
 added: "1.0"
 changed: "1.0"
+
+rulings:
+  - OPEN-24

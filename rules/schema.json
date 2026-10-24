@@ -20,7 +20,7 @@
       "minLength": 20,
       "description": "The binding sentence(s). Implementation-independent."
     },
-    "posture": { "enum": ["normative-target", "descriptive", "deprecated", "withdrawn"] },
+    "posture": { "enum": ["normative-target", "descriptive", "withdrawn"] },
     "level": { "enum": ["core", "extended", "optional"] },
     "profiles": {
       "type": "array",

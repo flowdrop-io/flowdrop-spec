@@ -20,7 +20,7 @@ STORE-14 GR-STORE
 API-1 GR-API
 API-2 GR-API
 API-3 GR-API
-API-4 GR-API
+API-4 GR-API withdrawn
 API-5 GR-API
 API-6 GR-API
 API-7 GR-API
@@ -247,7 +247,7 @@ ERR-8 RT-ERR
 ERR-9 RT-ERR
 ERR-10 RT-ERR
 ERR-11 RT-ERR
-ERR-12 RT-ERR
+ERR-12 RT-ERR withdrawn
 ERR-13 RT-ERR
 ORC-1 RT-ORC
 ORC-2 RT-ORC
@@ -389,15 +389,15 @@ CRON-2 RT-CRON
 TRIG-1 RT-TRIG
 TRIG-2 RT-TRIG
 TRIG-3 RT-TRIG
-ST-1 RT-ST
-ST-2 RT-ST
-ST-3 RT-ST
-ST-4 RT-ST
-ST-5 RT-ST
-ST-6 RT-ST
-ST-7 RT-ST
-ST-8 RT-ST
-ST-9 RT-ST
+ST-1 RT-ST withdrawn
+ST-2 RT-ST withdrawn
+ST-3 RT-ST withdrawn
+ST-4 RT-ST withdrawn
+ST-5 RT-ST withdrawn
+ST-6 RT-ST withdrawn
+ST-7 RT-ST withdrawn
+ST-8 RT-ST withdrawn
+ST-9 RT-ST withdrawn
 
 # Issued 2026-08-25 by the rulings on the P0 deferral list.
 STORE-6 GR-STORE

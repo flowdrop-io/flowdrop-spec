@@ -1,0 +1,21 @@
+id: OPEN-22
+headline: Lists are open unless a rule says they are closed, and added names are registered.
+question: >-
+  Many rules listed the members of an object or the values of a field with the word
+  "exactly", and nothing said whether an implementation could add to the list. Read as
+  closed, the lists made every addition a breach, including additions that clients
+  depend on and that break nothing. Read as open, nothing stopped two implementations
+  giving one added name two meanings.
+decided: "2026-10-24"
+decision: >-
+  A list of members or values is open unless a rule says it is closed. An
+  implementation may add members or values; an addition must not change the meaning
+  of anything the specification defines, and a consumer ignores what it does not
+  recognise. A rule that needs a closed list says "closed" and gives the reason a
+  consumer depends on the list being complete; "exactly" no longer implies it. Added
+  names are recorded in an informative register, extensions.md, without a required
+  prefix: a prefix turns into a rename the day a name is standardised, as HTTP found
+  with "X-" (RFC 6648). The specification never gives a registered name another
+  meaning.
+affects:
+  - conventions

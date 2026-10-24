@@ -1,0 +1,30 @@
+id: OPEN-24
+headline: A rule is in force or withdrawn; the deprecated posture is removed.
+question: >-
+  Twelve rules were marked deprecated. The conventions said a deprecated rule still
+  binds, yet most of them described surfaces that implementations had already
+  removed, written in the past tense. A reader could not tell whether such a rule
+  required anything, and a conformance claim could not say whether it had to be met.
+decided: "2026-10-24"
+decision: >-
+  A rule is either in force or withdrawn; there is no third standing. Each of the
+  twelve was re-sorted. A rule that still carries a live requirement is rewritten in
+  the present tense and stays in force. A rule that describes a retired surface is
+  withdrawn. How to read old traces of a retired surface is explained in the
+  informative legacy appendix, legacy.md, not in rule text. Announcing the
+  retirement of a live route is a matter for HTTP (RFC 9745), not for a rule
+  posture.
+affects:
+  - conventions
+  - API-4
+  - ERR-12
+  - R6.k
+  - ST-1
+  - ST-2
+  - ST-3
+  - ST-4
+  - ST-5
+  - ST-6
+  - ST-7
+  - ST-8
+  - ST-9

@@ -3,16 +3,21 @@ family: RT-ST
 part: II
 
 title: An execution was reported by id and status
+summary: >-
+  Withdrawn with the polled status surface. See the legacy appendix.
 
 normative: >-
   Retired with the polled status surface. It reported an execution as
   `{execution_id, status}`, answered 404 for an execution it held no record of,
   and 500 where the reporting itself failed.
 
-posture: deprecated
+posture: withdrawn
 level: extended
 profiles:
   - runtime
 
 added: "1.0"
 changed: "1.0"
+
+rulings:
+  - OPEN-24

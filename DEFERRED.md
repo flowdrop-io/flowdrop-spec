@@ -47,6 +47,19 @@ nothing observable turns on it. Where a rule records behaviour as *known wrong*
 rather than merely undermotivated, it stays out: `BR-2`'s fallback is the example,
 and it is the reason that guard exists.
 
+## Open gaps
+
+Questions the specification relies on but does not yet answer. Unlike the rules
+below, these are not deferred because they are implementation-bound; they wait for
+a decision.
+
+- **The node-status broadcast vocabulary** (2026-10-24, OPEN-24). ERR-5 says a node
+  broadcasts `completed`, and STORE-13 names a node-status broadcast as a payload,
+  but no rule in force states which statuses a broadcast carries or what each
+  status change reports. ST-7 and ST-9 described both, and were withdrawn with the
+  polled status surface they belonged to. To be settled with the concept model,
+  where node execution and its statuses are defined.
+
 ## By family
 
 | Family | In the spec | Deferred |

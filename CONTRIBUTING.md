@@ -71,19 +71,17 @@ Four things, briefly:
 
 ## Writing rules
 
-- **State the target, not what an implementation happens to do.** If a rule is
-  describing a framework's behaviour, it is in the wrong document.
-- **No implementation vocabulary.** A rule naming a class, a function, or a
-  framework is a defect. Say "a request over 8 MiB is refused with 400", not
-  "`decodeJsonRequest()` throws".
-- **Prefer a floor to a ceiling** where a limit exists. "Must accept at least N"
-  keeps implementations portable without freezing one system's arbitrary maximum
-  into all the others.
-- **Say the unit precisely.** Bytes, code points, and grapheme clusters are three
-  different things; "characters" is not a unit.
-- **A rule must be falsifiable.** If no implementation could be shown to break it,
-  it says nothing. Delete it rather than publish a sentence that reads like a
-  promise and is not one.
+Every rule is written to [`drafting.md`](drafting.md), and a review cites its
+checks by identifier (`DR-6`). The short version:
+
+- **State the target, not what an implementation happens to do** (DR-1, DR-7).
+- **No implementation vocabulary** (DR-1, DR-10). Say "a request over 8 MiB is
+  refused with 400", not "`decodeJsonRequest()` throws".
+- **Prefer a floor to a ceiling** (DR-13). "MUST accept at least N" keeps
+  implementations portable without freezing one system's arbitrary maximum into
+  all the others.
+- **A rule must be falsifiable** (DR-6). If no implementation could be shown to
+  break it, it says nothing.
 
 ## Writing narrative
 

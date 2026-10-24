@@ -3,16 +3,21 @@ family: RT-ST
 part: II
 
 title: Node statuses passed through, and an untracked run was empty rather than absent
+summary: >-
+  Withdrawn with the polled status surface. See the legacy appendix.
 
 normative: >-
   Retired with the polled status surface. It passed the recorded node statuses
   through unchanged, and answered a request for an execution it held no record
   of with an empty map rather than a 404.
 
-posture: deprecated
+posture: withdrawn
 level: extended
 profiles:
   - runtime
 
 added: "1.0"
 changed: "1.0"
+
+rulings:
+  - OPEN-24

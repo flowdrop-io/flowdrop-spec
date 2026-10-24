@@ -18,6 +18,8 @@ removed.
 - **Edge (wire)**: a connection from one node's output port to another node's
   input port. An edge has no declared type; its *meaning* is deduced from the
   ports it connects (see GR-EDGE).
+- **Source, target**: the two ends of an edge. The **source** is the node and
+  output port it leaves; the **target** is the node and input port it enters.
 - **Handle**: the string the editor stores to say which port an edge attaches
   to, e.g. `mynode-input-message`.
 
@@ -114,10 +116,11 @@ removed.
 - **Schema snapshot**: a frozen copy of each declared input's schema, so callers
   validate against what the author *published*, not against live node-type code.
   (Not the same as the run-progress snapshot above.)
-- **Door**: a public API route through which a caller reaches a workflow, a
-  session or a run: the launch door, the turn door, the workflow store's doors.
-  The GR-API rules constrain what every door accepts and how it refuses, so a
-  caller learns one contract rather than one per route.
+- **Endpoint**: a public API route through which a caller reaches a workflow, a
+  session or a run: the launch endpoint, the turn endpoint, the workflow store's
+  endpoints. The GR-API rules constrain what every endpoint accepts and how it
+  refuses, so a caller learns one contract rather than one per route. Only an API
+  route is an endpoint; the two ends of an edge are its *source* and *target*.
 
 ## Sessions
 

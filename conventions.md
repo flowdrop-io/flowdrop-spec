@@ -5,19 +5,37 @@ repeat them.
 
 ## Requirement levels
 
-**must**: an absolute requirement. An implementation that does not do this does
-not conform.
+The key words **MUST**, **MUST NOT**, **SHOULD**, **SHOULD NOT** and **MAY** in this
+specification are to be interpreted as described in **BCP 14** (RFC 2119, RFC 8174)
+when, and only when, they appear in all capitals, as shown here. This specification
+uses no other BCP 14 key words.
 
-**must not**: an absolute prohibition.
+In plain terms:
 
-**should**: a strong recommendation. There may be valid reasons to do otherwise;
-understand them before choosing.
+- **MUST** is an absolute requirement, and **MUST NOT** an absolute prohibition. An
+  implementation that does not meet one does not conform.
+- **SHOULD** is a strong recommendation, and **SHOULD NOT** a strong
+  recommendation against. There may be valid reasons to do otherwise; understand
+  them before choosing.
+- **MAY** is genuinely optional. An implementation that does this and one that
+  does not are both conforming, so a caller cannot rely on it.
 
-**may**: genuinely optional. An implementation that does this and one that does
-not are both conforming, so a caller cannot rely on it.
+The same words in lower case are ordinary English and bind nothing.
 
-These words carry this meaning only in a rule's normative sentence. In narrative
-prose they are ordinary English.
+## Normative and informative text
+
+A rule's **normative** text, these conventions, and the **decision** of a ruling
+are normative. Everything else is informative: a rule's title and summary,
+narrative pages, examples, notes, the glossary's explanations, and a ruling's
+question. Informative text explains; it never adds a requirement. Where the two
+disagree, the normative text wins and the disagreement is a defect to report.
+
+## Conformance
+
+An implementation declares the **profiles** it implements and the **level** it
+claims. It conforms when it meets every requirement of every rule that belongs to
+one of those profiles, at the claimed level and every level below it. A rule that
+is withdrawn does not bind.
 
 ## Refusals
 
@@ -30,14 +48,14 @@ it asked for has taken effect.
 
 A validation result's errors carry **no defined order**. Two implementations
 refusing the same workflow may report the same errors in different sequences, and
-one implementation may change its own order without notice, so a consumer must not
+one implementation may change its own order without notice, so a consumer MUST NOT
 depend on it. Where a rule needs an error to be identifiable, it says so by naming
 the code and the locator, never the position.
 
 ## Authoring surfaces
 
 Some rules address what an authoring surface does. They constrain **the data such a
-surface may produce** — what it may record, and what it must not — and never how it
+surface may produce** (what it may record, and what it must not) and never how it
 presents controls. Widget shape, layout, enablement and the order things appear in
 are an implementation's own affair, and a rule that could only be satisfied by
 building a particular control is a defect in the rule.
@@ -45,6 +63,42 @@ building a particular control is a defect in the rule.
 ## Payloads
 
 Request and response bodies are JSON, as defined in **RFC 8259**.
+
+**Member order.** A JSON object's members have no order (RFC 8259 §4). Where a
+rule lists the members of an object, it states which members are present, never
+the order they appear in. A consumer MUST NOT depend on member order. The order of
+an array's elements is significant only where the rule says what it means.
+
+**Absent and null.** A member that is absent and a member whose value is `null` are
+different things. Where the difference could matter, a rule says which one it
+means. A rule that says neither is a defect to report.
+
+## Extensibility
+
+**Lists are open unless a rule says they are closed.** Where a rule lists the
+members of an object, or the values a field may take, an implementation MAY add
+members or values of its own. An addition MUST NOT change the meaning of anything
+the specification defines. A consumer MUST ignore a member it does not recognise,
+and MUST NOT fail solely because it meets a value it does not recognise in an open
+list.
+
+**Added names are registered.** A member or value that an implementation adds
+SHOULD be listed in [`extensions.md`](extensions.md), with what it means and which
+implementation adds it. The specification never gives a listed name another
+meaning, and two implementations adding the same name learn of the clash from the
+register rather than from each other's payloads.
+
+**A closed list is exhaustive.** Where a rule says a list is closed, an
+implementation MUST NOT add to it, and a consumer MAY treat anything outside it as
+an error. A rule closes a list only where an addition would break a consumer that
+relies on the list being complete, and says why.
+
+## Limits
+
+Where a rule says an implementation MUST accept **at least** some amount (a
+length, a count, a size), the amount is a floor. An implementation MAY accept more.
+Beyond its own limit it refuses as the rule says. A caller that stays within the
+floor can rely on every conforming implementation accepting the request.
 
 ## Counting text
 
@@ -105,8 +159,6 @@ A rule declares how it is meant to be read.
   implementation has met it yet.
 - **descriptive**: the rule records what implementations do rather than requiring
   it. Nothing here is a requirement, and a reader must not treat it as one.
-- **deprecated**: the rule still holds, and something else is preferred. It is
-  kept so that it stays citable.
 - **withdrawn**: the rule no longer holds. The identifier is never reused, so the
   rule is kept rather than deleted, and says what replaced it.
 

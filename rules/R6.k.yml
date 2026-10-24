@@ -2,22 +2,24 @@ id: R6.k
 family: GR-VAL
 part: I
 
-title: There is no separate per-executor config verdict
+title: No save is gated on a separate per-executor config check
 
 normative: >-
-  A per-executor configuration-validation step was once part of the node
-  executor contract. It decided nothing, and it is withdrawn: an implementation
-  must not gate a save on one. Save-time verdicts on a node's configuration
-  come from R6 and R11 alone, and a value that is only wrong at execution fails
-  inside the node when it runs.
+  An implementation MUST NOT refuse a save on the verdict of a per-executor
+  configuration check. Save-time verdicts on a node's configuration come from R6
+  and R11. A value that is wrong only at execution fails inside the node when it
+  runs.
 
-posture: deprecated
+posture: normative-target
 level: extended
 profiles:
   - storage-api
 
 added: "1.0"
 changed: "1.0"
+
+rulings:
+  - OPEN-24
 
 related:
   - R11

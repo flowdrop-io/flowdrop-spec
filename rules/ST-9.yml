@@ -3,6 +3,8 @@ family: RT-ST
 part: II
 
 title: Each transition carried a payload defined for it
+summary: >-
+  Withdrawn with the polled status surface. See the legacy appendix.
 
 normative: >-
   Retired with the polled status surface. A transition to running carried the
@@ -10,10 +12,13 @@ normative: >-
   failed the error, and to interrupted the interrupt id and type. These
   payloads outlived the surface, still riding the runtime status broadcasts.
 
-posture: deprecated
+posture: withdrawn
 level: extended
 profiles:
   - runtime
 
 added: "1.0"
 changed: "1.0"
+
+rulings:
+  - OPEN-24

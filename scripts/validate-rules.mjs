@@ -11,7 +11,8 @@
  *      none added without being recorded, and none reserved yet used.
  *   5. `related` points at rules that exist.
  *   6. Every cited ruling exists, and every ruling's `affects` list agrees with
- *      the rules that cite it, in both directions.
+ *      the rules that cite it, in both directions. `conventions` in `affects`
+ *      names conventions.md and is exempt.
  *   7. Narrative prose has not drifted from the rule text it explains.
  */
 import { readFileSync, writeFileSync, readdirSync, existsSync } from 'node:fs';
@@ -202,6 +203,7 @@ if (!existsSync(rulingsDir)) {
   // Both directions. A rule citing a ruling that does not exist is the original
   // defect; a ruling claiming a rule that does not cite it is the same drift
   // pointing the other way, and is just as misleading to a reader.
+  const CONVENTIONS = 'conventions';
   const citedBy = new Map();
   for (const [id, doc] of rules) {
     for (const ref of doc.rulings ?? []) {
@@ -216,6 +218,9 @@ if (!existsSync(rulingsDir)) {
   for (const [id, doc] of rulings) {
     const actual = citedBy.get(id) ?? new Set();
     for (const ref of doc.affects ?? []) {
+      // A ruling may change conventions.md itself. The conventions cite nothing
+      // back, so this entry has no other direction to check.
+      if (ref === CONVENTIONS) continue;
       if (!rules.has(ref)) fail(`rulings/${id}.yml`, `affects ${ref}, which is not a rule`);
       else if (!actual.has(ref)) fail(`rulings/${id}.yml`, `affects ${ref}, but ${ref} does not cite ${id}`);
     }

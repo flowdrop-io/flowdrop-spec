@@ -3,6 +3,8 @@ family: RT-ST
 part: II
 
 title: The status vocabulary was closed
+summary: >-
+  Withdrawn with the polled status surface. See the legacy appendix.
 
 normative: >-
   Retired with the polled status surface. Its status vocabulary was
@@ -10,10 +12,13 @@ normative: >-
   itself outlived the surface as the status set carried on runtime status
   broadcasts, there joined by skipped.
 
-posture: deprecated
+posture: withdrawn
 level: extended
 profiles:
   - runtime
 
 added: "1.0"
 changed: "1.0"
+
+rulings:
+  - OPEN-24

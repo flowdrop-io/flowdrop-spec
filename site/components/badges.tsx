@@ -15,7 +15,6 @@ const LEVEL_TITLE: Record<string, string> = {
 const POSTURE_TITLE: Record<string, string> = {
   'normative-target': 'What a conforming implementation is required to do.',
   descriptive: 'Records what is, rather than requiring it.',
-  deprecated: 'Kept so it stays citable; not to be relied on.',
   withdrawn: 'No longer part of the specification; kept so it stays citable.',
 };
 

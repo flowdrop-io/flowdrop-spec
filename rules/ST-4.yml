@@ -3,16 +3,21 @@ family: RT-ST
 part: II
 
 title: The detail view carried derived run metrics
+summary: >-
+  Withdrawn with the polled status surface. See the legacy appendix.
 
 normative: >-
   Retired with the polled status surface. Its detail view carried metrics
   (total, completed, failed and pending node counts and a total execution time),
   each derived from the node records it held.
 
-posture: deprecated
+posture: withdrawn
 level: extended
 profiles:
   - runtime
 
 added: "1.0"
 changed: "1.0"
+
+rulings:
+  - OPEN-24

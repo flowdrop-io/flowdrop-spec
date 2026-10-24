@@ -14,3 +14,6 @@ decision: >-
 affects:
   - conventions
   - API-5
+  - PLAY-2
+  - PLAY-3
+  - PLAY-4

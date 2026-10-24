@@ -8,12 +8,12 @@ summary: >-
   with every sibling session in the workflow.
 
 normative: >-
-  A caller without authority to view any session sees only sessions they own: the
-  ownership condition binds the list and its total count alike, on the default
-  path and on the filtered path, so the `ids` filter can only narrow what the
-  caller could already see. Where the filter is present but every value in it
-  parses away, the list answers an empty page with a total of zero; it must not
-  fall through to the unfiltered list.
+  A caller without authority to view any session MUST see only sessions they own.
+  The ownership condition MUST bind the list and its total count alike, on the default
+  path and on the filtered path, so the `ids` filter can only narrow what the caller
+  could already see. Where the filter is present but every value in it parses away,
+  the list MUST answer an empty page with a total of zero. It MUST NOT fall through
+  to the unfiltered list.
 
 posture: normative-target
 level: extended
@@ -23,6 +23,9 @@ profiles:
 
 added: "1.0"
 changed: "1.0"
+
+rulings:
+  - OPEN-25
 
 related:
   - PLAY-1

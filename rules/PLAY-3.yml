@@ -9,16 +9,16 @@ summary: >-
   shared pagination block would break every such client.
 
 normative: >-
-  The message poll answers `{success, data, hasMore, hasOlder, sessionStatus}` in
-  that order, with no pagination block and no `has_more` key: the three flags are
-  siblings of `data`, not nested. `hasMore` reports page fullness (whether the
-  page returned as many messages as were asked for) and is an inference.
-  `hasOlder` is authoritative: it reports whether messages older than the page
-  exist, so a client scrolling back never pays a speculative empty fetch at an
-  exact page boundary. `sessionStatus` rides along so a poller needs no second
-  request to learn the turn has finished. The forward and backward cursors are
-  honoured only when they are strings of digits; a cursor that is not is ignored,
-  not refused.
+  The message poll MUST answer `{success, data, hasMore, hasOlder, sessionStatus}`,
+  with no pagination block and no `has_more` key. The three flags MUST be siblings of
+  `data`, not nested. `hasMore` MUST report page fullness (whether the page returned
+  as many messages as were asked for); it is an inference. `hasOlder` MUST report
+  whether messages older than the page exist; it is authoritative, so a client
+  scrolling back never pays a speculative empty fetch at an exact page boundary.
+  `sessionStatus` is carried so that a poller needs no second request to learn the
+  turn has finished. The forward and backward cursors MUST be honoured only when they
+  are strings of digits. A cursor that is not MUST be ignored, and MUST NOT cause the
+  request to be refused.
 
 posture: normative-target
 level: core
@@ -28,6 +28,10 @@ profiles:
 
 added: "1.0"
 changed: "1.0"
+
+rulings:
+  - OPEN-23
+  - OPEN-25
 
 related:
   - PLAY-4

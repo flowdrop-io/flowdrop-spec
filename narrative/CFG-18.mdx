@@ -1,12 +1,12 @@
 ---
 rule: CFG-18
-rule_hash: ce988df2c29e
+rule_hash: 310eebe7559e
 ---
 
 ## What it means
 
 Carrying a default is not enough on its own for a parameter to publish a
-config default: it must also be configurable. A parameter that only accepts
+config default: the parameter also has to be configurable. A parameter that only accepts
 wired values can still carry a default for the runtime cascade to fall back
 on, but that default never appears in `configDefaults`, because that bag
 seeds an authoring surface for a parameter with no such surface at all. The

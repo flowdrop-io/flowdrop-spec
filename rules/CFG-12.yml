@@ -5,9 +5,9 @@ part: I
 title: An unrecognised format passes rather than fails
 
 normative: >-
-  A `format` an implementation recognises is enforced: a value that does not match
-  it fails validation (CFG-10). A `format` name the implementation does not
-  recognise passes, so a schema written against a richer vocabulary never blocks a
+  An implementation MUST enforce a `format` it recognises: a value that does not match
+  it MUST fail validation (CFG-10). A `format` name the implementation does not
+  recognise MUST pass, so a schema written against a richer vocabulary never blocks a
   node from running.
 
 posture: normative-target
@@ -17,6 +17,9 @@ profiles:
 
 added: "1.0"
 changed: "1.0"
+
+rulings:
+  - OPEN-25
 
 related:
   - CFG-10

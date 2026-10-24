@@ -10,8 +10,8 @@ summary: >-
   was last saved does not silently vanish from the canvas.
 
 normative: >-
-  A port's default exposure defaults to true. Where a node type records no
-  `exposedByDefault` value for a port, the port is exposed by default. This
+  A port's default exposure MUST default to true. Where a node type records no
+  `exposedByDefault` value for a port, the port MUST be exposed by default. This
   polarity is the opposite of the gate flags (CFG-1) and is deliberate.
 
 posture: normative-target
@@ -21,6 +21,9 @@ profiles:
 
 added: "1.0"
 changed: "1.0"
+
+rulings:
+  - OPEN-25
 
 related:
   - CFG-1

@@ -10,13 +10,14 @@ summary: >-
   prefix is choosing that semantics, not a naming style.
 
 normative: >-
-  A parameter whose name begins `__` is internal. It always accepts a value from
-  the runtime inputs regardless of its `connectable`, `exposed` and `configurable`
-  flags, never takes a value from the node's saved configuration, and otherwise
-  takes its effective default. Bypassing the gate flags does not exempt it from
-  declaration: an internal name absent from the processor's parameter schema is
-  never resolved and never reaches the processor (CFG-13), whoever supplied it. A
-  setting that also needs an author-facing surface must not use the prefix.
+  A parameter whose name begins `__` is internal. An internal parameter MUST accept a
+  value from the runtime inputs regardless of its `connectable`, `exposed` and
+  `configurable` flags. It MUST NOT take a value from the node's saved configuration.
+  Where the runtime inputs supply none, it MUST take its effective default. Bypassing
+  the gate flags does not exempt it from declaration: an internal name absent from the
+  processor's parameter schema MUST NOT be resolved, whoever supplied it. Such a name
+  MUST NOT reach the processor (CFG-13). A setting that also needs an author-facing
+  surface MUST NOT use the prefix.
 
 posture: normative-target
 level: core
@@ -25,6 +26,9 @@ profiles:
 
 added: "1.0"
 changed: "1.0"
+
+rulings:
+  - OPEN-25
 
 related:
   - CFG-4

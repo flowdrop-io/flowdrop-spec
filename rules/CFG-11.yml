@@ -5,10 +5,10 @@ part: I
 title: Type checking matches exactly and never coerces
 
 normative: >-
-  A `type` check compares the value against the named type exactly: a value of the
-  wrong type fails, and is never coerced to make it pass. A type name the
-  implementation does not recognise passes rather than fails, so an unknown type
-  never blocks a node from running.
+  A `type` check MUST judge the value as JSON Schema's `type` keyword does. A value of
+  the wrong type MUST fail, and MUST NOT be converted to make it pass. A `type` that
+  names no JSON Schema type makes the schema invalid: that is the node type's failure
+  (SCH-24), and the value is neither passed nor failed on account of it.
 
 posture: normative-target
 level: core
@@ -17,6 +17,10 @@ profiles:
 
 added: "1.0"
 changed: "1.0"
+
+rulings:
+  - OPEN-25
+  - OPEN-28
 
 related:
   - CFG-10

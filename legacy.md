@@ -87,7 +87,7 @@ unbound input is not an error: the value is checked and delivered to no node.
 
 ## A broken parameter schema read as no constraint
 
-Rules: R6.d, R6.h, R6.j, SCH-24 (ruling OPEN-28).
+Rules: R6.d, R6.h, R6.j, SCH-24, CFG-11 (ruling OPEN-28).
 
 Some implementations once accepted any config value for a parameter whose schema
 named a `type` JSON Schema does not know, or whose `pattern` was not a valid regular

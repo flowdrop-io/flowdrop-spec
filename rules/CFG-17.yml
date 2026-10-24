@@ -10,11 +10,11 @@ summary: >-
   guards, one outcome: a hidden port is not fillable, by any route.
 
 normative: >-
-  Decomposition of the unified `input` port (CFG-16) admits a key on the strength
-  of `connectable` alone. A value that reaches a hidden connectable port this way
-  is still discarded when the parameter is resolved, because priority 1 requires
-  the port to be exposed (CFG-4). Bundling a value must never fill a port that
-  could not be wired directly.
+  Decomposition of the unified `input` port (CFG-16) admits a key on the strength of
+  `connectable` alone. A value that reaches a hidden connectable port this way MUST
+  still be discarded when the parameter is resolved, because priority 1 requires the
+  port to be exposed (CFG-4). Bundling a value MUST NOT fill a port that could not be
+  wired directly.
 
 posture: normative-target
 level: extended
@@ -23,6 +23,9 @@ profiles:
 
 added: "1.0"
 changed: "1.0"
+
+rulings:
+  - OPEN-25
 
 related:
   - CFG-4

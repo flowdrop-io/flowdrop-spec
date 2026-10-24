@@ -5,18 +5,18 @@ part: I
 title: The unified input port is decomposed before resolution
 
 summary: >-
-  A node may take all its inputs as one bundled object on the reserved `input`
+  A node can take all its inputs as one bundled object on the reserved `input`
   port. That bundle is unpacked into individual named inputs before any parameter
   is resolved, so the rest of the chain cannot tell the difference.
 
 normative: >-
-  Where the reserved `input` port carries a value, it is decomposed before any
-  parameter is resolved. Where that value is not an object, nothing is decomposed:
-  the runtime inputs are left unchanged and the raw `input` key survives, so a
-  declared parameter literally named `input` receives the value as it stands.
-  Otherwise, only keys that name a connectable parameter, an internal parameter, or
-  a declared dynamic input are kept, and the rest are discarded. A value wired
-  individually to a port then overwrites the same key taken from the bundle.
+  Where the reserved `input` port carries a value, it MUST be decomposed before any
+  parameter is resolved. Where that value is not an object, it MUST NOT be decomposed:
+  the runtime inputs MUST be left unchanged. The raw `input` key MUST survive, so that a
+  declared parameter literally named `input` receives the value as it stands. Otherwise,
+  only keys that name a connectable parameter, an internal parameter, or a declared
+  dynamic input MUST be kept, and the rest MUST be discarded. A value wired individually
+  to a port MUST overwrite the same key taken from the bundle.
 
 posture: normative-target
 level: extended
@@ -25,6 +25,9 @@ profiles:
 
 added: "1.0"
 changed: "1.0"
+
+rulings:
+  - OPEN-25
 
 related:
   - CFG-4

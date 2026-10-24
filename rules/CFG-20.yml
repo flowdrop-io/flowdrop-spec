@@ -10,9 +10,9 @@ summary: >-
 
 normative: >-
   A parameter's `when_missing` flag takes one of two values, `fail` or `skip`. The flag
-  is read from the node type's own parameter configuration, as the gate flags are
+  MUST be read from the node type's own parameter configuration, as the gate flags are
   (SCH-2). Where the node type records no value, an implementation MUST treat the flag
-  as `fail`. The flag has no effect on a parameter that is not required.
+  as `fail`. The flag MUST have no effect on a parameter that is not required.
 
 posture: normative-target
 level: extended
@@ -25,6 +25,7 @@ changed: "1.0"
 
 rulings:
   - OPEN-21
+  - OPEN-25
 
 related:
   - SCH-2

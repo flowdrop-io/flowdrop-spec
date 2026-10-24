@@ -5,13 +5,13 @@ part: I
 title: An unrecorded gate flag is off
 
 summary: >-
-  A node type records per-parameter gate flags: whether a parameter may receive a
+  A node type records per-parameter gate flags: whether a parameter can receive a
   wire, whether it appears in the config form, whether it is required. Where a flag
   was never recorded, the answer is no.
 
 normative: >-
-  A parameter's `connectable`, `configurable` and `required` gate flags default to
-  false. Where a node type records no value for one of them, the parameter is
+  A parameter's `connectable`, `configurable` and `required` gate flags MUST default to
+  false. Where a node type records no value for one of them, the parameter MUST be
   treated as not connectable, not configurable, or not required accordingly.
 
 posture: normative-target
@@ -21,6 +21,9 @@ profiles:
 
 added: "1.0"
 changed: "1.0"
+
+rulings:
+  - OPEN-25
 
 related:
   - CFG-2

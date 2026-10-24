@@ -7,7 +7,7 @@ title: Published config defaults cover configurable parameters only
 normative: >-
   A node type's published metadata MUST carry a config default for a parameter only
   where the parameter is configurable and has an effective default (CFG-3), a `null`
-  default included. No entry MUST be published for a parameter that is not configurable,
+  default included. An entry MUST NOT be published for a parameter that is not configurable,
   or that has no effective default.
 
 posture: normative-target

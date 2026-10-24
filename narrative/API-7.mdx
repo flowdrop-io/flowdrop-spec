@@ -1,16 +1,16 @@
 ---
 rule: API-7
-rule_hash: 8c34f9f745c0
+rule_hash: 8eab3856a7c6
 ---
 
 ## What it means
 
 A generic failure message exists for the case an implementation genuinely
-cannot name: something broke, and nothing about the failure tells the door
+cannot name: something broke, and nothing about the failure tells the endpoint
 which refusal it should have been. That message is a last resort, not a
-convenience. Anything a door can attribute — a record that does not exist, a
+convenience. Anything an endpoint can attribute — a record that does not exist, a
 caller without the permission it needed, a body that failed the shared gate
-— must be answered as that specific thing, never folded into the same
+— is answered as that specific thing, never folded into the same
 catch-all just because the code path happens to have one.
 
 The two failures read identically to a caller who only sees a status and a
@@ -36,5 +36,5 @@ GET /api/flowdrop/pipeline/{pipeline}/logs
 {"success": false, "error": "Access denied"}
 ```
 
-Nothing this door cannot attribute to one of these is answered any other
+Nothing this endpoint cannot attribute to one of these is answered any other
 way: it gets the one fixed message, and the detail stays in the log.

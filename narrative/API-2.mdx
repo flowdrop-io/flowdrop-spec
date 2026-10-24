@@ -1,34 +1,34 @@
 ---
 rule: API-2
-rule_hash: b74a7455b680
+rule_hash: 3e68b4e2e3c6
 ---
 
 ## What it means
 
-A workflow can be run through two doors: launched directly, or driven a turn at
+A workflow can be run through two endpoints: launched directly, or driven a turn at
 a time inside a session. The author decided what the workflow accepts once, by
 declaring its inputs (MAN-1). This rule says that decision means one thing
-regardless of which door a caller comes through. The four checks the launch door
-runs (MAN-13, MAN-15) are the four checks the turn door runs, on the same
+regardless of which endpoint a caller comes through. The four checks the launch endpoint
+runs (MAN-13, MAN-15) are the four checks the turn endpoint runs, on the same
 `inputs` object, with the same answer.
 
 The clause about merging is the one that bites. A turn carries its `inputs`
 alongside the message, and the shortest implementation copies them straight into
-the run's initial data. That is a second, unguarded door: a caller who knows a
+the run's initial data. That is a second, unguarded way in: a caller who knows a
 workflow's internal node-keyed shape (`chat_input.1`, say) could seed state the
-author never published, at the turn door, when the launch door would have
+author never published, at the turn endpoint, when the launch endpoint would have
 refused the identical body. Not a declared input name is not a declared input
-name, whichever door it arrives at.
+name, whichever endpoint it arrives at.
 
 "Identically" is a property of the whole surface, not of the cases someone
-happened to test at both doors. Two checkers maintained side by side drift
-exactly where one door has a case the other has not seen; the observable
+happened to test at both endpoints. Two checkers maintained side by side drift
+exactly where one endpoint has a case the other has not seen; the observable
 requirement is that no such case exists.
 
 ## Example
 
 The workflow declares one input, `greeting`. The same three `inputs` objects,
-sent as a turn, get the verdicts the launch door gives them.
+sent as a turn, get the verdicts the launch endpoint gives them.
 
 ```http title="An input the workflow never declared" verdict="400 refused"
 POST /api/flowdrop/session/{session}/turn
@@ -49,5 +49,5 @@ POST /api/flowdrop/session/{session}/turn
 ```
 
 The first refusal names the inputs the workflow does accept, as MAN-13 requires
-of the launch door. A turn with no `inputs` at all is valid: absent is not the
+of the launch endpoint. A turn with no `inputs` at all is valid: absent is not the
 same as undeclared.

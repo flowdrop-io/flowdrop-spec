@@ -19,3 +19,4 @@ decision: >-
   meaning.
 affects:
   - conventions
+  - API-5

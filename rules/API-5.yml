@@ -2,20 +2,20 @@ id: API-5
 family: GR-API
 part: I
 
-title: The paginated envelope is a third envelope with four fixed keys
+title: The paginated envelope is a third envelope, with four pagination keys
 
 summary: >-
   Two envelopes carry a result and a refusal. A paginated result is a third, and its
   pagination block belongs to the envelope rather than to the rows it sits beside.
 
 normative: >-
-  Alongside `{success, data}` and `{success, error}`, a paginated response is
-  `{success, data, pagination}`, where `pagination` carries exactly `total`, `limit`,
-  `offset` and `has_more`, in that order. `has_more` is page arithmetic,
-  `(offset + limit) < total`, and not a second query. It is spelled `has_more` in every
-  paginated response, whatever the spelling convention of that endpoint's rows: it
-  belongs to the shared envelope, and an implementation must not rename it to match the
-  rows beside it. A door must not build a pagination block of its own.
+  Alongside `{success, data}` and `{success, error}`, a paginated response MUST be
+  `{success, data, pagination}`, where `pagination` carries `total`, `limit`, `offset`
+  and `has_more`. `has_more` MUST be page arithmetic, `(offset + limit) < total`, and
+  not a second query. It MUST be spelled `has_more` in every paginated response,
+  whatever the spelling convention of that endpoint's rows. It belongs to the shared
+  envelope, and an implementation MUST NOT rename it to match the rows beside it. An
+  endpoint MUST NOT build a pagination block of its own.
 
 posture: normative-target
 level: core
@@ -24,6 +24,11 @@ profiles:
 
 added: "1.0"
 changed: "1.0"
+
+rulings:
+  - OPEN-22
+  - OPEN-23
+  - OPEN-25
 
 related:
   - API-6

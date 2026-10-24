@@ -2,19 +2,19 @@ id: API-1
 family: GR-API
 part: I
 
-title: Every JSON door applies the same body gate, and reports its refusals
+title: Every JSON endpoint applies the same body gate, and reports its refusals
 
 summary: >-
-  A caller should not have to learn which endpoint bounds its input. Every door that
+  A caller does not have to learn which endpoint bounds its input. Every endpoint that
   takes a JSON body applies the same limits and gives the same answer when they are
   exceeded.
 
 normative: >-
-  Every door that accepts a JSON request body applies the same body gate: the same
-  size, depth and top-level shape limits, refused the same way. A refusal from that
-  gate reaches the caller as the 400 it is; an implementation must not report it as a
-  server error. Where a body is optional, its absence is mapped to an empty object
-  ahead of the gate and everything else goes through the gate; optional never means
+  Every endpoint that accepts a JSON request body MUST apply the same body gate: the
+  same size, depth and top-level shape limits, refused the same way. A refusal from
+  that gate MUST reach the caller as a 400. An implementation MUST NOT report it as a
+  server error. Where a body is optional, its absence MUST be mapped to an empty object
+  ahead of the gate. Everything else MUST go through the gate. Optional never means
   unvalidated.
 
 posture: normative-target
@@ -24,6 +24,9 @@ profiles:
 
 added: "1.0"
 changed: "1.0"
+
+rulings:
+  - OPEN-25
 
 related:
   - STORE-1

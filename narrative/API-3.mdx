@@ -1,6 +1,6 @@
 ---
 rule: API-3
-rule_hash: 64a724ec4ae9
+rule_hash: f1d79fa2e61a
 ---
 
 ## What it means
@@ -9,7 +9,7 @@ A session that has lost its workflow reference has not been sent anything
 wrong — there is nothing to correct in the request. The problem is the
 session's own state, so the refusal is the same family as a turn refused
 because another one is already running: a 409, not a 400 and not a 500. This
-holds on every door that serves that session.
+holds on every endpoint that serves that session.
 
 The response carries a fixed, generic message. The detail that would identify
 which session failed goes to the log and never into the body a caller sees —
@@ -27,5 +27,5 @@ POST /api/flowdrop/session/{session}/turn
 {"content": "hi"}
 ```
 
-Whatever door reaches that same session gives the same verdict and the same
+Whatever endpoint reaches that same session gives the same verdict and the same
 generic body.

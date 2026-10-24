@@ -13,3 +13,4 @@ decision: >-
   elements stays significant where a rule says what it means.
 affects:
   - conventions
+  - API-5

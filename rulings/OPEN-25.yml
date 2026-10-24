@@ -14,3 +14,10 @@ decision: >-
   old one did not, the change is made by a ruling of its own.
 affects:
   - conventions
+  - API-1
+  - API-2
+  - API-3
+  - API-5
+  - API-6
+  - API-7
+  - API-8

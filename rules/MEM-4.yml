@@ -10,7 +10,7 @@ summary: >-
 normative: >-
   A message-assembly node takes any number of dynamically declared message-typed
   inputs and flattens them into one message-typed output. The order of the
-  node's dynamic input definitions is the order of the messages. A connected list contributes each of
+  node's dynamic parameter definitions is the order of the messages. A connected list contributes each of
   its items in order; a connected single message contributes one item; an input
   that is unwired or carries no value contributes nothing; no placeholder is
   emitted for it.

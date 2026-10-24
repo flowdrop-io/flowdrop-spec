@@ -54,7 +54,7 @@ Resolve one node's parameters (GR-CFG).
   CFG-3), `connectable`, `configurable`, `required`, `exposed` (whether its input
   port is exposed) and `when_missing`. A flag the case leaves out is not recorded,
   and takes the value CFG-1, CFG-2 or CFG-20 gives it.
-- `given.dynamicInputs`: the node's declared dynamic input names (CFG-15).
+- `given.dynamicParameters`: the node's dynamic parameter definitions, as DYN-2 defines them (CFG-15, DYN-8).
 - `given.config`: the node's saved configuration. `given.inputs`: the runtime inputs.
   Either may be left out, meaning an empty object.
 - Outcome, one of:

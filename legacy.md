@@ -137,3 +137,16 @@ a port that does not exist, comes from that reading. Under the current rules a
 dynamic port is an ordinary port, its type is checked, and an edge to a port the node
 does not have is refused with `R7_EDGE_PORT_MISSING`. A workflow that relied on
 the old reading gives the dynamic port the lane `mixed`, or removes the stray edge.
+
+## `dynamicInputs`
+
+Rules: DYN-1, DYN-2, CFG-15 (ruling OPEN-31).
+
+Some implementations store a node's dynamic input definitions under the reserved
+parameter `dynamicInputs`. Each entry there was an input: wired, never a setting.
+
+**If you meet it:** read `dynamicInputs` as `dynamicParameters`, with every entry
+carrying `connectable: true` and no other gate flag, which is exactly what it meant.
+An implementation that still reads or writes `dynamicInputs` says so in its release
+notes, with the release that moves to `dynamicParameters` and how stored workflows
+migrate.

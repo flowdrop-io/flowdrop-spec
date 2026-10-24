@@ -5,7 +5,10 @@ part: I
 title: A dynamic port declares a name, a label and a data type
 
 normative: >-
-  Every dynamic port definition MUST carry a `name` and a `label`. It can carry a
+  Every dynamic port definition MUST carry a `name` and a `label`. A dynamic parameter
+  definition can also carry the gate flags `connectable`, `configurable` and `required`,
+  which mean what they mean on a declared parameter and default as they do there
+  (CFG-1). Any definition can carry a
   `schema`, a JSON Schema 2020-12 fragment of the same kind a node type's declared
   parameter and output schemas hold, and it can carry a `dataType`. Where `schema` is
   present it is the port's schema, its lane derives from it as any property's does

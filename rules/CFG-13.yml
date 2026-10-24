@@ -12,7 +12,7 @@ summary: >-
 normative: >-
   The resolved parameter set MUST contain no key other than a parameter of the node's
   effective parameter schema (DYN-8): one the processor's parameter schema declares, or
-  one of the node's dynamic inputs.
+  one of the node's dynamic parameters.
   A configuration key matching no declared parameter MUST NOT be resolved, and MUST NOT
   reach the processor.
 

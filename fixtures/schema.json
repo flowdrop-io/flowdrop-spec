@@ -67,7 +67,7 @@
                   }
                 }
               },
-              "dynamicInputs": { "type": "array", "items": { "type": "string" } },
+              "dynamicParameters": { "type": "array", "items": { "type": "object", "required": ["name"], "properties": { "name": { "type": "string" }, "connectable": { "type": "boolean" }, "configurable": { "type": "boolean" }, "required": { "type": "boolean" }, "dataType": { "type": "string" }, "schema": { "type": "object" } } } },
               "config": { "type": "object" },
               "inputs": { "type": "object" }
             }

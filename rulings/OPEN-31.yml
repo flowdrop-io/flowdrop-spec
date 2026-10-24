@@ -21,7 +21,7 @@ decision: >-
   for, so a value on a dynamic input is validated like any parameter's (CFG-15), because
   relaxing a check later breaks nobody while tightening one breaks every workflow that
   relied on it. An edge to a port the node does not have is refused (R7.d), so a stored
-  workflow carries no edge to a port that does not exist. A definition can also carry a full schema of the same kind a node type declares, and that schema is then the property, so a node's ports can be described entirely by its instance: a workflow can be drafted against placeholder ports and its node later switched to a processor that declares them, the declared ports winning (DYN-5). Such a schema is the workflow's, so an invalid one is refused at save as the author's error (DYN-3), and its `default` applies to an unwired input as any parameter's does (DYN-4). This supersedes OPEN-30,
+  workflow carries no edge to a port that does not exist. A definition can also carry a full schema of the same kind a node type declares, and that schema is then the property, so a node's ports can be described entirely by its instance: a workflow can be drafted against placeholder ports and its node later switched to a processor that declares them, the declared ports winning (DYN-5). Such a schema is the workflow's, so an invalid one is refused at save as the author's error (DYN-3), and its `default` applies to an unwired input as any parameter's does (DYN-4). The reserved parameter for dynamic parameters is `dynamicParameters`, and a definition can carry the gate flags a declared parameter carries, defaulting as there (CFG-1), so one overlay gives a node dynamic inputs, dynamic settings or both; `dynamicInputs` is a legacy spelling of it. This supersedes OPEN-30,
   whose binding of dynamic ports now follows from the overlay without a rule of its own.
 affects:
   - DYN-2
@@ -45,3 +45,5 @@ affects:
   - SCH-25
   - RT-GATE-9
   - MEM-4
+  - DYN-1
+  - SCH-5

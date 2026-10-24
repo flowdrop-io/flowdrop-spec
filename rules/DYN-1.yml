@@ -4,15 +4,17 @@ part: I
 
 title: Dynamic ports are opt-in, and a node that does not opt in has none
 summary: >-
-  Dynamic ports let an author add connection points to one node instance beyond
-  what its processor declares. Nothing gets them by accident: a node type has to
-  ask for them, and the definitions start empty.
+  Dynamic ports let an author add parameters and outputs to one node instance beyond
+  what its processor declares. Nothing gets them by accident: a node type has to ask
+  for them, and the definitions start empty.
 
 normative: >-
   A node type opts a node in to dynamic ports by declaring two reserved parameters:
-  one holding the node's dynamic input port definitions and one holding its dynamic
-  output port definitions. Each of the two MUST be an array. The default of each MUST
-  be the empty array. A node that has not opted in MUST NOT have dynamic ports.
+  `dynamicParameters`, holding the node's dynamic parameter definitions, and
+  `dynamicOutputs`, holding its dynamic output port definitions. Each of the two MUST be
+  an array. The default of each MUST be the empty array. A node that has not opted in
+  MUST NOT have dynamic ports. A dynamic parameter that is connectable is a dynamic
+  input; one that is configurable is a dynamic setting; it can be both.
 
 posture: normative-target
 level: extended
@@ -24,3 +26,4 @@ changed: "1.0"
 
 rulings:
   - OPEN-25
+  - OPEN-31

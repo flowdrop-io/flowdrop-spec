@@ -3,14 +3,21 @@
   "title": "An unwired dynamic input is absent; a null on its wire is present",
   "rules": [
     "DYN-4",
-    "CFG-13"
+    "CFG-13",
+    "DYN-8"
   ],
   "operation": "resolve-parameters",
   "given": {
     "parameters": {},
-    "dynamicInputs": [
-      "a",
-      "b"
+    "dynamicParameters": [
+      {
+        "name": "a",
+        "connectable": true
+      },
+      {
+        "name": "b",
+        "connectable": true
+      }
     ],
     "inputs": {
       "b": null

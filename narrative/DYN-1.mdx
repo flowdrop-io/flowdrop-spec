@@ -1,6 +1,6 @@
 ---
 rule: DYN-1
-rule_hash: 02b3f2ac48d1
+rule_hash: 675637ef04f7
 ---
 
 ## What it means
@@ -20,7 +20,7 @@ refusing the node outright.
 A node's stored definitions are not lists — one is a string, one a number:
 
 ```json title="Stored definitions that are not arrays" verdict="unusable"
-{ "dynamicInputs": "not-an-array", "dynamicOutputs": 42 }
+{ "dynamicParameters": "not-an-array", "dynamicOutputs": 42 }
 ```
 
 ```json title="What reading them back returns" verdict="empty"

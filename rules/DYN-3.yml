@@ -7,8 +7,8 @@ title: Dynamic port names are constrained and unique across the node
 normative: >-
   A dynamic port name MUST begin with an ASCII letter and continue with ASCII
   letters, digits or underscores. A dynamic port name MUST NOT be a reserved name.
-  A dynamic port name MUST be unique across the union of the node's dynamic input and
-  dynamic output names, so an input and an output on the same node cannot share a
+  A dynamic port name MUST be unique across the union of the node's dynamic parameter and
+  dynamic output names, so a parameter and an output on the same node cannot share a
   name. A definition whose `schema` is not a valid JSON Schema 2020-12 schema, by the same
   test that makes a node type unbuildable (SCH-24), MUST also be refused: here the
   schema is the workflow's, so the error is the author's, not the node type's. A

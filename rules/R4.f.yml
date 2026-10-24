@@ -7,7 +7,7 @@ title: A bound entry whose declared lane differs from its port's lane warns
 summary: >-
   The entry's declared schema is the contract; the binding only says where the value
   goes. When the two disagree the author is told, but the workflow still saves, because
-  the interface may have been declared before the wiring caught up.
+  the interface might have been declared before the wiring caught up.
 
 normative: >-
   Where a workflow exposure entry is bound and declares a `schema`, and the lane its

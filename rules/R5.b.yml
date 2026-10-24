@@ -5,9 +5,8 @@ part: I
 title: A workflow is bounded to 1000 edges
 
 normative: >-
-  A workflow must not contain more than 1000 edges. A workflow that does is
-  refused with the error code `R5_TOO_MANY_EDGES`, and the save does not take
-  effect.
+  A workflow MUST NOT contain more than 1000 edges. A workflow that does MUST be refused
+  with the error code `R5_TOO_MANY_EDGES`, and the save MUST NOT take effect.
 
 posture: normative-target
 level: core
@@ -16,3 +15,6 @@ profiles:
 
 added: "1.0"
 changed: "1.0"
+
+rulings:
+  - OPEN-25

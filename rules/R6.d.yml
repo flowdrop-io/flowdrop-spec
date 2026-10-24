@@ -10,15 +10,15 @@ summary: >-
   most one error per config key.
 
 normative: >-
-  A config value whose type does not match the `type` its schema declares is
-  refused with `R6_CONFIG_INVALID` at `node.{id}.config.{key}`, where `{id}` is
-  the node's id and `{key}` the config key. A schema that declares no `type`,
-  or one that declares a type name the implementation does not recognise,
-  imposes no type constraint and the value passes. R6.d to R6.h all raise this
-  same code at this same locator and are evaluated in one fixed order (type,
-  then `enum`, then `minimum`, `maximum`, `minLength`, `maxLength`, `pattern`)
-  stopping at the first violation, so one config key never yields more than one
-  error. The arms are distinguished by the error's message, not by its code.
+  A config value whose type does not match the `type` its schema declares MUST be
+  refused with `R6_CONFIG_INVALID` at `node.{id}.config.{key}`, where `{id}` is the
+  node's id and `{key}` the config key. A schema that declares no `type`, or one that
+  declares a type name the implementation does not recognise, imposes no type
+  constraint, and the value MUST NOT be refused for its type. R6.d to R6.h MUST all
+  raise this same code at this same locator. They MUST be evaluated in one fixed order
+  (type, then `enum`, then `minimum`, `maximum`, `minLength`, `maxLength`, `pattern`),
+  stopping at the first violation, so one config key never yields more than one error.
+  The arms are distinguished by the error's message, not by its code.
 
 posture: normative-target
 level: core
@@ -27,6 +27,9 @@ profiles:
 
 added: "1.0"
 changed: "1.0"
+
+rulings:
+  - OPEN-25
 
 related:
   - R6.e

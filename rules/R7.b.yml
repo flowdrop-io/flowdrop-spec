@@ -5,8 +5,8 @@ part: I
 title: An edge may not leave a hidden output port
 
 normative: >-
-  An edge whose source port is declared by the source node's node type but is
-  not exposed on that node is refused with `R7_EDGE_SOURCE_NOT_EXPOSED` at
+  An edge whose source port is declared by the source node's node type but is not
+  exposed on that node MUST be refused with `R7_EDGE_SOURCE_NOT_EXPOSED` at
   `edge.{index}`.
 
 posture: normative-target
@@ -16,6 +16,9 @@ profiles:
 
 added: "1.0"
 changed: "1.0"
+
+rulings:
+  - OPEN-25
 
 related:
   - R7.a

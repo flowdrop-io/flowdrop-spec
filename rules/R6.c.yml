@@ -5,10 +5,9 @@ part: I
 title: An unknown config key warns but does not block
 
 normative: >-
-  A key in a node's `config` that the node's derived config schema does not
-  declare does not refuse the save. It yields a warning at
-  `node.{id}.config.{key}` saying the value is ignored at execution, and the
-  workflow is stored.
+  A key in a node's `config` that the node's derived config schema does not declare MUST
+  NOT cause the save to be refused: the workflow is stored. It MUST yield a warning at
+  `node.{id}.config.{key}` saying the value is ignored at execution.
 
 posture: normative-target
 level: extended
@@ -18,3 +17,6 @@ profiles:
 
 added: "1.0"
 changed: "1.0"
+
+rulings:
+  - OPEN-25

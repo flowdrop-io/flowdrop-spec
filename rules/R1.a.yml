@@ -5,10 +5,10 @@ part: I
 title: A node's executor must exist
 
 normative: >-
-  A node whose node type resolves to an executor the implementation does not
-  provide is refused with the error code `R1_PLUGIN_MISSING`. The verdict is
-  reached from the executor's declaration alone; the executor is never
-  constructed in order to decide it.
+  A node whose node type resolves to an executor the implementation does not provide
+  MUST be refused with the error code `R1_PLUGIN_MISSING`. The verdict is reached from
+  the executor's declaration alone; the executor is never constructed in order to decide
+  it.
 
 posture: normative-target
 level: core
@@ -17,6 +17,9 @@ profiles:
 
 added: "1.0"
 changed: "1.0"
+
+rulings:
+  - OPEN-25
 
 related:
   - R9

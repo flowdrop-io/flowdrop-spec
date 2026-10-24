@@ -10,15 +10,14 @@ summary: >-
   fed by an edge is deliberately not required in config.
 
 normative: >-
-  Every key the node's derived config schema marks required must be present in
-  the node's `config`. A key present with the value `null` counts as present.
-  Each missing key yields one `R6_CONFIG_REQUIRED` at
-  `node.{id}.config.{key}` (where `{id}` is the node's id and `{key}` the
-  missing key), and the save does not take effect. A parameter the node type
-  also marks connectable does not appear on the derived required list, so its
-  absence from `config` is accepted at save even when no edge supplies it; the
-  omission is decided from the node type's declared flags and never from the
-  workflow's actual edges.
+  Every key the node's derived config schema marks required MUST be present in the
+  node's `config`. A key present with the value `null` counts as present. Each missing
+  key MUST yield one `R6_CONFIG_REQUIRED` at `node.{id}.config.{key}` (where `{id}` is
+  the node's id and `{key}` the missing key), and the save MUST NOT take effect. A
+  parameter the node type also marks connectable is not marked required in the derived
+  config schema, so its absence from `config` MUST be accepted at save even when no edge
+  supplies it. That verdict MUST be decided from the node type's declared flags and
+  never from the workflow's actual edges.
 
 posture: normative-target
 level: core
@@ -27,6 +26,9 @@ profiles:
 
 added: "1.0"
 changed: "1.0"
+
+rulings:
+  - OPEN-25
 
 related:
   - R6.i

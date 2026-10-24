@@ -1,17 +1,17 @@
 ---
 rule: R7.e/f
-rule_hash: dc7875bca3f1
+rule_hash: 429c93371cc9
 ---
 
 ## What it means
 
-A broken edge is not one verdict. Each endpoint is judged on its own facts, so
+A broken edge is not one verdict. Each end is judged on its own facts, so
 an edge whose source node has vanished and whose target port is hidden earns
 both complaints at once: R8's missing-source error and R7's hidden-target
 error, side by side, not one swallowing the other. The same independence runs
-the other way: an endpoint R7 cannot judge (an unparseable handle, an absent
+the other way: an end R7 cannot judge (an unparseable handle, an absent
 or unresolvable node, a node type that will not resolve) drops out of R7's
-count silently, while the surviving endpoint is still checked in full. R7
+count silently, while the surviving end is still checked in full. R7
 never reports on a node it could not resolve — an unknown node type is R9's
 error, a resolvable type with no executor is R1's, and a legitimate
 anchor-less node earns neither.

@@ -5,11 +5,10 @@ part: I
 title: A config value must be one of its enumerated values
 
 normative: >-
-  Where a config value's schema declares an `enum`, the value must be one of
-  the listed values. Comparison is exact and applies no type coercion, so the
-  number `1` does not satisfy an `enum` listing the string `"1"`. A value
-  outside the list is refused with `R6_CONFIG_INVALID` at
-  `node.{id}.config.{key}`.
+  Where a config value's schema declares an `enum`, the value MUST be one of the listed
+  values. Comparison MUST be exact and apply no type coercion, so the number `1` does
+  not satisfy an `enum` listing the string `"1"`. A value outside the enumerated values
+  MUST be refused with `R6_CONFIG_INVALID` at `node.{id}.config.{key}`.
 
 posture: normative-target
 level: core
@@ -18,6 +17,9 @@ profiles:
 
 added: "1.0"
 changed: "1.0"
+
+rulings:
+  - OPEN-25
 
 related:
   - R6.d

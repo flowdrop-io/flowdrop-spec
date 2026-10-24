@@ -6,13 +6,13 @@ title: A pattern mismatch is refused, a broken pattern is not
 
 summary: >-
   A pattern the implementation cannot compile is a defect in the node type, not
-  in the workflow, and the author who cannot fix it must not be blocked by it.
+  in the workflow, and the author who cannot fix it is not blocked by it.
 
 normative: >-
-  A string config value that does not match its schema's `pattern` is refused
-  with `R6_CONFIG_INVALID` at `node.{id}.config.{key}`. Where the pattern
-  itself is not a valid expression, the value is not refused: the workflow is
-  accepted and no error is charged to the author.
+  A string config value that does not match its schema's `pattern` MUST be refused with
+  `R6_CONFIG_INVALID` at `node.{id}.config.{key}`. Where the pattern itself is not a
+  valid expression, the value MUST NOT be refused on account of it, and no error is
+  charged to the author.
 
 posture: normative-target
 level: core
@@ -21,6 +21,9 @@ profiles:
 
 added: "1.0"
 changed: "1.0"
+
+rulings:
+  - OPEN-25
 
 related:
   - R6.d

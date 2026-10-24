@@ -9,13 +9,13 @@ summary: >-
   is the rule that says so, and it holds for nodes no schema is judging.
 
 normative: >-
-  A node's `data.config`, where present, must be a JSON object. A string, number,
-  boolean or JSON array is refused with `R6_CONFIG_INVALID` at `node.{id}.config`
-  (where `{id}` is the node's id), and the save does not take effect. This is a
-  requirement on config's shape rather than on its contents, so it applies to every
-  node, including a node that records no node type and a node whose node type does
-  not resolve — neither of which has a derived schema against which the rest of R6
-  could judge anything (R6.j).
+  A node's `data.config`, where present, MUST be a JSON object. A string, number,
+  boolean or JSON array MUST be refused with `R6_CONFIG_INVALID` at `node.{id}.config`
+  (where `{id}` is the node's id), and the save MUST NOT take effect. This check
+  concerns config's shape rather than its contents, so it MUST apply to every node,
+  including a node that records no node type and a node whose node type does not
+  resolve, neither of which has a derived schema against which the rest of R6 could
+  judge anything (R6.j).
 
 posture: normative-target
 level: core
@@ -24,6 +24,9 @@ profiles:
 
 added: "1.0"
 changed: "1.0"
+
+rulings:
+  - OPEN-25
 
 related:
   - R6.b

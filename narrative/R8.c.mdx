@@ -1,13 +1,13 @@
 ---
 rule: R8.c
-rule_hash: 5980697ec718
+rule_hash: 803de4e1012c
 ---
 
 ## What it means
 
-A checker that stops at the first bad endpoint would report only one of two
+A checker that stops at the first bad end would report only one of two
 real problems. R8.a and R8.b are judged independently of each other, so an
-edge missing both endpoints earns both findings, not whichever is checked
+edge missing both its source and its target earns both findings, not whichever is checked
 first.
 
 ## Example

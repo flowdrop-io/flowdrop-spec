@@ -5,12 +5,11 @@ part: I
 title: Every edge carries a unique id
 
 normative: >-
-  Every edge in a workflow must carry an `id`, and edge `id`s must be unique
-  within the workflow. An edge with no `id` is refused with
-  `R3_EDGE_MISSING_ID`, a repeated `id` with `R3_EDGE_DUPLICATE_ID`, and in
-  either case the save does not take effect. An implementation may mint an id
-  for an edge that lacks one while reading an already-stored definition; that
-  tolerance is for legacy data only and never relaxes the requirement at save.
+  Every edge in a workflow MUST carry an `id`, and edge `id`s MUST be unique within the
+  workflow. An edge with no `id` MUST be refused with `R3_EDGE_MISSING_ID`, and a
+  repeated `id` with `R3_EDGE_DUPLICATE_ID`. In either case the save MUST NOT take
+  effect. An implementation MAY mint an id for an edge that lacks one when it reads an
+  already-stored definition. That tolerance never relaxes the requirement at save.
 
 posture: normative-target
 level: core
@@ -22,6 +21,7 @@ changed: "1.0"
 
 rulings:
   - OPEN-5
+  - OPEN-25
 
 related:
   - R2

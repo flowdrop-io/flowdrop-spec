@@ -10,9 +10,9 @@ summary: >-
   refused at save instead.
 
 normative: >-
-  Node `id`s must be unique within a workflow. A workflow containing two nodes
-  with the same `id` is refused with the error code `R2_NODE_DUPLICATE_ID`, and
-  the save does not take effect.
+  Node `id`s MUST be unique within a workflow. A workflow containing two nodes with the
+  same `id` MUST be refused with the error code `R2_NODE_DUPLICATE_ID`, and the save
+  MUST NOT take effect.
 
 posture: normative-target
 level: core
@@ -24,6 +24,7 @@ changed: "1.0"
 
 rulings:
   - OPEN-4
+  - OPEN-25
 
 related:
   - R3

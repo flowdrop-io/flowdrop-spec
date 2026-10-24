@@ -2,7 +2,7 @@ id: R7.e/f
 family: GR-VAL
 part: I
 
-title: Exposure checking is skipped per endpoint, not per edge
+title: Exposure checking is skipped per end, not per edge
 
 summary: >-
   Skipping the whole edge would let one broken end hide a real fault at the
@@ -10,12 +10,12 @@ summary: >-
   error and a hidden-target error at once.
 
 normative: >-
-  Where an edge endpoint cannot be judged for exposure (its handle cannot be
-  parsed, the node it names is empty or absent, or that node's node type does
-  not resolve), R7 is skipped for that endpoint only. The edge's other endpoint
-  is still checked. A node whose node type is unknown is reported by R9, a node
-  whose node type resolves but whose executor is missing by R1, and a node with
-  no node type anchor by neither; in all three cases R7 itself stays silent.
+  Where one end of an edge cannot be judged for exposure (its handle cannot be parsed,
+  the node it names is empty or absent, or that node's node type does not resolve), R7
+  MUST be skipped for that end only. The edge's other end MUST still be checked. A node
+  whose node type is unknown is reported by R9, a node whose node type resolves but
+  whose executor is missing by R1, and a node with no node type anchor by neither. In
+  all three cases R7 itself MUST stay silent.
 
 posture: normative-target
 level: extended
@@ -24,6 +24,9 @@ profiles:
 
 added: "1.0"
 changed: "1.0"
+
+rulings:
+  - OPEN-25
 
 related:
   - R7.a

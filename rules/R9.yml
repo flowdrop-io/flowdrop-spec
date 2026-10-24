@@ -10,10 +10,10 @@ summary: >-
   report.
 
 normative: >-
-  A node's `node_type_id` anchor must resolve to an existing node type. A node
-  anchored to an unknown node type is refused with `R9_NODE_TYPE_UNKNOWN`, and
-  the error names both the node and the node type it asked for. A node carrying
-  no anchor is out of scope and is not refused by this rule.
+  A node's `node_type_id` anchor MUST resolve to an existing node type. A node anchored
+  to an unknown node type MUST be refused with `R9_NODE_TYPE_UNKNOWN`, and the error
+  MUST name both the node and the node type it asked for. A node carrying no anchor is
+  out of scope and MUST NOT be refused by this rule.
 
 posture: normative-target
 level: core
@@ -25,6 +25,7 @@ changed: "1.0"
 
 rulings:
   - OPEN-6
+  - OPEN-25
 
 related:
   - R1.a

@@ -5,9 +5,8 @@ part: I
 title: A missing executor is reported once per node
 
 normative: >-
-  A node whose executor is missing yields exactly one R1 error, however many
-  ports the node exposes. The defect is a property of the node, and is never
-  re-reported per port.
+  A node whose executor is missing MUST yield exactly one R1 error, however many ports
+  the node exposes. The defect is a property of the node, not of its ports.
 
 posture: normative-target
 level: extended
@@ -16,6 +15,9 @@ profiles:
 
 added: "1.0"
 changed: "1.0"
+
+rulings:
+  - OPEN-25
 
 related:
   - R1.a

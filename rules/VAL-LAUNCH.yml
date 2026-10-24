@@ -10,12 +10,12 @@ summary: >-
   means an invalid workflow fails as a refusal, not as a half-built run.
 
 normative: >-
-  Launching a workflow re-runs every validation rule against the stored
-  definition. On any error the launch is refused before any of its effects
-  exist (no jobs are generated, no pipeline is created, nothing is scheduled
-  and nothing is queued), and the refusal carries the full set of errors. Over
-  the API the refusal is `422`, with each error reported as a `code`, a
-  `message` and a `locator`, exactly as the save path reports them.
+  Launching a workflow MUST re-run every validation rule against the stored definition.
+  On any error the launch MUST be refused before any of its effects exist (no jobs are
+  generated, no pipeline is created, nothing is scheduled and nothing is queued). The
+  refusal MUST carry the full set of errors. Over the API the refusal MUST be `422`,
+  with each error reported as a `code`, a `message` and a `locator`, exactly as the save
+  path reports them.
 
 posture: normative-target
 level: core
@@ -25,3 +25,6 @@ profiles:
 
 added: "1.0"
 changed: "1.0"
+
+rulings:
+  - OPEN-25

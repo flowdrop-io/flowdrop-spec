@@ -9,9 +9,9 @@ summary: >-
   runtime result, so a workflow containing one is refused rather than stored.
 
 normative: >-
-  Every node in a workflow must carry a non-empty `id`. A node whose `id` is
-  absent or empty is refused, and because the node cannot be named the error
-  identifies it by its position in the workflow's node list.
+  Every node in a workflow MUST carry a non-empty `id`. A node whose `id` is absent or
+  empty MUST be refused, and because the node cannot be named the error MUST identify it
+  by its position in the workflow's `nodes` array.
 
 posture: normative-target
 level: core
@@ -20,3 +20,6 @@ profiles:
 
 added: "1.0"
 changed: "1.0"
+
+rulings:
+  - OPEN-25

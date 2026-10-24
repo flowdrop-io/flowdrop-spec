@@ -5,9 +5,9 @@ part: I
 title: Exposure names are unique per side
 
 normative: >-
-  Workflow exposure names must be unique within a side. Inputs and outputs are
-  independent, so one name may appear once as an input and once as an output. A
-  repeat within one side is refused with `R4_NAME_DUPLICATE` at
+  Workflow exposure names MUST be unique within a side. Inputs and outputs are
+  independent: a name MUST NOT be refused for appearing once as an input and once as an
+  output. A repeat within one side MUST be refused with `R4_NAME_DUPLICATE` at
   `schema.{side}.{index}`.
 
 posture: normative-target
@@ -17,6 +17,9 @@ profiles:
 
 added: "1.0"
 changed: "1.0"
+
+rulings:
+  - OPEN-25
 
 related:
   - R4.a

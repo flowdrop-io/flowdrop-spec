@@ -1,6 +1,6 @@
 ---
 rule: R3
-rule_hash: a6b9819479ca
+rule_hash: 81847cc868a8
 ---
 
 ## What it means
@@ -10,7 +10,7 @@ connect. Two edges that wire completely different ports still collide if
 they carry the same `id`: sharing that one string is enough, independent of
 R13's separate check for edges that connect the same pair of ports twice. An
 edge with no `id` at all is refused the same way, located by its position in
-the list since it never had an id to name.
+the `edges` array since it never had an id to name.
 
 ## Example
 

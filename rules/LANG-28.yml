@@ -6,8 +6,11 @@ title: A condition node's operators are a closed set, and case folding spares th
 
 normative: >-
   A condition node MUST compare with a closed set of six operators, `equals`,
-  `not_equals`, `contains`, `starts_with`, `ends_with` and `regex`, and no others. The
-  operators MUST be declared as an enumeration. A workflow naming an operator outside
+  `not_equals`, `contains`, `starts_with`, `ends_with` and `regex`, and no others, because a
+  condition is stored in the workflow and has to mean the same on every
+  implementation: an operator only one implementation knows would make a stored
+  workflow fail to save on every other. A comparison beyond these is a node type of its
+  own. The operators MUST be declared as an enumeration. A workflow naming an operator outside
   that set MUST be refused when it is saved. It MUST be refused again when the parameter
   is resolved. An operator that reaches execution outside the set MUST fail the node. A
   pattern that cannot be compiled MUST fail the node when it runs. Where the comparison

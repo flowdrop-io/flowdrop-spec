@@ -9,15 +9,17 @@ summary: >-
   pagination block belongs to the envelope rather than to the rows it sits beside.
 
 normative: >-
-  Alongside `{success, data}` and `{success, error}`, a paginated response MUST be
-  `{success, data, pagination}`. `pagination` MUST carry `total`, `limit`, `offset`
-  and `has_more`, and nothing else: its members are a closed list, because one block
-  is shared by every paginated endpoint, and a member one endpoint adds would make it
-  that endpoint's own block. `has_more` MUST be page arithmetic, `(offset + limit) < total`, and
-  not a second query. It MUST be spelled `has_more` in every paginated response,
-  whatever the spelling convention of that endpoint's rows. It belongs to the shared
-  envelope, and an implementation MUST NOT rename it to match the rows beside it. An
-  endpoint MUST NOT build a pagination block of its own.
+  Alongside `{success, data}` and `{success, error}`, a response paginated by
+  offset MUST be `{success, data, pagination}`. `pagination` MUST carry `total`,
+  `limit`, `offset` and `has_more`, and nothing else: its members are a closed
+  list, because one block is shared by every paginated endpoint, and a member one
+  endpoint adds would make it that endpoint's own block. `has_more` MUST be page
+  arithmetic, `(offset + limit) < total`, and not a second query. It MUST be
+  spelled `has_more` in every response paginated by offset, whatever the spelling
+  convention of that endpoint's rows. It belongs to the shared envelope, and an
+  implementation MUST NOT rename it to match the rows beside it. An endpoint
+  paginated by offset MUST NOT build a pagination block of its own. A cursor-paged
+  endpoint, such as the message poll (PLAY-3), is not paginated by offset.
 
 posture: normative-target
 level: core
@@ -31,6 +33,7 @@ rulings:
   - OPEN-22
   - OPEN-23
   - OPEN-25
+  - OPEN-45
 
 related:
   - API-6

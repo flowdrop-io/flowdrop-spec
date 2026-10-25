@@ -1,6 +1,6 @@
 ---
 rule: SG-19
-rule_hash: 6af06a923319
+rule_hash: 43f8951dfbff
 ---
 
 ## What it means
@@ -23,10 +23,10 @@ outside every loop its consumer is in will never fire again on its own
 terms, so its value is the current one forever — gating it on a round that
 cannot arrive would hang the consumer permanently.
 
-The consequence differs by edge class. A gated trigger or error edge simply
-leaves the consumer waiting, to be swept up and skipped once the run ends.
-A gated data port is not left waiting the same way; it is terminated
-(SG-20).
+A gated edge leaves the consumer waiting, to be swept up and skipped once the
+run ends. A gated data port has one way out besides: where SG-20's verdict
+applies, no producer can still fill it, and the consumer fails instead of
+waiting.
 
 ## Example
 

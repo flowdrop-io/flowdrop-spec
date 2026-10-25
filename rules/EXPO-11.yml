@@ -11,11 +11,12 @@ summary: >-
 
 normative: >-
   When a node execution produces a result, every key naming an output port of the
-  node's effective output schema (DYN-8), dynamic outputs included, that resolves as
-  hidden MUST be removed from that result before it is delivered anywhere. A key the
-  effective output schema does not declare, such as a reserved control port, MUST pass
-  through untouched. A hidden output MUST be stripped whatever else the result contains,
-  even where the processor declares no output ports at all.
+  node's effective output schema (DYN-8), dynamic outputs included, that resolves
+  as hidden MUST be removed from that result before it is delivered anywhere. A
+  key the effective output schema does not declare MUST pass through untouched,
+  and so MUST the reserved control outputs whether declared or not (EXPO-12). A
+  hidden output MUST be stripped whatever else the result contains, even where the
+  processor declares no output ports at all.
 
 posture: normative-target
 level: core
@@ -29,6 +30,7 @@ changed: "1.0"
 rulings:
   - OPEN-25
   - OPEN-31
+  - OPEN-45
 
 related:
   - EXPO-12

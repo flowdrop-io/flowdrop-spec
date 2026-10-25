@@ -6,8 +6,9 @@ title: Reserved config-only parameters always carry a default
 
 normative: >-
   `dynamicParameters`, `dynamicOutputs` and `branches` are reserved config-only
-  parameters, and MUST NOT be input ports. Where a node type opts one in by
-  marking it `configurable`, it MUST enter the config schema and MUST get a
+  parameters, and MUST NOT be input ports: a node type that marks one
+  `connectable` cannot be built (SCH-24). Where a node type opts one in by marking
+  it `configurable`, it MUST enter the config schema and MUST get a
   config-defaults entry: the first of the node type's default and the schema's
   default that is an array, else an empty array. Such an entry MUST NOT be omitted
   and MUST NOT be `null`, unlike an ordinary configurable parameter, whose entry
@@ -27,6 +28,7 @@ rulings:
   - OPEN-26
   - OPEN-31
   - OPEN-37
+  - OPEN-45
 
 related:
   - SCH-4

@@ -6,8 +6,9 @@ title: Every executable node gets a hidden error output
 
 normative: >-
   A reserved `error` output port MUST be injected on every node type except a
-  non-executable one. The injected port MUST carry display order 120. The injected
-  port MUST ship hidden.
+  non-executable one, unless the node type already declares one, whose stated
+  exposure then stands (SCH-16). The injected port MUST carry display order 120.
+  The injected port MUST ship hidden.
 
 posture: normative-target
 level: core
@@ -20,6 +21,7 @@ changed: "1.0"
 
 rulings:
   - OPEN-25
+  - OPEN-45
 
 related:
   - SCH-16

@@ -5,10 +5,10 @@ part: I
 title: A node nobody has touched stores no overrides
 
 normative: >-
-  A node instance on which no port has been shown or hidden MUST store no `ports`
-  map at all. Every one of its ports therefore resolves to its default exposure
-  (EXPO-2), and adding a port to the node type later changes that node's canvas
-  without the node being re-saved.
+  An authoring surface MUST NOT record a `ports` map for a node instance on which
+  no port has been shown or hidden. Every port of a node with no `ports` map
+  resolves to its default exposure (EXPO-2), and adding a port to the node type
+  later changes that node's canvas without the node being re-saved.
 
 posture: normative-target
 level: core
@@ -20,6 +20,7 @@ changed: "1.0"
 
 rulings:
   - OPEN-25
+  - OPEN-45
 
 related:
   - EXPO-2

@@ -12,11 +12,11 @@ normative: >-
   be validated. Validation MUST allow only the `http` and `https` schemes.
   Validation MUST resolve the host, over both IPv4 and IPv6. Validation MUST
   refuse the URL if any resolved address is in a private or reserved range. A
-  refusal MUST be a node configuration error, which fails the node like any other
-  node failure: it is routed along the node's error edge where it has one
-  (EDGE-6), and otherwise fails the run (ERR-8). The request MUST be made to the
-  validated address, so the connection is pinned to the address that was checked.
-  The connection MUST honour an explicit port in the URL. Every node that dials a
+  refusal MUST be a node-level error (ERR-1), carrying a configuration error code:
+  it is routed along the node's error edge where it has one (EDGE-6), and
+  otherwise fails the run (ERR-8). The request MUST be made to the validated
+  address, so the connection is pinned to the address that was checked. The
+  connection MUST honour an explicit port in the URL. Every node that dials a
   caller-supplied URL MUST perform this check; a second implementation of it is a
   second thing to forget to fix.
 
@@ -31,6 +31,7 @@ changed: "1.0"
 rulings:
   - OPEN-25
   - OPEN-37
+  - OPEN-45
 
 related:
   - NET-2

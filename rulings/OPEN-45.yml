@@ -1,0 +1,30 @@
+id: OPEN-45
+headline: "Second readiness pass: seven more core clashes reconciled by scoping."
+question: >-
+  A second contradiction pass over the core rules found: EXPO-4 dropping a ports map
+  that STORE-6 keeps; EDGE-6 routing every failure while ERR-3 forbids routing one
+  that escapes the node; SCH-14 injecting a hidden error port over a declared one
+  (SCH-16); SCH-3 making a connectable reserved config-only parameter an input port,
+  which SCH-5 forbids; SG-19 terminating every gated data port while SG-20, its only
+  mechanism, applies only sometimes; EXPO-11 stripping a declared control output
+  that EXPO-12 protects; and API-5 claiming every paginated response, including the
+  cursor-paged message poll of PLAY-3.
+decided: "2026-10-25"
+decision: >-
+  Each rule is scoped so both hold. EXPO-4 constrains what an authoring surface
+  records. EDGE-6 routes error outputs (ERR-1), and NET-1 and SG-20 now produce
+  node-level errors. SCH-14 injects only where the node type declares no error port.
+  A connectable reserved config-only parameter makes its node type unbuildable
+  (SCH-5). A gated data port waits like a gated edge unless SG-20 fails it. Control
+  outputs are never stripped, declared or not. API-5 governs responses paginated by
+  offset.
+affects:
+  - EXPO-4
+  - EDGE-6
+  - NET-1
+  - SG-20
+  - SCH-14
+  - SCH-5
+  - SG-19
+  - EXPO-11
+  - API-5

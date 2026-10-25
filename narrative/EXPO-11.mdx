@@ -1,14 +1,14 @@
 ---
 rule: EXPO-11
-rule_hash: 2578ac2ea980
+rule_hash: 3a2ec2753a4f
 ---
 
 ## What it means
 
 Stripping reaches every key the node's effective output schema names as a
 port: the outputs its processor declares and the dynamic outputs the instance
-adds (DYN-8). A reserved control port is not in that schema, so it passes
-straight through.
+adds (DYN-8). A reserved control output passes straight through, even where a
+node type lists it in its output schema (EXPO-12).
 
 The obligation holds even where the processor's own schema declares no output
 ports at all. An empty declared set is not licence to leave a hidden port

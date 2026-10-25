@@ -11,15 +11,15 @@ summary: >-
 normative: >-
   A completed source MUST NOT satisfy a trigger, error or data edge when the
   source and the consumer share a loop and the source's round on that loop is
-  behind the consumer's. Behindness MUST be decided by intersecting the two
-  round stamps' loops and comparing lexicographically, outermost loop first: the
-  first shared loop on which the two differ settles it, and nothing nested
-  inside it can overturn that. Where the two share no loop the source MUST NOT
-  be judged behind: a source outside every loop the consumer is in will never
-  fire again, its value is the current one forever, and gating it would hang the
-  consumer on a round that cannot arrive. A gated trigger or error edge MUST
-  leave the consumer waiting, to be skipped when the run ends. A gated data port
-  MUST be terminated.
+  behind the consumer's. Behindness MUST be decided by intersecting the two round
+  stamps' loops and comparing lexicographically, outermost loop first: the first
+  shared loop on which the two differ settles it, and nothing nested inside it can
+  overturn that. Where the two share no loop the source MUST NOT be judged behind:
+  a source outside every loop the consumer is in will never fire again, its value
+  is the current one forever, and gating it would hang the consumer on a round
+  that cannot arrive. A gated trigger or error edge MUST leave the consumer
+  waiting, to be skipped when the run ends. A gated data port MUST leave the
+  consumer waiting likewise, unless SG-20 applies and fails it.
 
 posture: normative-target
 level: core
@@ -31,6 +31,7 @@ changed: "1.0"
 
 rulings:
   - OPEN-25
+  - OPEN-45
 
 related:
   - SG-17

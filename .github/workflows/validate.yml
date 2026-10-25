@@ -23,6 +23,11 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+      # site/site-kit/ is a copy of the workspace's process/site-kit/, synced by
+      # scripts/site-kit. A hand edit here would drift from the other site
+      # without anyone noticing; this fails it. Fix at the master, then sync.
+      - name: the site kit matches its lock
+        run: bash site/site-kit/check-lock.sh
       - uses: actions/setup-node@v4
         with:
           node-version: 22

@@ -1,0 +1,181 @@
+/* =====================================================================
+   FlowDrop brand tokens — the single source of truth for brand values.
+   Part of the `brand/` package. See brand/README.md.
+
+   These are *brand* values, not framework tokens. Consumers MAP their own
+   token names onto these; they never fork the values.
+
+       fumadocs   :root { --color-fd-primary: var(--brand-green); }
+       daisyUI    :root { --color-primary:    var(--brand-green); }
+       this site  :root { --color-accent:     var(--brand-green); }
+
+   Every value here was lifted from apps/flowdrop-website/src/app.css, which
+   was the de-facto source of truth before this package existed. Changing a
+   value here changes it on every surface that maps to it — which is the
+   entire point, and the reason not to change one casually.
+   ===================================================================== */
+
+:root {
+  /* ---- Greys (Factorial / Scotty design system, HSL) ---------------- */
+  --brand-grey-100: hsl(216 33% 97%);
+  --brand-grey-200: hsl(221 27% 94%);
+  --brand-grey-300: hsl(221 26% 84%);
+  --brand-grey-400: hsl(221 11% 62%);
+  /* 45%, not the system's 49%: darkened to clear WCAG AA (4.5:1) as body text. */
+  --brand-grey-500: hsl(221 11% 45%);
+  --brand-grey-900: hsl(221 39% 11%);
+
+  --brand-white: hsl(0 0% 100%);
+  --brand-black: hsl(0 0% 0%);
+
+  /* ---- Brand accents ------------------------------------------------
+     --brand-green is THE FlowDrop accent, #008561. Everything else on the
+     public web that reads as "the brand colour" should resolve to it.
+     --brand-orange carries eyebrow labels and line-art icons.
+     Both are darkened from the raw system values for AA on light surfaces. */
+  --brand-green: hsl(164 100% 26%); /* #008561 */
+  --brand-green-light: hsl(163 100% 39%); /* #00C78F */
+  /* Same hue, two points darker, for accent-coloured TEXT on an off-white
+     reading surface. `--brand-green` clears AA on pure white (4.64:1) but the
+     margin is thin, and it goes under on a tinted ground: 4.32:1 on a #f5f7f9
+     paper, 4.09:1 on the sunk grey an inline-code chip sits on. This clears
+     both (4.97:1 / 4.71:1). Same trade the orange already makes below;
+     marketing surfaces on pure white don't need it. */
+  --brand-green-deep: hsl(164 100% 24%); /* #007A5A */
+  --brand-orange: hsl(15 78% 43%); /* #C34318 — darkened from 46% for WCAG AA */
+  --brand-orange-light: hsl(15 100% 63%); /* #FF7A42 */
+
+  /* Factorial's third accent. FlowDrop has no use for it as a surface colour,
+     but it exists so a chart, a diagram or a docs callout that needs a third
+     hue takes it from the system instead of inventing a Tailwind blue. */
+  --brand-blue: hsl(205 100% 32%); /* #0061A3 */
+  --brand-blue-light: hsl(199 100% 43%); /* #009CDC */
+
+  /* Translucent washes. Spelled out rather than derived with relative-colour
+     syntax — `hsl(from …)` is still too new to put on the marketing path. */
+  --brand-green-glow: hsl(164 100% 26% / 0.1);
+  --brand-green-light-wash: hsl(163 100% 39% / 0.25);
+
+  /* ---- Ink ---------------------------------------------------------- */
+  --brand-ink: var(--brand-grey-900); /* panels, footer, buttons, code */
+
+  /* ---- Typography — Suisse Int'l, licensed by Factorial.io -----------
+     The faces themselves ship in brand/fonts/ and are declared by
+     brand/fonts.css. Import that file or these stacks fall back. */
+  --brand-font-sans: 'Suisse Intl', 'Inter', system-ui, -apple-system, sans-serif;
+
+  /* TWO MONO ROLES, AND THEY ARE NOT INTERCHANGEABLE.
+
+     `SuisseIntlMono-*-WebS` is a 370-glyph marketing subset. It has no
+     `<  >  \  ^  ~`. Factorial can lead with it because factorial.io uses mono
+     for the odd label and nothing else; on a surface that renders code, every
+     `=>`, every `<div>`, every escape and every `^1.2.0` drops to the next
+     family mid-token at a different advance width. Verified against the woff2
+     cmap, not assumed.
+
+     So: `--brand-font-mono` sets CODE and must stay a real code face.
+     `--brand-font-mono-label` is the Factorial eyebrow/label voice, for short
+     runs of caps and digits where the subset is complete. */
+  --brand-font-mono: 'JetBrains Mono', 'Fira Code', ui-monospace, SFMono-Regular, Menlo, monospace;
+  --brand-font-mono-label: 'Suisse Intl Mono', 'JetBrains Mono', ui-monospace, monospace;
+
+  /* ---- Shape --------------------------------------------------------
+     Factorial/Scotty is sharp-cornered. `--brand-radius` is not a rounding
+     scale; it is very nearly square, on purpose. */
+  --brand-radius: 0.1875em;
+  --brand-radius-px: 3px;
+  --brand-radius-full: 9999px;
+
+  /* ---- Rules and layout rhythm (scotty.factorial.io --u-* tokens) ---- */
+  --brand-rule-width: 1.5px;
+  --brand-max-width: 90rem;
+  --brand-page-spacing: clamp(1.25rem, 5vw, 5rem);
+  --brand-page-spacing-fixed: 2.1875rem;
+  --brand-page-spacing-fluid: clamp(1.875rem, 5vw, 3.75rem);
+
+  /* ---- Spacing scale ------------------------------------------------ */
+  --brand-space-1: 4px;
+  --brand-space-2: 8px;
+  --brand-space-3: 12px;
+  --brand-space-4: 16px;
+  --brand-space-6: 24px;
+  --brand-space-8: 32px;
+  --brand-space-12: 48px;
+  --brand-space-16: 64px;
+  --brand-space-24: 96px;
+  --brand-space-32: 128px;
+
+  /* ---- Motion -------------------------------------------------------- */
+  --brand-ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+  --brand-ease-in-out: cubic-bezier(0.4, 0, 0.2, 1);
+  --brand-duration-fast: 200ms;
+  --brand-duration-med: 500ms;
+  --brand-duration-slow: 800ms;
+
+  /* ---- Focus ring (BITV) --------------------------------------------
+     Factorial is BITV-certified — the German accessibility standard — and
+     its focus ring is 3px at 3px offset, always visible, never removed.
+     Consumers should bind `:focus-visible` to these and nothing else. */
+  --brand-focus-width: 3px;
+  --brand-focus-offset: 3px;
+
+  /* ---- Elevation ----------------------------------------------------
+     Soft, blue-ish, offset down-right. Note the DEFAULT is the largest of
+     them — that is Factorial's card shadow, not a mistake. Shadows belong
+     on light surfaces only; the dark block below flattens them, because a
+     grey glow on ink reads as dirt. */
+  --brand-shadow-tint: rgb(202 213 224 / 0.5);
+  --brand-shadow-sm: 2px 4px 12px var(--brand-shadow-tint);
+  --brand-shadow-md: 4px 10px 24px var(--brand-shadow-tint);
+  --brand-shadow-lg: 10px 24px 56px var(--brand-shadow-tint);
+  --brand-shadow: 0 10px 60px 0 rgb(202 213 224 / 0.4);
+}
+
+/* =====================================================================
+   THE TWO-VARIANT RULE, as tokens.
+
+   Every accent ships a darker and a brighter value, and THE BACKGROUND
+   PICKS. Dark-on-dark is muddy and fails contrast — `#008561` on `#111827`
+   is the exact mistake this layer exists to make impossible.
+
+   Bind to the semantic name (`--brand-accent`), never to `--brand-green`,
+   and a dark section gets the right variant for free. Both spellings are
+   covered: the `prefers-color-scheme` default (guarded so an explicit light
+   choice still wins) and the explicit `.dark` / `[data-theme="dark"]`
+   selectors a theme toggle sets.
+   ===================================================================== */
+
+:root {
+  --brand-accent: var(--brand-green);
+  --brand-accent-contrast: var(--brand-white);
+  --brand-accent-2: var(--brand-orange);
+  --brand-accent-3: var(--brand-blue);
+  /* Accent-coloured TEXT on a light ground. Marketing surfaces sit on pure
+     white and can use `--brand-accent` directly; a reading surface on a tinted
+     paper binds body links and inline accents to this instead, because the
+     standard green drops under AA there. `apps/flowdrop-io.docs` is the
+     consumer today. Identical on dark, where the bright variant clears AAA. */
+  --brand-accent-text: var(--brand-green-deep);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme='light']):not(.light) {
+    --brand-accent: var(--brand-green-light);
+    --brand-accent-contrast: var(--brand-grey-900);
+    --brand-accent-2: var(--brand-orange-light);
+    --brand-accent-3: var(--brand-blue-light);
+    --brand-accent-text: var(--brand-green-light);
+    --brand-shadow-tint: transparent;
+  }
+}
+
+:root[data-theme='dark'],
+:root.dark,
+.is-dark {
+  --brand-accent: var(--brand-green-light);
+  --brand-accent-contrast: var(--brand-grey-900);
+  --brand-accent-2: var(--brand-orange-light);
+  --brand-accent-3: var(--brand-blue-light);
+  --brand-accent-text: var(--brand-green-light);
+  --brand-shadow-tint: transparent;
+}

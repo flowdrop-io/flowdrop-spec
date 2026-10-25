@@ -141,7 +141,7 @@ function specGraph(path: string, name: string, description: string): Node[] {
       '@type': 'Dataset',
       '@id': DATASET_ID,
       name: 'FlowDrop Workflow Specification — rule corpus',
-      description: `All ${rules.length} rules of the FlowDrop Workflow Specification in ${families.length} families, as machine-readable data (rules.json) and as one plain-text document (llms-full.txt). Generated from the rule files; the rule files are the source of truth.`,
+      description: `All ${rules.filter((r) => r.posture !== 'withdrawn').length} rules in force of the FlowDrop Workflow Specification (${rules.length} identifiers issued, withdrawn ones included) in ${families.length} families, as machine-readable data (rules.json) and as one plain-text document (llms-full.txt). Generated from the rule files; the rule files are the source of truth.`,
       url: canonicalUrl('/'),
       license: CC_BY,
       version: SPEC_VERSION,

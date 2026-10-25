@@ -5,11 +5,11 @@ part: II
 title: A turn's artifacts are persisted on its message and reported on its result
 
 normative: >-
-  The artifacts a run collected are persisted on the last assistant message that
-  run wrote, once per run. A turn's result aggregates the persisted artifacts of
-  every assistant message in the turn, so they survive a reload, and the turn API
-  reports the same list. On the wire a message carries them as a top-level
-  `toolArtifacts` field rather than as raw message metadata.
+  The artifacts a run collected MUST be persisted on the last assistant message
+  that run wrote, once per run. A turn's result MUST aggregate the persisted
+  artifacts of every assistant message in the turn, so they survive a reload. The
+  turn API MUST report the same array. On the wire a message MUST carry them as a
+  top-level `toolArtifacts` field rather than as raw message metadata.
 
 posture: normative-target
 level: extended
@@ -18,6 +18,9 @@ profiles:
 
 added: "1.0"
 changed: "1.0"
+
+rulings:
+  - OPEN-25
 
 related:
   - RT-TOOL-3

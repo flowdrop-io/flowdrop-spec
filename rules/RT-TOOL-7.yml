@@ -5,16 +5,17 @@ part: II
 title: A pause does not destroy artifacts, and does not deliver them twice
 
 normative: >-
-  Artifacts produced before a run pauses are held durably against the turn that
-  produced them rather than discarded, and are never exposed on the wire while they
-  are held. The next write-back for the same execution takes them, prepends them to
-  whatever the resumed run collected, and delivers the merged list on the resumed
-  turn's assistant message. Taking is destructive, so a delivered artifact is never
-  delivered a second time, and a resume that pauses again holds everything for the
-  next one. A write-back that fails after taking them puts them back before it
+  Artifacts produced before a run pauses MUST be held durably against the turn
+  that produced them rather than discarded. Held artifacts MUST NOT be exposed on
+  the wire while they are held. The next write-back for the same execution MUST
+  take them and prepend them to whatever the resumed run collected. That
+  write-back MUST deliver the merged array on the resumed turn's assistant
+  message. Taking is destructive, so a delivered artifact MUST NOT be delivered a
+  second time. A resume that pauses again MUST hold everything for the next one. A
+  write-back that fails after taking the artifacts MUST put them back before it
   reports the failure, so a failed write postpones delivery rather than destroying
-  it. The held list is itself bounded; where it would exceed the bound, the newest
-  entries are dropped with a warning.
+  it. The held array MUST be bounded. Where it would exceed the bound, the newest
+  entries MUST be dropped, with a warning.
 
 posture: normative-target
 level: extended
@@ -23,6 +24,9 @@ profiles:
 
 added: "1.0"
 changed: "1.0"
+
+rulings:
+  - OPEN-25
 
 related:
   - RT-TOOL-4

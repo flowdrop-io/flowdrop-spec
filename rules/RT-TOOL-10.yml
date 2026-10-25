@@ -10,17 +10,18 @@ summary: >-
   re-enters forever. This is the port that answers the question directly.
 
 normative: >-
-  A node that invokes tools reports `executed_any`, a boolean, and `executed`, the
-  call identifiers behind it, the complement of the `skipped` list. `executed_any`
-  is true when at least one call was handled for the first time in this run, which
-  includes a call naming a tool that is not wired: nothing was invoked, but the
-  recoverable "not an available tool" result is new and the model must re-plan
-  against it. An empty batch reports false. The two lists partition only the calls
-  that reach the guard: a call with no identifier always runs and appears in
-  neither while setting `executed_any`, and a malformed call (one that is not a
-  map, or whose name is blank or not a scalar) is dropped before the guard,
-  appears in neither, and leaves `executed_any` false. `executed_any` is exposed by
-  default; `executed` is not.
+  A node that invokes tools MUST report `executed_any`, a boolean. It MUST report
+  `executed`, an array of the call identifiers behind it, the complement of the
+  `skipped` array. `executed_any` MUST be true when at least one call was handled
+  for the first time in this run. A call naming a tool that is not wired MUST
+  count as handled for the first time: nothing was invoked, but the recoverable
+  "not an available tool" result is new, and the model re-plans against it. An
+  empty batch MUST report false. The two arrays partition only the calls that reach
+  the guard. A call with no identifier MUST appear in neither array and MUST set
+  `executed_any`. A malformed call (one that is not a map, or whose name is blank
+  or not a scalar) MUST be dropped before the guard, appear in neither array, and
+  leave `executed_any` false. `executed_any` MUST be exposed by default.
+  `executed` MUST NOT be exposed by default.
 
 posture: normative-target
 level: extended
@@ -29,6 +30,9 @@ profiles:
 
 added: "1.0"
 changed: "1.0"
+
+rulings:
+  - OPEN-25
 
 related:
   - RT-TOOL-9

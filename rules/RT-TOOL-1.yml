@@ -6,15 +6,16 @@ title: A tool result carries artifacts alongside its data, never inside it
 
 summary: >-
   A tool can return something structured (a chart, a record, a file reference)
-  that the model should not have to read as prose. It travels beside the result,
+  that the model is not meant to read as prose. It travels beside the result,
   not inside it.
 
 normative: >-
-  A tool result is `{success, data, error}`. A result whose call attached
-  structured artifacts carries an additional `artifacts` key, present only when at
-  least one artifact was attached, so an artifact-free result keeps the plain
-  three-key shape unchanged. Artifacts are attached additively, and are never
-  folded into `data`: the two are disjoint.
+  A tool result MUST have the shape `{success, data, error}`. A result whose call
+  attached structured artifacts MUST carry an additional `artifacts` key. A result
+  MUST NOT carry the `artifacts` key unless at least one artifact was attached, so
+  an artifact-free result keeps the plain three-key shape unchanged. Artifacts
+  MUST be attached additively. Artifacts MUST NOT be folded into `data`: the two
+  are disjoint.
 
 posture: normative-target
 level: extended
@@ -23,6 +24,9 @@ profiles:
 
 added: "1.0"
 changed: "1.0"
+
+rulings:
+  - OPEN-25
 
 related:
   - RT-TOOL-2

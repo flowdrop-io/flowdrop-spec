@@ -5,13 +5,14 @@ part: II
 title: Artifacts leave a tool call on their own port, apart from the model's prose
 
 normative: >-
-  A node that invokes tools surfaces every call's artifacts on a dedicated
-  `tool_artifacts` output port, as a list of exactly `{type, payload, tool_call_id}`
-  entries built key by key, so a tool can neither override the real `tool_call_id`
-  nor smuggle keys of its own through. That port is not exposed by default. The
-  prose fed back to the model is built from a result's `data` alone and never from
-  its artifacts. Delivery of a run's artifacts must not depend on whether the
-  author exposed the port.
+  A node that invokes tools MUST surface every call's artifacts on a dedicated
+  `tool_artifacts` output port. Each entry on that port MUST carry `type`,
+  `payload` and `tool_call_id` and nothing else, built key by key, so that a tool
+  can neither override the real `tool_call_id` nor smuggle keys of its own
+  through. That port MUST NOT be exposed by default. The prose fed back to the
+  model MUST be built from a result's `data` alone, and never from its artifacts.
+  Delivery of a run's artifacts MUST NOT depend on whether the author exposed the
+  port.
 
 posture: normative-target
 level: extended
@@ -20,6 +21,10 @@ profiles:
 
 added: "1.0"
 changed: "1.0"
+
+rulings:
+  - OPEN-22
+  - OPEN-25
 
 related:
   - RT-TOOL-2

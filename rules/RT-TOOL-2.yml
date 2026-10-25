@@ -5,14 +5,15 @@ part: II
 title: A tool node emits artifacts on a reserved key that never reaches the model
 
 normative: >-
-  A tool node's output may carry the reserved `artifacts` key, a list of
-  `{type, payload}` maps. It is a system channel, exempt from output-port exposure,
-  and so survives whether or not the author exposed the port. On a successful call
-  those entries are lifted off the node's output and attached to the tool result:
-  an entry with a string `type` and a map `payload` is kept, and any other entry is
-  dropped without failing the call. The reserved key is always removed from the
-  result's `data`, so it never reaches the prose a tool-consuming node feeds the
-  model. A call that failed or was declined carries no artifacts.
+  A tool node's output MAY carry the reserved `artifacts` key, an array of `{type,
+  payload}` maps. The reserved key is a system channel and MUST be exempt from
+  output-port exposure, so it survives whether or not the author exposed the port.
+  On a successful call those entries MUST be lifted off the node's output and
+  attached to the tool result. An entry with a string `type` and a map `payload`
+  MUST be kept. Any other entry MUST be dropped, and dropping it MUST NOT fail the
+  call. The reserved key MUST always be removed from the result's `data`, so it
+  never reaches the prose a tool-consuming node feeds the model. A call that
+  failed or was declined MUST NOT carry artifacts.
 
 posture: normative-target
 level: extended
@@ -21,6 +22,9 @@ profiles:
 
 added: "1.0"
 changed: "1.0"
+
+rulings:
+  - OPEN-25
 
 related:
   - RT-TOOL-1

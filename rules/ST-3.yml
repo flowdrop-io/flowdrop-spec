@@ -4,7 +4,7 @@ part: II
 
 title: Node statuses passed through, and an untracked run was empty rather than absent
 summary: >-
-  Withdrawn with the polled status surface. See the legacy appendix.
+  Withdrawn with the polled status surface (OPEN-24).
 
 normative: >-
   Retired with the polled status surface. It passed the recorded node statuses

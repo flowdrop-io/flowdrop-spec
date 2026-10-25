@@ -4,7 +4,7 @@ part: I
 
 title: Node configuration could be checked ahead of save
 summary: >-
-  Withdrawn: save-time validation is the only verdict on a node's configuration (R6, R11). See the legacy appendix.
+  Withdrawn: save-time validation is the only verdict on a node's configuration (R6, R11); ruling OPEN-24.
 
 normative: >-
   A node's configuration could be checked ahead of save, by submitting the configuration

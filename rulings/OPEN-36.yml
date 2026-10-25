@@ -1,0 +1,24 @@
+id: OPEN-36
+headline: The specification carries no history; there is no legacy appendix.
+question: >-
+  An informative legacy appendix (legacy.md) described surfaces and readings the
+  specification had dropped and told a reader how to treat them when they turned up.
+  Every entry was one implementation's history or migration advice, and two asked
+  every implementation to tolerate an old form: reading `dynamicInputs` as
+  `dynamicParameters`, and accepting, keeping and warning about a condition on an
+  edge (EDGE-8). The specification is used to write new implementations, and none of
+  them needs either.
+decided: "2026-10-25"
+decision: >-
+  The specification states what is required now and nothing about what was required
+  before or how to treat old forms. Why something changed is recorded in the ruling
+  that changed it; what an implementation does about its own stored data and callers
+  is in that implementation's release notes, in the major release that adopts the
+  change (DR-20). The legacy appendix is removed, and DR-7 and DR-20 say so. EDGE-8 is
+  withdrawn: a condition on an edge is a member of the edge's `data`, which carries
+  no execution logic (OPEN-32), so it needs no rule of its own. This reverses the part
+  of the K1 decision D-03 that sent tolerated old input to a legacy appendix; the rest
+  of D-03 stands.
+affects:
+  - conventions
+  - EDGE-8

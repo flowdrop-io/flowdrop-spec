@@ -3,15 +3,15 @@ family: GR-EDGE
 part: I
 
 title: A condition on an edge is tolerated, warned about, and ignored
+summary: >-
+  Withdrawn (OPEN-36): a condition on an edge is a member of the edge's `data`, which carries no execution logic (OPEN-32).
 
 normative: >-
-  A stored `edge.data.condition` MUST be accepted and MUST round-trip unchanged. It
-  MUST NOT gate anything: the edge MUST always route. A non-empty string condition is
-  reported as a warning each time the source node's outgoing edges are resolved, so a
-  source that executes more than once (inside a loop) warns each time rather than once
-  per run. An absent or empty condition is silent.
+  A stored `edge.data.condition` was accepted, kept and warned about, and gated
+  nothing. The specification gives it no rule: like every member of an edge's
+  `data`, it carries no execution logic (OPEN-32).
 
-posture: normative-target
+posture: withdrawn
 level: extended
 profiles:
   - storage-api
@@ -22,3 +22,4 @@ changed: "1.0"
 
 rulings:
   - OPEN-25
+  - OPEN-36

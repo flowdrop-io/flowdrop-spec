@@ -53,8 +53,8 @@ deleted.
 say what used to be required, what an implementation did before, or why something
 changed:
 - **why it changed** belongs in a ruling;
-- **how to treat old input an implementation may still meet** belongs in the
-  informative legacy appendix, [`legacy.md`](legacy.md).
+- **how to treat old input an implementation may still meet** belongs nowhere in the
+  specification: an implementation that changes says so in its own release notes.
 
 Words that signal a failure here: *legacy*, *formerly*, *used to*, *no longer*,
 *was*, *originally*, a version number of any implementation.
@@ -144,9 +144,8 @@ makes no compromise for the sake of an existing implementation:
 
 Where the right rule breaks what an implementation does now, the rule changes
 anyway, through a ruling. The implementation adopts it in its next major release,
-with a migration path for stored workflows and for callers. How to read the old
-form goes in the informative legacy appendix, [`legacy.md`](legacy.md), never in
-the rule.
+with a migration path for stored workflows and for callers, in its own release
+notes. The specification never describes the old form.
 
 **DR-21. JSON Schema says it where it can.** Workflow contracts, port schemas and
 payload shapes are JSON Schema (2020-12). Where JSON Schema can express a

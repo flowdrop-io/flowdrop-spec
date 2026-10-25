@@ -1,6 +1,6 @@
 ---
 rule: OCX-9
-rule_hash: ed864371ff1b
+rule_hash: 2cd236675629
 ---
 
 ## What it means
@@ -13,7 +13,7 @@ time with rows the page cut off, the page is extended past its nominal size
 to sweep in the whole group — a caller advancing its cursor to a split
 group's timestamp would otherwise skip whatever got split off, for good,
 because completion times repeat and are not themselves a safe cursor.
-Second, a page that happens to filter down to nothing must never come back
+Second, a page that happens to filter down to nothing never comes back
 as an empty answer while rows genuinely remain past the cursor: an empty
 answer reads to a caller as "there is nothing new," and a caller that parks
 its cursor there never asks again.

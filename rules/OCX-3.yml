@@ -8,14 +8,14 @@ summary: >-
   runs (output data included) to any external platform that asked.
 
 normative: >-
-  A poll answers only runs that were externally invoked, identified by a positive
-  source marker carried in the run's initial data. Scoping must not be inferred
-  from the presence of a trigger configuration identifier, which every trigger
-  kind sets. The marker has exactly one definition, shared by the code that
-  writes it and the code that reads it, so producer and consumer cannot drift
-  apart, a drift that manifests as a poll returning nothing forever, with no
-  error. The marker travels in the run's initial data, not in the options that
-  configure the orchestrator, which never reach it.
+  A poll MUST answer only runs that were externally invoked, identified by a
+  positive source marker carried in the run's initial data. Scoping MUST NOT be
+  inferred from the presence of a trigger configuration identifier, which every
+  trigger kind sets. The marker has exactly one definition, shared by the code
+  that writes it and the code that reads it, so producer and consumer cannot
+  drift apart, a drift that manifests as a poll returning nothing forever, with
+  no error. The marker MUST travel in the run's initial data, not in the options
+  that configure the orchestrator, which never reach it.
 
 posture: normative-target
 level: core
@@ -24,6 +24,9 @@ profiles:
 
 added: "1.0"
 changed: "1.0"
+
+rulings:
+  - OPEN-25
 
 related:
   - OCX-1

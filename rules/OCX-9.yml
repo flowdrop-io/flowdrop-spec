@@ -9,17 +9,18 @@ summary: >-
   query.
 
 normative: >-
-  Every poll is bounded to a page: a first poll, or one whose cursor is empty or
-  unparseable, costs no more than any other. Paging is only sound if the caller
-  can always walk to the end, so two things bind. A page ordered by completion
-  time is extended to cover every run sharing the last row's completion value,
-  because completion times are not unique and a caller advancing its cursor past
-  a split group would skip the remainder for good; the ordering is made total by
-  a unique tiebreak so the held-back group is a clean suffix. And a poll must not
-  answer empty while rows remain: where scoping (OCX-3) is applied after the page
-  is read, a page can filter down to nothing, and an empty answer reads to the
-  caller as "nothing new" and parks its cursor forever, so paging continues
-  until something is emitted or the result set is exhausted.
+  Every poll MUST be bounded to a page: a first poll, or one whose cursor is
+  empty or unparseable, MUST NOT cost more than any other. Paging is only sound
+  if the caller can always walk to the end. A page ordered
+  by completion time MUST be extended to cover every run sharing the last row's
+  completion value, because completion times are not unique and a caller
+  advancing its cursor past a split group would skip the remainder for good. The
+  ordering MUST be made total by a unique tiebreak so the held-back group is a
+  clean suffix. A poll MUST NOT answer empty while rows remain. Where scoping
+  (OCX-3) is applied after the page is read, a page can filter down to nothing,
+  and an empty answer reads to the caller as "nothing new" and parks its cursor
+  forever. Paging MUST therefore continue until something is emitted or the
+  result set is exhausted.
 
 posture: normative-target
 level: extended
@@ -28,6 +29,9 @@ profiles:
 
 added: "1.0"
 changed: "1.0"
+
+rulings:
+  - OPEN-25
 
 related:
   - OCX-3

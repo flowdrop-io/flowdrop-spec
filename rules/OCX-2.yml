@@ -9,12 +9,13 @@ summary: >-
   elsewhere.
 
 normative: >-
-  Results of an externally invoked run are retrieved by the caller polling. The
-  connector dispatches no outbound request and subscribes to no runtime execution
-  event. A run that leaves no persisted record is invisible to a poller, so an
-  execution engine that produces one is refused for external invocation: the
-  configured choice is reported and the run is carried out on a pollable engine
-  instead, rather than silently producing a run no caller can ever observe.
+  Results of an externally invoked run MUST be retrieved by the caller polling.
+  The connector MUST NOT dispatch an outbound request. The connector MUST NOT
+  subscribe to a runtime execution event. A run that leaves no persisted record
+  is invisible to a poller, so an execution engine that produces one MUST be
+  refused for external invocation. The configured choice MUST be reported. The
+  run MUST be carried out on a pollable engine instead, rather than silently
+  producing a run no caller can ever observe.
 
 posture: normative-target
 level: core
@@ -23,6 +24,9 @@ profiles:
 
 added: "1.0"
 changed: "1.0"
+
+rulings:
+  - OPEN-25
 
 related:
   - OCX-8

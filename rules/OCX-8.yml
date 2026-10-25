@@ -5,11 +5,11 @@ part: II
 title: A poll reports every terminal run, cancellation included
 
 normative: >-
-  A poll reports runs in any terminal status, not only successful and failed ones
-  (a cancelled run is terminal and is reported), so a polling caller always
-  reaches an end state. A run that is genuinely paused appears in no poll until
-  it resumes or reaches a terminal status. A backlog may need more than one poll
-  to drain, and nothing is dropped on the way.
+  A poll MUST report runs in any terminal status, not only successful and failed
+  ones. A cancelled run is terminal and MUST be reported, so a polling caller
+  always reaches an end state. A run that is genuinely paused MUST NOT appear in
+  any poll until it resumes or reaches a terminal status. A backlog can need
+  more than one poll to drain. A poll MUST NOT drop a run on the way.
 
 posture: normative-target
 level: core
@@ -18,6 +18,9 @@ profiles:
 
 added: "1.0"
 changed: "1.0"
+
+rulings:
+  - OPEN-25
 
 related:
   - OCX-2

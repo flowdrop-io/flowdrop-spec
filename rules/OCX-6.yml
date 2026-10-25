@@ -10,11 +10,12 @@ summary: >-
 
 normative: >-
   The declared payload schema and required fields an externally invoked trigger
-  publishes are declarative metadata for the calling platform; a payload that
-  violates them is passed through unmodified. Only top-level schema properties
-  become typed fields in the published service description; nested structure
-  rides inside the payload as an object, and recursive translation of a schema
-  into fields is deliberately not attempted.
+  publishes are declarative metadata for the calling platform. A payload that
+  violates them MUST be passed through unmodified. Each top-level schema
+  property MUST become a typed field in the published service description, and a
+  nested property MUST NOT. Nested structure MUST ride inside the payload as an
+  object. Recursive translation of a schema into fields is deliberately not
+  attempted.
 
 posture: normative-target
 level: extended
@@ -23,6 +24,9 @@ profiles:
 
 added: "1.0"
 changed: "1.0"
+
+rulings:
+  - OPEN-25
 
 related:
   - OCX-1

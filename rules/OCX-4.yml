@@ -5,10 +5,10 @@ part: II
 title: External invocation honours the configured pipeline identity and mode
 
 normative: >-
-  An externally invoked run resolves its pipeline identifier and pipeline mode
-  from the trigger's orchestrator settings, exactly as every other trigger kind
-  does. It must not construct an identifier of its own, which silently discards
-  reuse and singleton modes.
+  An externally invoked run MUST resolve its pipeline identifier and pipeline
+  mode from the trigger's orchestrator settings, exactly as every other trigger
+  kind does. It MUST NOT construct an identifier of its own, which silently
+  discards reuse and singleton modes.
 
 posture: normative-target
 level: extended
@@ -17,6 +17,9 @@ profiles:
 
 added: "1.0"
 changed: "1.0"
+
+rulings:
+  - OPEN-25
 
 related:
   - OCX-7

@@ -8,13 +8,14 @@ summary: >-
   synchronous invocation signature.
 
 normative: >-
-  An external invocation answers immediately with exactly one of three statuses:
-  `completed` for a finished run, `interrupted` for one paused awaiting an
-  interrupt whose identifier the response carries, or `queued`. In all three
-  cases the `execution_id` it answers is the persisted run's identifier, the
-  same value a poll response reports as `pipeline_id`. An engine that answers a
-  synthetic request identifier instead has its persisted identifier republished
-  here, so the correlation identifier never varies by engine.
+  An external invocation MUST answer immediately with exactly one of three
+  statuses: `completed` for a finished run, `interrupted` for one paused
+  awaiting an interrupt whose identifier the response carries, or `queued`. In
+  all three cases the `execution_id` it answers MUST be the persisted run's
+  identifier, the same value a poll response reports as `pipeline_id`. Where an
+  engine answers a synthetic request identifier instead, the persisted
+  identifier MUST be republished here, so the correlation identifier never
+  varies by engine.
 
 posture: normative-target
 level: core
@@ -23,6 +24,9 @@ profiles:
 
 added: "1.0"
 changed: "1.0"
+
+rulings:
+  - OPEN-25
 
 related:
   - OCX-4

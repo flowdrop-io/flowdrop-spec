@@ -1,26 +1,29 @@
 ---
 rule: LANG-9
-rule_hash: b3df9748e0db
+rule_hash: cc1e2e2d09c1
 ---
 
 ## What it means
 
-A JSONPath query can fail in two quite different ways — the string never
-compiles at all, or it compiles and runs but matches nothing — and the
-engine treats both as the same outcome. Neither raises, and both hand back
-whatever default the caller supplied, null if none was given. The returned
-value carries no trace of which of the two happened, so a caller cannot use
-it to distinguish a typo in the query from a query that was simply looking
-in the wrong place. What the caller can always tell is whether the query
-matched: a query that matches a stored `null` returns that `null` and reports
-a match, never the default.
+A JSONPath query can come back empty-handed in two quite different ways: it
+runs cleanly and matches nothing, or it never runs at all because the string
+does not compile or the engine fails. Only the first is a miss. A miss hands
+back whatever default the caller supplied, `null` if none was given, and says
+that nothing matched. An error is reported as an error and never turns into the
+default, so a typo in a query cannot pass for data that simply is not there.
+What the caller can also always tell is whether the query matched: a query that
+matches a stored `null` returns that `null` and reports a match, never the
+default.
 
 ## Example
 
-Two failing queries against the same data: `$.[invalid`, which cannot
-compile, and `$.store.nonexistent`, which compiles and runs but matches
-nothing — both evaluated with the same supplied default.
+Two queries against the same data, with the same supplied default:
+`$.store.nonexistent`, which compiles and runs but matches nothing, and
+`$.[invalid`, which cannot compile.
 
-```json title="What both queries return" verdict="fallback"
+```json title="What the query that matches nothing returns" verdict="fallback"
 "fallback"
 ```
+
+The query that cannot compile returns no value at all: it is reported as an
+error, and a node evaluating it fails (LANG-22).

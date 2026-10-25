@@ -1,0 +1,14 @@
+id: OPEN-40
+headline: A JSONPath query that cannot be compiled or run is an error, never a miss.
+question: >-
+  LANG-9 made a query that cannot be compiled or run a miss that yields the caller's
+  default, possibly indistinguishable from a query that matched nothing. LANG-22 and
+  LANG-29 say an expression error fails the node and the default is never
+  substituted on an error.
+decided: "2026-10-25"
+decision: >-
+  An error is an error everywhere. LANG-9 now distinguishes a miss (ran cleanly,
+  matched nothing: the default) from an error (cannot be compiled or run: reported
+  as an error, never the default). LANG-22 and LANG-29 stand.
+affects:
+  - LANG-9

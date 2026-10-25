@@ -1,12 +1,12 @@
 ---
 rule: CMP-5
-rule_hash: d100c20bff21
+rule_hash: b0136df8680e
 ---
 
 ## What it means
 
 Cycle detection does not walk the graph as stored — it first removes every
-tool-availability, loopback and agent-result edge, then checks what is left
+tool and loopback edge, then checks what is left
 for a cycle. A cycle is legal exactly when it disappears once those edge
 types are taken out, whatever mix of edge types formed it. The one case a
 mix does not save: a cycle built entirely from ordinary connections has

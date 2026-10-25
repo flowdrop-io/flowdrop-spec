@@ -2,16 +2,15 @@ id: CMP-5
 family: RT-CMP
 part: II
 
-title: Only tool, loopback and agent-result cycles are legal
+title: Only tool and loopback cycles are legal
 summary: >-
   Rejecting every other cycle is what makes the forward graph acyclic. Loop membership
   is defined by reachability sweeps over that acyclic graph, so loosening this rule
   would make loop extent ill-defined rather than merely permissive.
 
 normative: >-
-  Cycle detection MUST ignore tool-availability, loopback and agent-result edges. A
-  cycle formed only from those edge types MUST NOT refuse compilation. Any other
-  cycle MUST refuse compilation. The graph that remains once the ignored edge types
+  Cycle detection MUST ignore tool and loopback edges. A cycle formed only from those
+  edge types MUST NOT refuse compilation. Any other cycle MUST refuse compilation. The graph that remains once the ignored edge types
   are removed is therefore acyclic, and rules that depend on that acyclicity can
   rely on it.
 
@@ -25,6 +24,7 @@ changed: "1.0"
 
 rulings:
   - OPEN-25
+  - OPEN-32
 
 related:
   - CMP-1

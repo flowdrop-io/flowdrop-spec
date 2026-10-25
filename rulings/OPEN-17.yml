@@ -1,5 +1,6 @@
 id: OPEN-17
 headline: An unrecognised edge type is a save-time error.
+supersededBy: OPEN-32
 question: >-
   A declared edge type the implementation did not recognise fell through to the
   default, so a typo silently became an ordering edge.

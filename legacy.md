@@ -43,17 +43,15 @@ says `node_type_id` (STORE-13).
 
 ## Empty values read as absent
 
-Rules: BR-1, BR-2, EDGE-5, STORE-9, INT-6 (ruling OPEN-26).
+Rules: BR-1, BR-2, STORE-9, INT-6 (ruling OPEN-26).
 
 Some implementations once treated an empty value as if the member had not been
-sent: an empty active-branch list followed every edge, an empty `data.edgeType`
-fell back to the handle, an empty flow id in a bundle had a new one minted, and a
-snapshot of a run with no workflow carried an empty version that skipped the
-version check.
+sent: an empty active-branch list followed every edge, an empty flow id in a
+bundle had a new one minted, and a snapshot of a run with no workflow carried an
+empty version that skipped the version check.
 
-**If you meet it:** a stored workflow with `"edgeType": ""`, or a bundle with
-`"id": ""`, is refused by a conforming implementation. Remove the member to get the
-fallback. A snapshot with an empty version is compared like any other. An
+**If you meet it:** a bundle with `"id": ""` is refused by a conforming
+implementation. Remove the member to get a new id. A snapshot with an empty version is compared like any other. An
 implementation that still reads these the old way says so in its release notes,
 with the release that changes it and how to migrate.
 
@@ -162,3 +160,21 @@ along the edge only when the condition held.
 accepted and keeps the condition on every save, but the condition gates nothing: the
 edge always routes, and a non-empty condition is reported as a warning. A workflow
 that relied on it routes with a gateway node instead.
+
+## A declared edge type decided the edge's kind
+
+Rules: EDGE-5, CMP-4, CMP-5 (ruling OPEN-32).
+
+Some implementations once let `data.edgeType` override the target handle: a declared
+`tool_availability` made an edge into an ordinary port a tool edge, another declared
+kind made an edge into a tool port an ordinary one, and an unrecognised value was
+refused at save. One kind, `agent_result`, could be expressed only this way and was
+left out of cycle detection.
+
+**If you meet it:** the handle decides. An edge whose `edgeType` disagrees with its
+handle takes the handle's kind, and `edgeType` stays on the edge as an annotation that
+nothing at run time reads. An edge declared `agent_result` is an ordinary data edge;
+where it closes a cycle, the workflow is refused at compile until the edge is removed
+or rewired. An unrecognised `edgeType` is no longer refused. An implementation that
+still reads the declaration says so in its release notes, with the release that
+changes it and how to migrate.

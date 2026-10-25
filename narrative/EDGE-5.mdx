@@ -1,0 +1,37 @@
+---
+rule: EDGE-5
+rule_hash: b760915d8eb0
+---
+
+## What it means
+
+The port an edge plugs into is the whole of its kind. Wiring a tool means plugging
+into a node's `tool` port; nothing written on the edge itself can make an ordinary
+connection a tool connection, or a tool connection an ordinary one.
+
+`data.edgeType` survives as an annotation for whoever draws the workflow, so an
+editor can, for example, draw tool edges dotted. A runtime never reads it, and a
+validator never judges it, so a value nobody recognises is not an error. A surface
+that styles an edge does best to style it from its kind, so a stale annotation
+cannot draw a data edge as a tool edge.
+
+## Example
+
+An edge declares itself a tool edge but plugs into an ordinary port:
+
+```json title="An edge whose annotation and handle disagree" verdict="data"
+{
+  "source": "search",
+  "target": "agent",
+  "targetHandle": "agent-input-context",
+  "data": { "edgeType": "tool_availability" }
+}
+```
+
+It is a data edge: `search` runs before `agent` and its output is delivered to
+`context`. The same edge plugged into the tool port is a tool edge, with or
+without the annotation:
+
+```json title="The same edge plugged into the tool port" verdict="tool"
+{ "source": "search", "target": "agent", "targetHandle": "agent-input-tool" }
+```

@@ -2,10 +2,11 @@ id: CMP-4
 family: RT-CMP
 part: II
 
-title: An edge's type is derived, never declared
+title: An edge's type is derived from its handles, never declared
 normative: >-
-  The type of an edge MUST be derived from the handles it connects. An edge does not
-  declare its own type. A declared type on an edge MUST NOT be authoritative.
+  The type of an edge MUST be derived from the handles it connects (EDGE-3, EDGE-4,
+  EDGE-5). A declared type on an edge, `data.edgeType` included, MUST NOT be
+  authoritative.
 
 posture: normative-target
 level: core
@@ -17,6 +18,7 @@ changed: "1.0"
 
 rulings:
   - OPEN-25
+  - OPEN-32
 
 related:
   - EDGE-5

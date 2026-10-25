@@ -9,7 +9,7 @@ A loopback edge is drawn from one node back to an earlier one, but the loop
 it closes is not "everything the loopback edge touches" — it is the
 intersection of what the head can still reach and what can still reach the
 tail, over the forward graph alone. An edge type excluded from execution
-(a tool wire, an agent-result wire, the loopback edge itself) is excluded
+(a tool wire, the loopback edge itself) is excluded
 from that computation too, so a tool consumer downstream of the loop never
 pulls the loop's body wider than it is.
 

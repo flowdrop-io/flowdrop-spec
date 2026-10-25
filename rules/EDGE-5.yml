@@ -2,25 +2,19 @@ id: EDGE-5
 family: GR-EDGE
 part: I
 
-title: A declared edge type wins over the handle, if it is recognised
+title: A tool edge is one whose target port is the tool port
 
 summary: >-
-  An edge can name its own kind instead of leaving it to the handles. Because a named
-  kind overrides what the handles say, a name nobody recognises is refused rather than
-  carried through.
+  An edge's kind is read from the port it plugs into, never from what the edge says
+  about itself. A declared `data.edgeType` is for drawing the line, not for running it.
 
 normative: >-
-  An edge MUST be a tool edge when its declared `data.edgeType` is `tool_availability`,
-  or, where the declaration is absent, when its target handle ends with `-input-tool`. A
-  recognised declaration MUST decide in both directions: a declared `tool_availability`
-  makes an edge with an ordinary handle a tool edge, and any other recognised
-  declaration makes an edge with a `-input-tool` handle not one. Only an absent
-  declaration falls back to the handle. A declaration that is present but not a
-  recognised type, the empty string, `null` and any value that is not a string included,
-  MUST be refused at save with a validation error. An implementation MUST NOT carry an
-  unrecognised type through as a kind of its own, where it matches nothing and so is
-  neither classified nor excluded, and a mistyped kind silently becomes an ordinary
-  ordering edge.
+  An edge MUST be a tool edge when, and only when, its target handle ends with
+  `-input-tool`. An edge MUST NOT be treated as a tool edge on any other ground. A
+  `data.edgeType` on an edge is an annotation: it MUST NOT change the edge's kind, MUST
+  NOT change how the edge is validated, and MUST NOT change how the workflow runs. Its
+  value is open: an implementation MUST NOT refuse a workflow for a `data.edgeType` it
+  does not recognise.
 
 posture: normative-target
 level: core
@@ -34,6 +28,7 @@ rulings:
   - OPEN-17
   - OPEN-25
   - OPEN-26
+  - OPEN-32
 
 related:
   - EDGE-7

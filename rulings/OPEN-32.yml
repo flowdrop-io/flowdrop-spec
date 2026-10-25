@@ -1,0 +1,28 @@
+id: OPEN-32
+headline: An edge's kind comes from the port it plugs into; edge metadata never runs.
+question: >-
+  An edge's kind (tool, trigger, loopback, data) decides how it runs. EDGE-5 let a
+  declared `data.edgeType` override the target handle in both directions, while CMP-4
+  said a declared type is never authoritative, so the two contradicted each other.
+  EDGE-5 recorded how one implementation classified edges rather than a design
+  choice, and `data.edgeType` was meant for drawing: marking an edge as dotted, for
+  example.
+decided: "2026-10-25"
+supersedes: OPEN-17
+decision: >-
+  An edge's kind is decided by the handles it connects and nothing else (EDGE-3,
+  EDGE-4, EDGE-5): the target port is the single source of truth, and R7.d already
+  guarantees that the port exists. `data.edgeType` is an annotation. A drawing surface
+  can use it, but it never changes an edge's kind, its validation or how the workflow
+  runs, the same principle EDGE-8 applies to a condition on an edge: metadata on an
+  edge carries no execution logic. Since the annotation decides nothing, a value
+  nobody recognises cannot be misread as a kind, so OPEN-17's save-time refusal is no
+  longer needed and the value is open (OPEN-22). An edge kind with no port of its own
+  cannot exist: the agent-result edge, which only a declaration could express and
+  which no rule defined, leaves the specification. A drawing that disagrees with the
+  handle is the drawing's problem, so a save reports nothing about it; a surface that
+  styles an edge does so from its kind.
+affects:
+  - EDGE-5
+  - CMP-4
+  - CMP-5

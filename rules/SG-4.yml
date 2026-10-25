@@ -2,15 +2,15 @@ id: SG-4
 family: RT-SG
 part: II
 
-title: A ForEach node initializes its iterator once and completes on an empty list
+title: A ForEach node initializes its iterator once and completes on an empty array
 
 normative: >-
-  A ForEach node initializes its iterator on the round where the state carries
-  none, and requires items to iterate. A value that is not a list is wrapped as a
-  single item, and the items are re-indexed so that iteration is positional. An
-  empty list completes the node immediately rather than entering the loop. On
-  completion the node emits its defined output set, including the results collected
-  across the rounds it ran.
+  A ForEach node MUST initialize its iterator on the round where the state
+  carries none. It requires items to iterate. A value that is not an array MUST
+  be wrapped as a single item. The items MUST be re-indexed so that iteration is
+  positional. An empty array MUST complete the node immediately rather than
+  entering the loop. On completion the node MUST emit its defined output set,
+  including the results collected across the rounds it ran.
 
 posture: normative-target
 level: extended
@@ -19,6 +19,9 @@ profiles:
 
 added: "1.0"
 changed: "1.0"
+
+rulings:
+  - OPEN-25
 
 related:
   - SG-5

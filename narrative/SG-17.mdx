@@ -1,6 +1,6 @@
 ---
 rule: SG-17
-rule_hash: e8b4478e464f
+rule_hash: 0fe3a61db111
 ---
 
 ## What it means
@@ -18,7 +18,7 @@ conclude nothing could still produce a value while that outside input was
 still on its way.
 
 Every execution of every node carries a stamp of the rounds it belongs to,
-one entry per loop, outermost first — including an empty stamp for a node in
+one entry per loop — including an empty stamp for a node in
 no loop, and including round 0 explicitly, so an absent entry can never be
 read as either "outside every loop" or "inside one at round 0".
 

@@ -1,6 +1,6 @@
 ---
 rule: SG-7
-rule_hash: 1e98d348961e
+rule_hash: 3b836a4560ce
 ---
 
 ## What it means
@@ -12,7 +12,7 @@ loop would keep re-entering after the budget the author set was gone. The
 round count is kept per loop, identified by the loop's head, precisely so a
 lagging node inside it cannot buy the loop extra rounds.
 
-That count has to survive a pause. A run paused mid-loop and resumed later
+The count survives a pause. A run paused mid-loop and resumed later
 does not start the loop's counter over: the round each loop had reached is
 recovered, so the same budget that would have applied without the pause
 still applies after it.

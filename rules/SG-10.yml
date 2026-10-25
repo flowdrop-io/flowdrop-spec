@@ -6,7 +6,7 @@ title: A loopback driven from the trigger port belongs to no branch
 
 normative: >-
   Where a loopback edge's source is the reserved `trigger` port, the re-entry it
-  drives is attributed to no branch.
+  drives MUST be attributed to no branch.
 
 posture: normative-target
 level: extended
@@ -15,6 +15,9 @@ profiles:
 
 added: "1.0"
 changed: "1.0"
+
+rulings:
+  - OPEN-25
 
 related:
   - SG-7

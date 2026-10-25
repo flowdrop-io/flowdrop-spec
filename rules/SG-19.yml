@@ -9,16 +9,17 @@ summary: >-
   a consumer on round N happily reads the value its source produced on round N-1.
 
 normative: >-
-  A completed source does not satisfy a trigger, error or data edge when the source
-  and the consumer share a loop and the source's round on that loop is behind the
-  consumer's. Behindness is decided by intersecting the two round stamps' loops and
-  comparing lexicographically, outermost loop first: the first shared loop on which
-  the two differ settles it, and nothing nested inside it can overturn that. Where
-  the two share no loop the source is never behind: a source outside every loop
-  the consumer is in will never fire again, its value is the current one forever,
-  and gating it would hang the consumer on a round that cannot arrive. The verdict
-  differs by edge class: a gated trigger or error edge leaves the consumer waiting,
-  to be skipped when the run ends, while a gated data port must be terminated.
+  A completed source MUST NOT satisfy a trigger, error or data edge when the
+  source and the consumer share a loop and the source's round on that loop is
+  behind the consumer's. Behindness MUST be decided by intersecting the two
+  round stamps' loops and comparing lexicographically, outermost loop first: the
+  first shared loop on which the two differ settles it, and nothing nested
+  inside it can overturn that. Where the two share no loop the source MUST NOT
+  be judged behind: a source outside every loop the consumer is in will never
+  fire again, its value is the current one forever, and gating it would hang the
+  consumer on a round that cannot arrive. A gated trigger or error edge MUST
+  leave the consumer waiting, to be skipped when the run ends. A gated data port
+  MUST be terminated.
 
 posture: normative-target
 level: core
@@ -27,6 +28,9 @@ profiles:
 
 added: "1.0"
 changed: "1.0"
+
+rulings:
+  - OPEN-25
 
 related:
   - SG-17

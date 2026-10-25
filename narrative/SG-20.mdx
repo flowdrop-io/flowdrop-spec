@@ -1,6 +1,6 @@
 ---
 rule: SG-20
-rule_hash: 90a959980fa6
+rule_hash: b68286622ac2
 ---
 
 ## What it means
@@ -19,11 +19,11 @@ never took would hold the port open forever.
 
 Four restrictions keep this from over-firing. It applies to data edges only,
 and only to a consumer with no trigger and no error edge. Every source on
-the port must share a loop with the consumer — one out-of-loop source is
+the port shares a loop with the consumer — one out-of-loop source is
 enough to keep the port fillable regardless of the rest. At least one edge
-on the port must actually have been held back by the round comparison; a
+on the port has actually been held back by the round comparison; a
 source that was simply never dispatched is an ordinary skipped branch, not
-this rule's business. And the run must carry the reachability sets the check
+this rule's business. And the run carries the reachability sets the check
 depends on.
 
 Where it fires, the port's consumer fails exactly like any other node

@@ -1,14 +1,13 @@
 ---
 rule: SG-18
-rule_hash: 04c2ced043d2
+rule_hash: 5b819c2bfd6d
 ---
 
 ## What it means
 
 Two loops can relate to each other in three ways, and only one of them
 leaves both loops standing as drawn. Where one loop's body is a strict
-subset of another's, the two stay distinct, each with its own round —
-reported outermost first wherever a node reports which loops it belongs to.
+subset of another's, the two stay distinct, each with its own round.
 Advancing the outer loop's round resets every loop nested inside it back to
 round 0; without that reset an inner loop would spend its whole budget once
 for the entire run, and a round number on the inner loop would mean nothing
@@ -43,8 +42,8 @@ An inner loop nested inside an outer one:
 {"inner_head": ["inner_head", "inner_tail"], "outer_head": ["inner_head", "inner_tail", "outer_head", "outer_tail"]}
 ```
 
-The shared node `inner_tail` reports its loops outermost first: `outer_head`
-before `inner_head`. Two loops that overlap without either containing the
+The shared node `inner_tail` belongs to both loops, `outer_head` and
+`inner_head`. Two loops that overlap without either containing the
 other resolve differently:
 
 ```json title="Two loops sharing one node, neither containing the other"

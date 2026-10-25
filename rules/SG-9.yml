@@ -5,10 +5,10 @@ part: II
 title: An edge condition never decides routing
 
 normative: >-
-  A condition stored on an edge never gates dispatch: not on any edge, and not on
-  a loopback edge, the one place dispatch genuinely decides. The edge is stored,
-  the edge is followed, and a warning is reported for it once per edge each time
-  its source's outgoing edges are resolved.
+  A condition stored on an edge MUST NOT gate dispatch: not on any edge, and not
+  on a loopback edge, the one place dispatch genuinely decides. The edge MUST be
+  stored. The edge MUST be followed. A warning MUST be reported for it once per
+  edge each time its source's outgoing edges are resolved.
 
 posture: normative-target
 level: core
@@ -17,6 +17,9 @@ profiles:
 
 added: "1.0"
 changed: "1.0"
+
+rulings:
+  - OPEN-25
 
 related:
   - SG-6

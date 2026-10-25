@@ -1,6 +1,6 @@
 ---
 rule: SG-19
-rule_hash: 2c940b703de9
+rule_hash: 6af06a923319
 ---
 
 ## What it means
@@ -25,8 +25,8 @@ cannot arrive would hang the consumer permanently.
 
 The consequence differs by edge class. A gated trigger or error edge simply
 leaves the consumer waiting, to be swept up and skipped once the run ends.
-A gated data port cannot be left waiting the same way; it has to be
-terminated (SG-20).
+A gated data port is not left waiting the same way; it is terminated
+(SG-20).
 
 ## Example
 

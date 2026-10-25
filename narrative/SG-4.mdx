@@ -1,16 +1,16 @@
 ---
 rule: SG-4
-rule_hash: db4a877777bd
+rule_hash: 5de37acddae1
 ---
 
 ## What it means
 
-An empty list is not a loop that runs zero times — it is completion on the
+An empty array is not a loop that runs zero times — it is completion on the
 first round, with the node's whole defined output set produced immediately,
 current item included as absent rather than left unset. A value that is not
-a list at all is not refused either: it is wrapped as the one item a single
-round iterates, re-indexed the same way any list would be, so a round that
-receives a bare scalar behaves exactly like a round over a one-item list.
+an array at all is not refused either: it is wrapped as the one item a single
+round iterates, re-indexed the same way any array would be, so a round that
+receives a bare scalar behaves exactly like a round over a one-item array.
 
 ## Example
 
@@ -22,7 +22,7 @@ receives a bare scalar behaves exactly like a round over a one-item list.
 {"loop_active": false, "current_item": null, "total_count": 0, "collected_results": []}
 ```
 
-```json title="A ForEach launched with one scalar, not a list"
+```json title="A ForEach launched with one scalar, not an array"
 {"items": "scalar_value"}
 ```
 

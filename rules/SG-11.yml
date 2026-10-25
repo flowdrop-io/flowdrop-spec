@@ -5,11 +5,12 @@ part: II
 title: Every node completion writes a checkpoint, and the run writes a last one
 
 normative: >-
-  A run writes a checkpoint as each node completes, each chained to the checkpoint
-  before it, and a final checkpoint named `workflow_end` when the run ends. An
-  implementation offers at least an ephemeral checkpoint store, which lives no
-  longer than the request that created it, and a durable one, which outlives it. A
-  run that asks for a checkpoint store the implementation does not know is refused.
+  A run MUST write a checkpoint as each node completes, each chained to the
+  checkpoint before it. A run MUST write a final checkpoint named `workflow_end`
+  when the run ends. An implementation MUST offer at least an ephemeral
+  checkpoint store, which lives no longer than the request that created it, and
+  a durable one, which outlives it. A run that asks for a checkpoint store the
+  implementation does not know MUST be refused.
 
 posture: normative-target
 level: extended
@@ -18,6 +19,9 @@ profiles:
 
 added: "1.0"
 changed: "1.0"
+
+rulings:
+  - OPEN-25
 
 related:
   - SG-12

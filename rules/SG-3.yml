@@ -5,10 +5,10 @@ part: II
 title: A node's state update is applied through the reducers once it completes
 
 normative: >-
-  A node's `state_update` output is applied to the run state through the same
-  field-by-field reducers as any other update, once the node has completed. It is a
-  control output and is never removed by output exposure, whatever the author
-  exposed.
+  A node's `state_update` output MUST be applied to the run state through the
+  same field-by-field reducers as any other update, once the node has completed.
+  It is a control output and MUST NOT be removed by output exposure, whatever
+  the author exposed.
 
 posture: normative-target
 level: core
@@ -17,6 +17,9 @@ profiles:
 
 added: "1.0"
 changed: "1.0"
+
+rulings:
+  - OPEN-25
 
 related:
   - SG-1

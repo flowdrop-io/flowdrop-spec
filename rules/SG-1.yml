@@ -5,10 +5,11 @@ part: II
 title: State merges field by field, and a state value is never mutated
 
 normative: >-
-  A state update is merged into the current state field by field: `messages`
-  appends, `data` and `metadata` merge key by key, and every other field is
-  replaced. A field the update omits keeps its current value. The merge yields a
-  new state; the state it was applied to is not modified.
+  A state update MUST be merged into the current state field by field:
+  `messages` appends, `data` and `metadata` merge key by key, and every other
+  field is replaced. A field the update omits MUST keep its current value. The
+  merge MUST yield a new state. The merge MUST NOT modify the state it was
+  applied to.
 
 posture: normative-target
 level: core
@@ -17,6 +18,9 @@ profiles:
 
 added: "1.0"
 changed: "1.0"
+
+rulings:
+  - OPEN-25
 
 related:
   - SG-3

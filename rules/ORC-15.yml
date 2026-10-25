@@ -15,7 +15,7 @@ normative: >-
   resolve to its caller with status cancelled and empty outputs.
 
 posture: normative-target
-level: extended
+level: core
 profiles:
   - runtime
 
@@ -24,6 +24,7 @@ changed: "1.0"
 
 rulings:
   - OPEN-25
+  - OPEN-44
 
 related:
   - ORC-11

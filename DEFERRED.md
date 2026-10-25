@@ -59,6 +59,10 @@ a decision.
   status change reports. ST-7 and ST-9 described both, and were withdrawn with the
   polled status surface they belonged to. To be settled with the concept model,
   where node execution and its statuses are defined.
+- **The interrupt type and direction vocabularies** (2026-10-25, OPEN-44). INT-22
+  publishes an interrupt's `type` and `direction`, and INT-19 refuses answers by
+  type, but no rule lists the values either may take. INT-22 requires only a string
+  until they are settled with the concept model, where interrupts are defined.
 
 ## By family
 

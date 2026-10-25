@@ -14,7 +14,7 @@ normative: >-
   charged to the workflow's author.
 
 posture: normative-target
-level: extended
+level: core
 profiles:
   - storage-api
 
@@ -24,6 +24,7 @@ changed: "1.0"
 rulings:
   - OPEN-25
   - OPEN-28
+  - OPEN-44
 
 related:
   - R9

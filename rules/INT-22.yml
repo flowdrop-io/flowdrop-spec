@@ -13,16 +13,17 @@ normative: >-
   Every endpoint that publishes an interrupt MUST publish the same entry: 24 keys,
   uniformly camelCase: `id`, `type`, `status`, `message`, `nodeId`, `workflowId`,
   `pipelineId`, `sessionId`, `schema`, `options`, `context`, `defaultValue`,
-  `responseData`, `createdAt`, `expiresAt`, `scheduledAt`, `resolvedAt`, `resolvedBy`,
-  `direction`, `jobId`, `targetPipelineId`, `initiatorUid`, `reason`,
-  `linkedInterruptId`, and nothing else. The entry is closed because every endpoint
-  that publishes an interrupt publishes it alike, and a key one endpoint added would
-  make the entry that endpoint's own. `id` MUST be the interrupt's UUID. `type`,
-  `status` and `direction` MUST each be one of the enumerated values (STORE-11). All
-  four timestamps MUST be ISO-8601 strings or null, never integers. Every optional
-  member MUST be present and null rather than omitted. An endpoint listing interrupts
-  MUST answer a JSON array, and MUST still answer an array after access filtering has
-  removed entries.
+  `responseData`, `createdAt`, `expiresAt`, `scheduledAt`, `resolvedAt`,
+  `resolvedBy`, `direction`, `jobId`, `targetPipelineId`, `initiatorUid`,
+  `reason`, `linkedInterruptId`, and nothing else. The entry is closed because
+  every endpoint that publishes an interrupt publishes it alike, and a key one
+  endpoint added would make the entry that endpoint's own. `id` MUST be the
+  interrupt's UUID. `status` MUST be one of the interrupt statuses (STORE-11).
+  `type` and `direction` MUST each be a string. All four timestamps MUST be
+  ISO-8601 strings or null, never integers. Every optional member MUST be present
+  and null rather than omitted. An endpoint listing interrupts MUST answer a JSON
+  array, and MUST still answer an array after access filtering has removed
+  entries.
 
 posture: normative-target
 level: core
@@ -36,6 +37,7 @@ rulings:
   - OPEN-22
   - OPEN-23
   - OPEN-25
+  - OPEN-44
 
 related:
   - INT-1

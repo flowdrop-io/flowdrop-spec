@@ -1,0 +1,19 @@
+id: OPEN-44
+headline: Core rules do not lean on extended ones; ORC-15, R6.j and STORE-11 are core.
+question: >-
+  For 1.0 the core rules are the binding set, and a core-only implementation must be
+  able to meet them without the extended ones. INT-5 and INT-18 announce a
+  cancellation as ORC-15 does; R6.a, R6.d and R6.h hand an unbuildable node type to
+  R6.j; INT-22 took interrupt type, status and direction from STORE-11, which listed
+  only job, pipeline, session and message status. All three were extended.
+decided: "2026-10-25"
+decision: >-
+  ORC-15, R6.j and STORE-11 are core: they describe behaviour any implementation of
+  the core rules already needs. STORE-11 covers interrupt status. INT-22 takes
+  `status` from STORE-11 and requires `type` and `direction` to be strings; their
+  vocabularies are an open gap (DEFERRED.md), to be settled with the concept model.
+affects:
+  - ORC-15
+  - R6.j
+  - STORE-11
+  - INT-22

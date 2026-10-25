@@ -3,7 +3,7 @@
 The rules a FlowDrop workflow obeys (how a workflow is written, stored,
 validated, and executed), stated independently of any one implementation.
 
-**Status: draft, preparing 1.0.** 386 rules are in force: 214 core, 170 extended
+**Status: draft, preparing 1.0.** 386 rules are in force: 217 core, 167 extended
 and 2 optional. They were first written in [FlowDrop for Drupal][fddo] and migrated
 out of it. The site at <https://flowdrop.io/spec> carries an earlier draft; this
 repository is ahead of it until the next deploy.

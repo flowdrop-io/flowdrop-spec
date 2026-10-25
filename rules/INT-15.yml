@@ -9,11 +9,11 @@ summary: >-
   opposite: it re-runs every side effect the snapshot recorded as already done.
 
 normative: >-
-  An engine that cannot consume a snapshot it has been given must refuse, naming
-  the snapshot, and must not silently discard it and start the run from the
-  beginning. An engine with no snapshot-seeding mechanism therefore refuses any
-  snapshot attached to a run, before any run or job exists. No snapshot attached
-  remains a plain fresh start.
+  An engine that cannot consume a snapshot it has been given MUST refuse, naming the
+  snapshot. It MUST NOT silently discard the snapshot and start the run from the
+  beginning. An engine with no snapshot-seeding mechanism therefore MUST refuse any
+  snapshot attached to a run, before any run or job exists. A run with no snapshot
+  attached MUST remain a plain fresh start.
 
 posture: normative-target
 level: core
@@ -25,6 +25,7 @@ changed: "1.0"
 
 rulings:
   - OPEN-10
+  - OPEN-25
 
 related:
   - INT-10

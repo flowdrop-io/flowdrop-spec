@@ -5,10 +5,9 @@ part: II
 title: The interrupt a run reports is the persisted one
 
 normative: >-
-  An interrupt is persisted before the run reports it, and the identifier and
-  status a caller sees are read from the persisted record, never from the
-  in-flight signal that requested the pause, which carries no identifier and cannot
-  be updated.
+  An interrupt MUST be persisted before the run reports it. The identifier and status
+  a caller sees MUST be those of the persisted record, not of the in-flight signal
+  that requested the pause, which carries no identifier and cannot be updated.
 
 posture: normative-target
 level: extended
@@ -17,6 +16,9 @@ profiles:
 
 added: "1.0"
 changed: "1.0"
+
+rulings:
+  - OPEN-25
 
 related:
   - INT-1

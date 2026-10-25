@@ -1,6 +1,6 @@
 ---
 rule: INT-5
-rule_hash: 5d8d40defc7e
+rule_hash: 593ea7fa3a18
 ---
 
 ## What it means
@@ -11,7 +11,7 @@ Past that boundary the two diverge in a way that is easy to get backwards.
 Cancel is terminal: it announces the cancellation itself, and separately
 announces the run as complete (carrying the cancelled status), because
 anything that only listens for completion — a session closing out, a parent
-run waiting on this one — must hear that the run is over. Pause is not
+run waiting on this one — needs to hear that the run is over. Pause is not
 terminal: it announces only the pause, and nothing tells a completion
 listener the run has ended, because it has not. The signal a pause left
 behind stays exactly as it was, because that record is the same one a later

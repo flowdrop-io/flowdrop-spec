@@ -1,6 +1,6 @@
 ---
 rule: INT-20
-rule_hash: d86070c73c82
+rule_hash: f7341019f475
 ---
 
 ## What it means
@@ -9,8 +9,8 @@ The callback address a remote system is told to answer at is built from the
 interrupt's identifier, so the interrupt has to exist before there is
 anything to tell the remote — the order is the rule, not an incidental
 detail of how the node happens to be written. A fast remote can answer the
-callback before the outbound call has even returned, and the interrupt must
-already be there to receive it.
+callback before the outbound call has even returned, and the interrupt is
+already there to receive it.
 
 The reverse direction is guarded just as deliberately. A call that fails to
 go out cancels the interrupt it already created rather than pausing on it:

@@ -8,7 +8,7 @@ rule_hash: 1232932f6c66
 A snapshot's per-node status is not a direct copy of the job status behind
 it — two collapses are deliberate, and both go against the more intuitive
 guess. A cancelled job is recorded as skipped, not as failed and not with its
-own separate status: a cancelled node did not run, and a resume must not
+own separate status: a cancelled node did not run, and a resume has no reason to
 treat "did not run because cancelled" any differently from "did not run
 because the workflow finished first." A status the reader does not
 recognise at all becomes idle, on the same reasoning: unrecognised means "not
@@ -18,7 +18,7 @@ output is carried only when that job actually completed, and its error only
 when it actually failed — a failed job never carries stale output forward,
 and a completed one never carries a phantom error.
 
-None of this may cost the run anything. Where there is no state to read, or
+None of this is meant to cost the run anything. Where there is no state to read, or
 producing the snapshot itself raises an error, the result is simply no
 snapshot — recorded in the log, not thrown.
 

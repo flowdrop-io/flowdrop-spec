@@ -1,12 +1,12 @@
 ---
 rule: INT-22
-rule_hash: 0afae3d49198
+rule_hash: 71b390a69aa9
 ---
 
 ## What it means
 
 Every endpoint that publishes an interrupt publishes the same 24 keys, in
-the same order, whichever door answered. A consumer that reads this shape
+whichever endpoint answered. A consumer that reads this shape
 once can read it everywhere; a consumer that has to special-case one
 endpoint's fields is reading a contract that was never actually shared.
 
@@ -19,7 +19,7 @@ never allowed to mean anything.
 
 ## Example
 
-```json title="The interrupt entry's key set, in order"
+```json title="The interrupt entry's key set"
 ["id", "type", "status", "message", "nodeId", "workflowId", "pipelineId", "sessionId", "schema", "options", "context", "defaultValue", "responseData", "createdAt", "expiresAt", "scheduledAt", "resolvedAt", "resolvedBy", "direction", "jobId", "targetPipelineId", "initiatorUid", "reason", "linkedInterruptId"]
 ```
 

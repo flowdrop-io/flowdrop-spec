@@ -9,11 +9,11 @@ summary: >-
   asking again. So the fallback is a fresh execution, which at most re-asks.
 
 normative: >-
-  A node's resume path is taken only when all four hold: the resolved parameters
-  carry an interrupt identifier, the node's executor supports resuming, the named
-  interrupt is resolved, and its stamped job identifier matches the job being
-  executed. If any fails, the node is executed afresh rather than resumed: a safe
-  re-ask.
+  A node MUST take its resume path when all four hold, and MUST NOT take it
+  otherwise: the resolved parameters carry an interrupt identifier, the node's
+  executor supports resuming, the named interrupt is resolved, and its stamped job
+  identifier matches the job being executed. If any does not hold, the node MUST be executed afresh rather than
+  resumed: a safe re-ask.
 
 posture: normative-target
 level: core
@@ -22,6 +22,9 @@ profiles:
 
 added: "1.0"
 changed: "1.0"
+
+rulings:
+  - OPEN-25
 
 related:
   - INT-3

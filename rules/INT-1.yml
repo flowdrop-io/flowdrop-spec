@@ -10,11 +10,11 @@ summary: >-
   finished before it.
 
 normative: >-
-  When a node raises an interrupt, its job is marked interrupted and carries the
-  interrupt's identifier, and the run is paused. The response shape is part of this
-  rule: status `interrupted`, the persisted interrupt's public representation
-  (identifier, node identifier, status) under the response metadata, the run's
-  identifier, and results holding every node that completed before the interrupt.
+  When a node raises an interrupt, its job MUST be marked interrupted and MUST carry
+  the interrupt's identifier. The run MUST be paused. The response MUST carry status
+  `interrupted`, the persisted interrupt's public representation (identifier, node
+  identifier, status) under the response metadata, the run's identifier, and results
+  holding every node that completed before the interrupt.
 
 posture: normative-target
 level: core
@@ -23,6 +23,9 @@ profiles:
 
 added: "1.0"
 changed: "1.0"
+
+rulings:
+  - OPEN-25
 
 related:
   - INT-2

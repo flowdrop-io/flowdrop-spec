@@ -1,6 +1,6 @@
 ---
 rule: INT-23
-rule_hash: 965225762f89
+rule_hash: 7e6569f8491c
 ---
 
 ## What it means
@@ -10,8 +10,8 @@ one set to zero — and a sweep has to exclude both, or an open-ended question
 to a human would be reaped the first time the sweep runs. Treating only one
 of the two as the sentinel is the mistake this rule rules out.
 
-The two paths that do expire an interrupt differ in exactly one observable,
-and that asymmetry is deliberate rather than an oversight. A sweep finding
+The two paths that do expire an interrupt differ in one observable only,
+whether the expiry is announced, and that asymmetry is deliberate rather than an oversight. A sweep finding
 an overdue row expires it and announces the expiry — that announcement is
 what ends the run holding it open (INT-18). A caller answering a row that
 turns out to already be overdue also expires it, as a side effect of

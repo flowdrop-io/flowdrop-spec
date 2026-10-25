@@ -5,14 +5,14 @@ part: II
 title: One execution has at most one stored snapshot
 
 normative: >-
-  Storing a snapshot is an upsert keyed by execution identifier: an existing record
-  for the same execution is overwritten in place, so one execution never
-  accumulates two snapshot records. Cleanup deletes records created before a given
-  time and, where a set of statuses is given, only those whose status is in it,
-  answering with the number deleted, zero when nothing matches. Access to a snapshot
-  is enforced at the API boundary and enforced once there, not repeated by the layer
-  that stores them. A scheduled cleanup runs with no principal and deletes on the
-  predicate above alone.
+  Storing a snapshot MUST be an upsert keyed by execution identifier: an existing
+  record for the same execution MUST be overwritten in place, so that one execution
+  never accumulates two snapshot records. Cleanup MUST delete the records created
+  before a given time. Where a set of statuses is given, cleanup MUST delete only
+  those whose status is in it. Cleanup MUST answer with the number deleted, zero when
+  nothing matches. Access to a snapshot MUST be enforced at the API boundary, and
+  enforced once there, not repeated by the layer that stores them. A scheduled cleanup
+  MUST run with no principal and MUST delete on the predicate above alone.
 
 posture: normative-target
 level: extended
@@ -22,6 +22,9 @@ profiles:
 
 added: "1.0"
 changed: "1.0"
+
+rulings:
+  - OPEN-25
 
 related:
   - INT-6

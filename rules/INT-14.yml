@@ -10,13 +10,13 @@ summary: >-
   announced.
 
 normative: >-
-  A snapshot whose status is terminal (completed, failed or cancelled) must not
-  be resumed. An engine offered one refuses before creating a run, naming the
-  snapshot and its status; the same refusal covers explicit resumption from a
+  A snapshot whose status is terminal (completed, failed or cancelled) MUST NOT be
+  resumed. An engine offered one MUST refuse before creating a run, naming the
+  snapshot and its status. The same refusal MUST cover explicit resumption from a
   checkpoint capturing terminal state, naming the checkpoint. Continuing a
-  conversation thread is not resumption and is not gated: restoring a thread's
-  latest state to seed a new turn carries accumulated conversation state forward
-  and is permitted whatever the previous turn's outcome.
+  conversation thread is not resumption and is not gated: restoring a thread's latest
+  state to seed a new turn carries accumulated conversation state forward and MUST be
+  permitted whatever the previous turn's outcome.
 
 posture: normative-target
 level: core
@@ -28,6 +28,7 @@ changed: "1.0"
 
 rulings:
   - OPEN-10
+  - OPEN-25
 
 related:
   - INT-13

@@ -1,6 +1,6 @@
 ---
 rule: INT-1
-rule_hash: 4bdde683fa18
+rule_hash: 564b88d85bde
 ---
 
 ## What it means
@@ -13,7 +13,7 @@ raised it, and its status — under the response metadata, and it hands back
 every node that finished before the pause. A caller does not have to make a
 second call to learn what already ran.
 
-The results are exactly the completed prefix, no more: a node reached after
+The results are the completed prefix, no more: a node reached after
 the interrupt does not appear at all, not even as an empty placeholder.
 
 ## Example

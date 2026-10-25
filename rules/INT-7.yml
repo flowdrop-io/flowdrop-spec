@@ -5,13 +5,13 @@ part: II
 title: The workflow version is a structural digest
 
 summary: >-
-  Two implementations must agree on whether a snapshot still fits its workflow.
+  Two implementations agree on whether a snapshot still fits its workflow because the version is computed the same way.
   Moving a node on the canvas is not a change to the workflow it snapshots.
 
 normative: >-
-  A workflow's version is the first 16 hexadecimal characters of a SHA-256 digest
+  A workflow's version MUST be the first 16 hexadecimal characters of a SHA-256 digest
   over the workflow's structural data only. Presentational data (labels, canvas
-  positions) must not change it.
+  positions) MUST NOT change it.
 
 posture: normative-target
 level: extended
@@ -20,6 +20,9 @@ profiles:
 
 added: "1.0"
 changed: "1.0"
+
+rulings:
+  - OPEN-25
 
 related:
   - INT-6

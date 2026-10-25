@@ -8,10 +8,10 @@ rule_hash: 9822a0b58c8b
 Validating a snapshot against a workflow definition treats two kinds of
 mismatch very differently. A snapshot node the definition no longer knows —
 the graph changed under a run that is trying to resume into it — is an
-error: the result is invalid and resuming must not proceed. A definition
+error: the result is invalid and a resume cannot go ahead. A definition
 node the snapshot has simply not reached yet is only a warning: that is the
-ordinary shape of a mid-run snapshot, and a warning must never flip the
-result invalid, or every resumable snapshot would be refused.
+ordinary shape of a mid-run snapshot, and a warning that flipped the
+result to invalid would get every resumable snapshot refused.
 
 The version check has an exception worth naming: a snapshot that carries no
 workflow version at all skips the comparison rather than counting as a

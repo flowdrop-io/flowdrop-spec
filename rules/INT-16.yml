@@ -10,19 +10,20 @@ summary: >-
   not the wording of a message.
 
 normative: >-
-  The signal API refuses in three distinguishable ways, all `409`, each carrying a
-  stable machine-readable code beside its human-readable message: the run is in a
-  terminal state and cannot be signalled or resumed (`PIPELINE_TERMINAL`); an
-  inward signal is already pending for the run (`INWARD_SIGNAL_ALREADY_PENDING`);
-  and there is no active pause to resume (`NO_ACTIVE_PAUSE`). A client classifies a
+  The signal API MUST refuse in three distinguishable ways, all with `409`, each
+  carrying a stable machine-readable code beside its human-readable message: the run
+  is in a terminal state and cannot be signalled or resumed (`PIPELINE_TERMINAL`); an
+  inward signal is already pending for the run (`INWARD_SIGNAL_ALREADY_PENDING`); and
+  there is no active pause to resume (`NO_ACTIVE_PAUSE`). A client can classify a
   refusal by that code; the message wording is not a contract and an implementation
-  may change it. A refusal answers with the error envelope (API-1). A newly created
-  cancel or pause signal answers `202`; a resume that resolved a pending pause
-  answers `200`. A signal addressed to a run that does not exist answers `404` to a
-  caller holding blanket authority over runs (existence is no secret from someone
-  who may act on any run), and an opaque `403` to every other caller,
-  indistinguishable from the answer for a run that exists but is not theirs, so
-  that the route cannot be used to enumerate which runs exist.
+  MAY change it. A refusal MUST answer with the error envelope (API-1). A newly
+  created cancel or pause signal MUST be answered `202`. A resume that resolved a
+  pending pause MUST be answered `200`. A signal addressed to a run that does not
+  exist MUST be answered `404` for a caller holding blanket authority over runs
+  (existence is no secret from someone who can act on any run). For every other caller
+  it MUST be answered with an opaque `403`, indistinguishable from the answer for a
+  run that exists but is not theirs, so that the route cannot be used to enumerate
+  which runs exist.
 
 posture: normative-target
 level: core
@@ -34,6 +35,7 @@ changed: "1.0"
 
 rulings:
   - OPEN-18
+  - OPEN-25
 
 related:
   - API-1

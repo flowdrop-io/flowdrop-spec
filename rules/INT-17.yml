@@ -10,12 +10,12 @@ summary: >-
   against a corpse.
 
 normative: >-
-  When a run reaches a terminal outcome, inward signals still pending against it
-  are cancelled, after the outcome's own handling has completed. A paused run must
-  not be reaped: a pending inward pause signal is that run's resume key (INT-5), and
+  When a run reaches a terminal outcome, the inward signals still pending against it
+  MUST be cancelled, after the outcome's own handling has completed. A paused run MUST
+  NOT be reaped: a pending inward pause signal is that run's resume key (INT-5), and
   cancelling it would strand the run with no way back. A stateless run has nothing
-  targeting it and is skipped. A failure while reaping is recorded and never
-  raised; the outcome is already recorded and hygiene must not corrupt it.
+  targeting it and MUST be skipped. A failure while reaping MUST NOT change the
+  outcome, which is already recorded. Such a failure is recorded and never raised.
 
 posture: normative-target
 level: extended
@@ -24,6 +24,9 @@ profiles:
 
 added: "1.0"
 changed: "1.0"
+
+rulings:
+  - OPEN-25
 
 related:
   - INT-5

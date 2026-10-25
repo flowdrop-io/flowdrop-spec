@@ -10,23 +10,23 @@ summary: >-
   and a fast remote can answer before the outbound request has even returned.
 
 normative: >-
-  An outbound call-and-wait creates its interrupt first, then makes the remote call,
-  then pauses. The outbound body carries the callback address, the interrupt
-  identifier and the caller's payload, and the answer returns through the callback
-  route (INT-19). A call that fails to go out cancels its interrupt before failing
-  the node; a run waiting on a message nobody was asked to send is worse than a
-  failed node. A target address refused before the call leaves nothing behind: the
-  address is validated before the interrupt is created, so a rejected target creates
-  no pending record. A target refused only mid-flight, because a redirect led the
-  call somewhere it may not go (NET-2), is a failed outbound call and takes that
-  path: the interrupt is cancelled and nothing pauses. The wait is bounded by
-  construction: there is no value meaning "wait forever", a non-positive expiry is
-  refused, and every such interrupt is stamped with an expiry, so with INT-18 a
-  remote that goes silent yields a cancelled run rather than a permanently paused
-  one. The wait is operational, not human-facing: it must not appear in a human
-  inbox, where an operator could hand the workflow a fabricated response as though
-  the remote had sent it. Resumption passes the callback body through verbatim;
-  only the workflow's author knows the remote's contract.
+  An outbound call-and-wait MUST create its interrupt first, then make the remote
+  call, then pause. The outbound body MUST carry the callback address, the interrupt
+  identifier and the caller's payload. The answer returns through the callback route
+  (INT-19). A call that fails to go out MUST cancel its interrupt before failing the
+  node; a run waiting on a message nobody was asked to send is worse than a failed
+  node. A target address refused before the call MUST leave nothing behind: the
+  address MUST be validated before the interrupt is created, so a rejected target
+  creates no pending record. A target refused only mid-flight, because a redirect led
+  the call somewhere it is not allowed to go (NET-2), MUST be treated as a failed
+  outbound call: the interrupt MUST be cancelled and the run MUST NOT pause. The wait
+  is bounded: there is no value meaning "wait forever". A non-positive expiry MUST be
+  refused. Every such interrupt MUST be stamped with an expiry, so with INT-18 a
+  remote that goes silent yields a cancelled run rather than a permanently paused one.
+  The wait is operational, not human-facing: it MUST NOT appear in a human inbox,
+  where an operator could hand the workflow a fabricated response as though the remote
+  had sent it. Resumption MUST pass the callback body through verbatim; only the
+  workflow's author knows the remote's contract.
 
 posture: normative-target
 level: core
@@ -35,6 +35,9 @@ profiles:
 
 added: "1.0"
 changed: "1.0"
+
+rulings:
+  - OPEN-25
 
 related:
   - INT-18

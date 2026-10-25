@@ -1,6 +1,6 @@
 ---
 rule: INT-16
-rule_hash: 1c5dab73ccbb
+rule_hash: c061533e78df
 ---
 
 ## What it means
@@ -13,16 +13,16 @@ third, `PIPELINE_TERMINAL`, is the same contract applied to a run that has
 already finished.
 
 Success is not one code either: creating a new signal and resolving one
-that already existed are different events on the same door, and they answer
+that already existed are different events on the same endpoint, and they answer
 differently so a caller can tell which happened without inspecting the
 body.
 
 The existence check on a missing run is scoped to who is asking. A caller
-who may already act on any run loses nothing by being told a run does not
+who can already act on any run loses nothing by being told a run does not
 exist, so they get an honest `404`. Everyone else gets the same opaque
 `403` whether the run does not exist or simply is not theirs — the two
-cases must be indistinguishable, or the difference between them becomes a
-way to enumerate which runs exist.
+cases are indistinguishable on purpose, because otherwise the difference
+between them becomes a way to enumerate which runs exist.
 
 ## Example
 

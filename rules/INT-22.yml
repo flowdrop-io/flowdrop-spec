@@ -10,16 +10,18 @@ summary: >-
   and null.
 
 normative: >-
-  Every endpoint that publishes an interrupt publishes the same entry: 24 keys,
-  uniformly camelCase, in this order: `id`, `type`, `status`, `message`, `nodeId`,
-  `workflowId`, `pipelineId`, `sessionId`, `schema`, `options`, `context`,
-  `defaultValue`, `responseData`, `createdAt`, `expiresAt`, `scheduledAt`,
-  `resolvedAt`, `resolvedBy`, `direction`, `jobId`, `targetPipelineId`,
-  `initiatorUid`, `reason`, `linkedInterruptId`. `id` is the interrupt's UUID;
-  `type`, `status` and `direction` are the enumerated values (STORE-11); and all
-  four timestamps are ISO-8601 strings or null, never integers. Every optional
-  member is present and null rather than omitted. An endpoint listing interrupts
-  answers a JSON array, and must still answer an array after access filtering has
+  Every endpoint that publishes an interrupt MUST publish the same entry: 24 keys,
+  uniformly camelCase: `id`, `type`, `status`, `message`, `nodeId`, `workflowId`,
+  `pipelineId`, `sessionId`, `schema`, `options`, `context`, `defaultValue`,
+  `responseData`, `createdAt`, `expiresAt`, `scheduledAt`, `resolvedAt`, `resolvedBy`,
+  `direction`, `jobId`, `targetPipelineId`, `initiatorUid`, `reason`,
+  `linkedInterruptId`, and nothing else. The entry is closed because every endpoint
+  that publishes an interrupt publishes it alike, and a key one endpoint added would
+  make the entry that endpoint's own. `id` MUST be the interrupt's UUID. `type`,
+  `status` and `direction` MUST each be one of the enumerated values (STORE-11). All
+  four timestamps MUST be ISO-8601 strings or null, never integers. Every optional
+  member MUST be present and null rather than omitted. An endpoint listing interrupts
+  MUST answer a JSON array, and MUST still answer an array after access filtering has
   removed entries.
 
 posture: normative-target
@@ -29,6 +31,11 @@ profiles:
 
 added: "1.0"
 changed: "1.0"
+
+rulings:
+  - OPEN-22
+  - OPEN-23
+  - OPEN-25
 
 related:
   - INT-1

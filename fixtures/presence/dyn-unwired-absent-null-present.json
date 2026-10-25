@@ -12,11 +12,11 @@
     "dynamicParameters": [
       {
         "name": "a",
-        "connectable": true
+        "connectable": true, "exposedByDefault": true
       },
       {
         "name": "b",
-        "connectable": true
+        "connectable": true, "exposedByDefault": true
       }
     ],
     "inputs": {

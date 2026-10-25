@@ -7,8 +7,7 @@ title: A node type can hide an output outright
 normative: >-
   Where a node type marks an output port `exposed: false`, that output MUST be
   stripped from every instance's result unconditionally. An instance override MUST NOT
-  restore it. Otherwise the instance's own override MUST decide, then the node
-  type's default exposure, and a port with none of these MUST resolve as exposed.
+  restore it. Otherwise the output's effective exposure (EXPO-2) MUST decide.
 
 posture: normative-target
 level: core
@@ -21,6 +20,7 @@ changed: "1.0"
 
 rulings:
   - OPEN-25
+  - OPEN-33
 
 related:
   - EXPO-2

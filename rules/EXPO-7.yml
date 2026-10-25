@@ -3,16 +3,15 @@ family: GR-EXPO
 part: I
 
 title: Published schemas carry the flag only where the default is hidden
+summary: >-
+  Withdrawn (OPEN-33): how an implementation arrives at a port's stated default exposure is its own business.
 
 normative: >-
-  Where a node type's stored default exposure for a port is false, the schema it
-  publishes MUST carry `x-exposed-by-default: false`. Where it is anything else, the
-  key MUST be absent from the published schema rather than present and true. A
-  processor's own value for the key MUST be overwritten either way, so the published
-  schema states the node type's decision and only where it diverges from the
-  exposed default (CFG-2).
+  Published schemas carried `x-exposed-by-default: false` where a node type's default
+  exposure was hidden. The served port's `exposedByDefault` is the one place the value
+  is stated (CFG-2, SCH-27).
 
-posture: normative-target
+posture: withdrawn
 level: extended
 profiles:
   - storage-api
@@ -22,6 +21,7 @@ changed: "1.0"
 
 rulings:
   - OPEN-25
+  - OPEN-33
 
 related:
   - CFG-2

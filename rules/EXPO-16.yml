@@ -5,18 +5,14 @@ part: I
 title: Seeding a port's default-exposure decision
 
 summary: >-
-  A suggestion fills a decision nobody has made yet, and only for a port that is
-  actually there.
+  Withdrawn (OPEN-33): how an implementation arrives at a port's stated default exposure is its own business.
 
 normative: >-
-  Where an authoring surface presents a port's default-exposure decision, a value
-  already stored for that port MUST decide it. Where none is stored, the processor's
-  suggestion (EXPO-6) MUST be applied only to a port the node type declares — an input
-  it declares connectable, an output it declares exposed. A port the node type does
-  not declare MUST be presented as not exposed by default. Exposure values MUST NOT be
-  recorded for a port the node type does not declare.
+  An authoring surface seeded a port's default-exposure decision from a processor's
+  suggestion. Seeding is the implementation's own; the specification reads only the
+  stated value (CFG-2).
 
-posture: normative-target
+posture: withdrawn
 level: extended
 profiles:
   - storage-api
@@ -27,6 +23,7 @@ changed: "1.0"
 
 rulings:
   - OPEN-25
+  - OPEN-33
 
 related:
   - EXPO-6

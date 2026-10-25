@@ -15,7 +15,9 @@ normative: >-
   validation, runtime output delivery, and the authoring surface that lets an
   author show or hide a port. A node instance's exposure overrides MUST be read from
   one location in the stored workflow, `data.config.ports`, so that the surface that
-  writes an override and the surfaces that read it cannot disagree.
+  writes an override and the surfaces that read it cannot disagree. Its overrides MUST
+  be stored as `data.config.ports.inputs` and `data.config.ports.outputs`, each an
+  array of entries naming a port by `id`.
 
 posture: normative-target
 level: core
@@ -27,6 +29,7 @@ changed: "1.0"
 
 rulings:
   - OPEN-25
+  - OPEN-33
 
 related:
   - EXPO-2

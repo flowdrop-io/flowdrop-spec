@@ -1,12 +1,12 @@
 ---
 rule: SCH-27
-rule_hash: c03a4fb900ec
+rule_hash: bef63e261a3a
 ---
 
 ## What it means
 
-Only three things are left out: a default the port does not have, an exposure
-of `true`, and a display order of `0`. Nothing a caller might read as falsy is
+Only two things are left out: a default the port does not have, and a display
+order of `0`. `exposedByDefault` is never left out, `true` included (CFG-2). Nothing a caller might read as falsy is
 left out on those grounds. A default value of `null`, `false`, an empty string
 or an empty list is still a default the author set, and it is emitted; a display order of a negative number diverges from `0` just as much
 as a positive one does, and is emitted too. A client that treats "absent" as
@@ -15,17 +15,18 @@ was meant to remove.
 
 ## Example
 
-A port with none of the three set at all serialises to nothing but the six
-core keys:
+A port with neither a default nor an explicit order serialises to the six core
+keys and its exposure:
 
-```json title="A port with no default, own exposure, or explicit order" verdict="omitted"
+```json title="A port with no default and no explicit order" verdict="omitted"
 {
   "id": "plain",
   "name": "Plain",
   "type": "input",
   "dataType": "string",
   "required": false,
-  "description": ""
+  "description": "",
+  "exposedByDefault": true
 }
 ```
 

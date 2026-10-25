@@ -18,7 +18,7 @@ delivered, and its value is `null` only when a `null` was.
 A node declares two dynamic inputs, and only one has anything wired to it:
 
 ```json title="A dynamic input with nothing wired to it"
-{ "dynamicParameters": [{ "name": "connected", "label": "C", "dataType": "string", "connectable": true }, { "name": "unconnected", "label": "U", "dataType": "string", "connectable": true }], "connected": "value" }
+{ "dynamicParameters": [{ "name": "connected", "label": "C", "dataType": "string", "connectable": true, "exposedByDefault": true }, { "name": "unconnected", "label": "U", "dataType": "string", "connectable": true, "exposedByDefault": true }], "connected": "value" }
 ```
 
 ```json title="What resolving the node's inputs returns" verdict="absent"

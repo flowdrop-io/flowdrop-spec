@@ -20,7 +20,7 @@ normative: >-
   of the shape (SCH-42). A property the node type declares MUST win over a definition
   of the same name (DYN-5). An overlaid parameter MUST take the gate flags its
   definition carries (DYN-2), and the derived input and config schemas MUST split it as
-  any parameter (SCH-3, SCH-6). An overlaid port MUST be exposed by default. The overlay MUST be computed from the node's stored definitions wherever a
+  any parameter (SCH-3, SCH-6). An overlaid port's default exposure MUST be its definition's `exposedByDefault` (DYN-2). The overlay MUST be computed from the node's stored definitions wherever a
   node's ports are read: at save, when the node is enriched, when a contract is built
   and when the node runs. It MUST NOT be computed from a value delivered at run time
   (DYN-7). Every rule that reads a node's ports reads them from its effective schemas.
@@ -37,6 +37,7 @@ changed: "1.0"
 rulings:
   - OPEN-25
   - OPEN-31
+  - OPEN-33
 
 related:
   - DYN-1

@@ -3,13 +3,15 @@ family: GR-SCHEMA
 part: I
 
 title: A reserved port states its exposure only when it diverges
+summary: >-
+  Withdrawn (OPEN-33): CFG-2 now requires every port, injected reserved ports included, to state its default exposure.
 
 normative: >-
-  An injected reserved port MUST declare `x-exposed-by-default: false` only where that
-  diverges from the default of true. Where it is exposed by default it MUST say
-  nothing about exposure. A reader MUST take silence as exposed.
+  An injected reserved port declared `x-exposed-by-default: false` only where it
+  diverged from exposed. Every port now states its default exposure, injected reserved
+  ports included (CFG-2).
 
-posture: normative-target
+posture: withdrawn
 level: extended
 profiles:
   - storage-api
@@ -20,6 +22,7 @@ changed: "1.0"
 
 rulings:
   - OPEN-25
+  - OPEN-33
 
 related:
   - SCH-16

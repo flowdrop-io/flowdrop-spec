@@ -9,9 +9,9 @@ summary: >-
 
 normative: >-
   A served port MUST emit `defaultValue` only where the port has a default, a `null`
-  default included; `exposedByDefault` only where it is `false`; and `displayOrder` only
-  where it is not 0. A client MUST read the absence of those keys as no default,
-  exposed, and order 0 respectively.
+  default included, and `displayOrder` only where it is not 0. A client MUST read the
+  absence of those keys as no default and order 0 respectively. A served port MUST
+  always emit `exposedByDefault` (CFG-2).
 
 posture: normative-target
 level: core
@@ -25,6 +25,7 @@ changed: "1.0"
 rulings:
   - OPEN-25
   - OPEN-26
+  - OPEN-33
 
 related:
   - SCH-8

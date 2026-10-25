@@ -5,18 +5,13 @@ part: I
 title: A port with no stored decision is exposed, whatever the processor suggested
 
 summary: >-
-  A known seam, recorded so nobody is surprised by it. It is the price of the
-  fail-open polarity: a port nobody has decided about shows up rather than
-  disappearing.
+  Withdrawn (OPEN-33): how an implementation arrives at a port's stated default exposure is its own business.
 
 normative: >-
-  Where a processor gains a parameter after a node type's exposure values were
-  stored, and the node type has not been re-derived, that port has no stored
-  exposure value and resolves as exposed, even where the processor suggests
-  hiding it. A processor's suggestion reaches a node type only through the
-  authoring-time derivation of EXPO-6.
+  A port with no stored exposure decision resolved as exposed. There is no such port:
+  every port states its default exposure (CFG-2).
 
-posture: descriptive
+posture: withdrawn
 level: extended
 profiles:
   - storage-api
@@ -26,6 +21,7 @@ changed: "1.0"
 
 rulings:
   - OPEN-25
+  - OPEN-33
 
 related:
   - CFG-2

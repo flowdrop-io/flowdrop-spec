@@ -5,17 +5,15 @@ part: I
 title: Only an exact false suppresses default exposure
 
 summary: >-
-  The schema extension that suggests hiding a port is read by identity, not by
-  truthiness. Anything that is not the boolean false leaves the port exposed, so a
-  malformed or half-migrated value fails towards visible.
+  Withdrawn (OPEN-33): how an implementation arrives at a port's stated default exposure is its own business.
 
 normative: >-
-  A processor's `x-exposed-by-default` schema extension MUST suppress a port's default
-  exposure when its value is exactly the boolean `false`. Any other value
-  (including null, zero, an empty string, or the string `"false"`) MUST leave the port
-  exposed by default, as does the key's absence (CFG-2).
+  A processor's `x-exposed-by-default` schema extension could suppress a port's default
+  exposure. The specification no longer defines the keyword: every port states its
+  default exposure in the node type's metadata (CFG-2), however the implementation
+  arrived at it.
 
-posture: normative-target
+posture: withdrawn
 level: core
 profiles:
   - storage-api
@@ -25,6 +23,7 @@ changed: "1.0"
 
 rulings:
   - OPEN-25
+  - OPEN-33
 
 related:
   - CFG-2

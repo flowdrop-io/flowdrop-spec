@@ -1,0 +1,43 @@
+id: OPEN-33
+headline: Every port states its default exposure; the spec gives no fallback.
+question: >-
+  Whether a port is exposed decided which edges were legal (R7), which interface
+  entries were accepted (R10) and which outputs were stripped (EXPO-11). Where a node
+  type recorded nothing, the specification filled in "exposed" (CFG-2), and the same
+  fallback was repeated in the served port (SCH-27), in reserved ports (SCH-15), in
+  output stripping (EXPO-13) and in a schema keyword a processor used to suggest
+  hiding a port (EXPO-5 to EXPO-8, EXPO-16). The fallback existed so that a port added
+  to a node type after it was configured did not vanish, which is a concern of how an
+  implementation changes its node types, not of the workflow language.
+decided: "2026-10-25"
+decision: >-
+  The specification gives a port's exposure no fallback. Every port states its
+  default exposure where it is defined: node type metadata carries `exposedByDefault`
+  for every port it has (CFG-2), and a dynamic port definition carries it for the port
+  it adds (DYN-2). A port's effective exposure on a node is the instance's override
+  where it records one, otherwise that stated value (EXPO-2), and every rule that asks
+  reads EXPO-2. The served port always carries `exposedByDefault` (SCH-27). How an
+  implementation arrives at the value a node type states, for instance from a
+  processor's suggestion or a setting chosen at install, is its own business, so the
+  `x-exposed-by-default` keyword and the rules about seeding and publishing it leave
+  the specification (EXPO-5, EXPO-6, EXPO-7, EXPO-8, EXPO-16), as does SCH-15, which
+  CFG-2 now covers. Metadata that does not state the value does not conform; no
+  reader assumes one. Where overrides are stored is said once, in EXPO-1.
+affects:
+  - CFG-2
+  - EXPO-1
+  - EXPO-2
+  - EXPO-3
+  - EXPO-13
+  - R7.c
+  - R10
+  - SCH-27
+  - DYN-2
+  - DYN-8
+  - EXPO-5
+  - EXPO-6
+  - EXPO-7
+  - EXPO-8
+  - EXPO-16
+  - SCH-15
+  - SCH-7

@@ -2,17 +2,16 @@ id: CFG-2
 family: GR-CFG
 part: I
 
-title: An unrecorded default-exposure flag means exposed
+title: A node type states every port's default exposure
 
 summary: >-
-  Default exposure carries the opposite polarity to the gate flags, deliberately. A
-  port nobody has decided about is visible, so a parameter added after a node type
-  was last saved does not silently vanish from the canvas.
+  Whether a port is exposed decides what can be wired to it, so the value is always
+  stated. The specification does not fill one in.
 
 normative: >-
-  A port's default exposure MUST default to true. Where a node type records no
-  `exposedByDefault` value for a port, the port MUST be exposed by default. This
-  polarity is the opposite of the gate flags (CFG-1) and is deliberate.
+  Node type metadata MUST state `exposedByDefault`, a boolean, for every port the node
+  type has. Metadata that omits it for a port does not conform, and a reader MUST NOT
+  assume a value in its place.
 
 posture: normative-target
 level: core
@@ -24,8 +23,8 @@ changed: "1.0"
 
 rulings:
   - OPEN-25
+  - OPEN-33
 
 related:
   - CFG-1
-  - EXPO-5
-  - EXPO-8
+  - EXPO-2

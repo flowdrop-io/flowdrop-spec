@@ -5,20 +5,18 @@ rule_hash: 2b0e10f6dc42
 
 ## What it means
 
-The unified output port's description works the other way from an ordinary
-export: an output that nobody has marked hidden is exposed by default, so it
-enumerates unless a node type or instance actively hides it. The unified port
-does not repeat whatever exposure logic governs the ordinary port list — it
-simply reads the same exposed/hidden verdict for each key.
+The unified output port's description lists every output that is exposed on
+the node, as EXPO-2 resolves it. The unified port does not repeat whatever
+exposure logic governs the ordinary port list — it simply reads the same
+exposed/hidden verdict for each key.
 
 ## Example
 
-A node type's output includes `visible_out`, left unconfigured, and
-`hidden_out`, explicitly hidden.
+A node type's output includes `visible_out`, which states `exposedByDefault: true`,
+and `hidden_out`, which states `false`; the instance overrides neither.
 
 ```json title="The unified output port's description" verdict="listed"
 "All outputs as JSON object. Available keys: visible_out"
 ```
 
-`visible_out` enumerates because it fails open to exposed; `hidden_out` does
-not, because it was hidden explicitly.
+`visible_out` enumerates because it is exposed; `hidden_out` does not.

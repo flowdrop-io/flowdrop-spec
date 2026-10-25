@@ -2,12 +2,11 @@ id: SCH-7
 family: GR-SCHEMA
 part: I
 
-title: An output is exposed unless the node type says otherwise
+title: An output is exposed or hidden as the node type states
 
 normative: >-
-  A declared output MUST survive into a node's metadata unless the node type marks
-  that output not exposed. Where the node type says nothing about it, the output MUST
-  be exposed: the default is fail-open.
+  A declared output MUST survive into a node's metadata unless the node type states
+  that output not exposed (CFG-2).
 
 posture: normative-target
 level: core
@@ -20,3 +19,4 @@ changed: "1.0"
 
 rulings:
   - OPEN-25
+  - OPEN-33

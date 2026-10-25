@@ -1,6 +1,6 @@
 ---
 rule: DYN-2
-rule_hash: fc21d83e3d69
+rule_hash: 29fd01dbf151
 ---
 
 ## What it means
@@ -28,8 +28,9 @@ dynamic port is a value port by definition.
 
 ```json title="Two dynamic parameters: an input by lane, a setting by schema" verdict="accepted"
 [
-  { "name": "topic", "label": "Topic", "dataType": "string", "connectable": true },
-  { "name": "limit", "label": "Limit", "configurable": true,
+  { "name": "topic", "label": "Topic", "dataType": "string", "connectable": true,
+    "exposedByDefault": true },
+  { "name": "limit", "label": "Limit", "configurable": true, "exposedByDefault": false,
     "schema": { "type": "integer", "minimum": 1, "maximum": 50, "default": 10 } }
 ]
 ```

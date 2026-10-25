@@ -5,9 +5,11 @@ part: I
 title: An instance override decides exposure; otherwise the default does
 
 normative: >-
-  A port MUST be exposed on a node instance when the instance's direction-scoped
-  overrides in `data.config.ports` contain an entry for that port carrying an
-  `exposed` key: that key's value MUST be the answer. Where there is no such entry,
+  A node instance's overrides MUST be stored as `data.config.ports.inputs` and
+  `data.config.ports.outputs`, each an array of entries naming a port by `id`; an
+  entry MUST be matched by `id` within its own direction, so an input and an output of
+  the same name never share one. Where the instance's entry for a port carries an
+  `exposed` key, that key's value MUST be the port's exposure. Where there is no such entry,
   or the entry carries no `exposed` key, the port's default exposure MUST decide
   (`exposedByDefault`, CFG-2).
 

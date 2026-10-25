@@ -8,12 +8,13 @@ summary: >-
   node and route a failure from an earlier round.
 
 normative: >-
-  A node whose failure was routed satisfies only its error edges. Error edges are
-  evaluated before trigger and data edges and combine with OR semantics: one satisfied
-  error edge activates the handler. Success-path successors are never made ready by a
-  routed failure. A routed failure does not activate its handler when a newer unit of
-  work exists for the same node, nor when it was routed in an earlier round than the
-  round the handler has already handled.
+  A node whose failure was routed MUST satisfy only its error edges. Error edges MUST
+  be evaluated before trigger and data edges. Error edges MUST combine with OR
+  semantics: one satisfied error edge activates the handler. A routed failure MUST NOT
+  make a success-path successor ready. A routed failure MUST NOT activate its handler
+  when a newer unit of work exists for the same node. A routed failure MUST NOT
+  activate its handler when it was routed in an earlier round than the round the
+  handler has already handled.
 
 posture: normative-target
 level: extended
@@ -22,6 +23,9 @@ profiles:
 
 added: "1.0"
 changed: "1.0"
+
+rulings:
+  - OPEN-25
 
 related:
   - ERR-7

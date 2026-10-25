@@ -8,9 +8,10 @@ summary: >-
   value true, so anything else (including an explicit false) means do not retry.
 
 normative: >-
-  An error output that came from a retryable failure carries `error_retryable` set to
-  `true`. An error output from a non-retryable failure omits the key entirely rather
-  than setting it to `false`. Retry applies only where the value is literally `true`.
+  An error output that came from a retryable failure MUST carry `error_retryable` set
+  to `true`. An error output from a non-retryable failure MUST omit the key entirely
+  rather than setting it to `false`. A node MUST NOT be retried unless the value of
+  `error_retryable` is literally `true`.
 
 posture: normative-target
 level: extended
@@ -19,6 +20,9 @@ profiles:
 
 added: "1.0"
 changed: "1.0"
+
+rulings:
+  - OPEN-25
 
 related:
   - ERR-11

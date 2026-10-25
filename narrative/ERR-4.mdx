@@ -1,12 +1,12 @@
 ---
 rule: ERR-4
-rule_hash: 3f84a5db06ae
+rule_hash: 2d6b3c3e8b51
 ---
 
 ## What it means
 
 An interrupt is not a third kind of failure sitting between ERR-1 and ERR-3
-— it gets its own status, distinct from both, and it must reach the caller
+— it gets its own status, distinct from both, and it reaches the caller
 as the exact object the node raised, not wrapped or replaced, because
 whatever resolves the interrupt needs its own identity intact. That
 identity is read from whatever attached itself to the interrupt along the

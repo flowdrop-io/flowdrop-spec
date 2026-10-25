@@ -8,10 +8,12 @@ summary: >-
   is idempotent. That is the author's contract, not the runtime's.
 
 normative: >-
-  A node retries only where its configured maximum retry count is greater than zero;
-  the default is zero. Only a retryable error output retries. A retry re-executes the
-  node in place and immediately, with no backoff, and the attempt count persists across
-  the run so the maximum bounds the total attempts.
+  A node MUST NOT retry unless its configured maximum retry count is greater than
+  zero. The default maximum retry count MUST be zero. A node MUST NOT retry an error
+  output that is not retryable. A node with a retryable error output MUST retry while
+  its attempt count is below the configured maximum. A retry MUST re-execute the node in place. A retry
+  MUST happen immediately, with no backoff. The attempt count MUST persist across the
+  run, so that the maximum bounds the total attempts.
 
 posture: normative-target
 level: extended
@@ -20,6 +22,9 @@ profiles:
 
 added: "1.0"
 changed: "1.0"
+
+rulings:
+  - OPEN-25
 
 related:
   - ERR-2

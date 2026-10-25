@@ -9,10 +9,11 @@ summary: >-
 
 normative: >-
   Where a node produces an error output and has at least one error edge, its unit of
-  work is recorded as failed and marked as error-routed, its outputs are replaced by
-  `{"error": {"message", "code", "node_id", "retryable"}}`, and the run continues. The
-  envelope carries an additional `details` key only where the failure supplied
-  structured detail.
+  work MUST be recorded as failed. That unit of work MUST also be marked as
+  error-routed. The node's outputs MUST be replaced by `{"error": {"message", "code",
+  "node_id", "retryable"}}`. The run MUST continue. The envelope MUST carry an
+  additional `details` key when the failure supplied structured detail, and MUST NOT
+  carry it otherwise.
 
 posture: normative-target
 level: core
@@ -21,6 +22,9 @@ profiles:
 
 added: "1.0"
 changed: "1.0"
+
+rulings:
+  - OPEN-25
 
 related:
   - ERR-8

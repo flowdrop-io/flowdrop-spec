@@ -8,12 +8,12 @@ summary: >-
   failure fails the run no matter how many routed ones accompany it.
 
 normative: >-
-  A run finishes with status completed when every failed unit of work in it carries the
-  error-routed marker, and fails when any failed unit of work does not. A routed
-  failure is still announced on the ordinary "unit of work finished" channel, so
-  subscribers see it and discriminate on its status. A failed tool invocation always
-  counts as handled: a tool failure is delivered to its consumer as a recoverable
-  result.
+  A run MUST finish with status completed when every failed unit of work in it carries
+  the error-routed marker. A run MUST fail when any failed unit of work does not carry
+  it. A routed failure MUST still be announced on the ordinary "unit of work finished"
+  channel, so subscribers see it and discriminate on its status. A failed tool
+  invocation MUST always count as handled: a tool failure is delivered to its consumer
+  as a recoverable result.
 
 posture: normative-target
 level: core
@@ -22,6 +22,9 @@ profiles:
 
 added: "1.0"
 changed: "1.0"
+
+rulings:
+  - OPEN-25
 
 related:
   - ERR-7

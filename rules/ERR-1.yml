@@ -8,10 +8,10 @@ summary: >-
   routable way still finishes; the verdict travels on its output.
 
 normative: >-
-  A failure a node signals as a node-level error is converted into an error-status
-  output for that node and does not propagate out of the node. The node's lifecycle is
-  reported as completed, not failed; it finished, and the error verdict rides its
-  output.
+  A failure a node signals as a node-level error MUST be converted into an
+  error-status output for that node. The failure MUST NOT propagate out of the node.
+  The node's lifecycle MUST be reported as completed, not failed. The node finished,
+  and the error verdict rides its output.
 
 posture: normative-target
 level: core
@@ -20,6 +20,9 @@ profiles:
 
 added: "1.0"
 changed: "1.0"
+
+rulings:
+  - OPEN-25
 
 related:
   - ERR-3

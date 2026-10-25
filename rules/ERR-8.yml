@@ -4,8 +4,9 @@ part: II
 
 title: An error with nowhere to go fails the run
 normative: >-
-  Where a node produces an error output and has no error edge, its unit of work is
-  recorded as failed without the error-routed marker, and the run fails.
+  Where a node produces an error output and has no error edge, its unit of work MUST
+  be recorded as failed. That unit of work MUST NOT be marked as error-routed. The run
+  MUST fail.
 
 posture: normative-target
 level: core
@@ -14,6 +15,9 @@ profiles:
 
 added: "1.0"
 changed: "1.0"
+
+rulings:
+  - OPEN-25
 
 related:
   - ERR-7

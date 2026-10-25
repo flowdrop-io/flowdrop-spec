@@ -4,9 +4,10 @@ part: II
 
 title: A failure that is not node-level fails the run
 normative: >-
-  A failure that is not converted into an error output escapes the node: the node is
-  recorded as failed, no output exists for it, no error edge is followed, and the run
-  fails. The failure reported to the caller preserves the original cause.
+  A failure that is not converted into an error output escapes the node. The node MUST
+  be recorded as failed. The node MUST NOT have an output. The run MUST NOT follow an
+  error edge for the failure. The run MUST fail. The failure reported to the caller
+  MUST preserve the original cause.
 
 posture: normative-target
 level: core
@@ -15,6 +16,9 @@ profiles:
 
 added: "1.0"
 changed: "1.0"
+
+rulings:
+  - OPEN-25
 
 related:
   - ERR-1

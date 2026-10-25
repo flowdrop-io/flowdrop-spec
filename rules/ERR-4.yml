@@ -8,9 +8,10 @@ summary: >-
   resolution), not a failure. Treating it as one would route it down an error edge.
 
 normative: >-
-  A node that interrupts sets its status to interrupted, the interrupt is announced,
-  and the interrupt itself propagates unchanged to the caller. It is never converted
-  into an error output and never takes an error edge.
+  A node that interrupts MUST set its status to interrupted. The interrupt MUST be
+  announced. The interrupt itself MUST propagate unchanged to the caller. The
+  interrupt MUST NOT be converted into an error output. The interrupt MUST NOT take an
+  error edge.
 
 posture: normative-target
 level: extended
@@ -19,6 +20,9 @@ profiles:
 
 added: "1.0"
 changed: "1.0"
+
+rulings:
+  - OPEN-25
 
 related:
   - ERR-1

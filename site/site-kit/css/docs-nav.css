@@ -105,6 +105,11 @@
   font-weight: 600;
 }
 
+/* Inline code in a heading keeps the rectangle. */
+#nd-toc code {
+  border-radius: 0;
+}
+
 /* The marker that travels the track beside the active heading. */
 #nd-toc .bg-fd-primary {
   background: var(--fac-color-primary);

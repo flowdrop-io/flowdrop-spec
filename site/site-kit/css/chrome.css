@@ -81,6 +81,13 @@
   align-items: center;
 }
 
+/* No pills (web W-04): the theme switch and its thumb arrive from fumadocs with
+   fully rounded corners. The app module's pill exception covers filters and
+   tool switches in apps; a site's theme control is not one. */
+.kit-topbar :is(button, [class*='rounded-full']) {
+  border-radius: 0;
+}
+
 /* A search button given to the slot. fumadocs' own trigger brings classes; this
    one is for plain buttons and wins over them on the border and surface. */
 .kit-topbar-search {

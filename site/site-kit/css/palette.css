@@ -26,7 +26,10 @@
   --color-fd-accent: var(--fac-color-bg-light);
   --color-fd-accent-foreground: var(--fac-color-copy-primary);
   --color-fd-border: var(--fac-color-app-border);
-  --color-fd-primary: var(--fac-color-secondary);
+  /* Ink, not blue (D-04): fumadocs paints links, active tabs, search hits and
+     its primary button with this token, and the report look has one accent,
+     orange, which is spoken for. */
+  --color-fd-primary: var(--fac-color-copy-primary);
   --color-fd-primary-foreground: var(--fac-color-bg);
   --color-fd-ring: var(--fac-color-secondary-light);
 
@@ -66,4 +69,47 @@ body {
   :focus:not(:focus-visible) {
     outline: none;
   }
+}
+
+/*
+ * Report rules that fumadocs' utility classes would otherwise break, kept
+ * unlayered so they win over Tailwind's layers.
+ *   weights  400 and 600 only (R-02): font-medium is 500 and font-bold 700.
+ *   headings long words break, short ones never (web W-12), headings of the
+ *            chrome (On this page, Additional information) included.
+ *   shape    no circles (web W-04): the numbered discs of <Steps> and the
+ *            marker dot that travels the table of contents.
+ */
+.font-medium,
+.font-bold,
+.font-extrabold {
+  font-weight: 600;
+}
+
+h1,
+h2,
+h3,
+h4 {
+  hyphens: auto;
+  hyphenate-limit-chars: 10 4 4;
+}
+
+:is(#nd-page, #nd-toc) [class*='rounded-full'] {
+  border-radius: 0;
+}
+
+/* The active tab is the text colour at 600, not the primary accent. */
+[role='tab'][data-state='active'] {
+  color: var(--fac-color-copy-primary);
+}
+
+/* Link cards: a card is not a link in running text, so it keeps the ink and
+   its description the secondary colour, whatever the prose layer says about
+   an anchor's descendants. */
+[data-card='true'] {
+  color: var(--fac-color-copy-primary);
+}
+
+[data-card='true'] p {
+  color: var(--fac-color-copy-secondary);
 }

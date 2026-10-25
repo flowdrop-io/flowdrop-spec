@@ -57,6 +57,12 @@
   font-weight: 600;
 }
 
+/* No italics outside code comments (R-02); emphasis is the semibold. */
+.kit-prose :is(em, i, cite) {
+  font-style: normal;
+  font-weight: 600;
+}
+
 .kit-prose :is(p, ul, ol, blockquote, .kit-note) {
   max-width: var(--kit-measure);
 }

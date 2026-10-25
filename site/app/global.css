@@ -17,7 +17,9 @@
    Factorial token from brand/factorial-tokens.css, which also does the
    light/dark switch, so this block is declared once.
    Orange (`--kicker`) is the accent for labels, the normative edge,
-   warnings and focus. Links take Factorial blue, as on factorial.io.
+   warnings and focus. Links are the text colour with an underline, never blue
+   (D-04), so `--accent` is ink: every rule below that says accent keeps its
+   hover and its selected state, and none of them leaves the palette.
    The design system has no tinted washes, so the washes are the one
    grey surface; only `--accent-wash` takes a token tint (seq-1).
    ===================================================================== */
@@ -28,11 +30,11 @@
   --sunk: var(--fac-color-bg-light);
   --ink: var(--fac-color-copy-primary);
   --ink-2: var(--fac-color-copy-secondary);
-  --ink-3: var(--fac-color-grey-450);
+  --ink-3: var(--fac-color-copy-secondary); /* grey-450 is 3.7:1 on white, under AA */
   --rule: var(--fac-color-app-border);
   --rule-soft: var(--fac-color-bg-light);
-  --accent: var(--fac-color-secondary);
-  --accent-2: var(--fac-color-secondary-light);
+  --accent: var(--fac-color-copy-primary);
+  --accent-2: var(--fac-color-copy-primary);
   --accent-wash: var(--fac-color-seq-1);
   --kicker: var(--fac-color-primary);
   --ok: var(--fac-color-status-success);
@@ -75,7 +77,7 @@
   --color-fd-ring: var(--accent-2);
   /* Black in both themes: `--ink` inverts, and a light scrim over a dark
      page is not a scrim. */
-  --color-fd-overlay: rgb(0 0 0 / 0.28);
+  --color-fd-overlay: color-mix(in srgb, var(--fac-color-black) 28%, transparent);
 }
 
 /* =====================================================================
@@ -101,12 +103,34 @@ body {
 }
 
 a {
-  color: var(--accent);
-  text-decoration-thickness: 1px;
-  text-underline-offset: 2px;
+  color: var(--ink);
+  text-decoration: underline;
+  text-decoration-thickness: 0.06em;
+  text-underline-offset: 0.2em;
 }
+/* Hover thickens the line; a colour change would need a second accent. */
 a:hover {
-  color: var(--accent-2);
+  text-decoration-thickness: 0.12em;
+}
+
+/* Weights are 400 and 600 and nothing is italic outside code (report R-02). */
+strong,
+b {
+  font-weight: 600;
+}
+em,
+i,
+cite {
+  font-style: normal;
+  font-weight: 600;
+}
+
+h1,
+h2,
+h3,
+h4 {
+  hyphens: auto;
+  hyphenate-limit-chars: 10 4 4;
 }
 :focus-visible {
   /* Factorial's BITV ring: 3px orange at 3px, always visible (web W-06). */
@@ -273,13 +297,13 @@ body {
   background: var(--warn-wash);
   border-color: transparent;
   color: var(--warn);
-  font-weight: 500;
+  font-weight: 600;
 }
 .chip.core {
   background: var(--accent-wash);
   border-color: transparent;
   color: var(--accent);
-  font-weight: 500;
+  font-weight: 600;
 }
 
 .rail-nav {
@@ -776,7 +800,8 @@ body {
   color: var(--bad);
 }
 .verdict.yes {
-  color: var(--ok);
+  /* Green on the grey caption is 4.3:1; the word carries the status anyway. */
+  color: var(--ink);
 }
 .exchange pre {
   margin: 0;
@@ -813,7 +838,7 @@ body {
   letter-spacing: 0.09em;
   text-transform: uppercase;
   color: var(--ink-3);
-  font-weight: 500;
+  font-weight: 600;
   margin: 0 0 0.8rem;
 }
 .refgroup.norm > h3 b {
@@ -1152,7 +1177,7 @@ li:has(> dfn:target) {
   border-color: transparent;
   background: var(--accent-wash);
   color: var(--accent);
-  font-weight: 500;
+  font-weight: 600;
 }
 .spec-chip-count {
   font-size: 0.66rem;
@@ -1201,8 +1226,12 @@ li:has(> dfn:target) {
     display: none;
   }
   .facets {
-    grid-template-columns: repeat(auto-fit, minmax(9rem, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 14rem), 1fr));
     display: grid;
+  }
+  .facet,
+  .facet dd {
+    min-width: 0;
   }
 }
 
@@ -1272,6 +1301,7 @@ li:has(> dfn:target) {
   border-radius: 0;
   color: var(--ink-3);
   background: var(--sunk);
+  font-weight: 400;
 }
 
 /* A result row: the `.spec-list` row, and the selected one carries the accent

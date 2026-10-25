@@ -27,6 +27,8 @@ export function GET() {
     generated: 'from rules/*.yml — do not edit, and do not treat as the source of truth',
     counts: {
       rules: rules.length,
+      // `rules` counts every issued identifier, withdrawn ones included; these are the rules that hold.
+      inForce: rules.filter((r) => r.posture !== 'withdrawn').length,
       families: families.length,
       reserved: reservedIds().length,
     },

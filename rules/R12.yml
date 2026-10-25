@@ -2,7 +2,7 @@ id: R12
 family: GR-VAL
 part: I
 
-title: A node may not be wired to itself
+title: A node is never wired to itself
 
 normative: >-
   An edge whose `source` is present, non-empty and equal to its `target` MUST be refused

@@ -2,7 +2,7 @@ id: R1.a
 family: GR-VAL
 part: I
 
-title: A node's executor must exist
+title: A node's executor exists
 
 normative: >-
   A node whose node type resolves to an executor the implementation does not provide

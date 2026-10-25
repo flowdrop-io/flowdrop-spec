@@ -4,17 +4,16 @@ part: I
 
 title: A property's type is a JSON Schema type, not a port lane
 summary: >-
-  The two vocabularies overlap on four words, which is why a lane name written into
-  `type` looks correct, derives the wrong lane, and is caught by nothing.
+  The two vocabularies overlap on four words, so a lane name written into `type`
+  looks correct. Treating it as a broken schema makes the mistake show at once,
+  not later as a port of the wrong lane.
 
 normative: >-
-  A property's `type` is one of JSON Schema's seven type words, or an array whose
-  every member is one. It is never a port lane. A schema that spells a lane in
-  `type` is malformed, on the input side and the output side alike: the lane
-  derivation answers the miss with the sink and reports nothing, so the only
-  symptom is a port of the wrong lane. An implementation states this constraint
-  where a schema is declared, so an offending schema is caught before it ships
-  rather than after a port is drawn from it.
+  A property's `type` MUST be one of JSON Schema's seven type words, or an array
+  whose every member is one. A port lane that is not one of those words, such as
+  `json` or `mixed`, MUST NOT appear in `type`, on the input side or the output
+  side. A schema that names one there fails the 2020-12 meta-schema, so its node
+  type cannot be built and SCH-24 applies.
 
 posture: normative-target
 level: core
@@ -24,6 +23,10 @@ profiles:
 
 added: "1.0"
 changed: "1.0"
+
+rulings:
+  - OPEN-25
+  - OPEN-28
 
 related:
   - SCH-9

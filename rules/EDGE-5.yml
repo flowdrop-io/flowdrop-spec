@@ -5,7 +5,7 @@ part: I
 title: A declared edge type wins over the handle, if it is recognised
 
 summary: >-
-  An edge may name its own kind instead of leaving it to the handles. Because a named
+  An edge can name its own kind instead of leaving it to the handles. Because a named
   kind overrides what the handles say, a name nobody recognises is refused rather than
   carried through.
 

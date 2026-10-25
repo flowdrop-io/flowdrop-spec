@@ -7,7 +7,7 @@ title: Snapshot access is decided on the snapshot, and absence answered first
 normative: >-
   Reading or deleting a snapshot loads it by execution id and asks it for view or
   delete authority. A snapshot that does not exist MUST be answered `404`. A
-  snapshot the caller may not reach MUST be answered `403`. Absence MUST be
+  snapshot the caller is not allowed to reach MUST be answered `403`. Absence MUST be
   answered before denial. A read that finds the record but no readable payload
   MUST answer `404`. A read MUST NOT answer a partial document. The list endpoint
   does not ask per record: it narrows the query by ownership. A snapshot belonging

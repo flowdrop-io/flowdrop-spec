@@ -2,7 +2,7 @@ id: R7.b
 family: GR-VAL
 part: I
 
-title: An edge may not leave a hidden output port
+title: No edge leaves a hidden output port
 
 normative: >-
   An edge whose source port is a port of the source node (DYN-8) but is not exposed

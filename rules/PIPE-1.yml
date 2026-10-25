@@ -13,7 +13,7 @@ normative: >-
   lightweight status document. Both MUST answer the standard `{success: true, data}`
   envelope. Both MUST publish the persisted lifecycle value verbatim as
   `data.status`. Both MUST answer `404` with `{success: false, error}` for a run
-  that does not exist. Both MUST answer `403` for a run the caller may not view. The
+  that does not exist. Both MUST answer `403` for a run the caller is not allowed to view. The
   full document MUST carry `node_statuses`, `jobs`, `job_status_summary` and
   `execution_data` alongside `id`, `name`, `description`, `createdAt`,
   `lastExecuted`, `executionCount` and `timestamp`. The lightweight document MUST

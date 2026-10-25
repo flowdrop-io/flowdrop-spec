@@ -2,7 +2,7 @@ id: R7.a
 family: GR-VAL
 part: I
 
-title: An edge may not target a hidden input port
+title: No edge targets a hidden input port
 
 normative: >-
   An edge whose target port is a port of the target node (DYN-8) but is not exposed

@@ -2,7 +2,7 @@ id: R11
 family: GR-VAL
 part: I
 
-title: A configured expression must be valid for its engine at save
+title: A configured expression is valid for its engine at save
 
 summary: >-
   An expression that cannot parse can only fail once the workflow is already

@@ -2,7 +2,7 @@ id: R6.e
 family: GR-VAL
 part: I
 
-title: A config value must be one of its enumerated values
+title: A config value is one of its enumerated values
 
 normative: >-
   Where a config value's schema declares an `enum`, the value MUST be one of the listed

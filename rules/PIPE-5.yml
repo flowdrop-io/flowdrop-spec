@@ -15,8 +15,8 @@ normative: >-
   set. A job is not attributed to a run by scanning jobs for a stamp, because
   nothing is required to write one. Where a single job is read outside the context
   of a run, its reported `pipeline_id` MUST be the most recent run that references
-  it among those the caller may view. Candidates MUST be ordered so that two
-  identical requests answer identically. A candidate the caller may not view MUST be
+  it among those the caller is allowed to view. Candidates MUST be ordered so that two
+  identical requests answer identically. A candidate the caller is not allowed to view MUST be
   walked past rather than returned as null, since seeing a job is not authority to
   learn which run it belonged to. The walk is bounded, and null means no candidate
   is viewable. More than one referencing run is a broken invariant and is reported,

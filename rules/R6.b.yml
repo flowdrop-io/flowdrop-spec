@@ -2,7 +2,7 @@ id: R6.b
 family: GR-VAL
 part: I
 
-title: Required config keys must be present
+title: Required config keys are present
 
 summary: >-
   The list of required keys is the one the node type's derived config schema

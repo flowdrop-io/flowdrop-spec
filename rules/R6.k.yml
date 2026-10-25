@@ -20,6 +20,7 @@ changed: "1.0"
 
 rulings:
   - OPEN-24
+  - OPEN-25
 
 related:
   - R11

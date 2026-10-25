@@ -2,7 +2,7 @@ id: R4.c
 family: GR-VAL
 part: I
 
-title: A bound exposure entry must name a node that exists
+title: A bound exposure entry names a node that exists
 
 normative: >-
   A bound workflow exposure entry's `node_id` MUST name a node in the workflow. An entry

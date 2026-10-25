@@ -2,7 +2,7 @@ id: R8.a
 family: GR-VAL
 part: I
 
-title: An edge's source node must exist
+title: An edge's source node exists
 
 normative: >-
   An edge whose `source` does not name a node in the workflow MUST be refused with

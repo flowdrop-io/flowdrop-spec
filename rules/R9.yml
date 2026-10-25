@@ -2,7 +2,7 @@ id: R9
 family: GR-VAL
 part: I
 
-title: A node's node type anchor must resolve
+title: A node's node type anchor resolves
 
 summary: >-
   R9 and R1 are deliberately disjoint: a node type that does not exist is R9's,

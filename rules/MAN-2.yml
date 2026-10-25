@@ -2,7 +2,7 @@ id: MAN-2
 family: GR-MAN
 part: I
 
-title: A manifest entry names an input, declares its contract, and may bind it to a port
+title: A manifest entry names an input, declares its contract, and can bind it to a port
 summary: >-
   Three fields say what the input is called and where it goes; the rest is
   documentation for whoever calls the workflow.

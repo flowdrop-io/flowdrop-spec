@@ -2,7 +2,7 @@ id: R6.d
 family: GR-VAL
 part: I
 
-title: A config value must match its declared type
+title: A config value matches its declared type
 
 summary: >-
   R6.d through R6.h are one check with several arms. They share a code and a

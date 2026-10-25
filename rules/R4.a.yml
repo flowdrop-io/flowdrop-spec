@@ -2,7 +2,7 @@ id: R4.a
 family: GR-VAL
 part: I
 
-title: An exposed workflow port must be named in the permitted alphabet
+title: An exposed workflow port is named in the permitted alphabet
 
 summary: >-
   An exposure name is a caller-facing parameter name. Restricting it to a small

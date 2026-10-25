@@ -2,7 +2,7 @@ id: R16
 family: GR-VAL
 part: I
 
-title: An edge may not target a trigger node's event input
+title: No edge targets a trigger node's event input
 summary: >-
   A trigger's event comes from whatever started the run, never from another node. An
   edge into the port would replace the event with a value from inside the workflow,
@@ -24,6 +24,7 @@ changed: "1.0"
 
 rulings:
   - OPEN-21
+  - OPEN-25
 
 related:
   - SCH-47

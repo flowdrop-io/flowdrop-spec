@@ -2,7 +2,7 @@ id: R4.e
 family: GR-VAL
 part: I
 
-title: An exposure name may not collide with a reserved runtime name
+title: An exposure name never collides with a reserved runtime name
 
 summary: >-
   R4.a's alphabet admits names beginning with underscores, which is where the

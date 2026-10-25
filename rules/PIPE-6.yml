@@ -15,7 +15,7 @@ normative: >-
   authorization result, forwarded unchanged rather than reduced to a boolean.
   Re-implementing a subset of the model in a handler both locks out principals the
   surface admits and ignores extension points the model honours. Authority over a
-  job is not authority over a run. A run the caller may not view MUST be refused
+  job is not authority over a run. A run the caller is not allowed to view MUST be refused
   before anything about it (its jobs, its summary, its label) is assembled.
   Absence is answered before denial, so a request for an identifier that does not
   exist MUST be answered with `404` even where a caller holding the surface's

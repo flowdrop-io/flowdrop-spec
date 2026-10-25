@@ -35,6 +35,7 @@ added: "1.0"
 changed: "1.0"
 
 rulings:
+  - OPEN-25
   - OPEN-31
 
 related:

@@ -5,7 +5,7 @@ part: I
 title: Callers can neither see nor supply a reserved input
 summary: >-
   A run that a caller starts has only the caller's rights, but the nodes after a
-  trigger may still act on the site's behalf. Keeping reserved inputs out of reach
+  trigger can still act on the site's behalf. Keeping reserved inputs out of reach
   means only a real firing, or a person testing one, can start that branch.
 
 normative: >-

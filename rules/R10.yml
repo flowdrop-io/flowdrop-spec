@@ -2,7 +2,7 @@ id: R10
 family: GR-VAL
 part: I
 
-title: A workflow may not expose a port hidden on its node
+title: A workflow never exposes a port hidden on its node
 
 summary: >-
   Hidden means hidden in both directions. R7 stops an edge reaching a hidden

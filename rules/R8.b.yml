@@ -2,7 +2,7 @@ id: R8.b
 family: GR-VAL
 part: I
 
-title: An edge's target node must exist
+title: An edge's target node exists
 
 normative: >-
   An edge whose `target` does not name a node in the workflow MUST be refused with

@@ -1,6 +1,6 @@
 ---
 rule: LANG-3
-rule_hash: c86236561c5c
+rule_hash: 9732746f8fce
 ---
 
 ## What it means
@@ -23,8 +23,8 @@ null
 ```
 
 An extractor given a path of `""` against an input of `{"a": 1}` never reaches
-an engine either. It reports success, reports no match, and delivers the
-context it was handed back unchanged:
+an engine either. The empty path matches the context itself, so it
+reports success and delivers the context it was handed back unchanged:
 
 ```json title="The data an extractor with an empty path delivers" verdict="unchanged"
 {"a": 1}

@@ -1,0 +1,13 @@
+id: OPEN-41
+headline: The empty path is a match on the evaluation context.
+question: >-
+  LANG-3 had an extractor with an empty path return its input, report success and
+  report no match, while LANG-24 uses success as the match flag and LANG-20 says the
+  empty path denotes the context itself and reports presence.
+decided: "2026-10-25"
+decision: >-
+  The empty path matches the evaluation context: the extractor returns its input
+  unchanged and reports success as true. LANG-3 drops “report no match”; LANG-20 and
+  LANG-24 stand.
+affects:
+  - LANG-3

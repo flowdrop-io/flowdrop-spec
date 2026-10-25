@@ -1,6 +1,7 @@
 /*
- * CODE (D-07): a grey block with no border, a mono head row carrying the
- * fence title, code at 14px in IBM Plex Mono. Syntax colours are tokens only,
+ * CODE (D-07, C-08): in light mode a white code body with a hairline under a
+ * grey mono head row carrying the fence title; in dark mode the dark code
+ * surface with no border. Code code at 14px in IBM Plex Mono. Syntax colours are tokens only,
  * reached through the Shiki CSS-variables theme in ../shiki/css-variables.mjs:
  * the theme emits `color: var(--shiki-token-*)` and this file defines those
  * variables, so the colours follow the light/dark switch with no second
@@ -8,18 +9,20 @@
  */
 
 :root {
-  /* Light-mode roles are chosen for AA (4.5:1) on the grey code surface at
-     14px (C-05). Measured on grey-100: keyword blue 6.18, number blue 6.18,
-     string red 5.20, variable copy-primary 16.5, comment grey-500 4.58. The
-     green and orange tokens do not reach it there (4.32 and 4.21) and no darker
-     green or orange token exists, so strings and variables take other roles in
-     light; dark keeps green and orange (6.80 and 5.47 on the dark surface). */
-  --kit-syn-string: var(--fac-color-red);
+  /* The report's green and orange miss AA (4.5:1) on the grey surface at 14px
+     (4.32 and 4.21), so in light mode the code body sits on white (C-08).
+     Measured on white: keyword and number blue 6.48, string green 4.64,
+     variable orange 4.51, comment grey-500 4.91. Numbers take blue because
+     blue-light reaches only 3.29. Dark keeps the dark surface: green-light
+     6.80, orange-light 5.47, blue-light 4.54. */
+  --kit-syn-string: var(--fac-color-green);
   --kit-syn-number: var(--fac-color-blue);
-  --kit-syn-variable: var(--fac-color-copy-primary);
+  --kit-syn-variable: var(--fac-color-orange);
+  --kit-code-bg: var(--fac-color-bg);
+  --kit-code-border: var(--fac-color-app-border);
 
   --shiki-foreground: var(--fac-color-copy-primary);
-  --shiki-background: var(--fac-color-bg-light);
+  --shiki-background: var(--kit-code-bg);
   --shiki-token-keyword: var(--fac-color-secondary); /* blue, blue-light in dark */
   --shiki-token-string: var(--kit-syn-string);
   --shiki-token-string-expression: var(--kit-syn-string);
@@ -38,6 +41,8 @@
     --kit-syn-string: var(--fac-color-green-light);
     --kit-syn-number: var(--fac-color-blue-light);
     --kit-syn-variable: var(--fac-color-orange-light);
+    --kit-code-bg: var(--fac-color-bg-light);
+    --kit-code-border: transparent;
   }
 }
 
@@ -46,6 +51,8 @@
   --kit-syn-string: var(--fac-color-green-light);
   --kit-syn-number: var(--fac-color-blue-light);
   --kit-syn-variable: var(--fac-color-orange-light);
+  --kit-code-bg: var(--fac-color-bg-light);
+  --kit-code-border: transparent;
 }
 
 /* ---------- Inline code ---------- */
@@ -73,9 +80,9 @@
 .kit-prose figure.shiki,
 .kit-prose pre.shiki {
   margin-block: 1.5rem 2rem;
-  background: var(--fac-color-bg-light);
+  background: var(--kit-code-bg);
   color: var(--fac-color-copy-primary);
-  border: 0;
+  border: 1px solid var(--kit-code-border);
   border-radius: 0;
   box-shadow: none;
   font-family: var(--kit-font-mono);
@@ -125,6 +132,7 @@
   gap: 0.5rem;
   height: auto;
   padding: 0.375rem 1rem;
+  background: var(--fac-color-bg-light);
   border: 0;
   border-bottom: 1px solid var(--fac-color-app-border);
   color: var(--fac-color-copy-secondary);

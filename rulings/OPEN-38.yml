@@ -1,0 +1,16 @@
+id: OPEN-38
+headline: Reserved ports that start hidden say so; there is one fallback for exposure.
+question: >-
+  OPEN-33 made one fallback for exposure: a port with no `exposedByDefault` is
+  exposed. SCH-16 still said the reserved ports `input`, `output`, `tool`, `error`
+  and `loop_back` default to hidden, and that a node type stores only keys that
+  differ from that default, so one stored node type read as exposed under CFG-2 and
+  hidden under SCH-16.
+decided: "2026-10-25"
+decision: >-
+  CFG-2 stays the only fallback. A node type that declares one of those reserved
+  ports states `exposedByDefault: false` for it unless it means it to be exposed, so
+  the served payload describes itself and a client needs no list of reserved names
+  to read exposure.
+affects:
+  - SCH-16

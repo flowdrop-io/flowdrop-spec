@@ -2,14 +2,14 @@ id: SCH-16
 family: GR-SCHEMA
 part: I
 
-title: What each reserved port defaults to on the canvas
+title: A node type states which reserved ports start hidden
 
 normative: >-
-  The reserved ports MUST default to not exposed (the unified `input` and `output`,
-  the `tool` output, the `error` output and the `loop_back` input), except the
-  `trigger` input and the `trigger` output, which MUST default to exposed. A node type
-  MAY override the default per port. A node type MUST store only the keys whose value
-  diverges from the default.
+  A node type that declares one of the reserved ports the unified `input` and
+  `output`, the `tool` output, the `error` output or the `loop_back` input MUST
+  state `exposedByDefault: false` for it, unless it means that port to be exposed
+  by default. The `trigger` input and the `trigger` output need no statement:
+  unstated, they are exposed (CFG-2), as every port is.
 
 posture: normative-target
 level: core
@@ -22,6 +22,7 @@ changed: "1.0"
 
 rulings:
   - OPEN-25
+  - OPEN-38
 
 related:
   - SCH-11

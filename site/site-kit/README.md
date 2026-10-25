@@ -31,9 +31,9 @@ https://claude.ai/artifact/Aro97L5Qd37cDEiX5NHEwn
 | `shiki/css-variables.mjs` | here | Exports `kitShikiTheme`, a Shiki CSS-variables theme. fumadocs-mdx: `rehypeCodeOptions: { themes: { light: kitShikiTheme, dark: kitShikiTheme } }`. Needs `shiki` as a direct dependency of the site. |
 | `check-lock.sh` | here | The CI check each site runs. |
 
-Not in it yet, by decision: the Suisse Int'l fonts. They stay in each site's
-`brand/fonts/` until Factorial confirms the licence for flowdrop.io (C-01); the
-kit adds no further public copies until then.
+Not in it, by decision: the Suisse Int'l fonts. Suisse stays on both sites
+(C-01, confirmed 2026-10-25), and the font files stay in each site's
+`brand/fonts/`.
 
 The plan is https://claude.ai/artifact/Ukgr9SHCCXo8pMjd7DzSYH. M1 (report layer) and
 M2 (top bar, footer, docs nav) are in.

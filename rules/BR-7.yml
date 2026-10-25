@@ -14,8 +14,8 @@ normative: >-
   machine-readable reason `branch_not_active`, on the node-level skip event, on the
   real-time status update, and on the run's snapshot. The node's identifier MUST
   appear among the run's skipped nodes in the response metadata. It MUST be counted
-  there. A node with no incoming trigger edge MUST execute, whatever its data sources
-  did. At the end of a run, every node still unexecuted MUST be collected as skipped
+  there. A node with no incoming trigger edge MUST NOT be skipped for want of a
+  satisfied trigger; when it runs is decided by DATA-4. At the end of a run, every node still unexecuted MUST be collected as skipped
   the same way, whether or not it had already been promoted to ready.
 
 posture: normative-target

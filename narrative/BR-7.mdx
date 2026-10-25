@@ -1,6 +1,6 @@
 ---
 rule: BR-7
-rule_hash: 3cf9a3830926
+rule_hash: 5f7271ec6296
 ---
 
 ## What it means
@@ -14,9 +14,8 @@ at all; nothing in the skip record itself lets a caller tell the two apart.
 A skip is not a lesser kind of failure: the node simply never executes, the
 run is not failed by it, and the identifier is folded into the same count and
 list every time, whatever caused it. That is the opposite case from a node
-with no incoming trigger edge at all — such a node always executes, because
-readiness never depended on a trigger it does not have. "Always executes" is about
-trigger edges only: such a node can still go unexecuted because a data source
+with no incoming trigger edge at all — such a node is never skipped for want of a
+trigger, because its readiness never depended on one. It can still go unexecuted because a data source
 never completed (DATA-4), or because a required parameter marked `skip` had
 nothing to resolve (CFG-21), and the end-of-run sweep records it as skipped.
 

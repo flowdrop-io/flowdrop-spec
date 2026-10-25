@@ -17,10 +17,9 @@ skipped nodes. What follows needs no rule of its own. A node that reads from the
 skipped node never becomes ready (DATA-4), and BR-7's end-of-run sweep records it as
 skipped too. A node that does not depend on it runs as usual.
 
-BR-7's "a node with no incoming trigger edge always executes" is about trigger edges:
-such a node is never skipped for want of a trigger. It does not promise the node runs
-whatever else happens, and the sweep already covers a node that was ready but never
-executed.
+BR-7 says a node with no incoming trigger edge is never skipped for want of a
+trigger. That is about trigger edges only: it does not promise the node runs whatever
+else happens, and the sweep already covers a node that was ready but never executed.
 
 ## Example
 

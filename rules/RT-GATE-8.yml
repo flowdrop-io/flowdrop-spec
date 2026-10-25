@@ -9,14 +9,15 @@ summary: >-
   asked at the moment the gate would fire, against the settings that hold now.
 
 normative: >-
-  Whether an author was allowed to make an instance-level confirmation choice MUST be
-  checked at gate time against the current governance settings, not at the time the
-  choice was stored. Withdrawing the waive control therefore re-gates every instance
-  that had waived. A stored choice whose control is no longer granted MUST be ignored.
-  The configuration surface offered to an author MUST offer the granted controls plus
-  the option to defer to the policy, and nothing else. Where no control is granted,
-  the surface MUST NOT offer such a field at all. A value that is not allowed
-  therefore has no route through which to arrive, and one already stored is inert.
+  Whether an author was allowed to make an instance-level confirmation choice MUST
+  be checked at gate time against the current governance settings, not at the time
+  the choice was stored. Withdrawing the waive control therefore re-gates every
+  instance that had waived. A stored choice whose control is no longer granted
+  MUST be ignored. An authoring surface MUST NOT record an instance-level
+  confirmation choice other than a granted control or deferring to the policy, and
+  where no control is granted it MUST NOT record one at all. A value that is not
+  allowed therefore has no route through which to arrive, and one already stored
+  is inert.
 
 posture: normative-target
 level: core
@@ -30,6 +31,7 @@ changed: "1.0"
 rulings:
   - OPEN-22
   - OPEN-25
+  - OPEN-37
 
 related:
   - RT-GATE-7

@@ -1,0 +1,30 @@
+id: OPEN-37
+headline: Core rules that could not all be obeyed at once are reconciled for 1.0.
+question: >-
+  A readiness check for 1.0 read the core rules side by side and found pairs where
+  obeying one forced breaking another: BR-4 matched a boolean to `1` or `"true"` and
+  strings without regard to case, against LANG-27 and the conventions' equal values
+  (OPEN-29); SG-20 routed an unfillable port's failure along an incoming error edge,
+  which no failing node has; SCH-5 picked a recorded `null` default for a reserved
+  config-only parameter and then forbade `null`; NET-1 said a refused URL never fails
+  the run, against ERR-8; INT-3 returned a job to pending on a run in a terminal
+  status, against INT-11; and RT-GATE-8 and RT-GATE-14 said which controls a surface
+  shows, against the conventions' authoring surfaces.
+decided: "2026-10-25"
+decision: >-
+  Each rule is reworded so that it can be obeyed together with the rules it clashed
+  with, keeping the intent the rule's own text gives. BR-4 compares by equal values,
+  as OPEN-29 already requires of every comparison of two JSON values. SG-20 routes the
+  failure along the consumer's own error edge (EDGE-6), else fails the run (ERR-8),
+  and its exclusion names incoming trigger and error edges. SCH-5 takes the first
+  default that is an array, else an empty array. NET-1's refusal is a node failure
+  like any other. INT-3 leaves a run in a terminal status untouched. RT-GATE-8 states
+  what a surface may record, and RT-GATE-14 what may not be disclosed.
+affects:
+  - BR-4
+  - SG-20
+  - SCH-5
+  - NET-1
+  - INT-3
+  - RT-GATE-8
+  - RT-GATE-14

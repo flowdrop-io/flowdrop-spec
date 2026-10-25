@@ -1,6 +1,6 @@
 ---
 rule: SG-20
-rule_hash: b68286622ac2
+rule_hash: 3258de87342c
 ---
 
 ## What it means
@@ -18,7 +18,7 @@ already behind the consumer's does not count as live, or a branch the run
 never took would hold the port open forever.
 
 Four restrictions keep this from over-firing. It applies to data edges only,
-and only to a consumer with no trigger and no error edge. Every source on
+and only to a consumer with no incoming trigger edge and no incoming error edge. Every source on
 the port shares a loop with the consumer — one out-of-loop source is
 enough to keep the port fillable regardless of the rest. At least one edge
 on the port has actually been held back by the round comparison; a

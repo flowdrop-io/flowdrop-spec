@@ -11,11 +11,13 @@ summary: >-
 
 normative: >-
   Resolving an interrupt MUST locate the job it interrupted by the job identifier
-  stamped on the interrupt, and MUST return that job to pending unconditionally. A
-  paused run MUST then be resumed through the engine the run declares (ORC-13), never
-  a different one, and MUST NOT be resumed before the job is back to pending. A run
-  that is not paused MUST be left strictly alone and MUST NOT be re-entered. A
-  stateless run has nothing to resume, and resolution MUST be a no-op for it.
+  stamped on the interrupt, and MUST return that job to pending, whether or not
+  the run is paused, unless the run is in a terminal status, which MUST be left
+  untouched (INT-11). A paused run MUST then be resumed through the engine the run
+  declares (ORC-13), never a different one, and MUST NOT be resumed before the job
+  is back to pending. A run that is not paused MUST be left strictly alone and
+  MUST NOT be re-entered. A stateless run has nothing to resume, and resolution
+  MUST be a no-op for it.
 
 posture: normative-target
 level: core
@@ -27,6 +29,7 @@ changed: "1.0"
 
 rulings:
   - OPEN-25
+  - OPEN-37
 
 related:
   - INT-1

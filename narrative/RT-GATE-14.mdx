@@ -1,6 +1,6 @@
 ---
 rule: RT-GATE-14
-rule_hash: 86e6b313376c
+rule_hash: f03ecd73bfe7
 ---
 
 ## What it means
@@ -8,12 +8,12 @@ rule_hash: 86e6b313376c
 The authority to administer node types does not carry this one. An actor who
 can rename, recategorise or otherwise edit a node type still cannot touch its
 confirmation governance without the separate, dedicated authority — and
-without it, the governance controls are not merely disabled, they are not
-shown at all.
+without it, the governance settings are not merely read-only to that actor,
+they are not disclosed to it at all.
 
 The clause a careful reader would miss is what happens to the rest of the
 save. An actor without the authority can still save the node type for
-everything the form does show them; the governance mapping simply has to
+everything else they are allowed to edit; the governance mapping simply has to
 survive that save untouched, byte for byte, rather than being silently reset
 to whatever the hidden controls would have defaulted to.
 

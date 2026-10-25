@@ -13,25 +13,25 @@ summary: >-
 normative: >-
   A data port held back by the round comparison MUST stop waiting once no job
   still to run, pending or running can reach the source node over the forward
-  graph, with the source counted as able to reach itself. A live loop head,
-  being an ancestor of everything in its own body, therefore holds the port open
-  across a re-entry, and so does an ancestor outside the loop still on its way.
-  A job whose own round is behind the consumer's MUST NOT count as live, or a
-  job left waiting for a branch the run never took would hold the port open for
-  the rest of the run. Four restrictions bound the verdict. It MUST NOT apply to
-  an edge that is not a data edge, nor to a consumer that has a trigger or an
-  error edge. It MUST NOT apply unless every source on the port
-  shares a loop with the consumer: one out-of-loop source keeps the port
-  fillable. It MUST NOT apply unless at least one edge on the port has actually
-  been held back by the round comparison; a source that was simply never
-  dispatched is an ordinary skipped branch and none of this rule's business,
-  which is what makes this a termination clause for the round comparison rather
-  than a general unfillable-port rule. It MUST NOT apply unless the run carries
-  the reachability sets the test needs. Where the verdict applies, the consumer
-  MUST fail, and it is a node failure like any other. With an incoming error
-  edge the failure MUST be routed, so an author catches an unfillable port in
-  the same place as anything else. Without an incoming error edge the failure
-  MUST fail the run. The failure MUST name the port, the source, and the
+  graph, with the source counted as able to reach itself. A live loop head, being
+  an ancestor of everything in its own body, therefore holds the port open across
+  a re-entry, and so does an ancestor outside the loop still on its way. A job
+  whose own round is behind the consumer's MUST NOT count as live, or a job left
+  waiting for a branch the run never took would hold the port open for the rest of
+  the run. Four restrictions bound the verdict. It MUST NOT apply to an edge that
+  is not a data edge, nor to a consumer that has an incoming trigger edge or an
+  incoming error edge. It MUST NOT apply unless every source on the port shares a
+  loop with the consumer: one out-of-loop source keeps the port fillable. It MUST
+  NOT apply unless at least one edge on the port has actually been held back by
+  the round comparison; a source that was simply never dispatched is an ordinary
+  skipped branch and none of this rule's business, which is what makes this a
+  termination clause for the round comparison rather than a general
+  unfillable-port rule. It MUST NOT apply unless the run carries the reachability
+  sets the test needs. Where the verdict applies, the consumer MUST fail, and it
+  is a node failure like any other. Where the consumer has an error edge of its
+  own, the failure MUST be routed along it (EDGE-6), so an author catches an
+  unfillable port in the same place as anything else. Otherwise the failure MUST
+  fail the run (ERR-8). The failure MUST name the port, the source, and the
   consumer's round on the innermost loop the two share. Where the gateway that
   routed away is determinable from the source's own incoming branch edges, the
   failure MUST name it; otherwise the failure MUST say only that no value for this
@@ -47,6 +47,7 @@ changed: "1.0"
 
 rulings:
   - OPEN-25
+  - OPEN-37
 
 related:
   - SG-17

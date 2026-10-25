@@ -157,3 +157,8 @@ is empty (R4).
 
 - Outcome: `{"errors": [{"code", "at"}]}`, every error the exposure checks yield, in
   any order.
+
+## Licence
+
+The fixtures are licensed MIT ([LICENSE-CODE](../LICENSE-CODE)), like the code, so an
+implementation can copy them into its own test suite.

@@ -59,7 +59,8 @@ Two licences, deliberately:
 - **The specification text** (`rules/`, `narrative/`, `conventions.md`, and the
   prose in this README) is licensed **CC BY 4.0** ([LICENSE](LICENSE)). Quote it,
   translate it, build on it; attribute it.
-- **The code** (`scripts/` and `site/`) is licensed **MIT**
-  ([LICENSE-CODE](LICENSE-CODE)).
+- **The code and the conformance fixtures** (`scripts/`, `site/` and `fixtures/`)
+  are licensed **MIT** ([LICENSE-CODE](LICENSE-CODE)), so an implementation can copy
+  the fixtures into its own test suite.
 
 [fddo]: https://www.drupal.org/project/flowdrop

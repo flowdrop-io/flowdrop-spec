@@ -31,6 +31,8 @@ export type TopBarProps = {
   search?: ReactNode;
   /** The site's theme toggle. */
   themeToggle?: ReactNode;
+  /** After the theme toggle: a site's own controls, e.g. the sidebar buttons of a docs layout. */
+  menu?: ReactNode;
   /** Id of the main landmark; adds a skip link when given. */
   skipTo?: string;
   className?: string;
@@ -42,6 +44,7 @@ export function TopBar({
   links,
   search,
   themeToggle,
+  menu,
   skipTo,
   className,
 }: TopBarProps) {
@@ -70,6 +73,7 @@ export function TopBar({
         </nav>
         {search ? <div className="kit-topbar-slot">{search}</div> : null}
         {themeToggle ? <div className="kit-topbar-slot">{themeToggle}</div> : null}
+        {menu ? <div className="kit-topbar-slot">{menu}</div> : null}
       </div>
     </header>
   );

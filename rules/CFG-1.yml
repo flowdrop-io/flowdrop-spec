@@ -10,9 +10,12 @@ summary: >-
   was never recorded, the answer is no.
 
 normative: >-
-  A parameter's `connectable`, `configurable` and `required` gate flags MUST default to
-  false. Where a node type records no value for one of them, the parameter MUST be
-  treated as not connectable, not configurable, or not required accordingly.
+  A parameter's `connectable`, `configurable` and `required` gate flags MUST
+  default to false. Where a node type records no value for one of them, the
+  parameter MUST be treated as not connectable, not configurable, or not required
+  accordingly. Where a node type records one of these flags, or `exposedByDefault`
+  (CFG-2), the value MUST be a JSON boolean; a node type that records any other
+  value for one of them, `null` included, cannot be built (SCH-24).
 
 posture: normative-target
 level: core
@@ -24,6 +27,7 @@ changed: "1.0"
 
 rulings:
   - OPEN-25
+  - OPEN-43
 
 related:
   - CFG-2

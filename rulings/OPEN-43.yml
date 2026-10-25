@@ -1,0 +1,15 @@
+id: OPEN-43
+headline: Gate flags and exposedByDefault are JSON booleans; any other value is an invalid declaration.
+question: >-
+  No rule said a gate flag or `exposedByDefault` is a boolean. The rules said what
+  an absent flag means, but a recorded `null` or `1` was undefined, and the K6
+  pilot's two clean-room implementations read both oppositely.
+decided: "2026-10-25"
+decision: >-
+  Where present, each gate flag and `exposedByDefault` is a JSON boolean. A node
+  type recording any other value, `null` included, cannot be built (SCH-24), as
+  OPEN-28 treats an invalid schema; a dynamic definition with one is refused at save
+  (DYN-3). `null` stays a value, never an absence, as the conventions say.
+affects:
+  - CFG-1
+  - DYN-3

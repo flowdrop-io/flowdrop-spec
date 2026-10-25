@@ -1,0 +1,5 @@
+/* The kit's CSS layer. palette.css is for sites on fumadocs; the other two
+   are plain CSS and work on any markup carrying `.kit-prose`. */
+@import './palette.css';
+@import './report.css';
+@import './code.css';

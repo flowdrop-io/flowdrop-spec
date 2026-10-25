@@ -1,0 +1,138 @@
+/*
+ * CODE (D-07): a grey block with no border, a mono head row carrying the
+ * fence title, code at 14px in IBM Plex Mono. Syntax colours are tokens only,
+ * reached through the Shiki CSS-variables theme in ../shiki/css-variables.mjs:
+ * the theme emits `color: var(--shiki-token-*)` and this file defines those
+ * variables, so the colours follow the light/dark switch with no second
+ * highlighting pass and no hex in either file.
+ */
+
+:root {
+  --shiki-foreground: var(--fac-color-copy-primary);
+  --shiki-background: var(--fac-color-bg-light);
+  --shiki-token-keyword: var(--fac-color-secondary); /* blue, blue-light in dark */
+  --shiki-token-string: var(--fac-color-status-success); /* green, green-light in dark */
+  --shiki-token-string-expression: var(--fac-color-status-success);
+  --shiki-token-constant: var(--fac-color-blue-light); /* numbers and literals */
+  --shiki-token-parameter: var(--fac-color-primary); /* variables: orange */
+  --shiki-token-function: var(--fac-color-copy-primary);
+  --shiki-token-punctuation: var(--fac-color-copy-primary);
+  --shiki-token-link: var(--fac-color-copy-primary);
+  --shiki-token-comment: var(--fac-color-copy-secondary); /* grey-500, grey-400 in dark */
+  --kit-code-highlight: color-mix(in srgb, var(--fac-color-primary) 14%, transparent);
+  --kit-font-mono: var(--font-mono, 'IBM Plex Mono', ui-monospace, SFMono-Regular, Menlo, monospace);
+}
+
+/* ---------- Inline code ---------- */
+
+.kit-prose :not(pre) > code {
+  font-family: var(--kit-font-mono);
+  font-size: var(--kit-text-small);
+  background: var(--fac-color-bg-light);
+  border: 0;
+  border-radius: 0;
+  padding: 0.1em 0.3em;
+  color: inherit;
+  /* A long identifier breaks rather than pushing the column wider. `anywhere`
+     would also shrink a table cell's minimum width to one glyph and wrap
+     short types like `string` mid-word. */
+  overflow-wrap: break-word;
+}
+
+.kit-prose :is(h1, h2, h3, h4) :not(pre) > code {
+  font-size: 0.85em;
+}
+
+/* ---------- Block ---------- */
+
+.kit-prose figure.shiki,
+.kit-prose pre.shiki {
+  margin-block: 1.5rem 2rem;
+  background: var(--fac-color-bg-light);
+  color: var(--fac-color-copy-primary);
+  border: 0;
+  border-radius: 0;
+  box-shadow: none;
+  font-family: var(--kit-font-mono);
+  font-size: var(--kit-text-small);
+  line-height: 1.6;
+}
+
+/* A block alone in a tab panel fills it: fumadocs pulls it out by the panel's
+   padding (-m-4), which the block margin above would otherwise cancel. */
+.kit-prose [role='tabpanel'] > figure.shiki:only-child {
+  margin-block: -1rem;
+}
+
+/* Fenced blocks under fumadocs' wrapper: the scroll area carries the padding. */
+.kit-prose figure.shiki > div[role='region'] {
+  font-size: var(--kit-text-small);
+  padding-block: 0.875rem;
+  max-height: none;
+}
+
+.kit-prose pre {
+  font-family: var(--kit-font-mono);
+  font-size: var(--kit-text-small);
+  line-height: 1.6;
+  background: transparent;
+  color: inherit;
+  margin: 0;
+  border: 0;
+  border-radius: 0;
+  tab-size: 2;
+}
+
+.kit-prose pre code {
+  font-family: inherit;
+  font-size: inherit;
+  background: none;
+  padding: 0;
+  border: 0;
+  color: inherit;
+}
+
+/* ---------- Head row: the fence title ---------- */
+
+.kit-prose figure.shiki > div:first-child:has(> figcaption) {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  height: auto;
+  padding: 0.375rem 1rem;
+  border: 0;
+  border-bottom: 1px solid var(--fac-color-app-border);
+  color: var(--fac-color-copy-secondary);
+  font-family: var(--kit-font-mono);
+  font-size: 0.8125rem;
+  line-height: 1.5;
+}
+
+.kit-prose figure.shiki > div:first-child:has(> figcaption) figcaption {
+  font-family: inherit;
+  font-size: inherit;
+  color: inherit;
+  padding: 0;
+  caption-side: top;
+}
+
+/* ---------- Line numbers and highlights ---------- */
+
+.kit-prose figure.shiki[data-line-numbers] .line::after {
+  color: var(--fac-color-grey-400);
+}
+
+.kit-prose figure.shiki .highlighted {
+  background: var(--kit-code-highlight);
+}
+
+.kit-prose figure.shiki .highlighted::after {
+  border-left-color: var(--fac-color-primary);
+}
+
+.kit-prose figure.shiki .highlighted-word {
+  background: var(--kit-code-highlight);
+  border: 0;
+  border-radius: 0;
+  font-weight: inherit;
+}

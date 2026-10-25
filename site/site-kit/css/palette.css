@@ -1,0 +1,69 @@
+/*
+ * PALETTE: fumadocs' token names pointed at the Factorial tokens.
+ *
+ * Every value is a --fac-* token from ../brand/factorial-tokens.css, which
+ * carries the light/dark switch itself, so one mapping serves both themes and
+ * a site that does not use fumadocs can ignore this file and still get
+ * report.css and code.css.
+ *
+ * Only the semantic tokens are used here (R-01): no hex, rgb or hsl.
+ */
+:root,
+:root.dark,
+:root[data-theme='dark'] {
+  --color-fd-background: var(--fac-color-bg);
+  --color-fd-foreground: var(--fac-color-copy-primary);
+  --color-fd-card: var(--fac-color-bg);
+  --color-fd-card-foreground: var(--fac-color-copy-primary);
+  --color-fd-popover: var(--fac-color-bg);
+  --color-fd-popover-foreground: var(--fac-color-copy-primary);
+  --color-fd-muted: var(--fac-color-bg-light);
+  /* grey-500 / grey-400, not grey-450: grey-450 is under AA on white, and this
+     token sets the description line under every page title. */
+  --color-fd-muted-foreground: var(--fac-color-copy-secondary);
+  --color-fd-secondary: var(--fac-color-bg-light);
+  --color-fd-secondary-foreground: var(--fac-color-copy-primary);
+  --color-fd-accent: var(--fac-color-bg-light);
+  --color-fd-accent-foreground: var(--fac-color-copy-primary);
+  --color-fd-border: var(--fac-color-app-border);
+  --color-fd-primary: var(--fac-color-secondary);
+  --color-fd-primary-foreground: var(--fac-color-bg);
+  --color-fd-ring: var(--fac-color-secondary-light);
+
+  /* Callout types (D-01, report rule: no green or red callouts). Success and
+     info are plain notes, error looks like a warning, and only the warning
+     look carries the accent. The names stay fumadocs' so its components,
+     which read them directly, need no override. */
+  --color-fd-info: var(--fac-color-copy-primary);
+  --color-fd-success: var(--fac-color-copy-primary);
+  --color-fd-warning: var(--fac-color-primary);
+  --color-fd-error: var(--fac-color-primary);
+}
+
+/* fumadocs gives the sidebar its own muted grey in dark mode; it follows the
+   tokens like everything else. */
+.dark #nd-sidebar {
+  --color-fd-muted-foreground: var(--fac-color-copy-secondary);
+}
+
+html,
+body {
+  background: var(--fac-color-bg);
+  color: var(--fac-color-copy-primary);
+}
+
+/*
+ * Focus ring: 3px orange at 3px offset, always visible (web W-06, BITV).
+ * fumadocs ships a 1px ring in places; this is the floor everywhere, and
+ * :focus-visible keeps it off mouse clicks.
+ */
+:focus-visible {
+  outline: var(--fac-focus-width) solid var(--fac-color-primary);
+  outline-offset: var(--fac-focus-offset);
+}
+
+@supports selector(:focus-visible) {
+  :focus:not(:focus-visible) {
+    outline: none;
+  }
+}

@@ -20,6 +20,11 @@ https://claude.ai/artifact/Aro97L5Qd37cDEiX5NHEwn
 |---|---|---|
 | `brand/tokens.css` | `apps/flowdrop-website/brand/tokens.css` | FlowDrop brand values; the shared footer binds to them. Byte-identical to the master, `site-kit check` verifies it. |
 | `brand/factorial-tokens.css` | `factorial-design` skill, `styles/tokens.css` | The Factorial token subset with the light/dark switch. Re-copy from the skill, never edit values here. |
+| `css/index.css` | here | Imports the three files below, in order. |
+| `css/palette.css` | here | fumadocs' `--color-fd-*` tokens mapped onto `--fac-*` for both themes, html/body background, the 3px orange focus ring. Only for sites on fumadocs; the other two are plain CSS. |
+| `css/report.css` | here | The reading column, scoped to `.kit-prose` (put it on the article body): type scale 36/26/19/16/14, links, plus-bullet lists, tables, callouts (fumadocs through `[style*='--callout-color']`, other markup through `.kit-callout`, `.kit-callout-title`, `.kit-callout--warning`), `.kit-note`, plus `.kit-title` and `.kit-lead` for a page title and lead that sit outside the prose. |
+| `css/code.css` | here | Code blocks and inline code; defines the `--shiki-*` variables the syntax theme emits, from tokens only. |
+| `shiki/css-variables.mjs` | here | Exports `kitShikiTheme`, a Shiki CSS-variables theme. fumadocs-mdx: `rehypeCodeOptions: { themes: { light: kitShikiTheme, dark: kitShikiTheme } }`. Needs `shiki` as a direct dependency of the site. |
 | `check-lock.sh` | here | The CI check each site runs. |
 
 Not in it yet, by decision: the Suisse Int'l fonts. They stay in each site's
@@ -27,7 +32,11 @@ Not in it yet, by decision: the Suisse Int'l fonts. They stay in each site's
 kit adds no further public copies until then.
 
 Coming with the plan (https://claude.ai/artifact/Ukgr9SHCCXo8pMjd7DzSYH): the
-report CSS layer (M1), the shared top bar and footer (M2).
+shared top bar and footer (M2). The report CSS layer is M1 and is in.
+
+Using the CSS: import `css/index.css` after the framework's own presets, so the
+kit's tokens win. Fences with a head row need `title="..."` on the fence;
+Mintlify-style `js file.js` meta is not a title to fumadocs.
 
 ## Commands (from the workspace root)
 

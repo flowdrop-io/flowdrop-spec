@@ -1,0 +1,366 @@
+/*
+ * REPORT: the reading column, drawn as the Factorial report module draws a
+ * technical document (factorial-design modules/report.md, scale per the Docs
+ * and Spec Look brief C-06: 36 / 26 / 19 / 16 / 14 px).
+ *
+ * Scoped to `.kit-prose`, which each site puts on its article body. The kit
+ * therefore never depends on one site's markup: it styles semantic elements,
+ * plus the two hooks fumadocs and the spec site render callouts through.
+ *
+ * Colour comes from --fac-* semantic tokens only (R-01), which switch for dark
+ * mode on their own. Orange (--fac-color-primary) is the one accent, and is
+ * used here for exactly two things: warning-callout headings and the note rule.
+ * The focus ring in palette.css is the third; kickers belong to the site's
+ * own title block.
+ */
+
+:root {
+  --kit-measure: 68ch;
+  --kit-text-title: 2.25rem;
+  --kit-text-h2: 1.625rem;
+  --kit-text-h3: 1.1875rem;
+  --kit-text-copy: 1rem;
+  --kit-text-small: 0.875rem;
+  /* Plus bullet, factorial-design assets/icons/bullet.svg. Inlined so the
+     kit needs no url() path that a site's bundler would have to resolve. */
+  --kit-bullet: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 10 10'%3E%3Cpath d='M10 3.333H6.667V0H3.333v3.333H0v3.334h3.333V10h3.334V6.667H10V3.333z'/%3E%3C/svg%3E");
+}
+
+/* ---------- Page title and lead (outside the prose on /docs) ---------- */
+
+.kit-title {
+  font-size: var(--kit-text-title);
+  font-weight: 400;
+  line-height: 1.15;
+  letter-spacing: normal;
+  color: var(--fac-color-copy-primary);
+  hyphens: auto;
+  hyphenate-limit-chars: 10 4 4;
+}
+
+.kit-lead {
+  font-size: 1.125rem;
+  line-height: 1.5;
+  color: var(--fac-color-copy-secondary);
+  max-width: var(--kit-measure);
+}
+
+/* ---------- Base ---------- */
+
+.kit-prose {
+  font-size: var(--kit-text-copy);
+  line-height: 1.6;
+  color: var(--fac-color-copy-primary);
+}
+
+.kit-prose :is(strong, b, th) {
+  font-weight: 600;
+}
+
+.kit-prose :is(p, ul, ol, blockquote, .kit-note) {
+  max-width: var(--kit-measure);
+}
+
+.kit-prose p {
+  margin-block: 0 1.25rem;
+}
+
+/* ---------- Headings: 400, sentence case, size carries the rank ---------- */
+
+.kit-prose :is(h1, h2, h3, h4) {
+  font-weight: 400;
+  letter-spacing: normal;
+  color: var(--fac-color-copy-primary);
+  /* Long words break, short ones never do (web W-12). */
+  hyphens: auto;
+  hyphenate-limit-chars: 10 4 4;
+}
+
+.kit-prose h1 {
+  font-size: var(--kit-text-title);
+  line-height: 1.15;
+  margin-block: 0 1.5rem;
+}
+
+.kit-prose h2 {
+  font-size: var(--kit-text-h2);
+  line-height: 1.25;
+  margin-block: 3.5rem 1rem;
+}
+
+.kit-prose h3 {
+  font-size: var(--kit-text-h3);
+  line-height: 1.3;
+  margin-block: 2.5rem 0.75rem;
+}
+
+/* H4 is copy size at 600: a run-in label, not a third scale step. */
+.kit-prose h4 {
+  font-size: var(--kit-text-copy);
+  font-weight: 600;
+  line-height: 1.5;
+  margin-block: 2rem 0.5rem;
+}
+
+.kit-prose > :first-child {
+  margin-top: 0;
+}
+
+/* fumadocs wraps the heading text in an anchor link carrying data-card="";
+   it is part of the heading, not a link in the text. */
+.kit-prose :is(h1, h2, h3, h4) a {
+  color: inherit;
+  text-decoration: none;
+}
+
+/* ---------- Links (D-04): the text colour, underlined, never blue ---------- */
+
+.kit-prose :where(a):not([data-card], .not-prose, .not-prose *) {
+  color: inherit;
+  font-weight: inherit;
+  text-decoration: underline;
+  text-decoration-thickness: 0.06em;
+  text-underline-offset: 0.2em;
+}
+
+/* Hover thickens the line rather than changing colour: a colour change would
+   need a second accent, and orange is spoken for. */
+.kit-prose :where(a):not([data-card], .not-prose, .not-prose *):hover {
+  text-decoration-thickness: 0.12em;
+}
+
+/* ---------- Lists: the plus bullet, numerals in secondary text ---------- */
+
+.kit-prose ul,
+.kit-prose ol {
+  margin-block: 0 1.25rem;
+}
+
+.kit-prose ul {
+  list-style: none;
+  padding-inline-start: 0;
+}
+
+.kit-prose ul > li {
+  position: relative;
+  padding-inline-start: 1.25rem;
+}
+
+.kit-prose ul > li::before {
+  content: '';
+  position: absolute;
+  inset-inline-start: 0.1rem;
+  inset-block-start: 0.7em;
+  inline-size: 0.5rem;
+  block-size: 0.5rem;
+  background: currentColor;
+  -webkit-mask: var(--kit-bullet) no-repeat center / contain;
+  mask: var(--kit-bullet) no-repeat center / contain;
+}
+
+.kit-prose ol {
+  list-style: decimal;
+  padding-inline-start: 1.5rem;
+}
+
+.kit-prose ol > li::marker {
+  color: var(--fac-color-copy-secondary);
+}
+
+.kit-prose li {
+  margin-block: 0.375rem;
+}
+
+.kit-prose li > :is(ul, ol) {
+  margin-block: 0.375rem 0;
+}
+
+.kit-prose li > p {
+  margin-block: 0 0.5rem;
+}
+
+/* ---------- Rules and quotes ---------- */
+
+.kit-prose hr {
+  border: 0;
+  border-top: 1px solid var(--fac-color-app-border);
+  margin-block: 3rem;
+}
+
+/* A quote is set apart by a neutral hairline and quieter text; the orange
+   rule is reserved for notes. */
+.kit-prose blockquote {
+  margin-block: 1.5rem;
+  padding-inline-start: 1.25rem;
+  border-inline-start: 1px solid var(--fac-color-app-border);
+  color: var(--fac-color-copy-secondary);
+  font-style: normal;
+  quotes: none;
+}
+
+.kit-prose blockquote > :last-child {
+  margin-bottom: 0;
+}
+
+/* ---------- Tables: small text, grey head, hairline rows ---------- */
+
+.kit-prose table {
+  width: 100%;
+  border-collapse: collapse;
+  /* fumadocs' prose draws a 1px outline round the table. */
+  border: 0;
+  margin-block: 0;
+  font-size: var(--kit-text-small);
+  line-height: 1.55;
+}
+
+/* The scroll wrapper (fumadocs) or a site's own, carries the spacing so a
+   wide table can scroll without its margin scrolling with it. */
+.kit-prose :is(div, figure):has(> table) {
+  margin-block: 1.5rem 2rem;
+}
+
+.kit-prose th {
+  text-align: start;
+  vertical-align: bottom;
+  background: var(--fac-color-bg-light);
+  color: var(--fac-color-copy-primary);
+  padding: 0.5rem 0.75rem;
+  border: 0;
+}
+
+.kit-prose td {
+  vertical-align: top;
+  padding: 0.5rem 0.75rem;
+  border: 0;
+  border-bottom: 1px solid var(--fac-color-app-border);
+}
+
+/* Numbers: right-aligned, tabular. `.kit-num` for markup a site writes itself;
+   the attribute selectors catch what markdown's `---:` alignment emits. */
+.kit-prose :is(th, td).kit-num,
+.kit-prose :is(th, td)[align='right'],
+.kit-prose :is(th, td)[style*='text-align:right'],
+.kit-prose :is(th, td)[style*='text-align: right'] {
+  text-align: end;
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+
+.kit-prose tr.kit-total td {
+  font-weight: 600;
+  border-bottom-color: var(--fac-color-copy-primary);
+}
+
+.kit-prose :is(table, figure) > caption,
+.kit-prose figure > figcaption:not(.kit-code-title) {
+  caption-side: bottom;
+  text-align: start;
+  color: var(--fac-color-copy-secondary);
+  font-size: var(--kit-text-small);
+  padding-block-start: 0.5rem;
+}
+
+/* ---------- Notes: source and method lines ---------- */
+
+.kit-note {
+  margin-block: 0.75rem 1.5rem;
+  padding-inline-start: 0.75rem;
+  border-inline-start: 1.25px solid var(--fac-color-primary);
+  color: var(--fac-color-copy-secondary);
+  font-size: var(--kit-text-small);
+  line-height: 1.55;
+}
+
+.kit-note > :last-child {
+  margin-bottom: 0;
+}
+
+/* ---------- Callouts ----------
+   A grey surface, no border, no rail (a surface carries no rule, a rule
+   carries no surface). Variants differ by heading colour only; success and
+   error do not exist as looks. */
+
+.kit-callout,
+.kit-prose [style*='--callout-color'] {
+  margin-block: 2rem;
+  padding: 1rem 1.25rem;
+  background: var(--fac-color-bg-light);
+  color: var(--fac-color-copy-primary);
+  border: 0;
+  border-radius: 0;
+  box-shadow: none;
+  font-size: var(--kit-text-copy);
+  line-height: 1.55;
+}
+
+.kit-callout > :last-child {
+  margin-bottom: 0;
+}
+
+.kit-callout-title {
+  display: block;
+  margin: 0 0 0.25rem;
+  font-weight: 600;
+  color: var(--fac-color-copy-primary);
+}
+
+.kit-callout--warning > .kit-callout-title,
+.kit-callout--warning .kit-callout-title {
+  color: var(--fac-color-primary);
+}
+
+/* fumadocs. Its container is addressed by the custom property it sets inline
+   (`--callout-color`), the only stable hook it exposes; the class list is a
+   utility soup. palette.css points that property at ink for info and success
+   and at orange for warning and error, so the heading follows it. */
+.kit-prose [style*='--callout-color'] {
+  display: flex;
+  gap: 0.875rem;
+}
+
+/* The vertical rail. `role="none"` is fumadocs' own marker that it carries no
+   meaning, which is the argument for removing it rather than restyling it. */
+.kit-prose [style*='--callout-color'] > [role='none'] {
+  display: none;
+}
+
+/* fumadocs sets the margins inside a callout to zero with a utility class that
+   the paragraph rule above would otherwise out-rank. */
+.kit-prose [style*='--callout-color'] :is(p, ul, ol) {
+  margin-block: 0;
+}
+
+/* The body is not muted a second time: the grey surface already sets the box
+   apart, and the dimmer text costs the contrast to do it. */
+.kit-prose [style*='--callout-color'] .text-fd-muted-foreground {
+  color: var(--fac-color-copy-primary);
+}
+
+.kit-prose [style*='--callout-color'] p.font-medium {
+  font-weight: 600;
+  color: var(--callout-color);
+}
+
+/* Line art in the type colour, not fumadocs' filled disc. */
+.kit-prose [style*='--callout-color'] > svg {
+  fill: none;
+  color: var(--callout-color);
+  margin-top: 0.2rem;
+}
+
+.kit-prose [style*='--callout-color'] code,
+.kit-callout code {
+  background: var(--fac-color-bg);
+}
+
+/* Cards (fumadocs `<Card>`, marked data-card="true") are not prose: their
+   title and text sit in the card's own padding, so the column's heading and
+   paragraph margins must not open gaps inside them. */
+.kit-prose [data-card='true'] :is(h1, h2, h3, h4, p) {
+  margin-block: 0;
+}
+
+.kit-prose [data-card='true'] :is(h1, h2, h3, h4) {
+  margin-block-end: 0.375rem;
+}

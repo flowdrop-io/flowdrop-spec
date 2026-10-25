@@ -16,7 +16,7 @@ export function Shell({
   return (
     <div className={wide ? 'shell wide' : 'shell'}>
       <aside className="rail">{rail}</aside>
-      <main className="doc">{children}</main>
+      <main id="main" tabIndex={-1} className="doc">{children}</main>
     </div>
   );
 }

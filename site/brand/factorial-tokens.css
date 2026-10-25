@@ -1,0 +1,92 @@
+/* =====================================================================
+   Factorial design tokens: the subset this site sets.
+   Copied from the factorial-design skill, styles/tokens.css (palette
+   read from factorial.io :root, 2026-10-08). Do not edit values here:
+   change them there and re-copy.
+
+   Prefixed `--fac-` because Tailwind, loaded on the same page for the
+   search dialog, already owns `--color-white` and `--color-black` with
+   different values.
+
+   Theme switching lives here, in the three-selector pattern the site
+   uses: light on bare `:root`, dark behind `prefers-color-scheme`
+   (guarded so an explicit light choice wins) and behind the explicit
+   dark selectors, so the theme toggle wins in both directions.
+   ===================================================================== */
+
+:root {
+  /* Primitives */
+  --fac-color-white: hsl(0, 0%, 100%);
+  --fac-color-black: #0d121c;
+  --fac-color-grey-100: #f5f7fa;
+  --fac-color-grey-400: #939aa9;
+  --fac-color-grey-450: #7d8597;
+  --fac-color-grey-500: #687182;
+  --fac-color-orange: #d1481a;
+  --fac-color-orange-light: #ff7142;
+  --fac-color-blue: #005fa3;
+  --fac-color-blue-light: #0096db;
+  --fac-color-blue-dark: #111827;
+  --fac-color-green: #008561;
+  --fac-color-green-light: #00c78f;
+  --fac-color-red: hsl(356, 72%, 46%);
+  --fac-color-red-light: hsl(356, 100%, 68%);
+  --fac-color-bg-light-darkmode: #0f293e;
+
+  /* Shape and stroke */
+  --fac-border-radius: 2px; /* focus and images only */
+  --fac-divider-width: 1px;
+  --fac-focus-width: 3px;
+  --fac-focus-offset: 3px;
+}
+
+/* Semantic, light */
+:root {
+  --fac-color-primary: var(--fac-color-orange);
+  --fac-color-secondary: var(--fac-color-blue);
+  --fac-color-secondary-light: var(--fac-color-blue-light);
+  --fac-color-copy-primary: var(--fac-color-blue-dark);
+  --fac-color-copy-secondary: var(--fac-color-grey-500);
+  --fac-color-bg: var(--fac-color-white);
+  --fac-color-bg-light: var(--fac-color-grey-100);
+  --fac-color-bg-dark: var(--fac-color-blue-dark);
+  --fac-color-app-border: hsl(220, 14%, 88%);
+  --fac-color-status-success: var(--fac-color-green);
+  --fac-color-status-warning: var(--fac-color-orange);
+  --fac-color-status-error: var(--fac-color-red);
+  --fac-color-seq-1: hsl(205, 60%, 92%);
+  --fac-box-shadow-small: 2px 4px 12px rgba(202, 213, 224, 0.5);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme='light']):not(.light) {
+    --fac-color-primary: var(--fac-color-orange-light);
+    --fac-color-secondary: var(--fac-color-blue-light);
+    --fac-color-copy-primary: var(--fac-color-white);
+    --fac-color-copy-secondary: var(--fac-color-grey-400);
+    --fac-color-bg: var(--fac-color-black);
+    --fac-color-bg-light: var(--fac-color-bg-light-darkmode);
+    --fac-color-app-border: hsl(221, 20%, 24%);
+    --fac-color-status-success: var(--fac-color-green-light);
+    --fac-color-status-warning: var(--fac-color-orange-light);
+    --fac-color-status-error: var(--fac-color-red-light);
+    --fac-color-seq-1: hsl(205, 45%, 18%);
+    --fac-box-shadow-small: none;
+  }
+}
+
+:root[data-theme='dark'],
+:root.dark {
+  --fac-color-primary: var(--fac-color-orange-light);
+  --fac-color-secondary: var(--fac-color-blue-light);
+  --fac-color-copy-primary: var(--fac-color-white);
+  --fac-color-copy-secondary: var(--fac-color-grey-400);
+  --fac-color-bg: var(--fac-color-black);
+  --fac-color-bg-light: var(--fac-color-bg-light-darkmode);
+  --fac-color-app-border: hsl(221, 20%, 24%);
+  --fac-color-status-success: var(--fac-color-green-light);
+  --fac-color-status-warning: var(--fac-color-orange-light);
+  --fac-color-status-error: var(--fac-color-red-light);
+  --fac-color-seq-1: hsl(205, 45%, 18%);
+  --fac-box-shadow-small: none;
+}

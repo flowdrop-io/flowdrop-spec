@@ -11,11 +11,12 @@ already cost this project a broken website image once.
 
 ## What this site takes, and what it does not
 
-This site wears the **Factorial report look** (the `factorial-design` skill,
-`modules/report.md`): Suisse Int'l for text and headings at 400/600, blue-dark
+This site wears the **Factorial look** (the `factorial-design` skill: `modules/web.md` for
+the chrome, `modules/report.md` for the reading column): Suisse Int'l for text and headings at 400/600, blue-dark
 ink on a white page, grey-100 as the only surface, hairline rules, and orange
-kept to the kicker, the normative edge and warnings. The palette is declared in
-`app/global.css` from the factorial-design token values; the shared footer
+kept to the kicker, the normative edge, warnings and the focus ring. The palette in `app/global.css`
+maps onto `factorial-tokens.css`, a copy of the factorial-design token subset
+the site sets (and the place its light/dark switch lives); the shared footer
 binds to `tokens.css` as before.
 
 `fonts/` holds the two Suisse Int'l faces the site sets (Regular, SemiBold),

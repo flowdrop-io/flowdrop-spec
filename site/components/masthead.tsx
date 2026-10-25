@@ -5,6 +5,9 @@ import { SearchButton } from './search-button';
 export function Masthead() {
   return (
     <header className="masthead">
+      <a className="skip-link" href="#main">
+        Skip to content
+      </a>
       <div className="masthead-inner">
         <Link href="/" className="wordmark">
           {MASTHEAD_TITLE} <em>{SPEC_VERSION}</em>

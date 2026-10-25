@@ -9,7 +9,8 @@ summary: >-
   flag lets a node type say which, and keeps the default every existing node type has.
 
 normative: >-
-  A parameter's `when_missing` flag takes one of two values, `fail` or `skip`. The flag
+  A parameter's `when_missing` flag says what a missing value means: `fail` or `skip`.
+  An implementation MUST treat a value it does not recognise as `fail`. The flag
   MUST be read from the node type's own parameter configuration, as the gate flags are
   (SCH-2). Where the node type records no value, an implementation MUST treat the flag
   as `fail`. The flag MUST have no effect on a parameter that is not required.
@@ -25,6 +26,7 @@ changed: "1.0"
 
 rulings:
   - OPEN-21
+  - OPEN-22
   - OPEN-25
 
 related:

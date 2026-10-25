@@ -1,5 +1,6 @@
 /**
- * The masthead is the whole navigation apparatus: there is no sidebar tree.
+ * The top bar and the section strip under it are the whole navigation apparatus:
+ * there is no sidebar tree.
  * 387 rules do not fit in one, and the faceted index plus search do the job
  * a tree would do badly. Nothing here may point at a page that does not
  * exist; a changelog is planned, and so is absent until it is built.
@@ -42,23 +43,15 @@ export const SPEC_ORIGIN = `${SPEC_HOST}${SPEC_BASE_PATH}`;
  */
 export const withBase = (path: string) => `${SPEC_BASE_PATH}${path}`;
 
-export const MASTHEAD_TITLE = 'FlowDrop Workflow Specification';
-
 /**
- * `external` links leave this Next app for a sibling site on the same origin
- * (flowdrop.io, /docs). They render as plain anchors: a `<Link>` would have the
- * router try to resolve a route this app does not own, and Next would not add
- * the base path to them anyway.
+ * The specification's own destinations, in the strip under the shared top bar. They
+ * stay inside this app, so they are router links. The sibling sites (Docs, FlowDrop)
+ * are in the bar itself, from the kit.
  */
-export const MASTHEAD_LINKS: { text: string; url: string; external?: boolean }[] = [
+export const SPEC_SECTIONS: { text: string; url: string }[] = [
   { text: 'Rules', url: '/rules' },
   { text: 'Conventions', url: '/conventions' },
   { text: 'Glossary', url: '/glossary' },
-  // The specification states what implementations must do; the docs are how you
-  // actually do it. A reader who arrives on a rule from a search result or a
-  // quoted identifier needs a route there without going via the footer.
-  { text: 'Docs', url: 'https://flowdrop.io/docs', external: true },
-  { text: 'FlowDrop', url: 'https://flowdrop.io', external: true },
 ];
 
 /**

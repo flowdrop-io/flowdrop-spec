@@ -127,108 +127,45 @@ code {
 }
 
 /* =====================================================================
-   Masthead
+   Top bar and section strip
    ===================================================================== */
 
-/* Skip link (web W-06): off-screen until focused, then the first thing
-   on the page. */
-.skip-link {
-  position: absolute;
-  left: 1rem;
-  top: -10rem;
-  z-index: 50;
-  padding: 0.5rem 0.9rem;
-  background: var(--paper);
-  color: var(--ink);
-  font-weight: 600;
+/* The bar itself is the kit's (site-kit/css/chrome.css). Its gutter is set so the
+   wordmark and the controls sit on the same edges as the page below, not at the
+   viewport edges. `ch` in --measure resolves against the font of whichever element
+   reads the variable, and the bar's font is smaller than the shell's, so the width
+   is registered as a length: it is computed once, on body, and inherited as pixels. */
+@property --spec-width {
+  syntax: '<length>';
+  inherits: true;
+  initial-value: 1000px;
 }
-.skip-link:focus-visible {
-  top: 1rem;
+body {
+  --spec-width: calc(var(--measure) + var(--rail) + 8rem);
+  --kit-topbar-gutter: max(1.5rem, calc((100vw - var(--spec-width)) / 2 + 1.5rem));
 }
 
-.masthead {
+/* The specification's own destinations. Not sticky: it scrolls away, and the bar
+   stays. Links are ink with an underline on hover (D-04). */
+.spec-sections {
   border-bottom: 1px solid var(--rule);
   background: var(--surface);
 }
-.masthead-inner {
+.spec-sections-inner {
   max-width: calc(var(--measure) + var(--rail) + 8rem);
   margin: 0 auto;
-  padding: 0.9rem 1.5rem;
+  padding: 0.6rem 1.5rem;
   display: flex;
-  justify-content: space-between;
-  align-items: baseline;
-  gap: 1rem;
-  flex-wrap: wrap;
+  gap: 1.5rem;
 }
-.wordmark {
-  font-family: var(--serif);
-  font-size: 0.98rem;
-  font-weight: 600;
-  letter-spacing: 0.01em;
+.spec-sections a {
+  font-size: 0.875rem;
   color: var(--ink);
   text-decoration: none;
 }
-.wordmark em {
-  font-style: normal;
-  font-weight: 400;
-  color: var(--kicker);
-}
-.masthead nav {
-  display: flex;
-  /* Five destinations plus the search button overflow a phone on one line; three
-     did not, which is why this only needed to wrap once the offsite links were
-     added. `row-gap` keeps wrapped rows from touching. */
-  flex-wrap: wrap;
-  gap: 0.5rem 1.3rem;
-  align-items: baseline;
-  font-size: 0.82rem;
-  color: var(--ink-2);
-}
-.masthead nav a {
-  color: var(--ink-2);
-  text-decoration: none;
-}
-.masthead nav a:hover {
-  color: var(--accent);
+.spec-sections a:hover {
   text-decoration: underline;
-}
-/* Links that leave this site. The rule between them separates the three parts of
-   the specification from the two sibling sites, so the nav reads as two groups
-   rather than five equal destinations — and a reader can tell, before clicking,
-   which ones stay inside the spec. */
-.masthead nav a.offsite {
-  color: var(--ink-3);
-}
-/* The boundary, not the first offsite link by position: `:first-of-type` would
-   match the first `<a>` in the nav, which is Rules. This matches the one offsite
-   link that follows an on-site one. */
-.masthead nav a:not(.offsite) + a.offsite {
-  border-left: 1px solid var(--rule);
-  padding-left: 1.3rem;
-  margin-left: -0.3rem;
-}
-.mast-search {
-  display: inline-flex;
-  align-items: baseline;
-  gap: 0.5rem;
-  padding: 0;
-  border: 0;
-  background: none;
-  font: inherit;
-  color: var(--ink-2);
-  cursor: pointer;
-}
-.mast-search:hover {
-  color: var(--accent);
-}
-.mast-search kbd {
-  font-family: var(--mono);
-  font-size: 0.68rem;
-  padding: 0.05rem 0.3rem;
-  border: 1px solid var(--rule);
-  border-radius: 0;
-  color: var(--ink-3);
-  background: var(--sunk);
+  text-underline-offset: 0.3em;
 }
 
 /* =====================================================================
@@ -258,7 +195,7 @@ code {
 
 .rail {
   position: sticky;
-  top: 1.75rem;
+  top: calc(var(--kit-topbar-height) + 1.75rem);
   display: grid;
   gap: 1.6rem;
 }
@@ -1326,7 +1263,7 @@ li:has(> dfn:target) {
   height: 1rem;
 }
 
-/* The ESC key, wearing the masthead's `kbd`. */
+/* The ESC key, wearing the search button's `kbd`. */
 .spec-dialog button[aria-label='Close Search'] {
   font-family: var(--mono);
   font-size: 0.68rem;
@@ -1379,7 +1316,7 @@ li:has(> dfn:target) {
   padding: 1.6rem 0 1.6rem;
 }
 .siteftr-inner {
-  /* Same measure as the masthead, so the page has one edge top and bottom. */
+  /* Same measure as the top bar, so the page has one edge top and bottom. */
   max-width: calc(var(--measure) + var(--rail) + 8rem);
   margin: 0 auto;
   padding: 0 1.5rem;

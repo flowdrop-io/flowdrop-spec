@@ -5,13 +5,15 @@ part: I
 title: A required parameter that nothing supplies fails the node
 
 normative: >-
-  Where a parameter is required and no priority supplied it (CFG-4 to CFG-6), so that it
-  is absent from the resolved parameter set (CFG-14), the node execution MUST fail with
-  a missing-parameter error naming the parameter. A `null` supplied at any priority is
-  present, and MUST satisfy the requirement, as `required` is satisfied in JSON Schema;
-  whether that `null` is acceptable is decided by the parameter's schema (CFG-10). The
-  check MUST run after the whole chain has been walked, and before the resolved value is
-  validated.
+  A parameter is missing where it is required and no priority supplied it (CFG-4
+  to CFG-6), so that it is absent from the resolved parameter set (CFG-14). Where
+  any parameter is missing, the node execution MUST fail with a missing-parameter
+  error naming every missing parameter, in no defined order, unless CFG-21 skips
+  the node. A `null` supplied at any priority is present, and MUST satisfy the
+  requirement, as `required` is satisfied in JSON Schema; whether that `null` is
+  acceptable is decided by the parameter's schema (CFG-10). The check MUST run
+  after the whole chain has been walked for every parameter, and before any
+  resolved value is validated.
 
 posture: normative-target
 level: core
@@ -24,6 +26,7 @@ changed: "1.0"
 rulings:
   - OPEN-25
   - OPEN-26
+  - OPEN-42
 
 related:
   - CFG-6

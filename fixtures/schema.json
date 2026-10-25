@@ -84,14 +84,30 @@
                 "additionalProperties": false,
                 "properties": {
                   "failed": {
-                    "type": "object",
-                    "additionalProperties": false,
-                    "required": ["parameter", "error"],
-                    "properties": {
-                      "parameter": { "type": "string" },
-                      "error": { "enum": ["missing-parameter", "validation"] },
-                      "constraint": { "type": "string" }
-                    }
+                    "oneOf": [
+                      {
+                        "type": "object",
+                        "additionalProperties": false,
+                        "required": ["error", "parameters"],
+                        "properties": {
+                          "error": { "const": "missing-parameter" },
+                          "parameters": { "type": "array", "items": { "type": "string" }, "minItems": 1, "uniqueItems": true }
+                        }
+                      },
+                      {
+                        "type": "object",
+                        "additionalProperties": false,
+                        "required": ["error", "constraints"],
+                        "properties": {
+                          "error": { "const": "validation" },
+                          "constraints": {
+                            "type": "object",
+                            "minProperties": 1,
+                            "additionalProperties": { "type": "array", "items": { "type": "string" }, "minItems": 1, "uniqueItems": true }
+                          }
+                        }
+                      }
+                    ]
                   }
                 }
               },

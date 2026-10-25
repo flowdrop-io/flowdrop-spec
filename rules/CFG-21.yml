@@ -8,15 +8,17 @@ summary: >-
   run, the same way an untaken branch is, and the run is not failed by it.
 
 normative: >-
-  This rule applies where a parameter is required, its `when_missing` flag is `skip`
-  (CFG-20), and no priority supplied it: neither the runtime inputs (CFG-4) nor the
-  saved configuration (CFG-5) carry its key, and it has no effective default (CFG-3). In
-  that case the node MUST NOT be executed. The node MUST be recorded as skipped, on the
-  same announcements and with the same reason as BR-7 records a skip. The node MUST NOT
-  be recorded as failed, and the skip MUST NOT fail the run. A key present with a `null`
+  This rule applies where a parameter is required, its `when_missing` flag is
+  `skip` (CFG-20), and it is missing: no priority supplied it (CFG-4 to CFG-6), as
+  CFG-9 defines missing. In that case the node MUST NOT be executed. The node MUST
+  be recorded as skipped, on the same announcements and with the same reason as
+  BR-7 records a skip. The node MUST NOT be recorded as failed, and the skip MUST
+  NOT fail the run. Where several required parameters are missing, the node MUST
+  be skipped if any one of them has `when_missing` `skip`, whatever the others
+  have: a node that is not executed does not fail. A key present with a `null`
   value counts as supplied (CFG-7), and so does a `null` effective default: such a
-  parameter is not missing, and its schema decides whether the `null` is acceptable
-  (CFG-10).
+  parameter is not missing, and its schema decides whether the `null` is
+  acceptable (CFG-10).
 
 posture: normative-target
 level: extended
@@ -30,6 +32,7 @@ rulings:
   - OPEN-21
   - OPEN-25
   - OPEN-26
+  - OPEN-42
 
 related:
   - CFG-9

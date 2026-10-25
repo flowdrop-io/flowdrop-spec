@@ -1,0 +1,36 @@
+{
+  "$schema": "../schema.json",
+  "title": "A missing skip parameter skips the node even when another missing parameter would fail it",
+  "rules": [
+    "CFG-9",
+    "CFG-21"
+  ],
+  "operation": "resolve-parameters",
+  "given": {
+    "parameters": {
+      "b": {
+        "schema": {
+          "type": "string"
+        },
+        "connectable": true,
+        "exposed": true,
+        "configurable": true,
+        "required": true
+      },
+      "a": {
+        "schema": {
+          "type": "string"
+        },
+        "connectable": true,
+        "exposed": true,
+        "configurable": true,
+        "required": true,
+        "when_missing": "skip"
+      }
+    }
+  },
+  "expect": {
+    "skipped": true
+  },
+  "note": "A node that is not executed does not fail; declaration order plays no part."
+}

@@ -29,9 +29,12 @@
   },
   "expect": {
     "failed": {
-      "parameter": "x",
       "error": "validation",
-      "constraint": "enum"
+      "constraints": {
+        "x": [
+          "enum"
+        ]
+      }
     }
   }
 }

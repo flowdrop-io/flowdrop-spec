@@ -1,0 +1,40 @@
+{
+  "$schema": "../schema.json",
+  "title": "Every missing required parameter is named, in no order",
+  "rules": [
+    "CFG-9"
+  ],
+  "operation": "resolve-parameters",
+  "given": {
+    "parameters": {
+      "z": {
+        "schema": {
+          "type": "string"
+        },
+        "connectable": true,
+        "exposed": true,
+        "configurable": true,
+        "required": true
+      },
+      "a": {
+        "schema": {
+          "type": "string"
+        },
+        "connectable": true,
+        "exposed": true,
+        "configurable": true,
+        "required": true
+      }
+    }
+  },
+  "expect": {
+    "failed": {
+      "error": "missing-parameter",
+      "parameters": [
+        "a",
+        "z"
+      ]
+    }
+  },
+  "note": "The outcome must not depend on the order the parameters are declared in (OPEN-23)."
+}

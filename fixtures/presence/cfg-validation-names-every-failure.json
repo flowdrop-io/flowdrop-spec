@@ -1,0 +1,52 @@
+{
+  "$schema": "../schema.json",
+  "title": "Every failing parameter and every failing constraint is named",
+  "rules": [
+    "CFG-10"
+  ],
+  "operation": "resolve-parameters",
+  "given": {
+    "parameters": {
+      "x": {
+        "schema": {
+          "type": "string",
+          "pattern": "^a",
+          "minLength": 5,
+          "maxLength": 1
+        },
+        "connectable": true,
+        "exposed": true,
+        "configurable": true
+      },
+      "y": {
+        "schema": {
+          "type": "number",
+          "minimum": 10
+        },
+        "connectable": true,
+        "exposed": true,
+        "configurable": true
+      }
+    },
+    "config": {
+      "x": "bb",
+      "y": "text"
+    }
+  },
+  "expect": {
+    "failed": {
+      "error": "validation",
+      "constraints": {
+        "x": [
+          "maxLength",
+          "minLength",
+          "pattern"
+        ],
+        "y": [
+          "type"
+        ]
+      }
+    }
+  },
+  "note": "y fails `type`, which ends its check, so `minimum` is not named for it."
+}

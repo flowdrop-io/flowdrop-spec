@@ -2,8 +2,8 @@
   "$schema": "../schema.json",
   "title": "A null meets required, then fails a type that does not admit it",
   "rules": [
-    "CFG-9",
-    "CFG-10"
+    "CFG-10",
+    "CFG-9"
   ],
   "operation": "resolve-parameters",
   "given": {
@@ -24,9 +24,12 @@
   },
   "expect": {
     "failed": {
-      "parameter": "x",
       "error": "validation",
-      "constraint": "type"
+      "constraints": {
+        "x": [
+          "type"
+        ]
+      }
     }
   }
 }

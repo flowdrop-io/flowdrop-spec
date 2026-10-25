@@ -59,9 +59,13 @@ Resolve one node's parameters (GR-CFG).
   Either may be left out, meaning an empty object.
 - Outcome, one of:
   - `{"resolved": {...}}`, the resolved parameter set (CFG-14);
-  - `{"failed": {"parameter", "error", "constraint"?}}`, the node execution failed;
-    `error` is `missing-parameter` (CFG-9) or `validation` (CFG-10), and
-    `constraint` names the constraint that failed;
+  - `{"failed": {"error": "missing-parameter", "parameters": [...]}}`, the node
+    execution failed because parameters are missing (CFG-9); `parameters` names
+    every missing parameter, compared in any order;
+  - `{"failed": {"error": "validation", "constraints": {...}}}`, the node execution
+    failed validation (CFG-10); `constraints` names every parameter whose value
+    failed, each with the array of constraints it failed, each array compared in
+    any order;
   - `{"skipped": true}`, the node was recorded as skipped (CFG-21).
 
 ### `collect-outputs`

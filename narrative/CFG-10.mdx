@@ -1,6 +1,6 @@
 ---
 rule: CFG-10
-rule_hash: 55c2b828e7a3
+rule_hash: 34f8d26ecb7d
 ---
 
 ## What it means
@@ -15,6 +15,13 @@ What a `null` is spared is only what JSON Schema spares it: a minimum length, a
 pattern or a `format` describe strings, so they have nothing to say about a
 `null`. `enum` is different: a `null` passes it only where the enumeration
 lists `null`.
+
+Every value is checked, and a failure names all of them: each parameter whose
+value failed, with each constraint it failed, in no particular order. An author sees
+every problem at once, and the answer is the same in every language and whatever
+order the parameters were declared in. Only `type` and `enum` cut a value's check
+short, because the other constraints mean little for a value of the wrong type or
+outside the list.
 
 A parameter that nothing supplied at all is not validated here. It has no
 value, and CFG-9 has already decided whether that is allowed.

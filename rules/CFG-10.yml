@@ -6,13 +6,17 @@ title: A resolved value is validated against the parameter schema, null included
 
 normative: >-
   A resolved value MUST be validated against the parameter's schema as JSON Schema
-  validates an instance, a `null` included. A `null` therefore MUST fail `type` unless
-  the type admits `null`, and MUST fail `enum` unless the enumeration lists `null`.
-  Constraints that apply only to strings, numbers, arrays or objects do not apply to a
-  `null`, as in JSON Schema. Any violation MUST fail the node execution with a
-  validation error carrying the name of the constraint that failed. `type` and `enum`
-  MUST be checked first, and either one failing MUST end the check there. A parameter
-  absent from the resolved parameter set has no value, and is not validated.
+  validates an instance, a `null` included. A `null` therefore MUST fail `type`
+  unless the type admits `null`, and MUST fail `enum` unless the enumeration lists
+  `null`. Constraints that apply only to strings, numbers, arrays or objects do
+  not apply to a `null`, as in JSON Schema. Every resolved value MUST be
+  validated, and any violation MUST fail the node execution with a validation
+  error. The error MUST name every parameter whose value failed and, for each,
+  every constraint that failed, in no defined order. For each value, `type` and
+  `enum` MUST be checked first, and either one failing MUST end the check of that
+  value there, so that it is the only constraint named for that parameter. A
+  parameter absent from the resolved parameter set has no value, and is not
+  validated.
 
 posture: normative-target
 level: core
@@ -25,6 +29,7 @@ changed: "1.0"
 rulings:
   - OPEN-25
   - OPEN-26
+  - OPEN-42
 
 related:
   - CFG-9

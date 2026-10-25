@@ -2,8 +2,8 @@
   "$schema": "../schema.json",
   "title": "A required parameter nothing supplies fails the node",
   "rules": [
-    "CFG-9",
-    "CFG-14"
+    "CFG-14",
+    "CFG-9"
   ],
   "operation": "resolve-parameters",
   "given": {
@@ -21,8 +21,10 @@
   },
   "expect": {
     "failed": {
-      "parameter": "x",
-      "error": "missing-parameter"
+      "error": "missing-parameter",
+      "parameters": [
+        "x"
+      ]
     }
   }
 }

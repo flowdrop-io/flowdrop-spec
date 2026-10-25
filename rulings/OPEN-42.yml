@@ -1,0 +1,23 @@
+id: OPEN-42
+headline: A parameter failure names every failing parameter and constraint, in no order; a skip beats a failure.
+question: >-
+  CFG-9 and CFG-10 named one parameter and one constraint. When several failed,
+  nothing said which: two clean-room implementations (K6 pilot) both picked
+  declaration order, which is member order and carries no meaning (OPEN-23), and for
+  several failing keywords each reported whatever its validator library returned
+  first. With one missing skip parameter and one missing fail parameter, member
+  order decided between skipped and failed. CFG-21 also defined missing as a key the
+  inputs or configuration carry, where CFG-9 says no priority supplied it.
+decided: "2026-10-25"
+decision: >-
+  A missing-parameter failure names every missing parameter, and a validation
+  failure names every parameter whose value failed with every constraint it failed,
+  all in no defined order; per value, a failing `type` or `enum` still ends that
+  value's check. Where any missing required parameter has `when_missing` `skip`, the
+  node is skipped: a node that is not executed does not fail. CFG-21 uses CFG-9's
+  definition of missing. The fixture outcome shape follows, and three fixtures pin
+  the cases.
+affects:
+  - CFG-9
+  - CFG-10
+  - CFG-21

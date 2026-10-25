@@ -1,0 +1,279 @@
+/*
+ * CHROME: the shared top bar and footer (components/top-bar.tsx,
+ * components/footer.tsx). Plain CSS, no framework selectors, so /spec can
+ * import this file without taking the fumadocs layer.
+ *
+ * Colour is --fac-* semantic tokens, which switch for dark mode on their own.
+ * The footer is the exception by design: it is the brand's ink panel in both
+ * themes, exactly as on flowdrop.io, and binds to brand/tokens.css values.
+ * Rectangles, no shadows, weights 400 and 600 only.
+ */
+
+:root {
+  --kit-topbar-height: 3.5rem;
+}
+
+/* ---------- Top bar ---------- */
+
+.kit-topbar {
+  position: sticky;
+  top: 0;
+  z-index: 40;
+  background: var(--fac-color-bg);
+  border-bottom: var(--fac-divider-width, 1px) solid var(--fac-color-app-border);
+  color: var(--fac-color-copy-primary);
+  font-size: var(--kit-text-small, 0.875rem);
+}
+
+.kit-topbar-inner {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  min-height: var(--kit-topbar-height);
+  padding-inline: var(--kit-topbar-gutter, 1.5rem);
+}
+
+.kit-topbar-brand {
+  margin-inline-end: auto;
+}
+
+.kit-wordmark {
+  font-size: 1rem;
+  font-weight: 600;
+  letter-spacing: 0.01em;
+  color: var(--fac-color-copy-primary);
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+.kit-wordmark em {
+  font-style: normal;
+  font-weight: 400;
+  color: var(--fac-color-primary);
+}
+
+.kit-topbar-nav {
+  display: flex;
+  align-items: center;
+  gap: 1.25rem;
+}
+
+.kit-topbar-nav a {
+  color: var(--fac-color-copy-primary);
+  text-decoration: none;
+  font-weight: 400;
+}
+
+.kit-topbar-nav a:hover {
+  text-decoration: underline;
+  text-underline-offset: 0.3em;
+}
+
+.kit-topbar-nav a[aria-current='page'] {
+  font-weight: 600;
+  text-decoration: underline;
+  text-decoration-thickness: 2px;
+  text-underline-offset: 0.45em;
+}
+
+.kit-topbar-slot {
+  display: flex;
+  align-items: center;
+}
+
+/* A search button given to the slot. fumadocs' own trigger brings classes; this
+   one is for plain buttons and wins over them on the border and surface. */
+.kit-topbar-search {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.375rem 0.75rem;
+  background: var(--fac-color-bg);
+  color: var(--fac-color-copy-secondary);
+  border: 1px solid var(--fac-color-app-border);
+  border-radius: 0;
+  font: inherit;
+  cursor: pointer;
+}
+
+.kit-topbar-search:hover {
+  color: var(--fac-color-copy-primary);
+}
+
+.kit-topbar-search kbd {
+  font-family: var(--kit-font-mono, ui-monospace, monospace);
+  font-size: 0.75rem;
+  border: 0;
+  background: none;
+  padding: 0;
+  color: inherit;
+}
+
+.kit-skip {
+  position: absolute;
+  inset-inline-start: 0.5rem;
+  top: -4rem;
+  z-index: 50;
+  padding: 0.5rem 0.75rem;
+  background: var(--fac-color-bg);
+  color: var(--fac-color-copy-primary);
+  border: 1px solid var(--fac-color-app-border);
+}
+
+.kit-skip:focus {
+  top: 0.5rem;
+}
+
+/* Narrow: the site links drop to their own row under the wordmark, search
+   and theme toggle, so nothing is cut off at 320px. */
+@media (max-width: 40rem) {
+  .kit-topbar-inner {
+    flex-wrap: wrap;
+    gap: 0 0.75rem;
+    padding-inline: 1rem;
+  }
+
+  .kit-topbar-brand,
+  .kit-topbar-slot {
+    min-height: var(--kit-topbar-height);
+  }
+
+  .kit-topbar-brand {
+    display: flex;
+    align-items: center;
+  }
+
+  .kit-topbar-nav {
+    order: 3;
+    flex-basis: 100%;
+    gap: 1.25rem;
+    padding-block: 0 0.75rem;
+  }
+
+  .kit-topbar-search kbd {
+    display: none;
+  }
+}
+
+/* ---------- Footer ---------- */
+
+.fdftr {
+  background-color: var(--brand-ink);
+  color: var(--fac-color-grey-400);
+  font-size: 1rem;
+  font-family: inherit;
+}
+
+.fdftr-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+.fdftr-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--brand-space-8);
+  padding: var(--brand-space-16) var(--brand-page-spacing-fixed);
+}
+
+.fdftr-wrapper--links {
+  margin-block-start: calc(-1 * var(--brand-space-16));
+  align-items: flex-start;
+  flex-wrap: wrap;
+}
+
+.fdftr-logo {
+  display: block;
+  height: 30px;
+  width: auto;
+  max-width: 100%;
+}
+
+.fdftr-credit {
+  margin: 0;
+  max-width: none;
+  color: var(--fac-color-grey-400);
+}
+
+.fdftr-creditLink {
+  display: inline-flex;
+  align-items: center;
+  color: var(--fac-color-white);
+  text-decoration: underline;
+  text-underline-offset: 0.3em;
+  text-decoration-thickness: 1px;
+  transition: color 200ms;
+}
+
+.fdftr-creditLink:hover {
+  color: var(--brand-orange-light);
+}
+
+.fdftr-ext {
+  width: 1em;
+  height: 1em;
+  margin-inline-start: 0.25rem;
+  flex-shrink: 0;
+}
+
+/* Four columns (product, source, legal, social) do not fit on one line at any
+   realistic width, so they stack and the row wraps. */
+.fdftr-ul {
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.fdftr-list:last-child .fdftr-ul {
+  flex-direction: row;
+  align-items: center;
+  gap: 1.25rem;
+}
+
+.fdftr-link {
+  display: inline-flex;
+  align-items: center;
+  color: var(--fac-color-grey-400);
+  text-decoration: none;
+  transition: color 200ms;
+}
+
+.fdftr-link:hover {
+  color: var(--fac-color-white);
+}
+
+.fdftr-link--social svg {
+  width: 24px;
+  height: 24px;
+  fill: currentColor;
+}
+
+@media (max-width: 58.5em) {
+  .fdftr-wrapper {
+    padding-inline: var(--brand-page-spacing-fluid);
+  }
+}
+
+@media (max-width: 768px) {
+  .fdftr-wrapper,
+  .fdftr-wrapper--links {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--brand-space-6);
+  }
+
+  .fdftr-wrapper--links {
+    margin-block-start: calc(-1 * var(--brand-space-8));
+  }
+}

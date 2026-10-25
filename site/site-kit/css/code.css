@@ -8,19 +8,44 @@
  */
 
 :root {
+  /* Light-mode roles are chosen for AA (4.5:1) on the grey code surface at
+     14px (C-05). Measured on grey-100: keyword blue 6.18, number blue 6.18,
+     string red 5.20, variable copy-primary 16.5, comment grey-500 4.58. The
+     green and orange tokens do not reach it there (4.32 and 4.21) and no darker
+     green or orange token exists, so strings and variables take other roles in
+     light; dark keeps green and orange (6.80 and 5.47 on the dark surface). */
+  --kit-syn-string: var(--fac-color-red);
+  --kit-syn-number: var(--fac-color-blue);
+  --kit-syn-variable: var(--fac-color-copy-primary);
+
   --shiki-foreground: var(--fac-color-copy-primary);
   --shiki-background: var(--fac-color-bg-light);
   --shiki-token-keyword: var(--fac-color-secondary); /* blue, blue-light in dark */
-  --shiki-token-string: var(--fac-color-status-success); /* green, green-light in dark */
-  --shiki-token-string-expression: var(--fac-color-status-success);
-  --shiki-token-constant: var(--fac-color-blue-light); /* numbers and literals */
-  --shiki-token-parameter: var(--fac-color-primary); /* variables: orange */
+  --shiki-token-string: var(--kit-syn-string);
+  --shiki-token-string-expression: var(--kit-syn-string);
+  --shiki-token-constant: var(--kit-syn-number); /* numbers and literals */
+  --shiki-token-parameter: var(--kit-syn-variable); /* variables */
   --shiki-token-function: var(--fac-color-copy-primary);
   --shiki-token-punctuation: var(--fac-color-copy-primary);
   --shiki-token-link: var(--fac-color-copy-primary);
   --shiki-token-comment: var(--fac-color-copy-secondary); /* grey-500, grey-400 in dark */
   --kit-code-highlight: color-mix(in srgb, var(--fac-color-primary) 14%, transparent);
   --kit-font-mono: var(--font-mono, 'IBM Plex Mono', ui-monospace, SFMono-Regular, Menlo, monospace);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme='light']):not(.light) {
+    --kit-syn-string: var(--fac-color-green-light);
+    --kit-syn-number: var(--fac-color-blue-light);
+    --kit-syn-variable: var(--fac-color-orange-light);
+  }
+}
+
+:root[data-theme='dark'],
+:root.dark {
+  --kit-syn-string: var(--fac-color-green-light);
+  --kit-syn-number: var(--fac-color-blue-light);
+  --kit-syn-variable: var(--fac-color-orange-light);
 }
 
 /* ---------- Inline code ---------- */

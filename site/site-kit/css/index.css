@@ -1,5 +1,8 @@
-/* The kit's CSS layer. palette.css is for sites on fumadocs; the other two
-   are plain CSS and work on any markup carrying `.kit-prose`. */
+/* The kit's CSS layer. palette.css and docs-nav.css are for sites on fumadocs;
+   the rest is plain CSS (report.css and code.css need `.kit-prose` markup,
+   chrome.css needs the components in ../components). */
 @import './palette.css';
 @import './report.css';
 @import './code.css';
+@import './chrome.css';
+@import './docs-nav.css';

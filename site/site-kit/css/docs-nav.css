@@ -1,0 +1,125 @@
+/*
+ * DOCS NAV: the fumadocs sidebar, table of contents and breadcrumb drawn by the
+ * Factorial app nav rules (factorial-design modules/app.md section 3) on a
+ * LIGHT sidebar (D-02): the sidebar sits on the page ground and is separated by
+ * a hairline, no own surface, no shadow.
+ *
+ *   group labels   11px / 600 / uppercase, copy-secondary
+ *   items          14px / 400, copy-primary; hover on the light surface
+ *   active item    600, a 3px orange bar and the light surface behind it, text
+ *                  stays copy-primary (never blue)
+ *
+ * Only for sites on fumadocs. Selectors match the rendered DOM (ids and
+ * data attributes), not Tailwind classes, so a fumadocs bump does not break
+ * them; the ids beat fumadocs' utility classes by specificity.
+ */
+
+/* ---------- Sidebar ---------- */
+
+#nd-sidebar {
+  background: var(--fac-color-bg);
+  border-color: var(--fac-color-app-border);
+}
+
+#nd-sidebar a[data-active] {
+  position: relative;
+  font-size: var(--kit-text-small, 0.875rem);
+  font-weight: 400;
+  line-height: 1.4;
+  color: var(--fac-color-copy-primary);
+  background: transparent;
+  border-radius: 0;
+}
+
+#nd-sidebar a[data-active]:hover {
+  background: var(--fac-color-bg-light);
+  color: var(--fac-color-copy-primary);
+}
+
+#nd-sidebar a[data-active='true'] {
+  font-weight: 600;
+  background: var(--fac-color-bg-light);
+  color: var(--fac-color-copy-primary);
+}
+
+/* The 3px bar sits on the sidebar's own edge of the row. */
+#nd-sidebar a[data-active='true']::before {
+  content: '';
+  position: absolute;
+  inset-block: 0;
+  inset-inline-start: 0;
+  width: 3px;
+  background: var(--fac-color-primary);
+}
+
+/* Group labels: separators (inert) and grouping folders (they expand). The
+   difference between a label and a destination is size, weight, case and
+   tracking, not dimming; copy-secondary is already AA on both grounds. */
+#nd-sidebar p,
+#nd-sidebar button[aria-expanded] {
+  font-size: 0.6875rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--fac-color-copy-secondary);
+}
+
+#nd-sidebar button[aria-expanded] {
+  margin-block-start: 0.6rem;
+}
+
+#nd-sidebar button[aria-expanded]:hover {
+  color: var(--fac-color-copy-primary);
+}
+
+/* The chevron is sized by its own utility class and must not inherit the
+   label's reduced size. */
+#nd-sidebar button[aria-expanded] svg {
+  font-size: 0.875rem;
+  letter-spacing: normal;
+}
+
+/* Sidebar chrome buttons and the search field: rectangles on the page ground. */
+#nd-sidebar button[data-search-full] {
+  background: var(--fac-color-bg);
+  border-color: var(--fac-color-app-border);
+  border-radius: 0;
+}
+
+/* ---------- Table of contents ---------- */
+
+#nd-toc a[data-active] {
+  color: var(--fac-color-copy-secondary);
+  font-weight: 400;
+}
+
+#nd-toc a[data-active]:hover {
+  color: var(--fac-color-copy-primary);
+}
+
+#nd-toc a[data-active='true'] {
+  color: var(--fac-color-copy-primary);
+  font-weight: 600;
+}
+
+/* The marker that travels the track beside the active heading. */
+#nd-toc .bg-fd-primary {
+  background: var(--fac-color-primary);
+}
+
+/* ---------- Breadcrumb above the page title ---------- */
+
+#nd-page > div:first-child:not(.prose) {
+  color: var(--fac-color-copy-secondary);
+}
+
+#nd-page > div:first-child:not(.prose) a {
+  color: var(--fac-color-copy-primary);
+  font-weight: 400;
+}
+
+#nd-page > div:first-child:not(.prose) a:hover {
+  text-decoration: underline;
+  text-underline-offset: 0.3em;
+  opacity: 1;
+}

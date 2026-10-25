@@ -1,12 +1,12 @@
 ---
 rule: ORC-15
-rule_hash: 3effaebf55ad
+rule_hash: 6597245a3ae7
 ---
 
 ## What it means
 
-Anything watching for a run to finish must not mistake a cancelled run for
-one still in progress: cancellation ends the run through its own path, and
+Anything watching for a run to finish can rely on never mistaking a cancelled
+run for one still in progress: cancellation ends the run through its own path, and
 that path is easy to forget to announce, so this rule pins the announcement
 as mandatory rather than incidental. A listener that only checks for
 completion, and treats silence as "still running," is exactly the bug this

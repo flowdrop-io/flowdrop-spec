@@ -4,8 +4,8 @@ part: II
 
 title: Asynchronous execution returns immediately
 normative: >-
-  Asynchronous execution returns the status `queued` to its caller immediately and
-  executes no node in the calling request. It may seed the run from a snapshot of
+  Asynchronous execution MUST return the status `queued` to its caller immediately. It
+  MUST NOT execute any node in the calling request. It MAY seed the run from a snapshot of
   already-completed work.
 
 posture: normative-target
@@ -15,6 +15,9 @@ profiles:
 
 added: "1.0"
 changed: "1.0"
+
+rulings:
+  - OPEN-25
 
 related:
   - ORC-2

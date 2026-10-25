@@ -4,9 +4,10 @@ part: II
 
 title: An unknown strategy identifier falls back, and says so
 normative: >-
-  A request for a strategy identifier the implementation does not know falls back to
-  the default strategy and records a warning. Where no fallback strategy is available
-  either, the request fails rather than silently choosing one.
+  A request for a strategy identifier the implementation does not know MUST fall back to
+  the default strategy. Falling back records a warning. Where no
+  fallback strategy is available either, the request MUST fail rather than silently
+  choosing one.
 
 posture: normative-target
 level: extended
@@ -15,6 +16,9 @@ profiles:
 
 added: "1.0"
 changed: "1.0"
+
+rulings:
+  - OPEN-25
 
 related:
   - ORC-2

@@ -8,12 +8,12 @@ summary: >-
   pass is what defines the end of the run.
 
 normative: >-
-  A pipeline engine repeatedly asks for the work that is ready. Each pass promotes every
-  idle unit of work whose dependencies are met to pending and persists that promotion,
-  then returns all pending work (including work already pending from an earlier pass),
-  ordered ascending by priority, so a lower priority number runs first. A unit whose
-  dependencies are unmet is left idle and untouched. The engine stops when a pass returns
-  nothing; that empty return is what quiescence means.
+  A pipeline engine MUST repeatedly ask for the work that is ready. Each pass MUST promote
+  every idle unit of work whose dependencies are met to pending, and MUST persist that
+  promotion. It MUST then return all pending work (including work already pending from an
+  earlier pass), ordered ascending by priority, so that a lower priority number runs
+  first. A unit whose dependencies are unmet MUST be left idle and untouched. The engine
+  MUST stop when a pass returns nothing; that empty return is what quiescence means.
 
 posture: normative-target
 level: core
@@ -22,6 +22,9 @@ profiles:
 
 added: "1.0"
 changed: "1.0"
+
+rulings:
+  - OPEN-25
 
 related:
   - ORC-10

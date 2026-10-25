@@ -8,9 +8,10 @@ summary: >-
   property of the workflow.
 
 normative: >-
-  An implementation provides four execution strategies: direct synchronous, synchronous
-  pipeline, asynchronous, and state graph. Each reports a stable identifier for itself,
-  and that identifier is what callers and stored configuration name it by.
+  An implementation MUST provide four execution strategies: direct synchronous,
+  synchronous pipeline, asynchronous, and state graph. Each MUST report a stable
+  identifier for itself, and that identifier is what callers and stored configuration name
+  it by.
 
 posture: normative-target
 level: core
@@ -19,6 +20,9 @@ profiles:
 
 added: "1.0"
 changed: "1.0"
+
+rulings:
+  - OPEN-25
 
 related:
   - ORC-2

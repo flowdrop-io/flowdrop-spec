@@ -1,12 +1,12 @@
 ---
 rule: INT-11
-rule_hash: ad76a09906b9
+rule_hash: 7fd4f66f717e
 ---
 
 ## What it means
 
 Re-running is not resuming. A run that already reached completed, failed or
-cancelled is dead, and re-entering it — through whichever door tries — does
+cancelled is dead, and re-entering it — by whatever way in — does
 nothing: no work executes and the run's own record is left exactly as it
 was. What looks like "starting it again" always means a second, independent
 run, seeded with the first one's input.

@@ -8,11 +8,11 @@ summary: >-
   failure.
 
 normative: >-
-  A run's terminal status is decided in this precedence: an unhandled failure makes the
-  run failed and the remaining work skipped; otherwise an interrupt pauses the run with
-  no reason recorded; otherwise work still ready to run pauses the run with the reason
-  recorded; otherwise the run is completed. A cancelled run never reaches this ladder; a
-  cancel signal ends the run before it and is announced there.
+  A run's terminal status MUST be decided in this precedence: an unhandled failure makes
+  the run failed and the remaining work skipped; otherwise an interrupt pauses the run
+  with no reason recorded; otherwise work still ready to run pauses the run with the
+  reason recorded; otherwise the run is completed. A cancelled run MUST NOT reach this
+  ladder; a cancel signal ends the run before it and is announced there.
 
 posture: normative-target
 level: core
@@ -21,6 +21,9 @@ profiles:
 
 added: "1.0"
 changed: "1.0"
+
+rulings:
+  - OPEN-25
 
 related:
   - ERR-9

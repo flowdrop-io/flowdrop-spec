@@ -9,13 +9,14 @@ summary: >-
   differently on resume.
 
 normative: >-
-  A run is bounded by a maximum number of scheduler passes, defaulting to 100, and a
-  maximum execution time. Exhausting either breaks the loop and pauses the run with the
-  reason recorded, and a pending system pause signal is raised. A paused run is resumable
-  and resumes with a fresh budget; re-entry clears a stale pause reason. This budget is
-  shared by every loop in the workflow and resets on resume, which is what makes a
-  budget-paused run resumable; a per-loop round count is a separate bound, is restored
-  from the run's own record and keeps accumulating across resumes.
+  A run MUST be bounded by a maximum number of scheduler passes, defaulting to 100, and a
+  maximum execution time. Exhausting either MUST break the loop and pause the run with the
+  reason recorded; exhausting either also raises a pending system pause signal. A paused
+  run MUST be resumable, and MUST resume with a fresh budget. Re-entry MUST clear a stale pause
+  reason. This budget MUST be shared by every loop in the workflow and MUST reset on
+  resume, which is what makes a budget-paused run resumable. A per-loop round count is a
+  separate bound; it MUST be restored from the run's own record and MUST keep accumulating
+  across resumes.
 
 posture: normative-target
 level: core
@@ -27,6 +28,7 @@ changed: "1.0"
 
 rulings:
   - OPEN-9
+  - OPEN-25
 
 related:
   - ORC-9

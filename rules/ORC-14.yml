@@ -8,9 +8,9 @@ summary: >-
   side-effecting node fires twice.
 
 normative: >-
-  Claiming a unit of work for execution is atomic with respect to other workers: no unit
-  of work is executed twice because two workers claimed it concurrently. Queueing a run
-  for execution does not deliver the same work twice.
+  Claiming a unit of work for execution MUST be atomic with respect to other workers. A
+  unit of work MUST NOT be executed twice because two workers claimed it concurrently.
+  Queueing a run for execution MUST NOT deliver the same work twice.
 
 posture: normative-target
 level: extended
@@ -19,6 +19,9 @@ profiles:
 
 added: "1.0"
 changed: "1.0"
+
+rulings:
+  - OPEN-25
 
 related:
   - ORC-9

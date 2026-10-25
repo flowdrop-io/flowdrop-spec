@@ -8,11 +8,11 @@ summary: >-
   configured but not available cannot capture the default and strand a run.
 
 normative: >-
-  The strategy for a run is resolved in this order: a run started from a pre-save
+  The strategy for a run MUST be resolved in this order: a run started from a pre-save
   trigger uses direct synchronous execution; otherwise the strategy configured on the
   trigger; otherwise the strategy configured for the implementation; otherwise
-  asynchronous. A configured strategy is accepted only if it validates as usable, and a
-  step that does not validate is skipped in favour of the next.
+  asynchronous. A configured strategy MUST NOT be accepted unless it validates as usable.
+  A step that does not validate MUST be skipped in favour of the next.
 
 posture: normative-target
 level: core
@@ -21,6 +21,9 @@ profiles:
 
 added: "1.0"
 changed: "1.0"
+
+rulings:
+  - OPEN-25
 
 related:
   - ORC-1

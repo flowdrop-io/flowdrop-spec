@@ -8,10 +8,10 @@ summary: >-
   and fire its side-effecting nodes again.
 
 normative: >-
-  A run in a terminal status (completed, failed or cancelled) refuses re-entry, on every
-  path that could re-enter it: no work is executed and the run is left untouched. Re-running
-  always creates a new run, seeded with the source run's input and recording which run it is
-  a re-run of.
+  A run in a terminal status (completed, failed or cancelled) MUST refuse re-entry, on
+  every path that could re-enter it. A run that refuses re-entry MUST execute no work and
+  MUST be left untouched. Re-running MUST always create a new run. The new run MUST be
+  seeded with the source run's input and MUST record which run it is a re-run of.
 
 posture: normative-target
 level: core
@@ -20,6 +20,9 @@ profiles:
 
 added: "1.0"
 changed: "1.0"
+
+rulings:
+  - OPEN-25
 
 related:
   - ORC-11

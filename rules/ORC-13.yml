@@ -4,8 +4,8 @@ part: II
 
 title: Resuming after an interrupt re-enters through the run's own strategy
 normative: >-
-  When an interrupt is resolved, the run resumes through the strategy the run declared,
-  never through a different one.
+  When an interrupt is resolved, the run MUST resume through the strategy the run declared
+  and MUST NOT resume through a different one.
 
 posture: normative-target
 level: extended
@@ -14,6 +14,9 @@ profiles:
 
 added: "1.0"
 changed: "1.0"
+
+rulings:
+  - OPEN-25
 
 related:
   - ERR-4

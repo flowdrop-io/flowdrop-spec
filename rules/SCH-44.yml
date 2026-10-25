@@ -7,7 +7,7 @@ title: A shape refines another declaration of its lane; four ids are reserved
 normative: >-
   Where two sources declare the same lane id, the site's own declaration MUST win over
   a code-declared shape, and both MUST win over the shipped entry. The winner MUST
-  replace the entry whole rather than key by key, because a partial shape is a
+  replace the entry whole rather than key by key, its declared compatibility rules included (SCH-10.a), because a partial shape is a
   deliberate redefinition. A collision with a shipped id is therefore not a break: the
   lane MUST stay in the vocabulary, stay self-compatible, and keep its derived rules.
   Precedence is resolved in one place, so which declaration wins MUST NOT depend on
@@ -28,6 +28,7 @@ changed: "1.0"
 rulings:
   - OPEN-25
   - OPEN-34
+  - OPEN-35
 
 related:
   - SCH-10.a

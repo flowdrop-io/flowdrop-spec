@@ -1,0 +1,22 @@
+id: OPEN-35
+headline: A compatibility rule belongs to the lane entry that declares it.
+question: >-
+  Compatibility rules lived in two places: a payload-wide list of `from`/`to` pairs,
+  unioned across the shipped defaults and a site's overlay (SCH-10.a), and a shape's
+  own list on its lane entry, replaced whole when another source redefined the lane
+  (SCH-44, SCH-46). Read side by side the rules said both "unioned" and "replaced",
+  and the two lists existed because one implementation was built that way.
+decided: "2026-10-25"
+decision: >-
+  A widening rule is declared on a lane entry, and can name that entry's lane at
+  either end. Every source (shipped, code shapes, the site's overlay) contributes lane
+  entries; they compose per id, the winning entry replacing the others whole, its
+  rules included (SCH-44). The effective rules are the union of the rules declared by
+  the effective entries, plus the generated ones (SCH-39, SCH-43), served as one list
+  of `from`/`to` pairs (SCH-10.a). So a lane added later arrives with every rule it
+  declares, whatever a site saved before; a redefinition is total and readable; and a
+  rule's reason sits on the entry that declares it. A site removes a rule by
+  redefining the entry that declares it, and cannot lose one by omission.
+affects:
+  - SCH-10.a
+  - SCH-44

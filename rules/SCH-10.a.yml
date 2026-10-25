@@ -2,25 +2,27 @@ id: SCH-10.a
 family: GR-SCHEMA
 part: I
 
-title: A site's lane configuration overlays the shipped one
+title: A site's lane configuration overlays the composed one, entry by entry
 summary: >-
   A site can recolour, rename or add lanes. What it stores is a patch on the
   shipped vocabulary; serving it as a replacement freezes the vocabulary at the
   moment it was saved.
 
 normative: >-
-  A stored site-level lane configuration MUST be served as an overlay on the shipped
-  defaults, not as a replacement. Stored entries MUST win outright (a recoloured or
-  renamed lane, a site-only lane, the site's own compatibility rules). Shipped entries
-  the stored value never mentions MUST fill the gaps. Lanes MUST be merged per id,
-  with unmentioned shipped ids appended after the stored ones, so the site's ordering
-  survives. Compatibility rules MUST be unioned on the `from`/`to` pair. Scalar keys
-  MUST be stored-wins. There is no negative form: a stored value MUST NOT suppress a
-  shipped rule by omitting it. This is the safe direction, since a missing rule
-  silently refuses a valid edge while an extra one only permits. Serving a stored
-  overlay wholesale is a defect: every lane added after it was saved would go missing,
-  and by SCH-10's coupling every port carrying such a lane would be compatible with
-  nothing, not even with itself.
+  A stored site-level lane configuration MUST be served as an overlay on the
+  vocabulary composed beneath it (SCH-41), not as a replacement. Lanes MUST be merged
+  per id: a stored entry MUST replace the entry of the same id whole (SCH-44), and an
+  entry the stored value does not mention MUST be served as composed, after the stored
+  ones, so the site's ordering survives. A widening compatibility rule MUST be
+  declared on a lane entry, and MAY name that entry's lane at either end. The
+  effective compatibility rules MUST be the union of the rules declared by the
+  effective lane entries, plus the generated rules (SCH-39, SCH-43), served as one
+  list of `from`/`to` pairs. A rule therefore leaves only with the entry that declares
+  it: a lane added after the overlay was saved arrives with every rule it declares,
+  and a site removes a rule by redefining the entry that declares it. Scalar keys MUST
+  be stored-wins. Serving a stored overlay wholesale is a defect: every lane added
+  after it was saved would go missing, and by SCH-10's coupling every port carrying
+  such a lane would be compatible with nothing, not even with itself.
 
 posture: normative-target
 level: extended
@@ -33,6 +35,7 @@ changed: "1.0"
 
 rulings:
   - OPEN-25
+  - OPEN-35
 
 related:
   - SCH-10

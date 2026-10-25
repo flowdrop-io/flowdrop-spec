@@ -56,7 +56,6 @@
                 "additionalProperties": {
                   "type": "object",
                   "additionalProperties": false,
-                  "required": ["exposed"],
                   "properties": {
                     "schema": { "type": "object" },
                     "default": true,
@@ -68,7 +67,7 @@
                   }
                 }
               },
-              "dynamicParameters": { "type": "array", "items": { "type": "object", "required": ["name", "exposedByDefault"], "properties": { "name": { "type": "string" }, "exposedByDefault": { "type": "boolean" }, "connectable": { "type": "boolean" }, "configurable": { "type": "boolean" }, "required": { "type": "boolean" }, "dataType": { "type": "string" }, "schema": { "type": "object" } } } },
+              "dynamicParameters": { "type": "array", "items": { "type": "object", "required": ["name"], "properties": { "name": { "type": "string" }, "exposedByDefault": { "type": "boolean" }, "connectable": { "type": "boolean" }, "configurable": { "type": "boolean" }, "required": { "type": "boolean" }, "dataType": { "type": "string" }, "schema": { "type": "object" } } } },
               "config": { "type": "object" },
               "inputs": { "type": "object" }
             }

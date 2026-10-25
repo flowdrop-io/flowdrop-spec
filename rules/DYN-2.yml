@@ -5,7 +5,7 @@ part: I
 title: A dynamic port declares a name, a label and a data type
 
 normative: >-
-  Every dynamic port definition MUST carry a `name`, a `label` and `exposedByDefault`, a boolean: the default exposure of the port it adds (EXPO-2), stated as a node type states it for a declared port (CFG-2). A dynamic parameter
+  Every dynamic port definition MUST carry a `name` and a `label`. It can carry `exposedByDefault`, a boolean, the default exposure of the port it adds, read as a node type's is (EXPO-2, CFG-2). A dynamic parameter
   definition can also carry the gate flags `connectable`, `configurable` and `required`,
   which mean what they mean on a declared parameter and default as they do there
   (CFG-1). Any definition can carry a

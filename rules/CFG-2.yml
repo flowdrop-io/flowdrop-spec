@@ -2,16 +2,17 @@ id: CFG-2
 family: GR-CFG
 part: I
 
-title: A node type states every port's default exposure
+title: An unstated default exposure means exposed
 
 summary: >-
-  Whether a port is exposed decides what can be wired to it, so the value is always
-  stated. The specification does not fill one in.
+  A port nobody has decided about is visible, so it does not silently vanish from the
+  canvas. This is the one place the fallback is stated; every rule that resolves
+  exposure reaches it through EXPO-2.
 
 normative: >-
-  Node type metadata MUST state `exposedByDefault`, a boolean, for every port the node
-  type has. Metadata that omits it for a port does not conform, and a reader MUST NOT
-  assume a value in its place.
+  Where a node type states no `exposedByDefault` for a port it declares, or a dynamic
+  definition states none for the port it adds (DYN-2), the port MUST be exposed by
+  default. This is the opposite polarity to the gate flags (CFG-1), deliberately.
 
 posture: normative-target
 level: core

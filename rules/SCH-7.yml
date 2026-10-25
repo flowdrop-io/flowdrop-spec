@@ -6,7 +6,7 @@ title: An output is exposed or hidden as the node type states
 
 normative: >-
   A declared output MUST survive into a node's metadata unless the node type states
-  that output not exposed (CFG-2).
+  that output not exposed. An output whose exposure is unstated survives (CFG-2).
 
 posture: normative-target
 level: core

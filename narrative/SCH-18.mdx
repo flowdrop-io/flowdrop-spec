@@ -12,11 +12,13 @@ exposed/hidden verdict for each key.
 
 ## Example
 
-A node type's output includes `visible_out`, which states `exposedByDefault: true`,
-and `hidden_out`, which states `false`; the instance overrides neither.
+A node type's output includes `visible_out`, which states nothing about its
+exposure, and `hidden_out`, which states `exposedByDefault: false`; the instance
+overrides neither.
 
 ```json title="The unified output port's description" verdict="listed"
 "All outputs as JSON object. Available keys: visible_out"
 ```
 
-`visible_out` enumerates because it is exposed; `hidden_out` does not.
+`visible_out` enumerates because an unstated exposure means exposed (CFG-2);
+`hidden_out` does not.

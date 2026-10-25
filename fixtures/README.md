@@ -52,9 +52,8 @@ Resolve one node's parameters (GR-CFG).
   processor's parameter schema for it, whose `default` is the schema default), and,
   where the node type records them, `default` (the node type's recorded default,
   CFG-3), `connectable`, `configurable`, `required`, `exposed` (whether its input
-  port is exposed by default; every parameter states it, CFG-2) and `when_missing`. A
-  gate flag or `when_missing` the case leaves out is not recorded, and takes the value
-  CFG-1 or CFG-20 gives it.
+  port is exposed by default) and `when_missing`. A flag the case leaves out is not
+  recorded, and takes the value CFG-1, CFG-2 or CFG-20 gives it.
 - `given.dynamicParameters`: the node's dynamic parameter definitions, as DYN-2 defines them (CFG-15, DYN-8).
 - `given.config`: the node's saved configuration. `given.inputs`: the runtime inputs.
   Either may be left out, meaning an empty object.

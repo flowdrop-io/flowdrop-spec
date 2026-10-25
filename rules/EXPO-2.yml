@@ -8,8 +8,9 @@ normative: >-
   A port's effective exposure on a node instance MUST be the `exposed` value of the
   instance's override entry for that port, where the entry carries one. Otherwise it
   MUST be the port's stated default exposure: the node type's `exposedByDefault` for
-  a port the node type declares (CFG-2), the definition's `exposedByDefault` for a
-  dynamic port (DYN-2). An override entry that carries no `exposed` key MUST read as
+  a port the node type declares, the definition's `exposedByDefault` for a dynamic
+  port (DYN-2). Where neither states one, the port MUST be exposed (CFG-2). An
+  override entry that carries no `exposed` key MUST read as
   no override.
 
 posture: normative-target

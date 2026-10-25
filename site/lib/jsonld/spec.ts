@@ -2,8 +2,10 @@ import { allFamilies, allRules } from '@/lib/rules';
 import { glossaryEntries, GLOSSARY_URL } from '@/lib/glossary';
 import { ruleRecord } from '@/lib/corpus';
 import {
+  SITE_TITLE,
   SITE_TITLE_TEMPLATE,
   SOCIAL_IMAGE,
+  SPEC_PUBLISHED,
   SPEC_ORIGIN,
   SPEC_VERSION,
   canonicalUrl,
@@ -43,6 +45,7 @@ type Data = {
 
 /** The page's `<title>`: the same string `generateMetadata` hands Next, template applied. */
 export function pageTitle(kind: Data['kind'], title: string, rule?: { title: string }): string {
+  if (kind === 'home') return SITE_TITLE;
   return SITE_TITLE_TEMPLATE.replace('%s', kind === 'rule' ? `${title}: ${rule!.title}` : title);
 }
 
@@ -117,6 +120,7 @@ function specGraph(path: string, name: string, description: string): Node[] {
       description,
       url: canonicalUrl('/'),
       version: SPEC_VERSION,
+      datePublished: SPEC_PUBLISHED,
       // The README and the home page both state it: version 1.0, published.
       creativeWorkStatus: 'Published',
       license: CC_BY,
@@ -141,6 +145,7 @@ function specGraph(path: string, name: string, description: string): Node[] {
       url: canonicalUrl('/'),
       license: CC_BY,
       version: SPEC_VERSION,
+      datePublished: SPEC_PUBLISHED,
       inLanguage: 'en',
       creator: ORGANIZATION,
       publisher: ORGANIZATION,

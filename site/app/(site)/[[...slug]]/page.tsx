@@ -6,7 +6,7 @@ import type { TOCItemType } from 'fumadocs-core/toc';
 import { source } from '@/lib/source';
 import { compiler } from '@/lib/mdx';
 import { allRules, allFamilies } from '@/lib/rules';
-import { MACHINE_ALTERNATES, SPEC_VERSION, canonicalUrl, socialMetadata } from '@/app/layout.config';
+import { MACHINE_ALTERNATES, SITE_TITLE, SPEC_VERSION, canonicalUrl, socialMetadata } from '@/app/layout.config';
 import { Shell } from '@/components/shell';
 import { RailId, RailNav, RailTally } from '@/components/rail';
 import { RuleDoc, RuleRail, ruleToc } from '@/components/rule-page';
@@ -36,7 +36,8 @@ export async function generateMetadata(props: { params: Promise<{ slug?: string[
   const markdown = d.kind === 'rule' ? `${page.url}.md` : mdTwin(page.url);
   const title = d.kind === 'rule' ? `${d.title}: ${d.rule!.title}` : d.title;
   return {
-    title,
+    // The front page's title is the site title in full, not run through the template.
+    title: d.kind === 'home' ? { absolute: SITE_TITLE } : title,
     description: d.description,
     ...socialMetadata({ title, description: d.description, path: page.url }),
     alternates: {

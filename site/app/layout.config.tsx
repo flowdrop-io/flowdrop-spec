@@ -6,6 +6,9 @@
  */
 export const SPEC_VERSION = '1.0';
 
+/** The day SPEC_VERSION was tagged. Bump the two together. */
+export const SPEC_PUBLISHED = '2026-10-25';
+
 /**
  * The host this site is served from, and the path it is served under.
  *
@@ -80,17 +83,24 @@ export const MACHINE_ALTERNATES = {
 export const canonicalUrl = (path: string) =>
   `${SPEC_ORIGIN}${path === '/' ? '' : path.replace(/\/$/, '')}/`;
 
-/** Site-wide title and description: the root layout's defaults and the social-card fallback. */
-export const SITE_TITLE = 'The FlowDrop Workflow Specification';
+/**
+ * Site-wide title and description: the root layout's defaults, the social-card
+ * fallback and the front page's own `<title>` (set absolute there, so the template
+ * does not repeat the name). They name the version and say "open workflow spec"
+ * because that is what people search for; the page's h1 stays plain.
+ */
+export const SITE_TITLE = `FlowDrop Workflow Specification ${SPEC_VERSION}: an open workflow spec`;
 export const SITE_TITLE_TEMPLATE = '%s | FlowDrop Workflow Specification';
 export const SITE_DESCRIPTION =
-  'The rules a FlowDrop workflow obeys (how a workflow is written, stored, validated and executed), stated independently of any one implementation.';
+  'An open workflow specification (CC BY 4.0): how a node-based workflow is written, stored, validated and executed, stated independently of any one implementation.';
 
 /**
- * Shared card image, created and served by the flowdrop.io website (1200x630).
- * This site ships no raster assets of its own.
+ * The specification's own card image (1200x630), so a shared link says what it
+ * is rather than showing the product card. The one raster asset this site ships;
+ * its source is scripts/og/card.html, rendered with headless Chromium. It
+ * carries the version and the rule count, so it is redrawn with each release.
  */
-export const SOCIAL_IMAGE = 'https://flowdrop.io/og-image.png';
+export const SOCIAL_IMAGE = `${SPEC_ORIGIN}/og-spec.png`;
 
 /**
  * Open Graph and Twitter tags. Next replaces `openGraph` and `twitter` wholesale

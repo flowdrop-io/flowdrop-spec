@@ -6,6 +6,7 @@ import type { StructuredData } from 'fumadocs-core/mdx-plugins';
 import { allFamilies, allRules, urlForId, slugify, type Family, type LoadedRule } from './rules';
 import { allRulings, type LoadedRuling } from './rulings';
 import { anchoredGlossary } from './glossary';
+import { SITE_DESCRIPTION } from '@/app/layout.config';
 
 const REPO = path.join(process.cwd(), '..');
 const CONTENT = path.join(process.cwd(), 'content');
@@ -77,7 +78,7 @@ function files() {
     data: {
       kind: 'home',
       title: 'The FlowDrop Workflow Specification',
-      description: 'The rules a FlowDrop workflow obeys, stated independently of any one implementation.',
+      description: SITE_DESCRIPTION,
       body: homeBody(),
       structuredData: () => structure(homeBody()),
     } as PageData,

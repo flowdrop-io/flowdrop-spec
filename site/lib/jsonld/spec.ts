@@ -117,8 +117,8 @@ function specGraph(path: string, name: string, description: string): Node[] {
       description,
       url: canonicalUrl('/'),
       version: SPEC_VERSION,
-      // The README and the home page both state it: a draft, not yet published.
-      creativeWorkStatus: 'Draft',
+      // The README and the home page both state it: version 1.0, published.
+      creativeWorkStatus: 'Published',
       license: CC_BY,
       inLanguage: 'en',
       publisher: ORGANIZATION,

@@ -5,20 +5,20 @@ part: II
 title: Dynamic escalation can add an approval but never remove one
 
 summary: >-
-  Data flowing into a node (including arguments a model filled) may raise the bar
-  for that execution. It may never lower it.
+  Data flowing into a node (including arguments a model filled) can raise the bar
+  for that execution. It never lowers it.
 
 normative: >-
-  Where governance grants the dynamic escalation control, the node type declares a
-  reserved confirmation input port, hidden by default, and a truthy value delivered
-  to it gates that execution. A falsy value does not participate: upstream data can
-  add an approval requirement and must never remove one. A value whose truthiness
-  cannot be determined escalates; over-asking is the fail-safe direction for a
-  value crossing a port. Enforcement is at the gate. On a node type without the
-  grant the port does not exist, so an edge to it is refused (R7.d). The escalation is not a resolved
-  parameter and must not reach the node's parameters; it is bound into the consent
-  arguments explicitly, so that a change of policy between two executions forces a
-  fresh question (RT-GATE-3).
+  Where governance grants the dynamic escalation control, the node type MUST declare a
+  reserved confirmation input port, hidden by default. A truthy value delivered to it
+  MUST gate that execution. A falsy value does not participate: upstream data can add
+  an approval requirement and MUST NOT remove one. A value whose truthiness cannot be
+  determined MUST escalate; over-asking is the fail-safe direction for a value
+  crossing a port. Enforcement is at the gate. On a node type without the grant the
+  port does not exist, so an edge to it MUST be refused (R7.d). The escalation is not
+  a resolved parameter and MUST NOT reach the node's parameters. It MUST be bound into
+  the consent arguments explicitly, so that a change of policy between two executions
+  forces a fresh question (RT-GATE-3).
 
 posture: normative-target
 level: extended
@@ -29,6 +29,7 @@ added: "1.0"
 changed: "1.0"
 
 rulings:
+  - OPEN-25
   - OPEN-31
 
 related:

@@ -9,14 +9,14 @@ summary: >-
   asked again every time, which is the point.
 
 normative: >-
-  The first execution that finds a confirmed, hash-matching consent marks it
-  consumed and proceeds; a second execution of the same call finds no unconsumed
-  consent and asks again with a fresh interrupt. A decline is consumed the same
-  way, so a decline never re-fires. Checking and consuming a consent must be atomic
-  against concurrent execution of the same call: a copy of the consent read before
-  the check began must never authorise a second execution. An execution that loses
-  that race pauses on the pending interrupt raised by the winner rather than raising
-  a duplicate question; a contended entry and an unconsented one are distinct
+  The first execution that finds a confirmed, hash-matching consent MUST mark it
+  consumed and proceed. A second execution of the same call finds no unconsumed
+  consent and MUST ask again with a fresh interrupt. A decline MUST be consumed the
+  same way, so a decline never re-fires. Checking and consuming a consent MUST be
+  atomic against concurrent execution of the same call. A copy of the consent read
+  before the check began MUST NOT authorise a second execution. An execution that
+  loses that race MUST pause on the pending interrupt raised by the winner rather than
+  raise a duplicate question. A contended entry and an unconsented one are distinct
   causes of the same pause.
 
 posture: normative-target
@@ -26,6 +26,9 @@ profiles:
 
 added: "1.0"
 changed: "1.0"
+
+rulings:
+  - OPEN-25
 
 related:
   - RT-GATE-1

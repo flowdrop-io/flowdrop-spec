@@ -5,19 +5,19 @@ part: II
 title: A gate pause leaves no phantom failure in the tool trail
 
 summary: >-
-  A pause is not a failure, and the record of a tool call must not say otherwise;
+  A pause is not a failure, and the record of a tool call does not say otherwise;
   a mislabelled attempt either holds a finished run open or trips the run's
   unhandled-failure check.
 
 normative: >-
-  An interrupt escaping a tool invocation records the attempt as interrupted, not
-  failed. When the call is resumed it records itself as a new attempt and closes the
-  superseded interrupted one as cancelled, because an attempt left interrupted would
-  hold a finished run paused. A failed tool call is recorded as a handled failure by
-  construction (it is delivered to the consumer as a model-recoverable result), so
-  it must not count towards the run's unhandled failures (ERR-9). One pause raises
-  exactly one question, however many times the tool plane observes the same
-  interrupt.
+  An interrupt escaping a tool invocation MUST cause the attempt to be recorded as
+  interrupted, not failed. When the call is resumed it MUST be recorded as a new
+  attempt. The superseded interrupted attempt MUST be closed as cancelled, because an
+  attempt left interrupted would hold a finished run paused. A failed tool call is
+  recorded as a handled failure by construction (it is delivered to the consumer as a
+  model-recoverable result), so it MUST NOT count towards the run's unhandled failures
+  (ERR-9). One pause MUST raise exactly one question, however many times the tool
+  plane observes the same interrupt.
 
 posture: normative-target
 level: extended
@@ -26,6 +26,9 @@ profiles:
 
 added: "1.0"
 changed: "1.0"
+
+rulings:
+  - OPEN-25
 
 related:
   - ERR-9

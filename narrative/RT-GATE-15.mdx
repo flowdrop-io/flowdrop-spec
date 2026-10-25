@@ -1,11 +1,11 @@
 ---
 rule: RT-GATE-15
-rule_hash: 46cde6c5c76e
+rule_hash: d2ceba893d9e
 ---
 
 ## What it means
 
-"Mutates persistent state" and "an operator should approve this" are two
+"Mutates persistent state" and "this needs an operator's approval" are two
 different questions, and a node type that ships without an answer is not
 defaulting to a neutral position — it is letting the gate's own fail-safe
 answer a governance question nobody actually decided. The two questions
@@ -13,11 +13,11 @@ happen to agree for a call that leaves the implementation's own boundary,
 which is exactly why it is easy to assume they always agree.
 
 Once a shipped type has an answer, delivering it to a site that already
-exists is one-directional. The pass may fill in a policy that was never
-stored, but it must recognise every other shape as somebody's answer already:
+exists is one-directional. The pass fills in a policy that was never
+stored, and treats every other shape as somebody's answer already:
 a stored policy, a narrowed list of controls with no policy yet, and an
 older tri-state waiting for a separate migration to translate all count, and
-none of them may be replaced by the shipped default.
+none of them is replaced by the shipped default.
 
 ## Example
 

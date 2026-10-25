@@ -10,16 +10,16 @@ summary: >-
   appear and disappear with a configuration flag.
 
 normative: >-
-  A declined node that was scheduled in the graph must not be executed, and the
-  decline becomes an error output on the node's reserved error port carrying the
-  code `confirmation_declined` and details naming the interrupt type, the reason,
-  who declined, when, and the interrupt's identifier; those details are forwarded
-  as the error edge payload's optional details. Where an error edge is wired the
-  decline is a handled failure (ERR-7); otherwise the run's default failure
-  behaviour applies (ERR-8). A decline must not be surfaced as branch ports that
-  exist only when confirmation is configured; a port surface that depends on a
-  configuration flag breaks the canvas contract. An author who wants first-class
-  branching on a human decision uses an explicit confirmation node.
+  A declined node that was scheduled in the graph MUST NOT be executed. The decline
+  MUST become an error output on the node's reserved error port, carrying the code
+  `confirmation_declined` and details naming the interrupt type, the reason, who
+  declined, when, and the interrupt's identifier. Those details MUST be forwarded as
+  the error edge payload's optional details. Where an error edge is wired, the decline
+  MUST be a handled failure (ERR-7); otherwise the run's default failure behaviour
+  MUST apply (ERR-8). A decline MUST NOT be surfaced as branch ports that exist only
+  when confirmation is configured: a port surface that depends on a configuration flag
+  breaks the canvas contract. An author who wants first-class branching on a human
+  decision uses an explicit confirmation node.
 
 posture: normative-target
 level: core
@@ -28,6 +28,9 @@ profiles:
 
 added: "1.0"
 changed: "1.0"
+
+rulings:
+  - OPEN-25
 
 related:
   - ERR-7

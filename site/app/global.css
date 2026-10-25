@@ -9,33 +9,43 @@
 @source '../components';
 
 /* =====================================================================
-   Palette. Light on bare `:root`; the same tokens redefined for dark
-   twice over: once behind `prefers-color-scheme` (guarded so an explicit
-   light choice wins) and once behind the explicit dark selectors, so the
-   theme toggle wins in both directions.
+   Palette: the Factorial report look (factorial-design, modules/report.md).
+   White page, blue-dark ink, grey-100 as the only surface, hairline rules.
+   Orange is the single accent and is kept to the marks the report gives it:
+   the kicker (`--kicker`), the normative edge and warnings. Links take
+   Factorial blue, as on factorial.io. Values are the factorial-design
+   tokens; the report is light only, so dark is the design system's own
+   dark theme. Light on bare `:root`; dark twice over: once behind
+   `prefers-color-scheme` (guarded so an explicit light choice wins) and
+   once behind the explicit dark selectors, so the theme toggle wins in
+   both directions.
    ===================================================================== */
 
 :root {
-  --paper: #f5f7f9;
+  --paper: #ffffff;
   --surface: #ffffff;
-  --sunk: #edf1f5;
-  --ink: #101b26;
-  --ink-2: #46586a;
-  --ink-3: #75889b;
-  --rule: #dae2e9;
-  --rule-soft: #e7edf2;
-  --accent: #1d4e7c;
-  --accent-2: #2e6ea6;
-  --accent-wash: #e4edf5;
-  --ok: #2f6b52;
-  --ok-wash: #e2efe8;
-  --warn: #8a5a12;
-  --warn-wash: #f6ebd8;
-  --bad: #8c3a32;
-  --bad-wash: #f5e4e2;
+  --sunk: #f5f7fa;
+  --ink: #111827;
+  --ink-2: #687182;
+  --ink-3: #7d8597;
+  --rule: hsl(220, 14%, 88%);
+  --rule-soft: hsl(220, 14%, 93%);
+  --accent: #005fa3;
+  --accent-2: #0096db;
+  --accent-wash: hsl(205, 60%, 94%);
+  /* --brand-orange: the Factorial orange two points darker, for AA as text. */
+  --kicker: #c34318;
+  --ok: #008561;
+  --ok-wash: hsl(163, 50%, 93%);
+  --warn: #c34318;
+  --warn-wash: hsl(15, 80%, 95%);
+  --bad: hsl(356, 72%, 46%);
+  --bad-wash: hsl(356, 70%, 96%);
 
-  --serif: var(--font-spectral), ui-serif, Georgia, serif;
-  --sans: var(--font-plex-sans), ui-sans-serif, system-ui, -apple-system, 'Segoe UI', sans-serif;
+  /* One family for text and headings, as in the report. `--serif` is kept
+     as a name so every rule that set display text follows without edits. */
+  --sans: var(--font-suisse), 'Suisse Intl', 'Inter', system-ui, -apple-system, sans-serif;
+  --serif: var(--sans);
   --mono: var(--font-plex-mono), ui-monospace, SFMono-Regular, Menlo, monospace;
 
   --measure: 68ch;
@@ -44,45 +54,47 @@
 
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme='light']):not(.light) {
-    --paper: #0d141b;
-    --surface: #141d26;
-    --sunk: #18232e;
-    --ink: #dee7ef;
-    --ink-2: #9db0c1;
-    --ink-3: #74899c;
-    --rule: #26343f;
-    --rule-soft: #1e2a34;
-    --accent: #7fb3dc;
-    --accent-2: #a3cbea;
-    --accent-wash: #152736;
-    --ok: #77be9c;
-    --ok-wash: #14261e;
-    --warn: #d4a45c;
-    --warn-wash: #29200f;
-    --bad: #d68c84;
-    --bad-wash: #2b1815;
+    --paper: #0d121c;
+    --surface: #111827;
+    --sunk: #0f293e;
+    --ink: #ffffff;
+    --ink-2: #939aa9;
+    --ink-3: #7d8597;
+    --rule: hsl(221, 20%, 24%);
+    --rule-soft: hsl(221, 20%, 17%);
+    --accent: #0096db;
+    --accent-2: hsl(199, 100%, 72%);
+    --accent-wash: hsl(205, 60%, 16%);
+    --kicker: #ff7142;
+    --ok: #00c78f;
+    --ok-wash: hsl(163, 60%, 12%);
+    --warn: #ff7142;
+    --warn-wash: hsl(15, 50%, 14%);
+    --bad: hsl(356, 100%, 68%);
+    --bad-wash: hsl(356, 40%, 15%);
   }
 }
 
 :root[data-theme='dark'],
 :root.dark {
-  --paper: #0d141b;
-  --surface: #141d26;
-  --sunk: #18232e;
-  --ink: #dee7ef;
-  --ink-2: #9db0c1;
-  --ink-3: #74899c;
-  --rule: #26343f;
-  --rule-soft: #1e2a34;
-  --accent: #7fb3dc;
-  --accent-2: #a3cbea;
-  --accent-wash: #152736;
-  --ok: #77be9c;
-  --ok-wash: #14261e;
-  --warn: #d4a45c;
-  --warn-wash: #29200f;
-  --bad: #d68c84;
-  --bad-wash: #2b1815;
+  --paper: #0d121c;
+  --surface: #111827;
+  --sunk: #0f293e;
+  --ink: #ffffff;
+  --ink-2: #939aa9;
+  --ink-3: #7d8597;
+  --rule: hsl(221, 20%, 24%);
+  --rule-soft: hsl(221, 20%, 17%);
+  --accent: #0096db;
+  --accent-2: hsl(199, 100%, 72%);
+  --accent-wash: hsl(205, 60%, 16%);
+  --kicker: #ff7142;
+  --ok: #00c78f;
+  --ok-wash: hsl(163, 60%, 12%);
+  --warn: #ff7142;
+  --warn-wash: hsl(15, 50%, 14%);
+  --bad: hsl(356, 100%, 68%);
+  --bad-wash: hsl(356, 40%, 15%);
 }
 
 /* Fumadocs still owns the search dialog. Point its tokens at ours so the
@@ -142,8 +154,9 @@ a:hover {
   color: var(--accent-2);
 }
 :focus-visible {
-  outline: 2px solid var(--accent-2);
-  outline-offset: 2px;
+  /* Factorial's BITV ring: 3px at 3px, always visible. */
+  outline: var(--brand-focus-width) solid var(--accent-2);
+  outline-offset: var(--brand-focus-offset);
   border-radius: 2px;
 }
 
@@ -185,9 +198,9 @@ code {
   text-decoration: none;
 }
 .wordmark em {
-  font-style: italic;
+  font-style: normal;
   font-weight: 400;
-  color: var(--ink-2);
+  color: var(--kicker);
 }
 .masthead nav {
   display: flex;
@@ -280,10 +293,11 @@ code {
 }
 
 .rail-id .fam {
-  font-family: var(--mono);
+  font-family: var(--sans);
   font-size: 0.74rem;
-  letter-spacing: 0.08em;
-  color: var(--ink-3);
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  color: var(--kicker);
   text-transform: uppercase;
 }
 .rail-id a.fam {
@@ -486,7 +500,7 @@ code {
   flex: none;
 }
 .key i.n {
-  background: var(--accent);
+  background: var(--kicker);
 }
 .key i.i {
   background: repeating-linear-gradient(to bottom, var(--rule) 0 3px, transparent 3px 6px);
@@ -530,7 +544,7 @@ code {
 
 .doc h1 {
   font-family: var(--serif);
-  font-weight: 600;
+  font-weight: 400;
   font-size: clamp(1.75rem, 1.3rem + 1.6vw, 2.35rem);
   line-height: 1.18;
   letter-spacing: -0.012em;
@@ -550,24 +564,27 @@ code {
 }
 .doc > h1 + section > h2:first-child,
 .doc > .standfirst + section > h2:first-child {
-  margin-top: 0;
+  /* `.doc p` outranks `.standfirst`'s own margin, so the air goes here. */
+  margin-top: 2.2rem;
 }
 
 .doc h2 {
+  /* Report H2: sentence case, weight 400, ink; the rule under it is the
+     hairline. No eyebrow: the kicker in the rail is the only one. */
   font-family: var(--sans);
-  font-size: 0.74rem;
-  font-weight: 600;
-  text-transform: uppercase;
-  letter-spacing: 0.13em;
-  color: var(--ink-3);
+  font-size: 1.45rem;
+  font-weight: 400;
+  line-height: 1.25;
+  letter-spacing: -0.005em;
+  color: var(--ink);
   margin: 3.2rem 0 1rem;
   padding-bottom: 0.5rem;
   border-bottom: 1px solid var(--rule);
 }
 .doc h3 {
   font-family: var(--serif);
-  font-size: 1.06rem;
-  font-weight: 600;
+  font-size: 1.12rem;
+  font-weight: 400;
   margin: 2rem 0 0.6rem;
   color: var(--ink);
 }
@@ -635,10 +652,11 @@ code {
   vertical-align: top;
 }
 .doc th {
-  font-size: 0.7rem;
-  text-transform: uppercase;
-  letter-spacing: 0.08em;
-  color: var(--ink-3);
+  /* Report table head: on the surface grey, 600, sentence case. */
+  font-size: 0.8rem;
+  font-weight: 600;
+  background: var(--sunk);
+  color: var(--ink);
 }
 .doc-scroll {
   overflow-x: auto;
@@ -663,7 +681,7 @@ code {
   width: 3px;
 }
 .normative::before {
-  background: var(--accent);
+  background: var(--kicker);
 }
 .informative::before {
   background: repeating-linear-gradient(to bottom, var(--rule) 0 3px, transparent 3px 6px);
@@ -680,13 +698,13 @@ code {
   margin-bottom: 0.5rem;
 }
 .normative .label b {
-  color: var(--accent);
+  color: var(--kicker);
   font-weight: 600;
 }
 
 .statement {
   font-family: var(--serif);
-  font-size: 1.24rem;
+  font-size: 1.14rem;
   line-height: 1.55;
   color: var(--ink);
   margin: 0;
@@ -772,53 +790,34 @@ code {
   font-weight: 600;
 }
 
-/* An MDX <Callout>, wearing the same notice device: a wash, a left rule,
-   and the letterspaced mono label the stamps use. */
+/* An MDX <Callout>, as the report draws one: the grey surface and no rule
+   (a surface carries no rule, a rule carries no surface), a 600 heading
+   line in the ink. Only the warning variant colours its heading, in the
+   orange; the report has no green "success" or red "error" callouts, so
+   tip and success read as plain notes and error as a warning. */
 .callout {
   margin: 0 0 1.4rem;
-  padding: 0.7rem 0.9rem;
+  padding: 0.8rem 1rem;
   font-size: 0.9rem;
   color: var(--ink-2);
   background: var(--sunk);
-  border-left: 3px solid var(--rule);
-  border-radius: 3px;
+  border-radius: var(--brand-radius-px);
 }
 .callout-title {
-  font-family: var(--mono);
-  font-size: 0.7rem;
-  letter-spacing: 0.06em;
-  text-transform: uppercase;
-  color: var(--ink-3);
-  margin: 0 0 0.45rem;
+  font-family: var(--sans);
+  font-size: 0.86rem;
+  font-weight: 600;
+  color: var(--ink);
+  margin: 0 0 0.35rem;
 }
 .doc .callout > :last-child {
   margin-bottom: 0;
 }
 
-.callout-tip,
-.callout-success {
-  background: var(--ok-wash);
-  border-left-color: var(--ok);
-}
-.callout-tip .callout-title,
-.callout-success .callout-title {
-  color: var(--ok);
-}
-.callout-warn,
-.callout-warning {
-  background: var(--warn-wash);
-  border-left-color: var(--warn);
-}
 .callout-warn .callout-title,
-.callout-warning .callout-title {
-  color: var(--warn);
-}
-.callout-error {
-  background: var(--bad-wash);
-  border-left-color: var(--bad);
-}
+.callout-warning .callout-title,
 .callout-error .callout-title {
-  color: var(--bad);
+  color: var(--warn);
 }
 
 /* =====================================================================
@@ -1017,7 +1016,7 @@ span.rulechip {
 .chipgroup h3 {
   font-family: var(--sans);
   font-size: 0.8rem;
-  font-weight: 500;
+  font-weight: 600;
   color: var(--ink-2);
   margin: 0 0 0.55rem;
 }

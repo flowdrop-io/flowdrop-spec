@@ -7,31 +7,33 @@ import {
   SITE_DESCRIPTION,
   socialMetadata,
 } from '@/app/layout.config';
-import { Spectral, IBM_Plex_Sans, IBM_Plex_Mono } from 'next/font/google';
+import { IBM_Plex_Mono } from 'next/font/google';
+import localFont from 'next/font/local';
 import { RootProvider } from 'fumadocs-ui/provider/next';
 import SpecSearchDialog from '@/components/search';
 import './global.css';
 
 /**
- * The three faces of the prototype, self-hosted. `next/font/google` downloads
- * and emits them at build time, so the deployed site never reaches out to
- * fonts.googleapis.com, because the nginx chart it ships in is offline.
+ * Suisse Int'l, the Factorial face (licensed by Factorial.io), in the two
+ * weights the Factorial report look uses: 400 for text and headings, 600 for
+ * emphasis. Vendored in brand/fonts/ from the flowdrop-website brand master.
+ * `next/font/local` emits them under the basePath with hashed names, so the
+ * root-absolute URLs in the master's fonts.css are not needed here.
  */
-const spectral = Spectral({
-  subsets: ['latin'],
-  weight: ['400', '500', '600'],
-  style: ['normal', 'italic'],
+const suisse = localFont({
+  src: [
+    { path: '../brand/fonts/SuisseIntl-Regular.woff2', weight: '400', style: 'normal' },
+    { path: '../brand/fonts/SuisseIntl-SemiBold.woff2', weight: '600', style: 'normal' },
+  ],
   display: 'swap',
-  variable: '--font-spectral',
+  variable: '--font-suisse',
 });
 
-const plexSans = IBM_Plex_Sans({
-  subsets: ['latin'],
-  weight: ['400', '500', '600'],
-  display: 'swap',
-  variable: '--font-plex-sans',
-});
-
+/**
+ * Code stays in a real code face. The Suisse Int'l Mono web subset has no
+ * `<  >  \  ^  ~` (see brand/tokens.css), so it cannot set JSON or paths.
+ * Self-hosted by `next/font/google` at build time; the nginx chart is offline.
+ */
 const plexMono = IBM_Plex_Mono({
   subsets: ['latin'],
   weight: ['400', '500', '600'],
@@ -79,7 +81,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     <html
       lang="en"
       suppressHydrationWarning
-      className={`${spectral.variable} ${plexSans.variable} ${plexMono.variable}`}
+      className={`${suisse.variable} ${plexMono.variable}`}
     >
       <body>
         <RootProvider search={{ SearchDialog: SpecSearchDialog }}>{children}</RootProvider>

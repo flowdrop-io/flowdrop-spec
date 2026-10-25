@@ -11,20 +11,17 @@ already cost this project a broken website image once.
 
 ## What this site takes, and what it does not
 
-This site is a **sanctioned divergence**. It keeps its own palette
-(`--paper`/`--ink`/`--accent`), its own three faces (Spectral + IBM Plex,
-self-hosted via `next/font/google`) and its own typographic scale, all
-declared in `app/global.css`. The specification is meant to read like a
-specification, not like the marketing site.
+This site wears the **Factorial report look** (the `factorial-design` skill,
+`modules/report.md`): Suisse Int'l for text and headings at 400/600, blue-dark
+ink on a white page, grey-100 as the only surface, hairline rules, and orange
+kept to the kicker, the normative edge and warnings. The palette is declared in
+`app/global.css` from the factorial-design token values; the shared footer
+binds to `tokens.css` as before.
 
-So only the *values* are imported, and only the shared footer binds to them.
-`tokens.css` declares nothing but custom properties, so importing it applies
-no styling on its own — an unreferenced token costs nothing. That is what
-makes taking the package safe here: the footer is the one surface that has
-to match flowdrop.io exactly, and it now reads the same values the master
-does instead of carrying copied literals that drift silently.
-
-The fonts are deliberately **not** vendored: this site does not set Suisse
-Int'l anywhere, so the four `woff2` files would be dead weight in the image.
+`fonts/` holds the two Suisse Int'l faces the site sets (Regular, SemiBold),
+copied from the master's `brand/fonts/` and loaded by `next/font/local` in
+`app/layout.tsx`. The master's `fonts.css` is not used: its root-absolute
+`/fonts/` URLs would miss the `/spec` basePath. Code stays in IBM Plex Mono:
+the Suisse Int'l Mono web subset has no `<  >  \  ^  ~`.
 
 To change a brand value, change the master and re-copy.

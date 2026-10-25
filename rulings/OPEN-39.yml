@@ -1,0 +1,13 @@
+id: OPEN-39
+headline: A loopback edge never counts for scheduling, so a node whose only incoming edges are loopback edges is a start node.
+question: >-
+  CMP-6 excluded a node whose only incoming edges are loopback edges from the
+  execution graph, while DATA-5 said loopback edges create no dependency and that
+  such a node is ready at once, and DATA-4 that a ready node runs.
+decided: "2026-10-25"
+decision: >-
+  Loopback edges are ignored for scheduling everywhere, without exception. CMP-6
+  drops its loopback exclusion: a node whose only incoming edges are loopback edges
+  is included and is ready at once, like a node with no incoming edges.
+affects:
+  - CMP-6

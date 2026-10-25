@@ -9,10 +9,11 @@ summary: >-
   port.
 
 normative: >-
-  A node MUST be excluded from the execution graph if its type is non-executable, if
-  it is wired only as a tool provider, or if its only incoming edges are loopback
-  edges. A node with no incoming edges MUST be included. A node with no edges at all
-  MUST be included. The exclusions MUST be applied in that precedence.
+  A node MUST be excluded from the execution graph if its type is non-executable,
+  or if it is wired only as a tool provider. A node with no incoming edges MUST be
+  included, and so MUST a node whose only incoming edges are loopback edges, which
+  create no dependency (DATA-5). A node with no edges at all MUST be included. The
+  two exclusions MUST be applied in that precedence.
 
 posture: normative-target
 level: core
@@ -24,6 +25,7 @@ changed: "1.0"
 
 rulings:
   - OPEN-25
+  - OPEN-39
 
 related:
   - CMP-5

@@ -3,18 +3,15 @@ family: GR-SCHEMA
 part: I
 
 title: A retired lane keeps one release of served-but-disabled compatibility
+summary: >-
+  Withdrawn (OPEN-34): how an implementation retires a lane it once shipped is its own release practice.
 
 normative: >-
-  A lane MUST leave the declarable vocabulary as soon as nothing ships it, but MUST
-  NOT leave the served payload until a major version later, because the two lists
-  answer different questions: what a port can newly declare, and what an editor knows
-  how to connect. Dropping both at once breaks every edge on a port declared under the
-  previous release, with no error anywhere; an editor simply reports the connection
-  incompatible. A retired lane MUST therefore be served disabled, with its
-  compatibility rules intact, for at least that release. The retired lanes are named
-  explicitly so that removing one is a deliberate act rather than drift.
+  A retired lane was kept served but disabled for a major release after nothing
+  shipped it. The specification no longer describes retiring a lane: that is an
+  implementation's release practice (OPEN-34).
 
-posture: normative-target
+posture: withdrawn
 level: extended
 profiles:
   - storage-api
@@ -25,6 +22,7 @@ changed: "1.0"
 
 rulings:
   - OPEN-25
+  - OPEN-34
 
 related:
   - SCH-38

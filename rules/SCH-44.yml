@@ -11,7 +11,7 @@ normative: >-
   deliberate redefinition. A collision with a shipped id is therefore not a break: the
   lane MUST stay in the vocabulary, stay self-compatible, and keep its derived rules.
   Precedence is resolved in one place, so which declaration wins MUST NOT depend on
-  load order. The ids `trigger`, `tool`, `mixed` and `any` are reserved (every
+  load order. The ids `trigger`, `tool` and `mixed` are reserved (every
   generated compatibility rule in the payload is built from them), and a shape naming
   one MUST be ignored rather than treated as fatal, since paths that reach around a
   form exist and one bad shape would otherwise unwire every canvas.
@@ -27,6 +27,7 @@ changed: "1.0"
 
 rulings:
   - OPEN-25
+  - OPEN-34
 
 related:
   - SCH-10.a

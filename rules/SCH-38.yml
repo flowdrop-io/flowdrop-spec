@@ -2,24 +2,17 @@ id: SCH-38
 family: GR-SCHEMA
 part: I
 
-title: A loop-back input is a control sink, and `any` is retired
+title: A loop-back input is the control sink and declares `trigger`
 summary: >-
-  `any` and `trigger` differed in one way only (one had compatibility rules built
-  into it from every other lane), and that is a property of being the sink, not of
-  being `any`.
+  A loop-back input carries no value. It is the control sink every other lane can
+  reach, and `trigger` is the lane that plays that part.
 
 normative: >-
-  A `loop_back` input MUST declare the `trigger` lane. `any` MUST NOT be part of the
-  declarable lane vocabulary. The rules that make the sink reachable from every other
-  lane MUST target `trigger` instead. `any` MUST NOT be removed from the served
-  payload: it MUST be served disabled, with compatibility rules in both directions and
-  a description saying it is deprecated, because an editor builds its compatibility
-  map from the served list alone and omitting a lane silently makes every edge on a
-  port still declaring it incompatible. A consequence of targeting `trigger` is that a
-  data output can be drawn into an ordinary trigger input; the runtime MUST discard
-  the value rather than deliver it. Compatibility is an authoring affordance only: no
-  server path validates a connection against port lanes, so a wire an editor newly
-  permits was already accepted by every server path if authored by hand.
+  A `loop_back` input MUST declare the `trigger` lane. The rules that make the sink
+  reachable from every other lane MUST target `trigger`. A data output can therefore
+  be drawn into an ordinary trigger input; the runtime MUST discard the value rather
+  than deliver it. Compatibility is an authoring affordance only: no server path
+  validates a connection against port lanes.
 
 posture: normative-target
 level: extended
@@ -32,9 +25,9 @@ changed: "1.0"
 
 rulings:
   - OPEN-25
+  - OPEN-34
 
 related:
   - SCH-32
   - SCH-37
-  - SCH-38.a
   - SCH-39

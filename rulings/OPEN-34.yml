@@ -1,0 +1,23 @@
+id: OPEN-34
+headline: The specification carries no lane retirement; `any` is not a lane.
+question: >-
+  The lane rules told every implementation to serve a lane called `any`, disabled,
+  with compatibility rules in both directions and a description calling it
+  deprecated, to reserve its id, and to keep any lane it ever retired served for a
+  further major release (SCH-38, SCH-38.a, SCH-44). A new implementation never had
+  `any`, so for it these were obligations with no reason of its own. Read together
+  with SCH-41, they also made `any` both declarable and not.
+decided: "2026-10-25"
+decision: >-
+  The specification is written for implementations, new ones included, and does not
+  carry one implementation's history or its release practice. `any` is not a lane of
+  the specification: a loop-back input declares `trigger`, the control sink (SCH-38),
+  and the reserved ids are `trigger`, `tool` and `mixed` (SCH-44). How an
+  implementation retires a lane it once shipped is its own release practice, so
+  SCH-38.a is withdrawn. A lane the payload serves disabled is not declarable
+  (SCH-41), so `enabled: false` means the same to a port as to an editor.
+affects:
+  - SCH-38
+  - SCH-38.a
+  - SCH-41
+  - SCH-44

@@ -267,6 +267,67 @@
   padding-block-start: 0.5rem;
 }
 
+/* ---------- Figures: screenshots ----------
+   A hairline round the image and nothing else: no shadow, no radius. A
+   screenshot of a white app on a white page has no edge without it. The
+   caption sits under the frame, outside it, like a table caption. */
+
+.kit-prose .kit-figure {
+  margin-block: 1.5rem 2rem;
+}
+
+.kit-prose .kit-figure-frame {
+  border: 1px solid var(--fac-color-app-border);
+  background: var(--fac-color-bg-light);
+}
+
+/* Markdown puts the image in a paragraph; its margin would show as a gap
+   inside the frame, and its reading measure would stop the image short of
+   the frame's right edge. */
+.kit-prose .kit-figure-frame > p {
+  margin: 0;
+  max-width: none;
+}
+
+.kit-prose .kit-figure-frame img {
+  display: block;
+  width: 100%;
+  height: auto;
+  margin: 0;
+  border-radius: 0;
+}
+
+/* `.kit-themed` holds a light and a dark capture of one image, light first;
+   the theme picks one. Same switch as code.css. Block, not `revert`: an
+   image on its own is a block, and `revert` would make it inline again.
+   `:root` on the light rule lifts it over the frame's `img { display: block }`. */
+.kit-themed {
+  display: block;
+}
+
+:root .kit-themed > :last-child {
+  display: none;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme='light']):not(.light) .kit-themed > :first-child {
+    display: none;
+  }
+  :root:not([data-theme='light']):not(.light) .kit-themed > :last-child {
+    display: block;
+  }
+}
+
+:root[data-theme='dark'] .kit-themed > :first-child,
+:root.dark .kit-themed > :first-child {
+  display: none;
+}
+
+:root[data-theme='dark'] .kit-themed > :last-child,
+:root.dark .kit-themed > :last-child {
+  display: block;
+}
+
 /* ---------- Notes: source and method lines ---------- */
 
 .kit-note {
